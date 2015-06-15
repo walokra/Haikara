@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
-		36A39C111B2E0AE900BE0C77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C101B2E0AE900BE0C77 /* ViewController.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
 		36A39C191B2E0AE900BE0C77 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C171B2E0AE900BE0C77 /* LaunchScreen.xib */; };
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
+		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
+		36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +30,14 @@
 		36A39C091B2E0AE900BE0C77 /* Haikara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haikara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		36A39C101B2E0AE900BE0C77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		36A39C131B2E0AE900BE0C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		36A39C151B2E0AE900BE0C77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		36A39C181B2E0AE900BE0C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		36A39C1E1B2E0AE900BE0C77 /* HaikaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaikaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
+		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
+		36C1AFF11B2E32A400D87522 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +79,13 @@
 		36A39C0B1B2E0AE900BE0C77 /* Haikara */ = {
 			isa = PBXGroup;
 			children = (
+				36C1AFF11B2E32A400D87522 /* ViewController.swift */,
 				36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */,
-				36A39C101B2E0AE900BE0C77 /* ViewController.swift */,
 				36A39C121B2E0AE900BE0C77 /* Main.storyboard */,
 				36A39C151B2E0AE900BE0C77 /* Images.xcassets */,
 				36A39C171B2E0AE900BE0C77 /* LaunchScreen.xib */,
 				36A39C0C1B2E0AE900BE0C77 /* Supporting Files */,
+				36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */,
 			);
 			path = Haikara;
 			sourceTree = "<group>";
@@ -212,7 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36A39C111B2E0AE900BE0C77 /* ViewController.swift in Sources */,
+				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
+				36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +415,7 @@
 				36A39C2A1B2E0AE900BE0C77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "HaikaraTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				36A39C2D1B2E0AE900BE0C77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
