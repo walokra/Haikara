@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dur-td-uCk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Dur-td-uCk">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -9,21 +10,22 @@
             <objects>
                 <viewController title="Haikara" id="exn-nL-O7c" customClass="ViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Aqk-CQ-qHI"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cli-2p-ejv"/>
+                        <viewControllerLayoutGuide type="top" id="3uu-8b-MAY"/>
+                        <viewControllerLayoutGuide type="bottom" id="h25-NN-afO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vno-5U-UPP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-Y4-qwf">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-Y4-qwf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" textLabel="IYT-bo-WMS" detailTextLabel="tcn-h6-U14" style="IBUITableViewCellStyleSubtitle" id="Aft-jA-JIp">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" textLabel="IYT-bo-WMS" detailTextLabel="tcn-h6-U14" style="IBUITableViewCellStyleSubtitle" id="Aft-jA-JIp">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aft-jA-JIp" id="phV-Ch-zbh">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IYT-bo-WMS">
@@ -41,7 +43,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="ufq-Q4-Oji" kind="show" identifier="NewsItemDetails" id="m4C-jq-XKo"/>
+                                            <segue destination="ufq-Q4-Oji" kind="push" identifier="NewsItemDetails" id="m4C-jq-XKo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -49,10 +51,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="bottom" secondItem="Cli-2p-ejv" secondAttribute="top" id="9Tz-ra-i4M"/>
-                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="top" secondItem="vno-5U-UPP" secondAttribute="top" id="Eag-fL-NWr"/>
-                            <constraint firstAttribute="trailing" secondItem="3hl-Y4-qwf" secondAttribute="trailing" id="eOw-Z0-Lkc"/>
-                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="leading" secondItem="vno-5U-UPP" secondAttribute="leading" id="oa8-Y2-3ju"/>
+                            <constraint firstAttribute="trailing" secondItem="3hl-Y4-qwf" secondAttribute="trailing" id="NuU-qV-eU2"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="bottom" secondItem="h25-NN-afO" secondAttribute="top" id="TGl-kV-xy0"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="leading" secondItem="vno-5U-UPP" secondAttribute="leading" id="ifL-yG-X3E"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="top" secondItem="vno-5U-UPP" secondAttribute="top" id="pTx-2t-XRz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Haikara" id="bx7-Bu-h0n"/>
@@ -62,30 +64,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KkM-kP-aYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2023" y="-1370"/>
+            <point key="canvasLocation" x="1078" y="-1300"/>
         </scene>
         <!--News details-->
         <scene sceneID="Ggj-7U-d3Z">
             <objects>
                 <viewController id="ufq-Q4-Oji" customClass="NewsItemViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fEt-xw-qPt"/>
-                        <viewControllerLayoutGuide type="bottom" id="OPQ-Uh-foj"/>
+                        <viewControllerLayoutGuide type="top" id="fZ6-Ik-pNd"/>
+                        <viewControllerLayoutGuide type="bottom" id="QsS-Wj-iL6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZYz-Sv-BYt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-Sj-Wjb">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-Sj-Wjb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="leading" secondItem="ZYz-Sv-BYt" secondAttribute="leading" constant="16" id="LEG-lP-Ogq"/>
-                            <constraint firstAttribute="trailing" secondItem="O9z-Sj-Wjb" secondAttribute="trailing" constant="16" id="bjP-tB-hFw"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="News details" id="Nx1-cl-2bV"/>
                     <connections>
@@ -95,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7f-aQ-fcl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2893" y="-1363"/>
+            <point key="canvasLocation" x="1542.9333333333334" y="-1290.3066666666666"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yns-XY-tiY">
@@ -113,7 +112,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42o-yR-qox" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="-1342"/>
+            <point key="canvasLocation" x="649.06666666666661" y="-1270.4266666666667"/>
         </scene>
     </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
