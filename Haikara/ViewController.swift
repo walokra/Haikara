@@ -53,10 +53,10 @@ class NewsEntry: NSObject {
 	var sectionID: Int
 	//	let sourceID: Int
 	//	let highlight: Bool
-	var since: String?
+	var section: String
 	
 	init(title: String, link: String, author: String, publishedDateJS: String,
-		shortDescription: String?, mobileLink: String?, sectionID: Int) {
+		shortDescription: String?, mobileLink: String?, sectionID: Int, section: String) {
 		self.title = title
 		self.link = link
 		self.author = author
@@ -71,18 +71,22 @@ class NewsEntry: NSObject {
 		self.sectionID = sectionID
 		//	let sourceID: Int
 		//	let highlight: Bool
+		self.section = section
 	}
 	
 	override var description: String {
-		return "newsEntry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), mobileLink=\(self.mobileLink), sectionID=\(self.sectionID)"
+		return "newsEntry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), mobileLink=\(self.mobileLink), sectionID=\(self.sectionID), section=\(section)"
 	}
 }
-
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let cellIdentifier = "tableCell"
 	var newsEntries = NSMutableOrderedSet()
+	
+	var sections = Dictionary<String, Array<NewsEntry>>()
+	var sortedSections = [String]()
+
 	let APIKEY: String = ""
 	let highFiEndpoint: String = "http://fi.high.fi/news/json-private"
 
@@ -90,6 +94,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	var refreshControl:UIRefreshControl!
 
+	// `UIKit` convenience class for sectioning a table
+	let collation = UILocalizedIndexedCollation.currentCollation() as! UILocalizedIndexedCollation
+
+	let calendar = NSCalendar.autoupdatingCurrentCalendar()
+	let dateFormatter = NSDateFormatter()
+	
 	// MARK: Lifecycle
 	
     override func viewDidLoad() {
@@ -99,6 +109,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 		self.tableView!.dataSource = self
 		
+		// `UIKit` convenience class for sectioning a table
+		let collation = UILocalizedIndexedCollation.currentCollation() as! UILocalizedIndexedCollation
+		
+		calendar.timeZone = NSTimeZone.systemTimeZone()
+		dateFormatter.timeZone = calendar.timeZone
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
+
         getHighFiJSON(highFiEndpoint)
 		
 		self.refreshControl = UIRefreshControl()
@@ -135,25 +152,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
      func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
-        return 1
+        //return 1
+		return self.sections.count
     }
 
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.newsEntries.count
+        //return self.newsEntries.count
+		return sections[sortedSections[section]]!.count
     }
 	
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+//		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+//		
+//		// Configure the cell for this indexPath
+//		cell.textLabel!.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).title
+//		cell.detailTextLabel?.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).section
+//			// + ", " + (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).shortDescription!
+//		//cell.detailTextLabel!.lineBreakMode = .ByWordWrapping;
+//		cell.detailTextLabel!.numberOfLines = 2; // Show 2 lines
 		
-		// Configure the cell for this indexPath
-		cell.textLabel!.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).title
-		cell.detailTextLabel?.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).shortDescription
-		//cell.detailTextLabel!.lineBreakMode = .ByWordWrapping;
-		cell.detailTextLabel!.numberOfLines = 2; // Show 2 lines
+		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
 
+		let tableSection = sections[sortedSections[indexPath.section]]
+		let tableItem = tableSection![indexPath.row]
+
+		cell.textLabel!.text = tableItem.title
+		cell.detailTextLabel?.text = tableItem.shortDescription
+		cell.detailTextLabel?.numberOfLines = 2; // Show 2 lines
+		
 		return cell
     }
+	
+	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return sortedSections[section]
+	}
 	
     func getHighFiJSON(whichFeed : String){
         println("getHighFiJSON: \(whichFeed)")
@@ -177,7 +210,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							publishedDateJS: $0["publishedDateJS"] as! String,
 							shortDescription: $0["shortDescription"] as? String,
 							mobileLink: $0["mobileLink"] as? String,
-							sectionID: $0["sectionID"] as! Int
+							sectionID: $0["sectionID"] as! Int,
 							//	let picture: String?
 							//	let originalPicture: String?
 							//	let originalURL: String
@@ -185,12 +218,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							//	let articleID: Int
 							//	let sourceID: Int
 							//	let highlight: Bool
+							section: "0"
 						)
 					}
 					println("entries: \(entries.count)")
 					
+					for item in entries {
+						item.section = self.getTimeSince(item.publishedDateJS)
+					}
+					
 					dispatch_async(dispatch_get_main_queue()) {
 						self.newsEntries.addObjectsFromArray(entries)
+						//println("newsEntries=\(self.newsEntries.count)")
+						
+						// Put each item in a section
+						for item in self.newsEntries {
+							// If we don't have section for particular time, create new one,
+							// Otherwise just add item to existing section
+							var foo = item as! NewsEntry
+							//println("section=\(foo.section), title=\(foo.title)")
+							if self.sections.indexForKey(item.section) == nil {
+								self.sections[item.section] = [item as! NewsEntry]
+							}
+							else {
+								self.sections[item.section]!.append(item as! NewsEntry)
+							}
+
+							// Storing sections in dictionary, so we need to sort it
+							self.sortedSections = self.sections.keys.array.sorted(<)
+						}
+						//println("sections=\(self.sections.count)")
+						
 						self.tableView!.reloadData()
 						self.refreshControl?.endRefreshing()
 						return
@@ -200,6 +258,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 				println("error: \(error)")
 			}
 		}
+	}
+	
+	func getTimeSince(item: String) -> String {
+		//println("getTimeSince: \(item)")
+		if let startDate = dateFormatter.dateFromString(item) {
+		//if let startDate = dateFormatter.dateFromString("2015-06-18T9:46:08.000Z") {
+			let components = calendar.components(
+				NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute, fromDate: startDate, toDate: NSDate(), options: nil)
+			let days = components.day
+			let hours = components.hour
+			let minutes = components.minute
+			//println("\(days) days, \(hours) hours, \(minutes) minutes")
+			
+			if days == 0 {
+				if hours == 0 {
+					if minutes < 0 { return "Juuri nyt" }
+					else if minutes < 5 { return "< 5 minuuttia" }
+					else if minutes < 15 { return "< 15 minuuttia" }
+					else if minutes < 30 { return "< 30 minuuttia" }
+					else if minutes < 45 { return "< 45 minuuttia" }
+					else if minutes < 60 { return "< tunti" }
+				} else {
+					if hours < 24 { return "\(hours) tuntia" }
+				}
+			} else {
+				if days == 1 {
+					return "Eilen"
+				} else {
+					return "\(days) päivää"
+				}
+			}
+		}
+		
+		return "0"
 	}
 	
 	override func didReceiveMemoryWarning() {
