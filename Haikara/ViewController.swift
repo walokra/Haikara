@@ -133,17 +133,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "NewsItemDetails" {
+			
 			let path = self.tableView!.indexPathForSelectedRow()!
 			let row = path.row
 			
-			let highfiEntry : NewsEntry = self.newsEntries.objectAtIndex(row) as! NewsEntry
-//			println("mobileLink= \(highfiEntry.mobileLink)")
-//			println("link= \(highfiEntry.link)")
-			(segue.destinationViewController as! NewsItemViewController).title = highfiEntry.title
-			if (highfiEntry.mobileLink?.isEmpty != nil) {
-				(segue.destinationViewController as! NewsItemViewController).webSite = highfiEntry.link
+			let tableSection = sections[sortedSections[path.section]]
+			let tableItem = tableSection![row]
+			
+//			println("mobileLink= \(tableItem.mobileLink)")
+//			println("link= \(tableItem.link)")
+			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
+			if (tableItem.mobileLink?.isEmpty != nil) {
+				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.link
 			} else {
-				(segue.destinationViewController as! NewsItemViewController).webSite = highfiEntry.mobileLink
+				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.mobileLink
 			}
 		}
 	}
