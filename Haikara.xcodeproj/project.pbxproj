@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3640BC1C1B32022A003534ED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; };
+		3640BC1D1B32022A003534ED /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
@@ -17,6 +19,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3640BC141B320187003534ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		3640BC161B320187003534ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
+		3640BC181B320187003534ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		3640BC1A1B320187003534ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire OSX Tests";
+		};
+		3640BC1E1B32022A003534ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
 		36A39C1F1B2E0AE900BE0C77 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
@@ -26,7 +63,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		36C2D5961B316F7600ADD31F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3640BC1D1B32022A003534ED /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3640BC0D1B320186003534ED /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		36A39C091B2E0AE900BE0C77 /* Haikara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haikara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3640BC1C1B32022A003534ED /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,9 +111,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3640BC0E1B320186003534ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3640BC151B320187003534ED /* Alamofire.framework */,
+				3640BC171B320187003534ED /* Alamofire.framework */,
+				3640BC191B320187003534ED /* Alamofire iOS Tests.xctest */,
+				3640BC1B1B320187003534ED /* Alamofire OSX Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		36A39C001B2E0AE900BE0C77 = {
 			isa = PBXGroup;
 			children = (
+				3640BC0D1B320186003534ED /* Alamofire.xcodeproj */,
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
 				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
 				36A39C0A1B2E0AE900BE0C77 /* Products */,
@@ -125,10 +190,12 @@
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
 				36A39C071B2E0AE900BE0C77 /* Resources */,
+				36C2D5961B316F7600ADD31F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3640BC1F1B32022A003534ED /* PBXTargetDependency */,
 			);
 			name = Haikara;
 			productName = Haikara;
@@ -182,6 +249,12 @@
 			mainGroup = 36A39C001B2E0AE900BE0C77;
 			productRefGroup = 36A39C0A1B2E0AE900BE0C77 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3640BC0E1B320186003534ED /* Products */;
+					ProjectRef = 3640BC0D1B320186003534ED /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				36A39C081B2E0AE900BE0C77 /* Haikara */,
@@ -189,6 +262,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3640BC151B320187003534ED /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 3640BC141B320187003534ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3640BC171B320187003534ED /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 3640BC161B320187003534ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3640BC191B320187003534ED /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = 3640BC181B320187003534ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3640BC1B1B320187003534ED /* Alamofire OSX Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire OSX Tests.xctest";
+			remoteRef = 3640BC1A1B320187003534ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		36A39C071B2E0AE900BE0C77 /* Resources */ = {
@@ -232,6 +336,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3640BC1F1B32022A003534ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = 3640BC1E1B32022A003534ED /* PBXContainerItemProxy */;
+		};
 		36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36A39C081B2E0AE900BE0C77 /* Haikara */;
@@ -346,9 +455,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Haikara/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -356,9 +472,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Haikara/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

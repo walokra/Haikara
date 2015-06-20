@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DEFA9ACE-0AE9-4DF3-AEB5-407DB875CB4B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Haikara</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
+		<string>https://github.com/Alamofire/Alamofire.git</string>
+		<key>971B3CAEEE231922B3466DF07D8DA681AF59981A</key>
+		<string>https://github.com/walokra/Haikara.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Haikara.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
+		<string>../../Alamofire</string>
+		<key>971B3CAEEE231922B3466DF07D8DA681AF59981A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/walokra/Haikara.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>971B3CAEEE231922B3466DF07D8DA681AF59981A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Alamofire</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>971B3CAEEE231922B3466DF07D8DA681AF59981A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Haikara</string>
+		</dict>
+	</array>
+</dict>
+</plist>
