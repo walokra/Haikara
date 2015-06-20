@@ -84,8 +84,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	let cellIdentifier = "tableCell"
 	var newsEntries = NSMutableOrderedSet()
 	let APIKEY: String = ""
+	let highFiEndpoint: String = "http://fi.high.fi/news/json-private"
 
 	@IBOutlet weak var tableView: UITableView!
+
+	var refreshControl:UIRefreshControl!
 
 	// MARK: Lifecycle
 	
@@ -96,12 +99,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 		self.tableView!.dataSource = self
 		
-        getHighFiJSON("http://fi.high.fi/news/json-private")
+        getHighFiJSON(highFiEndpoint)
 		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
+		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+		self.tableView.addSubview(refreshControl)
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
     }
+	
+	func refresh(sender:AnyObject) {
+		getHighFiJSON(highFiEndpoint)
+	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
@@ -193,7 +204,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 					dispatch_async(dispatch_get_main_queue()) {
 						self.newsEntries.addObjectsFromArray(entries)
 						self.tableView!.reloadData()
-
+						self.refreshControl?.endRefreshing()
 						return
 					}
 				}
