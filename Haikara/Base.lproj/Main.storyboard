@@ -77,7 +77,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-Sj-Wjb">
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-Sj-Wjb">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -90,6 +90,12 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="O9z-Sj-Wjb" secondAttribute="trailing" id="VVX-iZ-Iw5"/>
+                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="leading" secondItem="ZYz-Sv-BYt" secondAttribute="leading" id="eTP-Fc-ozL"/>
+                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="bottom" secondItem="QsS-Wj-iL6" secondAttribute="top" id="fYD-9o-cLx"/>
+                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="top" secondItem="ZYz-Sv-BYt" secondAttribute="top" id="nRR-eY-vaD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="News details" id="Nx1-cl-2bV"/>
                     <connections>
