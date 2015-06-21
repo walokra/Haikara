@@ -94,9 +94,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	var refreshControl:UIRefreshControl!
 
-	// `UIKit` convenience class for sectioning a table
-	let collation = UILocalizedIndexedCollation.currentCollation() as! UILocalizedIndexedCollation
-
 	let calendar = NSCalendar.autoupdatingCurrentCalendar()
 	let dateFormatter = NSDateFormatter()
 	
@@ -108,9 +105,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		self.navigationItem.title = "Uutiset";
 
 		self.tableView!.dataSource = self
-		
-		// `UIKit` convenience class for sectioning a table
-		let collation = UILocalizedIndexedCollation.currentCollation() as! UILocalizedIndexedCollation
 		
 		calendar.timeZone = NSTimeZone.systemTimeZone()
 		dateFormatter.timeZone = calendar.timeZone
@@ -140,8 +134,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			let tableSection = sections[sortedSections[path.section]]
 			let tableItem = tableSection![row]
 			
-//			println("mobileLink= \(tableItem.mobileLink)")
-//			println("link= \(tableItem.link)")
+//			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
 			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
 			if (tableItem.mobileLink?.isEmpty != nil) {
 				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.link
@@ -155,26 +148,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
      func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
-        //return 1
 		return self.sections.count
     }
 
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        //return self.newsEntries.count
 		return sections[sortedSections[section]]!.count
     }
 	
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-//		
-//		// Configure the cell for this indexPath
-//		cell.textLabel!.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).title
-//		cell.detailTextLabel?.text = (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).section
-//			// + ", " + (newsEntries.objectAtIndex(indexPath.row) as! NewsEntry).shortDescription!
-//		//cell.detailTextLabel!.lineBreakMode = .ByWordWrapping;
-//		cell.detailTextLabel!.numberOfLines = 2; // Show 2 lines
-		
+		// Configure the cell for this indexPath
 		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
 
 		let tableSection = sections[sortedSections[indexPath.section]]
@@ -266,7 +249,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	func getTimeSince(item: String) -> String {
 		//println("getTimeSince: \(item)")
 		if let startDate = dateFormatter.dateFromString(item) {
-		//if let startDate = dateFormatter.dateFromString("2015-06-18T9:46:08.000Z") {
 			let components = calendar.components(
 				NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute, fromDate: startDate, toDate: NSDate(), options: nil)
 			let days = components.day
