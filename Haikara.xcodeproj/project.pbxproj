@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F081B3F385F00CB10AB /* app-logo_40x40.png */; };
+		36221F0E1B3F3DF000CB10AB /* app-logo_1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */; };
 		3640BC1C1B32022A003534ED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; };
 		3640BC1D1B32022A003534ED /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		365A04561B3EB2FF0032C5B6 /* haikara_logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */; };
 		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
 		36778F7B1B3760C000F387E0 /* Default-375w-667h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */; };
 		36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */; };
@@ -94,8 +95,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		36221F081B3F385F00CB10AB /* app-logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_40x40.png"; sourceTree = "<group>"; };
+		36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_1024x1024.png"; sourceTree = "<group>"; };
 		3640BC0D1B320186003534ED /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haikara_logo_180x180.png; sourceTree = "<group>"; };
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-667h@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-414w-736h@3x~iphone.png"; sourceTree = "<group>"; };
@@ -157,7 +159,8 @@
 		36778F6F1B3760C000F387E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */,
+				36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */,
+				36221F081B3F385F00CB10AB /* app-logo_40x40.png */,
 				36778F861B37651000F387E0 /* iTunesArtwork.png */,
 				36778F871B37651000F387E0 /* iTunesArtwork@2x.png */,
 				36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */,
@@ -359,12 +362,13 @@
 				36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */,
 				36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */,
 				36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */,
+				36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */,
 				36778F801B3760C000F387E0 /* Default-Landscape@2x~ipad.png in Resources */,
-				365A04561B3EB2FF0032C5B6 /* haikara_logo_180x180.png in Resources */,
 				36778F821B3760C000F387E0 /* Default-Landscape~ipad.png in Resources */,
 				36778F831B3760C000F387E0 /* Default-Portrait@2x~ipad.png in Resources */,
 				36778F811B3760C000F387E0 /* Default-Landscape@3x.png in Resources */,
 				36778F7F1B3760C000F387E0 /* Default-736h@3x~iphone.png in Resources */,
+				36221F0E1B3F3DF000CB10AB /* app-logo_1024x1024.png in Resources */,
 				36778F7B1B3760C000F387E0 /* Default-375w-667h@2x~iphone.png in Resources */,
 				36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */,
 				36778F881B37651000F387E0 /* iTunesArtwork.png in Resources */,

@@ -16,41 +16,26 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var categories = []
     
-    // http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
-    var highFiAPIBase: String = "http://fi.high.fi/api"
-    let highFiActCategory: String = "listCategories"
-    var highFiActUsedLanguage: String = "usedLanguage"
-    var highFiLanguage: String = "finnish"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let logo = UIImage(named: "app-logo_40x40.png")
+        self.navigationItem.titleView = UIImageView(image: logo)
+        
         getHighFiCategories()
         
-//        println("newsSources= \(newsSources.count)")
         self.slideOutTableView.dataSource = self
-        
-        // Uncomment the following line to preserve selection between presentations
-//        self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // Return the number of sections.
-//        return self.newsSources.count
-//    }
-    
     func getHighFiCategories(){
         let url = highFiAPIBase + "/?act=" + highFiActCategory + "&" + highFiActUsedLanguage + "=" + highFiLanguage
         println("getHighFiCategories: \(url)")
         
         Alamofire.request(.GET, url, parameters: ["APIKEY": APIKEY])
             .responseJSON() { (request, response, JSON, error) in
-                //				println("request: \(request)")
-                //				println("response: \(response)")
-                //				println("json: \(theJSON)")
+                // println("request: \(request)")
+                // println("response: \(response)")
+                // println("json: \(theJSON)")
                 
                 if error == nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
@@ -90,7 +75,7 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let tableItem: Category = categories[indexPath.row] as! Category
 //        println("tableItem=\(tableItem)")
-        
+
         cell.textLabel!.text = tableItem.title
         
         return cell
@@ -116,45 +101,5 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
             (segue.destinationViewController as! ViewController).highFiSection = tableItem.htmlFilename
         }
     }
-
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // Return the number of rows in the section.
-//        return newsSources.count
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
 }

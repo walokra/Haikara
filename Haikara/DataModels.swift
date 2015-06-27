@@ -15,9 +15,15 @@
 
 import UIKit
 
-
 let APIKEY: String = ""
+var highFiBase: String = "http://fi.high.fi"
+let highFiEndpoint: String = "json-private"
+var highFiAPIBase: String = "http://fi.high.fi/api"
+let highFiActCategory: String = "listCategories"
+var highFiActUsedLanguage: String = "usedLanguage"
+var highFiLanguage: String = "finnish"
 
+// Examples
 // categories: http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
 // { "responseData": { "categories": [ { "title": "Kotimaa", "sectionID": 95, "depth": 1, "htmlFilename": "kotimaa" }, { "title": "Ulkomaat", "sectionID": 96, "depth": 1, "htmlFilename": "ulkomaat" }, { "title": "Talous", "sectionID": 94, "depth": 1, "htmlFilename": "talous" }, { "title": "Urheilu", "sectionID": 98, "depth": 1, "htmlFilename": "urheilu" } ] } }
 

@@ -17,9 +17,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	var sections = Dictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
-
-	var highFiBase: String = "http://fi.high.fi"
-	let highFiEndpoint: String = "json-private"
+	
+	// default section
 	var highFiSection: String = "uutiset"
 	
 	var navigationItemTitle: String = "Uutiset";
@@ -51,9 +50,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
 		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
     }
 	
 	func configureTableView() {
@@ -66,7 +62,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		getHighFiJSON()
 	}
 	
+	// MARK: - Navigation
+
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		// Get the new view controller using [segue destinationViewController].
+		// Pass the selected object to the new view controller.
 		if segue.identifier == "NewsItemDetails" {
 			let path = self.tableView!.indexPathForSelectedRow()!
 			let row = path.row
@@ -99,8 +99,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
 		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
-//		println("cell=\(cell)")
-//		println("cell.entryTitle=\(cell.entryTitle)")
 
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
@@ -228,50 +226,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-	
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-	*/
-	
-	/*
-	// MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
