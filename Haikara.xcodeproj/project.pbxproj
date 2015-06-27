@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3640BC1C1B32022A003534ED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; };
 		3640BC1D1B32022A003534ED /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		365A04561B3EB2FF0032C5B6 /* haikara_logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */; };
+		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
 		36778F7B1B3760C000F387E0 /* Default-375w-667h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */; };
 		36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */; };
 		36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F721B3760C000F387E0 /* Default-568h@2x~iphone.png */; };
@@ -28,6 +30,8 @@
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* ViewController.swift */; };
+		36EAF6E01B3DF58A00FAD6EC /* SlideOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* SlideOutViewController.swift */; };
+		36EAF6E51B3DF64000FAD6EC /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6E41B3DF64000FAD6EC /* DataModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +95,8 @@
 
 /* Begin PBXFileReference section */
 		3640BC0D1B320186003534ED /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haikara_logo_180x180.png; sourceTree = "<group>"; };
+		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-667h@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-414w-736h@3x~iphone.png"; sourceTree = "<group>"; };
 		36778F721B3760C000F387E0 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
@@ -114,6 +120,8 @@
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
+		36EAF6DF1B3DF58A00FAD6EC /* SlideOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutViewController.swift; sourceTree = "<group>"; };
+		36EAF6E41B3DF64000FAD6EC /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +157,7 @@
 		36778F6F1B3760C000F387E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				365A04551B3EB2FF0032C5B6 /* haikara_logo_180x180.png */,
 				36778F861B37651000F387E0 /* iTunesArtwork.png */,
 				36778F871B37651000F387E0 /* iTunesArtwork@2x.png */,
 				36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */,
@@ -195,6 +204,9 @@
 				36A39C151B2E0AE900BE0C77 /* Images.xcassets */,
 				36A39C0C1B2E0AE900BE0C77 /* Supporting Files */,
 				36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */,
+				36EAF6DF1B3DF58A00FAD6EC /* SlideOutViewController.swift */,
+				36EAF6E41B3DF64000FAD6EC /* DataModels.swift */,
+				365A045A1B3EB9090032C5B6 /* EntryCell.swift */,
 			);
 			path = Haikara;
 			sourceTree = "<group>";
@@ -348,6 +360,7 @@
 				36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */,
 				36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */,
 				36778F801B3760C000F387E0 /* Default-Landscape@2x~ipad.png in Resources */,
+				365A04561B3EB2FF0032C5B6 /* haikara_logo_180x180.png in Resources */,
 				36778F821B3760C000F387E0 /* Default-Landscape~ipad.png in Resources */,
 				36778F831B3760C000F387E0 /* Default-Portrait@2x~ipad.png in Resources */,
 				36778F811B3760C000F387E0 /* Default-Landscape@3x.png in Resources */,
@@ -377,7 +390,10 @@
 			files = (
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */,
+				36EAF6E51B3DF64000FAD6EC /* DataModels.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
+				365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */,
+				36EAF6E01B3DF58A00FAD6EC /* SlideOutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

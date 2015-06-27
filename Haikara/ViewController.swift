@@ -10,85 +10,19 @@ import UIKit
 
 import Alamofire
 
-//{
-//	"responseData": {
-//		"feed": {
-//			"title": "HIGH.FI",
-//			"link": "http://fi.high.fi/",
-//			"author": "AfterDawn Oy",
-//			"description": "News",
-//			"type": "json",
-//			"entries": [
-//{
-//	"title": "string",
-//	"link": "url",
-//	"author": "string",
-//	"publishedDateJS": "2015-06-16T22:46:08.000Z",
-//	"publishedDate": "June, 16 2015 22:46:08",
-//	"originalPicture": "url",
-//	"picture": "url",
-//	"shortDescription": "",
-//	"originalURL": "url",
-//	"mobileLink": "",
-//	"originalMobileURL": "",
-//	"articleID": int,
-//	"sectionID": int,
-//	"sourceID": int,
-//	"highlight": true
-//	
-//},
-
-class NewsEntry: NSObject {
-	let title: String
-	let link: String
-	let author: String
-	let publishedDateJS: String
-	//	let picture: String?
-	//	let originalPicture: String?
-	var shortDescription: String?
-	//	let originalURL: String
-	var mobileLink: String?
-	//	let originalMobileUrl: String?
-	//	let articleID: Int
-	var sectionID: Int
-	//	let sourceID: Int
-	//	let highlight: Bool
-	var section: String
-	
-	init(title: String, link: String, author: String, publishedDateJS: String,
-		shortDescription: String?, mobileLink: String?, sectionID: Int, section: String) {
-		self.title = title
-		self.link = link
-		self.author = author
-		self.publishedDateJS = publishedDateJS
-		//	let picture: String?
-		//	let originalPicture: String?
-		self.shortDescription = shortDescription
-		//	letoriginalURL: String
-		self.mobileLink = mobileLink
-		//	let originalMobileUrl: String?
-		//	let articleID: Int
-		self.sectionID = sectionID
-		//	let sourceID: Int
-		//	let highlight: Bool
-		self.section = section
-	}
-	
-	override var description: String {
-		return "newsEntry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), mobileLink=\(self.mobileLink), sectionID=\(self.sectionID), section=\(section)"
-	}
-}
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let cellIdentifier = "tableCell"
-	var newsEntries = NSMutableOrderedSet()
+	var entries = NSMutableOrderedSet()
 	
-	var sections = Dictionary<String, Array<NewsEntry>>()
+	var sections = Dictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
 
-	let APIKEY: String = ""
-	let highFiEndpoint: String = "http://fi.high.fi/news/json-private"
+	var highFiBase: String = "http://fi.high.fi"
+	let highFiEndpoint: String = "json-private"
+	var highFiSection: String = "uutiset"
+	
+	var navigationItemTitle: String = "Uutiset";
 
 	@IBOutlet weak var tableView: UITableView!
 
@@ -101,16 +35,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.navigationItem.title = "Uutiset";
 
+		self.navigationItem.title = navigationItemTitle
 		self.tableView!.dataSource = self
+
+		configureTableView()
 		
 		calendar.timeZone = NSTimeZone.systemTimeZone()
 		dateFormatter.timeZone = calendar.timeZone
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 
-        getHighFiJSON(highFiEndpoint)
+		getHighFiJSON()
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
@@ -121,13 +56,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // self.clearsSelectionOnViewWillAppear = false
     }
 	
+	func configureTableView() {
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = 75.0
+	}
+	
 	func refresh(sender:AnyObject) {
-		getHighFiJSON(highFiEndpoint)
+//		println("refresh: \(sender)")
+		getHighFiJSON()
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "NewsItemDetails" {
-			
 			let path = self.tableView!.indexPathForSelectedRow()!
 			let row = path.row
 			
@@ -146,26 +86,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: - Table view data source
 
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
 		return self.sections.count
     }
 
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-		return sections[sortedSections[section]]!.count
+		return self.sections[sortedSections[section]]!.count
     }
 	
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
-		let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
+//		println("cell=\(cell)")
+//		println("cell.entryTitle=\(cell.entryTitle)")
 
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
-
-		cell.textLabel!.text = tableItem.title
-		cell.detailTextLabel?.text = tableItem.shortDescription
-		cell.detailTextLabel?.numberOfLines = 2; // Show 2 lines
+//		println("tableItem=\(tableItem)")
+		cell.entryTitle.text = tableItem.title
+		cell.entryAuthor.text = tableItem.author
+		if tableItem.shortDescription != "" {
+			cell.entryDescription!.text = tableItem.shortDescription
+			//cell.entryDescription!.numberOfLines = 2; // Show 2 lines
+		}
 		
 		return cell
     }
@@ -174,10 +119,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		return sortedSections[section]
 	}
 	
-    func getHighFiJSON(whichFeed : String){
-        println("getHighFiJSON: \(whichFeed)")
+    func getHighFiJSON(){
+		let feed = highFiBase + "/" + highFiSection + "/" + highFiEndpoint
+        println("getHighFiJSON: \(feed)")
 		
-		Alamofire.request(.GET, whichFeed, parameters: ["APIKEY": APIKEY])
+		Alamofire.request(.GET, feed, parameters: ["APIKEY": APIKEY])
 			.responseJSON() { (request, response, JSON, error) in
 //				println("request: \(request)")
 //				println("response: \(response)")
@@ -189,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 					let feed = (data.valueForKey("feed") as! NSDictionary)
 					let entries = (feed.valueForKey("entries") as! [NSDictionary])
 						//.filter({ ($0["sectionID"] as! Int) == 98 })
-						.map { NewsEntry(
+						.map { Entry(
 							title: $0["title"] as! String,
 							link: $0["link"] as! String,
 							author: $0["author"] as! String,
@@ -204,30 +150,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							//	let articleID: Int
 							//	let sourceID: Int
 							//	let highlight: Bool
-							section: "0"
+							section: "Juuri nyt"
 						)
 					}
-					println("entries: \(entries.count)")
+//					println("entries: \(entries.count)")
 					
 					for item in entries {
 						item.section = self.getTimeSince(item.publishedDateJS)
 					}
 					
 					dispatch_async(dispatch_get_main_queue()) {
-						self.newsEntries.addObjectsFromArray(entries)
+						self.entries.addObjectsFromArray(entries)
 						//println("newsEntries=\(self.newsEntries.count)")
 						
 						// Put each item in a section
-						for item in self.newsEntries {
+						for item in self.entries {
 							// If we don't have section for particular time, create new one,
 							// Otherwise just add item to existing section
-							var foo = item as! NewsEntry
-							//println("section=\(foo.section), title=\(foo.title)")
-							if self.sections.indexForKey(item.section) == nil {
-								self.sections[item.section] = [item as! NewsEntry]
-							}
-							else {
-								self.sections[item.section]!.append(item as! NewsEntry)
+							var entry = item as! Entry
+//							println("section=\(entry.section), title=\(entry.title)")
+							if self.sections.indexForKey(entry.section) == nil {
+								self.sections[entry.section] = [entry]
+							} else {
+								self.sections[entry.section]!.append(entry)
 							}
 
 							// Storing sections in dictionary, so we need to sort it
@@ -265,7 +210,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 					else if minutes < 45 { return "< 45 minuuttia" }
 					else if minutes < 60 { return "< tunti" }
 				} else {
-					if hours < 24 { return "\(hours) tuntia" }
+					if hours < 24 { return "< \(hours) tuntia" }
 				}
 			} else {
 				if days == 1 {
@@ -317,10 +262,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Return NO if you do not want the item to be re-orderable.
         return true
     }
-    */
-
-    /*
-    // MARK: - Navigation
+	*/
+	
+	/*
+	// MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
