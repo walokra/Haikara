@@ -7,18 +7,22 @@
 //
 
 import UIKit
+import WebKit
 
 class NewsItemViewController: UIViewController {
-    @IBOutlet var webView: UIWebView!
+
+    @IBOutlet var containerView : UIView? = nil
+    var webView: WKWebView?
     var webSite: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.webView = WKWebView()
+        self.view = self.webView
         
         if let address = webSite {
             let webURL = NSURL(string: address)
-            let urlRequest = NSURLRequest(URL: webURL!)
-            webView.loadRequest(urlRequest)
+            webView!.loadRequest(NSURLRequest(URL: webURL!))
         }
 
         // Do any additional setup after loading the view.

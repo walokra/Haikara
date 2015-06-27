@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="75" id="Aft-jA-JIp" customClass="EntryCell" customModule="Haikara" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="75" id="Aft-jA-JIp" customClass="EntryCell" customModule="Haikara" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aft-jA-JIp" id="phV-Ch-zbh">
@@ -40,7 +40,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SW-bs-Kz2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SW-bs-Kz2">
                                                     <rect key="frame" x="8" y="46" width="312" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -64,7 +64,7 @@
                                             <outlet property="entryAuthor" destination="fLp-v4-zcy" id="2KX-0c-2WJ"/>
                                             <outlet property="entryDescription" destination="4SW-bs-Kz2" id="jul-be-F73"/>
                                             <outlet property="entryTitle" destination="qfL-UQ-PDu" id="V9t-x7-S4w"/>
-                                            <segue destination="ufq-Q4-Oji" kind="push" identifier="NewsItemDetails" id="m4C-jq-XKo"/>
+                                            <segue destination="fo2-gm-XwB" kind="push" identifier="NewsItemDetails" id="Yjr-Xj-yfK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -88,52 +88,36 @@
             </objects>
             <point key="canvasLocation" x="736" y="-1584"/>
         </scene>
-        <!--News details-->
-        <scene sceneID="Ggj-7U-d3Z">
+        <!--News Item View Controller-->
+        <scene sceneID="cF1-oy-bt1">
             <objects>
-                <viewController id="ufq-Q4-Oji" customClass="NewsItemViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fZ6-Ik-pNd"/>
-                        <viewControllerLayoutGuide type="bottom" id="QsS-Wj-iL6"/>
+                        <viewControllerLayoutGuide type="top" id="25k-qC-DHb"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bbm-FL-ahV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZYz-Sv-BYt">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="VJR-JH-6OL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-Sj-Wjb">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <dataDetectorType key="dataDetectorTypes"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="rB6-pL-xtk" appends="YES" id="uDT-sH-ZsE"/>
-                                    <outletCollection property="gestureRecognizers" destination="rB6-pL-xtk" appends="YES" id="024-sp-lrK"/>
-                                    <outletCollection property="gestureRecognizers" destination="rB6-pL-xtk" appends="YES" id="C18-Lh-JVM"/>
-                                </connections>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="O9z-Sj-Wjb" secondAttribute="trailing" id="VVX-iZ-Iw5"/>
-                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="leading" secondItem="ZYz-Sv-BYt" secondAttribute="leading" id="eTP-Fc-ozL"/>
-                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="bottom" secondItem="QsS-Wj-iL6" secondAttribute="top" id="fYD-9o-cLx"/>
-                            <constraint firstItem="O9z-Sj-Wjb" firstAttribute="top" secondItem="ZYz-Sv-BYt" secondAttribute="top" id="nRR-eY-vaD"/>
-                        </constraints>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8lC-WW-fpZ" appends="YES" id="zT0-kt-59j"/>
+                        </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="News details" id="Nx1-cl-2bV"/>
+                    <navigationItem key="navigationItem" id="0UY-8t-MMK"/>
                     <connections>
-                        <outlet property="webView" destination="O9z-Sj-Wjb" id="Cxl-3A-ikY"/>
-                        <outletCollection property="webView" destination="O9z-Sj-Wjb" collectionClass="NSMutableArray" id="b4r-9Y-crd"/>
+                        <outlet property="view" destination="VJR-JH-6OL" id="pUn-bf-8AX"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u7f-aQ-fcl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="rB6-pL-xtk">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gCB-Nj-ssw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="8lC-WW-fpZ">
                     <connections>
-                        <segue destination="exn-nL-O7c" kind="push" id="wD4-Kw-rQ0"/>
+                        <segue destination="exn-nL-O7c" kind="push" id="zyO-z2-YeD"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1272" y="-1597"/>
+            <point key="canvasLocation" x="1228" y="-1584"/>
         </scene>
         <!--Menu-->
         <scene sceneID="m8L-gu-cOX">
@@ -234,6 +218,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qwr-sX-9e1"/>
+        <segue reference="zyO-z2-YeD"/>
     </inferredMetricsTieBreakers>
 </document>
