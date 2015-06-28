@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
+		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
 		36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F081B3F385F00CB10AB /* app-logo_40x40.png */; };
 		36221F0E1B3F3DF000CB10AB /* app-logo_1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */; };
 		3640BC1C1B32022A003534ED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3640BC151B320187003534ED /* Alamofire.framework */; };
@@ -95,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		36221F081B3F385F00CB10AB /* app-logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_40x40.png"; sourceTree = "<group>"; };
 		36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_1024x1024.png"; sourceTree = "<group>"; };
 		3640BC0D1B320186003534ED /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				36EAF6DF1B3DF58A00FAD6EC /* SlideOutViewController.swift */,
 				36EAF6E41B3DF64000FAD6EC /* DataModels.swift */,
 				365A045A1B3EB9090032C5B6 /* EntryCell.swift */,
+				361141291B408A85001A6BA4 /* Settings.swift */,
+				3611412E1B409459001A6BA4 /* InfoController.swift */,
 			);
 			path = Haikara;
 			sourceTree = "<group>";
@@ -396,8 +402,10 @@
 				36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */,
 				36EAF6E51B3DF64000FAD6EC /* DataModels.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
+				3611412A1B408A85001A6BA4 /* Settings.swift in Sources */,
 				365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */,
 				36EAF6E01B3DF58A00FAD6EC /* SlideOutViewController.swift in Sources */,
+				3611412F1B409459001A6BA4 /* InfoController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

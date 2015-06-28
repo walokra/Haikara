@@ -12,6 +12,8 @@ import Alamofire
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+	let settings = Settings()
+	
 	let cellIdentifier = "tableCell"
 	var entries = NSMutableOrderedSet()
 	
@@ -77,9 +79,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
 			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
 			if (tableItem.mobileLink?.isEmpty != nil) {
-				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.link
+				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.originalURL
 			} else {
 				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.mobileLink
+			}
+			
+			// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
+			Alamofire.request(.GET, tableItem.link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+				.response { (request, response, data, error) in
+					println(request)
+//					println(response)
+//					println(error)
 			}
 		}
 	}
@@ -109,6 +119,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			cell.entryDescription!.text = tableItem.shortDescription
 			//cell.entryDescription!.numberOfLines = 2; // Show 2 lines
 		}
+		if tableItem.highlight == true {
+			cell.highlighted = true
+		}
 		
 		return cell
     }
@@ -118,12 +131,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	}
 	
     func getHighFiJSON(){
-		let feed = highFiBase + "/" + highFiSection + "/" + highFiEndpoint
+		let feed = "http://" + settings.domainToUse + "/" + highFiSection + "/" + settings.highFiEndpoint
         println("getHighFiJSON: \(feed)")
 		
-		Alamofire.request(.GET, feed, parameters: ["APIKEY": APIKEY])
+		Alamofire.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
 			.responseJSON() { (request, response, JSON, error) in
-//				println("request: \(request)")
+				println("request: \(request)")
 //				println("response: \(response)")
 //				println("json: \(theJSON)")
 				
@@ -139,15 +152,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							author: $0["author"] as! String,
 							publishedDateJS: $0["publishedDateJS"] as! String,
 							shortDescription: $0["shortDescription"] as? String,
+							originalURL: $0["originalURL"] as! String,
 							mobileLink: $0["mobileLink"] as? String,
-							sectionID: $0["sectionID"] as! Int,
+							originalMobileUrl: $0["originalMobileUrl"] as?	String,
 							//	let picture: String?
 							//	let originalPicture: String?
-							//	let originalURL: String
-							//	let originalMobileUrl: String?
-							//	let articleID: Int
-							//	let sourceID: Int
-							//	let highlight: Bool
+							articleID: $0["articleID"] as! Int,
+							sectionID: $0["sectionID"] as! Int,
+							sourceID: $0["sourceID"] as! Int,
+							highlight: $0["highlight"] as! Bool,
 							section: "Juuri nyt"
 						)
 					}

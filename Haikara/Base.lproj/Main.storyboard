@@ -196,7 +196,7 @@
         <!--Tietoja sovelluksesta-->
         <scene sceneID="0JE-bT-JtN">
             <objects>
-                <viewController id="U9M-il-Efs" sceneMemberID="viewController">
+                <viewController id="U9M-il-Efs" customClass="InfoController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Cv-xI-FcX"/>
                         <viewControllerLayoutGuide type="bottom" id="wfR-ky-Eni"/>
@@ -270,6 +270,9 @@
                     <navigationItem key="navigationItem" title="Tietoja sovelluksesta" id="i05-GV-4cH">
                         <barButtonItem key="backBarButtonItem" title=" " id="s6d-s2-kAz"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="versioLabel" destination="ori-yr-FzX" id="4ya-eh-ifX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEf-Yh-Ec6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

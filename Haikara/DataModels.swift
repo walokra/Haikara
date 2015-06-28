@@ -15,14 +15,6 @@
 
 import UIKit
 
-let APIKEY: String = ""
-var highFiBase: String = "http://fi.high.fi"
-let highFiEndpoint: String = "json-private"
-var highFiAPIBase: String = "http://fi.high.fi/api"
-let highFiActCategory: String = "listCategories"
-var highFiActUsedLanguage: String = "usedLanguage"
-var highFiLanguage: String = "finnish"
-
 // Examples
 // categories: http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
 // { "responseData": { "categories": [ { "title": "Kotimaa", "sectionID": 95, "depth": 1, "htmlFilename": "kotimaa" }, { "title": "Ulkomaat", "sectionID": 96, "depth": 1, "htmlFilename": "ulkomaat" }, { "title": "Talous", "sectionID": 94, "depth": 1, "htmlFilename": "talous" }, { "title": "Urheilu", "sectionID": 98, "depth": 1, "htmlFilename": "urheilu" } ] } }
@@ -81,17 +73,17 @@ class Entry: NSObject {
     //	let picture: String?
     //	let originalPicture: String?
     var shortDescription: String?
-    //	let originalURL: String
+    let originalURL: String
     var mobileLink: String?
-    //	let originalMobileUrl: String?
-    //	let articleID: Int
+    let originalMobileUrl: String?
+    let articleID: Int
     var sectionID: Int
-    //	let sourceID: Int
-    //	let highlight: Bool
+    let sourceID: Int
+    let highlight: Bool
     var section: String
     
     init(title: String, link: String, author: String, publishedDateJS: String,
-        shortDescription: String?, mobileLink: String?, sectionID: Int, section: String) {
+        shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, section: String) {
             self.title = title
             self.link = link
             self.author = author
@@ -99,17 +91,17 @@ class Entry: NSObject {
             //	let picture: String?
             //	let originalPicture: String?
             self.shortDescription = shortDescription
-            //	letoriginalURL: String
+            self.originalURL = originalURL
             self.mobileLink = mobileLink
-            //	let originalMobileUrl: String?
-            //	let articleID: Int
+            self.originalMobileUrl = originalMobileUrl
+            self.articleID = articleID
             self.sectionID = sectionID
-            //	let sourceID: Int
-            //	let highlight: Bool
+            self.sourceID = sourceID
+            self.highlight = highlight
             self.section = section
     }
     
     override var description: String {
-        return "Entry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), mobileLink=\(self.mobileLink), sectionID=\(self.sectionID), section=\(section)"
+        return "Entry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), section=\(self.section)"
     }
 }

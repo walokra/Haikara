@@ -11,6 +11,8 @@ import Alamofire
 
 class SlideOutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
+    let settings = Settings()
+    
     @IBOutlet weak var slideOutTableView: UITableView!
     let cellIdentifier = "tableCell"
     
@@ -28,12 +30,12 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func getHighFiCategories(){
-        let url = highFiAPIBase + "/?act=" + highFiActCategory + "&" + highFiActUsedLanguage + "=" + highFiLanguage
-        println("getHighFiCategories: \(url)")
+        let url = "http://" + settings.domainToUse + "/api/"
+        println("getHighFiCategories()")
         
-        Alamofire.request(.GET, url, parameters: ["APIKEY": APIKEY])
+        Alamofire.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
             .responseJSON() { (request, response, JSON, error) in
-                // println("request: \(request)")
+                //println("request: \(request)")
                 // println("response: \(response)")
                 // println("json: \(theJSON)")
                 
