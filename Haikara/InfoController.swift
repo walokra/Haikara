@@ -10,12 +10,14 @@ import UIKit
 
 class InfoController: UIViewController {
 
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var versioLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let settings = Settings()
 
+        infoLabel.text = "Haikara on epävirallinen uutislukija High.fi uutissivustolle. Sovellus on vielä kokeellinen ja kehitysasteeltaan alpha-tasolla."
         versioLabel.text = settings.appID
     }
 

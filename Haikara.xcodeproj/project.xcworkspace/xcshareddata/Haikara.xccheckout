@@ -20,7 +20,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
-		<string>../..Alamofire</string>
+		<string>../..Alamofire/</string>
 		<key>971B3CAEEE231922B3466DF07D8DA681AF59981A</key>
 		<string>../..</string>
 	</dict>
@@ -36,17 +36,17 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>971B3CAEEE231922B3466DF07D8DA681AF59981A</string>
+			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Haikara</string>
+			<string>Alamofire</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
+			<string>971B3CAEEE231922B3466DF07D8DA681AF59981A</string>
 			<key>IDESourceControlWCCName</key>
-			<string>HaikaraAlamofire</string>
+			<string>Haikara</string>
 		</dict>
 	</array>
 </dict>

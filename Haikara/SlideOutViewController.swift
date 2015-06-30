@@ -11,12 +11,12 @@ import Alamofire
 
 class SlideOutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
-    let settings = Settings()
+    let settings = Settings.sharedInstance
     
     @IBOutlet weak var slideOutTableView: UITableView!
     let cellIdentifier = "tableCell"
     
-    var categories = []
+    var categories = [Category]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +33,16 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         let url = "http://" + settings.domainToUse + "/api/"
         println("getHighFiCategories()")
         
-        Alamofire.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
+        Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
             .responseJSON() { (request, response, JSON, error) in
-                //println("request: \(request)")
+                println("request: \(request)")
                 // println("response: \(response)")
                 // println("json: \(theJSON)")
                 
                 if error == nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
                         let data = (JSON!.valueForKey("responseData") as! NSDictionary)
-                        let categories = (data.valueForKey("categories") as! [NSDictionary])
+                        var categories = (data.valueForKey("categories") as! [NSDictionary])
                             .filter({ ($0["depth"] as! Int) == 1 })
                             .map { Category(
                                 title: $0["title"] as! String,
@@ -52,15 +52,20 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
                                 )
                         }
 //                        println("categories: \(categories.count)")
+                        var cat = [Category]()
+                        cat.append(Category(title: "Uutiset", sectionID: 0, depth: 1, htmlFilename: "uutiset")) // latestName, genericNewsURLPart
+                        cat.append(Category(title: "Suosituimmat", sectionID: 1, depth: 1, htmlFilename: "top"))
                         
                         dispatch_async(dispatch_get_main_queue()) {
-                            self.categories = categories
+                            self.categories = cat + categories
                             self.slideOutTableView!.reloadData()
                             return
                         }
                     }
                 } else {
-                    println("error: \(error)")
+                    #if DEBUG
+                        println("error: \(error)")
+                    #endif
                 }
         }
     }

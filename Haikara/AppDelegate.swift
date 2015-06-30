@@ -7,16 +7,40 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    static let settings = Settings()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        setCache()
+        
         return true
+    }
+    
+    // http://nshipster.com/nsurlcache/
+    func setCache() {
+        let cacheSizeMemory = 4 * 1024 * 1024
+        let cacheSizeDisk = 20 * 1024 * 1024
+        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: nil)
+//        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "shared_cache")
+        NSURLCache.setSharedURLCache(cache)
+        
+//        // Create a custom configuration
+//        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+//        var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+//        configuration.HTTPAdditionalHeaders = defaultHeaders
+//        configuration.requestCachePolicy = .UseProtocolCachePolicy // this is the default
+//        configuration.URLCache = cache
+//        
+//        // Create your own manager instance that uses your custom configuration
+//        Manager(configuration: configuration)
     }
 
     func applicationWillResignActive(application: UIApplication) {

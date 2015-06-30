@@ -43,7 +43,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SW-bs-Kz2">
                                                     <rect key="frame" x="8" y="46" width="312" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -205,40 +205,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Haikara on epävirallinen uutislukija High.fi uutissivustolle." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQL-6E-PpP">
-                                <rect key="frame" x="16" y="64" width="436" height="50"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Versio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qv8-Jy-ZsG">
                                 <rect key="frame" x="16" y="122" width="47" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="0.2.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ori-yr-FzX">
                                 <rect key="frame" x="16" y="140" width="39" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Kehittäjä" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yxz-eK-7iT">
                                 <rect key="frame" x="16" y="169" width="57" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Marko Wallin, @walokra" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5l-Dt-Rcb">
                                 <rect key="frame" x="16" y="187" width="182" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Voimanlähteenä" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILQ-b0-gaS">
                                 <rect key="frame" x="16" y="216" width="122" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="app-logo_1024x1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="QEu-Li-s0D">
@@ -247,7 +241,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="High.fi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGn-Vv-yxb">
                                 <rect key="frame" x="16" y="233" width="50" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Haikara on epävirallinen uutislukija." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQL-6E-PpP">
+                                <rect key="frame" x="16" y="64" width="288" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -257,6 +257,7 @@
                             <constraint firstItem="ILQ-b0-gaS" firstAttribute="top" secondItem="E5l-Dt-Rcb" secondAttribute="bottom" constant="8" id="En5-pp-2qT"/>
                             <constraint firstItem="QEu-Li-s0D" firstAttribute="top" secondItem="EGn-Vv-yxb" secondAttribute="bottom" constant="30" id="LQK-Xs-Pxe"/>
                             <constraint firstItem="Yxz-eK-7iT" firstAttribute="top" secondItem="ori-yr-FzX" secondAttribute="bottom" constant="8" id="P8Z-KU-ej2"/>
+                            <constraint firstItem="xQL-6E-PpP" firstAttribute="trailing" secondItem="zP7-EK-4VM" secondAttribute="trailingMargin" id="Ps4-WB-S2w"/>
                             <constraint firstItem="Qv8-Jy-ZsG" firstAttribute="top" secondItem="xQL-6E-PpP" secondAttribute="bottom" constant="8" id="Qc9-yM-mlt"/>
                             <constraint firstItem="xQL-6E-PpP" firstAttribute="top" secondItem="1Cv-xI-FcX" secondAttribute="bottom" constant="10" id="S1h-7p-2Cs"/>
                             <constraint firstItem="EGn-Vv-yxb" firstAttribute="top" secondItem="ILQ-b0-gaS" secondAttribute="bottom" constant="3" id="S2n-6x-Evq"/>
@@ -265,12 +266,14 @@
                             <constraint firstItem="wfR-ky-Eni" firstAttribute="top" secondItem="QEu-Li-s0D" secondAttribute="bottom" id="fHd-9o-Yal"/>
                             <constraint firstItem="ori-yr-FzX" firstAttribute="top" secondItem="Qv8-Jy-ZsG" secondAttribute="bottom" constant="3" id="lb5-7d-WDU"/>
                             <constraint firstItem="QEu-Li-s0D" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-16" id="m0z-Lm-dcd"/>
+                            <constraint firstItem="xQL-6E-PpP" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" id="tn7-Wc-oB5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tietoja sovelluksesta" id="i05-GV-4cH">
                         <barButtonItem key="backBarButtonItem" title=" " id="s6d-s2-kAz"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="infoLabel" destination="xQL-6E-PpP" id="Toc-8L-4ar"/>
                         <outlet property="versioLabel" destination="ori-yr-FzX" id="4ya-eh-ifX"/>
                     </connections>
                 </viewController>

@@ -12,10 +12,9 @@ import Alamofire
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-	let settings = Settings()
-	
 	let cellIdentifier = "tableCell"
 	var entries = NSMutableOrderedSet()
+	let settings = Settings.sharedInstance
 	
 	var sections = Dictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
@@ -36,14 +35,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
 		self.navigationItem.title = navigationItemTitle
 		self.tableView!.dataSource = self
 
+		setHeaders()
+		
 		configureTableView()
 		
-		calendar.timeZone = NSTimeZone.systemTimeZone()
-		dateFormatter.timeZone = calendar.timeZone
+		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT");
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 
 		getHighFiJSON()
@@ -53,6 +53,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
     }
+	
+	func setHeaders() {
+		// Specifying the Headers
+		Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+			"User-Agent": settings.appID,
+			"Cache-Control": "private, must-revalidate, max-age=60"
+		]
+	}
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
@@ -87,9 +95,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
 			Alamofire.request(.GET, tableItem.link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
 				.response { (request, response, data, error) in
-					println(request)
-//					println(response)
-//					println(error)
+					#if DEBUG
+						println(request)
+//						println(response)
+//						println(error)
+					#endif
 			}
 		}
 	}
@@ -117,7 +127,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		cell.entryAuthor.text = tableItem.author
 		if tableItem.shortDescription != "" {
 			cell.entryDescription!.text = tableItem.shortDescription
-			//cell.entryDescription!.numberOfLines = 2; // Show 2 lines
 		}
 		if tableItem.highlight == true {
 			cell.highlighted = true
@@ -132,18 +141,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
     func getHighFiJSON(){
 		let feed = "http://" + settings.domainToUse + "/" + highFiSection + "/" + settings.highFiEndpoint
-        println("getHighFiJSON: \(feed)")
 		
-		Alamofire.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
-			.responseJSON() { (request, response, JSON, error) in
-				println("request: \(request)")
-//				println("response: \(response)")
-//				println("json: \(theJSON)")
+		Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
+			.responseJSON() { (request, response, data, error) in
+				#if DEBUG
+					println("request: \(request)")
+//					println("response: \(response)")
+//					println("json: \(theJSON)")
+				#endif
 				
 			if error == nil {
 				dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-					let data = (JSON!.valueForKey("responseData") as! NSDictionary)
-					let feed = (data.valueForKey("feed") as! NSDictionary)
+					let responseData = (data!.valueForKey("responseData") as! NSDictionary)
+					let feed = (responseData.valueForKey("feed") as! NSDictionary)
 					let entries = (feed.valueForKey("entries") as! [NSDictionary])
 						//.filter({ ($0["sectionID"] as! Int) == 98 })
 						.map { Entry(
@@ -171,6 +181,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 					}
 					
 					dispatch_async(dispatch_get_main_queue()) {
+						self.entries = NSMutableOrderedSet()
 						self.entries.addObjectsFromArray(entries)
 						//println("newsEntries=\(self.newsEntries.count)")
 						
@@ -210,7 +221,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			let days = components.day
 			let hours = components.hour
 			let minutes = components.minute
-			//println("\(days) days, \(hours) hours, \(minutes) minutes")
+//			println("\(days) days, \(hours) hours, \(minutes) minutes")
 			
 			if days == 0 {
 				if hours == 0 {
