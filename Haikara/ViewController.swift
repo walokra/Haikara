@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	var entries = NSMutableOrderedSet()
 	let settings = Settings.sharedInstance
 	
-	var sections = Dictionary<String, Array<Entry>>()
+	var sections = OrderedDictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
 	
 	// default section
@@ -171,13 +171,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							sectionID: $0["sectionID"] as! Int,
 							sourceID: $0["sourceID"] as! Int,
 							highlight: $0["highlight"] as! Bool,
-							section: "Juuri nyt"
+							timeSince: "Juuri nyt"
 						)
 					}
 //					println("entries: \(entries.count)")
 					
 					for item in entries {
-						item.section = self.getTimeSince(item.publishedDateJS)
+						item.timeSince = self.getTimeSince(item.publishedDateJS)
 					}
 					
 					dispatch_async(dispatch_get_main_queue()) {
@@ -191,14 +191,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 							// Otherwise just add item to existing section
 							var entry = item as! Entry
 //							println("section=\(entry.section), title=\(entry.title)")
-							if self.sections.indexForKey(entry.section) == nil {
-								self.sections[entry.section] = [entry]
+							if self.sections[entry.timeSince] == nil {
+								self.sections[entry.timeSince] = [entry]
 							} else {
-								self.sections[entry.section]!.append(entry)
+								self.sections[entry.timeSince]!.append(entry)
 							}
 
 							// Storing sections in dictionary, so we need to sort it
-							self.sortedSections = self.sections.keys.array.sorted(<)
+							self.sortedSections = self.sections.keys //.array.sorted(<)
 						}
 						//println("sections=\(self.sections.count)")
 						

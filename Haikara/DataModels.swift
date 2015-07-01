@@ -80,10 +80,10 @@ class Entry: NSObject {
     var sectionID: Int
     let sourceID: Int
     let highlight: Bool
-    var section: String
+    var timeSince: String
     
     init(title: String, link: String, author: String, publishedDateJS: String,
-        shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, section: String) {
+        shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, timeSince: String) {
             self.title = title
             self.link = link
             self.author = author
@@ -98,10 +98,10 @@ class Entry: NSObject {
             self.sectionID = sectionID
             self.sourceID = sourceID
             self.highlight = highlight
-            self.section = section
+            self.timeSince = timeSince
     }
     
     override var description: String {
-        return "Entry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), section=\(self.section)"
+        return "Entry: title=\(self.title), link=\(self.link), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), timeSince=\(self.timeSince)"
     }
 }
