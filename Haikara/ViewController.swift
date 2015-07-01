@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	var entries = NSMutableOrderedSet()
 	let settings = Settings.sharedInstance
 	let maxHeadlines: Int = 70
-	var page: Int = 0
+	var page: Int = 1
 	
 	var sections = OrderedDictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 //		self.tableFooter.hidden = true
 		
-		self.page = 0
+		self.page = 1
 		getHighFiJSON(self.page)
 		
 		self.refreshControl = UIRefreshControl()
@@ -79,7 +79,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	func refresh(sender:AnyObject) {
 //		println("refresh: \(sender)")
-		self.page = 0
+		self.page = 1
 		getHighFiJSON(self.page)
 	}
 	
@@ -152,7 +152,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	func scrollToTop() {
 		if (self.numberOfSectionsInTableView(self.tableView) > 0 ) {
-			
 			var top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
 			self.tableView.scrollToRowAtIndexPath(top, atScrollPosition: UITableViewScrollPosition.Top, animated: true);
 		}
@@ -161,9 +160,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		let currentOffset = scrollView.contentOffset.y
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-		println("scrollViewDidScroll, maximumOffset=\(maximumOffset); currentOffset=\(currentOffset)")
+//		println("scrollViewDidScroll, maximumOffset=\(maximumOffset); currentOffset=\(currentOffset)")
 		if (maximumOffset - currentOffset) <= -40 {
-			if (self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
+			if (!self.loading && self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
 				self.page += 1
 				self.getHighFiJSON(page)
 			}
@@ -175,7 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			self.setLoadingState(true)
 			
 		var feed = "http://" + settings.domainToUse + "/" + highFiSection + "/"
-		if (page != 0) {
+		if (page != 1) {
 			feed = feed + String(page) + "/"
 		}
 		feed = feed + settings.highFiEndpoint
