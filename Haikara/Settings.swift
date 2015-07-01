@@ -10,6 +10,7 @@ import UIKit
 
 var instance: Settings?
 class Settings {
+    // Singleton
     class var sharedInstance: Settings {
         struct Static {
             static var instance: Settings?
@@ -43,7 +44,7 @@ class Settings {
         #endif
         
         self.APIKEY = ""
-        self.appID = "Haikara, 0.2.0-1 (iOS)"
+        self.appID = "Haikara, 0.3.0-1 (iOS)"
             
         self.highFiEndpoint = "json-private"
         self.highFiActCategory = "listCategories"
