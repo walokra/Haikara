@@ -24,9 +24,19 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         let logo = UIImage(named: "app-logo_40x40.png")
         self.navigationItem.titleView = UIImageView(image: logo)
         
+   		setHeaders()
+        
         getHighFiCategories()
         
         self.slideOutTableView.dataSource = self
+    }
+    
+    func setHeaders() {
+        // Specifying the Headers
+        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+            "User-Agent": settings.appID,
+            "Cache-Control": "private, must-revalidate, max-age=84600"
+        ]
     }
 
     func getHighFiCategories(){
@@ -80,7 +90,7 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         // Configure the cell for this indexPath
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        let tableItem: Category = categories[indexPath.row] as! Category
+        let tableItem: Category = categories[indexPath.row] as Category
 //        println("tableItem=\(tableItem)")
 
         cell.textLabel!.text = tableItem.title
@@ -102,7 +112,7 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
             // Pass the selected object to the new view controller.
             let path = self.slideOutTableView!.indexPathForSelectedRow()!
             let row = path.row
-            let tableItem: Category = categories[row] as! Category
+            let tableItem: Category = categories[row] as Category
 
             (segue.destinationViewController as! ViewController).navigationItemTitle = tableItem.title
             (segue.destinationViewController as! ViewController).highFiSection = tableItem.htmlFilename

@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	let cellIdentifier = "tableCell"
 	var entries = NSMutableOrderedSet()
 	let settings = Settings.sharedInstance
+	let maxHeadlines: Int = 70
+	var page: Int = 0
 	
 	var sections = OrderedDictionary<String, Array<Entry>>()
 	var sortedSections = [String]()
@@ -31,12 +33,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	let calendar = NSCalendar.autoupdatingCurrentCalendar()
 	let dateFormatter = NSDateFormatter()
 	
+	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+	var loading = false
+	
 	// MARK: Lifecycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.navigationItem.title = navigationItemTitle
+		
+		self.tableView!.delegate=self
 		self.tableView!.dataSource = self
 
 		setHeaders()
@@ -46,7 +53,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT");
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 
-		getHighFiJSON()
+//		self.tableFooter.hidden = true
+		
+		self.page = 0
+		getHighFiJSON(self.page)
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
@@ -69,7 +79,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	func refresh(sender:AnyObject) {
 //		println("refresh: \(sender)")
-		getHighFiJSON()
+		self.page = 0
+		getHighFiJSON(self.page)
 	}
 	
 	// MARK: - Navigation
@@ -139,8 +150,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		return sortedSections[section]
 	}
 	
-    func getHighFiJSON(){
-		let feed = "http://" + settings.domainToUse + "/" + highFiSection + "/" + settings.highFiEndpoint
+	func scrollToTop() {
+		if (self.numberOfSectionsInTableView(self.tableView) > 0 ) {
+			
+			var top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
+			self.tableView.scrollToRowAtIndexPath(top, atScrollPosition: UITableViewScrollPosition.Top, animated: true);
+		}
+	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		let currentOffset = scrollView.contentOffset.y
+		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+		println("scrollViewDidScroll, maximumOffset=\(maximumOffset); currentOffset=\(currentOffset)")
+		if (maximumOffset - currentOffset) <= -40 {
+			if (self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
+				self.page += 1
+				self.getHighFiJSON(page)
+			}
+		}
+	}
+	
+	func getHighFiJSON(page: Int){
+		if (!self.loading) {
+			self.setLoadingState(true)
+			
+		var feed = "http://" + settings.domainToUse + "/" + highFiSection + "/"
+		if (page != 0) {
+			feed = feed + String(page) + "/"
+		}
+		feed = feed + settings.highFiEndpoint
 		
 		Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
 			.responseJSON() { (request, response, data, error) in
@@ -181,7 +219,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 					}
 					
 					dispatch_async(dispatch_get_main_queue()) {
+						// Clear old entries
 						self.entries = NSMutableOrderedSet()
+						self.sections = OrderedDictionary<String, Array<Entry>>()
+						self.sortedSections = [String]()
+						
 						self.entries.addObjectsFromArray(entries)
 						//println("newsEntries=\(self.newsEntries.count)")
 						
@@ -204,12 +246,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 						
 						self.tableView!.reloadData()
 						self.refreshControl?.endRefreshing()
+						self.setLoadingState(false)
+						self.scrollToTop()
+						
 						return
 					}
 				}
 			} else {
 				println("error: \(error)")
 			}
+		}
+		}
+	}
+	
+	func setLoadingState(loading:Bool) {
+		self.loading = loading
+		self.loadingIndicator.hidden = !loading
+		if (loading) {
+			self.loadingIndicator.startAnimating()
+		} else {
+			self.loadingIndicator.stopAnimating()
 		}
 	}
 	
@@ -243,7 +299,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			}
 		}
 		
-		return "0"
+		return "Kauan sitten"
 	}
 	
 	override func didReceiveMemoryWarning() {
