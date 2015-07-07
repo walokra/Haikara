@@ -21,7 +21,6 @@ class InfoController: UIViewController {
 
         let settings = Settings()
 
-        infoLabel.text = "Haikara on epävirallinen uutislukija High.fi uutissivustolle. Sovellus on vielä kokeellinen."
         versioLabel.text = settings.appID
     }
 

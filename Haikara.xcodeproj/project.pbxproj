@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
 		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
 		361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */; };
@@ -98,11 +99,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
 		36221F081B3F385F00CB10AB /* app-logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_40x40.png"; sourceTree = "<group>"; };
 		36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_1024x1024.png"; sourceTree = "<group>"; };
+		3635B1F41B4C7AA3005BC9E4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		3640BC0D1B320186003534ED /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-667h@2x~iphone.png"; sourceTree = "<group>"; };
@@ -219,6 +222,7 @@
 				361141291B408A85001A6BA4 /* Settings.swift */,
 				3611412E1B409459001A6BA4 /* InfoController.swift */,
 				361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */,
+				360B4E301B4C69D70019FA1F /* SettingsViewController.swift */,
 			);
 			path = Haikara;
 			sourceTree = "<group>";
@@ -294,11 +298,13 @@
 		36A39C011B2E0AE900BE0C77 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = com.ruleoftech;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
 					36A39C081B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8X9ZUVVBWA;
 					};
 					36A39C1D1B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -404,6 +410,7 @@
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* ViewController.swift in Sources */,
+				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36EAF6E51B3DF64000FAD6EC /* DataModels.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				3611412A1B408A85001A6BA4 /* Settings.swift in Sources */,
@@ -441,6 +448,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				36A39C131B2E0AE900BE0C77 /* Base */,
+				3635B1F41B4C7AA3005BC9E4 /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -465,6 +473,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -484,7 +493,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -510,6 +519,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -523,7 +533,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,6 +545,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -554,6 +565,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

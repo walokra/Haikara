@@ -37,7 +37,11 @@ class Settings {
     let latestName: String // to be used as heading for "all latest news" list
     let domainToUse: String // to be used to communicate back and forth with the server using the right domain
     let genericNewsURLPart: String
-
+    
+    var showDesc: Bool // Showing descriptions for news items or not
+    var useMobileUrl: Bool // Prefer mobile optimized URLs
+    var country: String // http://high.fi/api/?act=listLanguages
+    
     init() {
         #if DEBUG
             println(__FUNCTION__)
@@ -56,18 +60,44 @@ class Settings {
         self.genericNewsURLPart = "uutiset"
         
         var defaults = NSUserDefaults.standardUserDefaults()
-        if (defaults.objectForKey("deviceID") == nil) {
+        if let deviceID = defaults.stringForKey("deviceID") {
+            self.deviceID = deviceID
+            #if DEBUG
+                println("settings.deviceID=\(self.deviceID)")
+            #endif
+        } else {
             defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
             self.deviceID = defaults.stringForKey("deviceID")!
             #if DEBUG
                 println("Setting new deviceID value: \(self.deviceID)")
             #endif
-        } else {
-            self.deviceID = defaults.stringForKey("deviceID")!
-            #if DEBUG
-                println("settings.deviceID=\(self.deviceID)")
-            #endif
         }
+        
+        // SettingsView
+        if let showDesc: Bool = defaults.objectForKey("showDesc") as? Bool {
+            self.showDesc = showDesc
+        } else {
+            self.showDesc = true
+        }
+        
+        if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
+            self.useMobileUrl = useMobileUrl
+        } else {
+            self.useMobileUrl = true
+        }
+        
+        if let country: String = defaults.objectForKey("country") as? String {
+            self.country = country
+        } else {
+            self.country = "Finland"
+        }
+        
+        #if DEBUG
+            println("showDesc: \(self.showDesc)")
+            println("useMobileUrl: \(self.useMobileUrl)")
+            println("country: \(self.country)")
+        #endif
+    
     }
     
     var description: String {

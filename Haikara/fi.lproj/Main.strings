@@ -1,0 +1,93 @@
+
+/* Class = "UILabel"; text = "Prefer mobile sites"; ObjectID = "4wi-JJ-PjM"; */
+"4wi-JJ-PjM.text" = "Käytä mobiilisivustoja";
+
+/* Class = "UIButton"; normalTitle = "About"; ObjectID = "6Bb-sn-nSV"; */
+"6Bb-sn-nSV.normalTitle" = "Tietoa";
+
+/* Class = "UIViewController"; title = "Menu"; ObjectID = "6hf-xG-t83"; */
+"6hf-xG-t83.title" = "Menu";
+
+/* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "BAN-Se-lAx"; */
+"BAN-Se-lAx.text" = "Piilota uutisissa näytettävä kategoria";
+
+/* Class = "UILabel"; text = "Powered by"; ObjectID = "ILQ-b0-gaS"; */
+"ILQ-b0-gaS.text" = "Voimanlähteenä";
+
+/* Class = "UIButton"; normalTitle = "High.fi"; ObjectID = "Jhk-1t-omv"; */
+"Jhk-1t-omv.normalTitle" = "High.fi";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "NKF-gP-YCx"; */
+"NKF-gP-YCx.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "Filter"; ObjectID = "Og4-py-LgQ"; */
+"Og4-py-LgQ.title" = "Rajaa";
+
+/* Class = "UIViewController"; title = "Settings"; ObjectID = "PfJ-fU-JDr"; */
+"PfJ-fU-JDr.title" = "Asetukset";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "Qv8-Jy-ZsG"; */
+"Qv8-Jy-ZsG.text" = "Versio";
+
+/* Class = "UITabBarItem"; title = "Categories"; ObjectID = "Rwm-VB-qca"; */
+"Rwm-VB-qca.title" = "Kategoriat";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "UXB-uv-Inu"; */
+"UXB-uv-Inu.title" = "Asetukset";
+
+/* Class = "UISplitViewController"; title = "Haikara"; ObjectID = "WHp-35-hiD"; */
+"WHp-35-hiD.title" = "Haikara";
+
+/* Class = "UINavigationItem"; title = "Haikara"; ObjectID = "bx7-Bu-h0n"; */
+"bx7-Bu-h0n.title" = "Haikara";
+
+/* Class = "UILabel"; text = "Show synopsis or abbreviation of the news story if available."; ObjectID = "d0n-lp-5fT"; */
+"d0n-lp-5fT.text" = "Näytä ote uutisesta, jos saatavilla.";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "dbd-Vv-rs7"; */
+"dbd-Vv-rs7.title" = " ";
+
+/* Class = "UILabel"; text = "Use mobile optimized address for the story if available otherwise use normal address."; ObjectID = "eA7-yO-xei"; */
+"eA7-yO-xei.text" = "Käytä mobiilioptimoituja osoitteita, jos saatavilla.";
+
+/* Class = "UIViewController"; title = "Detail"; ObjectID = "exn-nL-O7c"; */
+"exn-nL-O7c.title" = "Detail";
+
+/* Class = "UIViewController"; title = "Categories"; ObjectID = "f8J-Dx-PVd"; */
+"f8J-Dx-PVd.title" = "Kategoriat";
+
+/* Class = "UILabel"; text = "author"; ObjectID = "fLp-v4-zcy"; */
+"fLp-v4-zcy.text" = "author";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "fdL-QG-9qU"; */
+"fdL-QG-9qU.normalTitle" = "Asetukset";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "i05-GV-4cH"; */
+"i05-GV-4cH.title" = "Tietoa";
+
+/* Class = "UILabel"; text = "Select favorite categories"; ObjectID = "mxB-h8-nBo"; */
+"mxB-h8-nBo.text" = "Valitse suosikkikategoriat";
+
+/* Class = "UILabel"; text = "Select news portal's region for categories."; ObjectID = "oIB-wJ-NC2"; */
+"oIB-wJ-NC2.text" = "Valitse alue, jonka uutiskategoriat haetaan";
+
+/* Class = "UILabel"; text = "powered by high.fi"; ObjectID = "ocI-7q-PAB"; */
+"ocI-7q-PAB.text" = "voimanlähteenä high.fi";
+
+/* Class = "UILabel"; text = "0.2.0"; ObjectID = "ori-yr-FzX"; */
+"ori-yr-FzX.text" = "0.2.0";
+
+/* Class = "UILabel"; text = "Region for categories"; ObjectID = "pYl-NQ-OlI"; */
+"pYl-NQ-OlI.text" = "Uutissyötteiden alueasetus";
+
+/* Class = "UILabel"; text = "title"; ObjectID = "qfL-UQ-PDu"; */
+"qfL-UQ-PDu.text" = "title";
+
+/* Class = "UILabel"; text = "Show description"; ObjectID = "qvj-bp-i9F"; */
+"qvj-bp-i9F.text" = "Näytä tiivistelmä";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "s6d-s2-kAz"; */
+"s6d-s2-kAz.title" = " ";
+
+/* Class = "UILabel"; text = "Haikara is unofficial client for high.fi news service. App is still experimental."; ObjectID = "xQL-6E-PpP"; */
+"xQL-6E-PpP.text" = "Haikara on epävirallinen sovellus high.fi uutisportaalin lukemiseen. Sovellus on vielä kokeellinen.";

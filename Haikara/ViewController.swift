@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			
 //			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
 			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
-			if (tableItem.mobileLink?.isEmpty != nil) {
+			if (tableItem.mobileLink?.isEmpty != nil && settings.useMobileUrl) {
 				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.originalURL
 			} else {
 				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.mobileLink
@@ -136,7 +136,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //		println("tableItem=\(tableItem)")
 		cell.entryTitle.text = tableItem.title
 		cell.entryAuthor.text = tableItem.author
-		if tableItem.shortDescription != "" {
+		if tableItem.shortDescription != "" && settings.showDesc {
 			cell.entryDescription!.text = tableItem.shortDescription
 		}
 		if tableItem.highlight == true {
