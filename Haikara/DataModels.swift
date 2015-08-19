@@ -15,8 +15,39 @@
 
 import UIKit
 
-// Examples
-// categories: http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
+// listLanguages
+// http://high.fi/api/?act=listLanguages&APIKEY=123
+// { "responseData": { "supportedLanguages": [ { "language": "Finnish", "country": "Finland", "domainToUse": "high.fi", "languageCode": "fi-fi", "mostPopularName": "Suosituimmat", "latestName": "Uusimmat", "useToRetrieveLists": "finnish", "genericNewsURLPart": "uutiset" }, { "language": "English", "country": "United States", "domainToUse": "en.high.fi", "languageCode": "en-us", "mostPopularName": "Most Popular", "latestName": "Latest News", "useToRetrieveLists": "english", "genericNewsURLPart": "news" } ] } }
+
+class Language: NSObject {
+    let language: String
+    let country: String
+    let domainToUse: String
+    let languageCode: String
+    let mostPopularName: String
+    let latestName: String
+    let useToRetrieveLists: String
+    let genericNewsURLPart: String
+    
+    init(language: String, country: String, domainToUse: String, languageCode: String,
+        mostPopularName: String, latestName: String, useToRetrieveLists: String, genericNewsURLPart: String) {
+        self.language = language
+        self.country = country
+        self.domainToUse = domainToUse
+        self.languageCode = languageCode
+        self.mostPopularName = mostPopularName
+        self.latestName = latestName
+        self.useToRetrieveLists = useToRetrieveLists
+        self.genericNewsURLPart = genericNewsURLPart
+    }
+    
+    override var description: String {
+        return "Language: language=\(self.language), country=\(self.country), domainToUse=\(self.domainToUse), languageCode=\(self.languageCode), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), useToRetrieveLists=\(self.useToRetrieveLists), genericNewsURLPart=\(self.genericNewsURLPart)"
+    }
+}
+
+// listCategories
+// http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
 // { "responseData": { "categories": [ { "title": "Kotimaa", "sectionID": 95, "depth": 1, "htmlFilename": "kotimaa" }, { "title": "Ulkomaat", "sectionID": 96, "depth": 1, "htmlFilename": "ulkomaat" }, { "title": "Talous", "sectionID": 94, "depth": 1, "htmlFilename": "talous" }, { "title": "Urheilu", "sectionID": 98, "depth": 1, "htmlFilename": "urheilu" } ] } }
 
 class Category: NSObject {
