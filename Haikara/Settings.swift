@@ -28,19 +28,21 @@ class Settings {
     let deviceID: String
     let appID: String
     
+    let preferredLanguage: String
+    
     let highFiEndpoint: String
     let highFiActCategory: String
     let highFiActUsedLanguage: String
 
-    let useToRetrieveLists: String // from useToRetrieveLists variable in JSON
-    let mostPopularName: String // to be used as heading for "top news" list, retrieved from JSON
-    let latestName: String // to be used as heading for "all latest news" list
-    let domainToUse: String // to be used to communicate back and forth with the server using the right domain
-    let genericNewsURLPart: String
+    var useToRetrieveLists: String // from useToRetrieveLists variable in JSON
+    var mostPopularName: String // to be used as heading for "top news" list, retrieved from JSON
+    var latestName: String // to be used as heading for "all latest news" list
+    var domainToUse: String // to be used to communicate back and forth with the server using the right domain
+    var genericNewsURLPart: String
     
     var showDesc: Bool // Showing descriptions for news items or not
     var useMobileUrl: Bool // Prefer mobile optimized URLs
-    var country: String // http://high.fi/api/?act=listLanguages
+    var region: String // http://high.fi/api/?act=listLanguages
     
     init() {
         #if DEBUG
@@ -48,23 +50,42 @@ class Settings {
         #endif
         
         self.APIKEY = ""
-        self.appID = "Haikara, 0.3.0-1 (iOS)"
-            
+        self.appID = "Haikara, 0.4.0-1 (iOS)"
+        
         self.highFiEndpoint = "json-private"
         self.highFiActCategory = "listCategories"
         self.highFiActUsedLanguage = "usedLanguage"
-        self.useToRetrieveLists = "finnish"
-        self.mostPopularName = "Suosituimmat"
-        self.latestName = "Uutiset"
-        self.domainToUse = "fi.high.fi"
-        self.genericNewsURLPart = "uutiset"
         
         var defaults = NSUserDefaults.standardUserDefaults()
+
+        if let useToRetrieveLists: String = defaults.objectForKey("useToRetrieveLists") as? String {
+            self.useToRetrieveLists = useToRetrieveLists
+        } else {
+            self.useToRetrieveLists = "finnish"
+        }
+        if let mostPopularName: String = defaults.objectForKey("mostPopularName") as? String {
+            self.mostPopularName = mostPopularName
+        } else {
+            self.mostPopularName = "Suosituimmat"
+        }
+        if let latestName: String = defaults.objectForKey("latestName") as? String {
+            self.latestName = latestName
+        } else {
+            self.latestName = "Uutiset"
+        }
+        if let domainToUse: String = defaults.objectForKey("domainToUse") as? String {
+            self.domainToUse = domainToUse
+        } else {
+            self.domainToUse = "fi.high.fi"
+        }
+        if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
+            self.genericNewsURLPart = genericNewsURLPart
+        } else {
+            self.genericNewsURLPart = "uutiset"
+        }
+        
         if let deviceID = defaults.stringForKey("deviceID") {
             self.deviceID = deviceID
-            #if DEBUG
-                println("settings.deviceID=\(self.deviceID)")
-            #endif
         } else {
             defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
             self.deviceID = defaults.stringForKey("deviceID")!
@@ -86,22 +107,24 @@ class Settings {
             self.useMobileUrl = true
         }
         
-        if let country: String = defaults.objectForKey("country") as? String {
-            self.country = country
+        if let region: String = defaults.objectForKey("region") as? String {
+            self.region = region
         } else {
-            self.country = "Finland"
+            self.region = "Finland"
         }
+        self.preferredLanguage = NSLocale.preferredLanguages()[0] as! String
         
         #if DEBUG
-            println("showDesc: \(self.showDesc)")
-            println("useMobileUrl: \(self.useMobileUrl)")
-            println("country: \(self.country)")
+//            println("showDesc: \(self.showDesc)")
+//            println("useMobileUrl: \(self.useMobileUrl)")
+//            println("region: \(self.region)")
+            println("\(self.description)")
         #endif
     
     }
     
     var description: String {
-        return "Settings"
+        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage)" + ", highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage)" + ", useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName)" + ", domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc)" + ", useMobileUrl=\(self.useMobileUrl), region=\(self.region)"
     }
 
 }

@@ -19,8 +19,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 
     var defaults = NSUserDefaults.standardUserDefaults()
     
-    var supportedLanguages = NSMutableOrderedSet()
-    var regions = [String]()
+    var supportedLanguages: Array<Language> = []
     
     //let regions: [String] = ["Finland", "Estonia", "Germany", "United States", "Norway", "Denmark", "Sweden", "Netherlands", "Italian"]
     
@@ -39,6 +38,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setHeaders()
         listLanguages()
         
         showDescSwitch.on = settings.showDesc
@@ -58,26 +58,31 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return regions.count
+        return supportedLanguages.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return regions[row]
+        return self.supportedLanguages[row].country
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        settings.country = regions[row]
-        defaults.setObject(settings.country, forKey: "country")
-        println ("country \(settings.country)")
-        // TODO: Set region specific settings
-//        self.highFiEndpoint = "json-private"
-//        self.highFiActCategory = "listCategories"
-//        self.highFiActUsedLanguage = "usedLanguage"
-//        self.useToRetrieveLists = "finnish"
-//        self.mostPopularName = "Suosituimmat"
-//        self.latestName = "Uutiset"
-//        self.domainToUse = "fi.high.fi"
-//        self.genericNewsURLPart = "uutiset"
+        let selectedRegion = self.supportedLanguages[row]
+        settings.region = selectedRegion.country
+        settings.useToRetrieveLists = selectedRegion.useToRetrieveLists
+        settings.mostPopularName = selectedRegion.mostPopularName
+        settings.latestName = selectedRegion.latestName
+        settings.domainToUse = selectedRegion.domainToUse
+        settings.genericNewsURLPart = selectedRegion.genericNewsURLPart
+        println ("selected region = \(settings.region)")
+
+        defaults.setObject(settings.region, forKey: "region")
+        defaults.setObject(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
+        defaults.setObject(settings.mostPopularName, forKey: "mostPopularName")
+        defaults.setObject(settings.latestName, forKey: "latestName")
+        defaults.setObject(settings.domainToUse, forKey: "domainToUse")
+        defaults.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
+        
+        println ("Settings = \(settings.description)")
         
         self.view.endEditing(true)
     }
@@ -92,6 +97,13 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     */
     
+    func setHeaders() {
+        // Specifying the Headers
+        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+            "User-Agent": settings.appID,
+            "Cache-Control": "private, must-revalidate, max-age=84600"
+        ]
+    }
     
     // The list of currently supported by the server. 
     // You should cache this method's return value for min 24h
@@ -129,25 +141,24 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 
                     dispatch_async(dispatch_get_main_queue()) {
                         // Clear old entries
-                        self.supportedLanguages = NSMutableOrderedSet()
-                        self.supportedLanguages.addObjectsFromArray(languages)
-                        
-                        // Put each item in a section
-                        for item in self.supportedLanguages {
-                            var entry = item as! Language
-                            self.regions.append(entry.country)
-                            // Sort array
-                            self.regions = self.regions.sorted(<)
-                        }
-                        #if DEBUG
-                            println("regions=\(self.regions)")
-                        #endif
+                        self.supportedLanguages = Array(languages)
+//                        #if DEBUG
+//                            println("supportedLanguages=\(self.supportedLanguages)")
+//                        #endif
                         
                         self.countryPicker!.reloadAllComponents()
                         
-                        var defaultRowIndex = find(self.regions, self.settings.country)
-                        if(defaultRowIndex == nil) { defaultRowIndex = 0 }
-                        self.countryPicker.selectRow(defaultRowIndex!, inComponent: 0, animated: false)
+                        var defaultRowIndex = 0
+                        for (index, element) in enumerate(self.supportedLanguages) {
+                            var lang = element as Language
+                            if (lang.country == self.settings.region) {
+                                defaultRowIndex = index
+                            }
+                        }
+                        #if DEBUG
+                            println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+                        #endif
+                        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
                         
                         return
                     }

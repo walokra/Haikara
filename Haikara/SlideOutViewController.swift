@@ -17,12 +17,15 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
     let cellIdentifier = "tableCell"
     
     var categories = [Category]()
+    var currentLanguage: String = "Finland"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let logo = UIImage(named: "app-logo_40x40.png")
         self.navigationItem.titleView = UIImageView(image: logo)
+        
+        currentLanguage = settings.region
         
    		setHeaders()
         
@@ -63,8 +66,8 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
                         }
 //                        println("categories: \(categories.count)")
                         var cat = [Category]()
-                        cat.append(Category(title: "Uutiset", sectionID: 0, depth: 1, htmlFilename: "uutiset")) // latestName, genericNewsURLPart
-                        cat.append(Category(title: "Suosituimmat", sectionID: 1, depth: 1, htmlFilename: "top"))
+                        cat.append(Category(title: self.settings.latestName, sectionID: 0, depth: 1, htmlFilename: self.settings.genericNewsURLPart))
+                        cat.append(Category(title: self.settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top"))
                         
                         dispatch_async(dispatch_get_main_queue()) {
                             self.categories = cat + categories
