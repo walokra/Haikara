@@ -73,7 +73,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         settings.latestName = selectedRegion.latestName
         settings.domainToUse = selectedRegion.domainToUse
         settings.genericNewsURLPart = selectedRegion.genericNewsURLPart
-        println ("selected region = \(settings.region)")
+        #if DEBUG
+            println ("selected region = \(settings.region)")
+        #endif
 
         defaults.setObject(settings.region, forKey: "region")
         defaults.setObject(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
@@ -82,8 +84,12 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         defaults.setObject(settings.domainToUse, forKey: "domainToUse")
         defaults.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
         
-        println ("Settings = \(settings.description)")
+        #if DEBUG
+            println ("Settings = \(settings.description)")
+        #endif
         
+        NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedRegion]) //userInfo parameter has to be of type [NSObject : AnyObject]?
+
         self.view.endEditing(true)
     }
 
@@ -115,7 +121,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             .responseJSON() { (request, response, data, error) in
             #if DEBUG
                 println("request: \(request)")
-                println("response: \(response)")
+//                println("response: \(response)")
 //                println("json: \(data)")
             #endif
                     

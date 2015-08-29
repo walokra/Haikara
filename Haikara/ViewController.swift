@@ -56,13 +56,64 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //		self.tableFooter.hidden = true
 		
 		self.page = 1
-		getHighFiJSON(self.page)
-		
+		getNews(self.page)
+				
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
 		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
     }
+	
+	func getNews(page: Int) {
+		if (!self.loading) {
+			self.setLoadingState(true)
+			// with trailing closure we get the results that we passed the closure back in async function
+			HighFiApi.getNews(self.page, section: highFiSection) {
+				(result: Array<Entry>) in
+				self.setNews(result)
+			}
+		}
+	}
+	
+	func setNews(newsentries: Array<Entry>) {
+		for item in newsentries {
+			item.timeSince = self.getTimeSince(item.publishedDateJS)
+		}
+		
+		dispatch_async(dispatch_get_main_queue()) {
+			// Clear old entries
+			self.entries = NSMutableOrderedSet()
+			self.sections = OrderedDictionary<String, Array<Entry>>()
+			self.sortedSections = [String]()
+			
+			self.entries.addObjectsFromArray(newsentries)
+			//println("newsEntries=\(self.newsEntries.count)")
+			
+			// Put each item in a section
+			for item in self.entries {
+				// If we don't have section for particular time, create new one,
+				// Otherwise just add item to existing section
+				var entry = item as! Entry
+				//							println("section=\(entry.section), title=\(entry.title)")
+				if self.sections[entry.timeSince] == nil {
+					self.sections[entry.timeSince] = [entry]
+				} else {
+					self.sections[entry.timeSince]!.append(entry)
+				}
+				
+				// Storing sections in dictionary, so we need to sort it
+				self.sortedSections = self.sections.keys //.array.sorted(<)
+			}
+			//println("sections=\(self.sections.count)")
+			
+			self.tableView!.reloadData()
+			self.refreshControl?.endRefreshing()
+			self.setLoadingState(false)
+			self.scrollToTop()
+			
+			return
+		}
+	}
 	
 	func setHeaders() {
 		// Specifying the Headers
@@ -80,7 +131,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	func refresh(sender:AnyObject) {
 //		println("refresh: \(sender)")
 		self.page = 1
-		getHighFiJSON(self.page)
+		getNews(self.page)
 	}
 	
 	// MARK: - Navigation
@@ -164,97 +215,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		if (maximumOffset - currentOffset) <= -40 {
 			if (!self.loading && self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
 				self.page += 1
-				self.getHighFiJSON(page)
+				self.getNews(page)
 			}
-		}
-	}
-	
-	func getHighFiJSON(page: Int){
-		if (!self.loading) {
-			self.setLoadingState(true)
-			
-		var feed = "http://" + settings.domainToUse + "/" + highFiSection + "/"
-		if (page != 1) {
-			feed = feed + String(page) + "/"
-		}
-		feed = feed + settings.highFiEndpoint
-		
-		Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
-			.responseJSON() { (request, response, data, error) in
-				#if DEBUG
-					println("request: \(request)")
-//					println("response: \(response)")
-//					println("json: \(theJSON)")
-				#endif
-				
-			if error == nil {
-				dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-					let responseData = (data!.valueForKey("responseData") as! NSDictionary)
-					let feed = (responseData.valueForKey("feed") as! NSDictionary)
-					let entries = (feed.valueForKey("entries") as! [NSDictionary])
-						//.filter({ ($0["sectionID"] as! Int) == 98 })
-						.map { Entry(
-							title: $0["title"] as! String,
-							link: $0["link"] as! String,
-							author: $0["author"] as! String,
-							publishedDateJS: $0["publishedDateJS"] as! String,
-							shortDescription: $0["shortDescription"] as? String,
-							originalURL: $0["originalURL"] as! String,
-							mobileLink: $0["mobileLink"] as? String,
-							originalMobileUrl: $0["originalMobileUrl"] as?	String,
-							//	let picture: String?
-							//	let originalPicture: String?
-							articleID: $0["articleID"] as! Int,
-							sectionID: $0["sectionID"] as! Int,
-							sourceID: $0["sourceID"] as! Int,
-							highlight: $0["highlight"] as! Bool,
-							timeSince: "Juuri nyt"
-						)
-					}
-//					println("entries: \(entries.count)")
-					
-					for item in entries {
-						item.timeSince = self.getTimeSince(item.publishedDateJS)
-					}
-					
-					dispatch_async(dispatch_get_main_queue()) {
-						// Clear old entries
-						self.entries = NSMutableOrderedSet()
-						self.sections = OrderedDictionary<String, Array<Entry>>()
-						self.sortedSections = [String]()
-						
-						self.entries.addObjectsFromArray(entries)
-						//println("newsEntries=\(self.newsEntries.count)")
-						
-						// Put each item in a section
-						for item in self.entries {
-							// If we don't have section for particular time, create new one,
-							// Otherwise just add item to existing section
-							var entry = item as! Entry
-//							println("section=\(entry.section), title=\(entry.title)")
-							if self.sections[entry.timeSince] == nil {
-								self.sections[entry.timeSince] = [entry]
-							} else {
-								self.sections[entry.timeSince]!.append(entry)
-							}
-
-							// Storing sections in dictionary, so we need to sort it
-							self.sortedSections = self.sections.keys //.array.sorted(<)
-						}
-						//println("sections=\(self.sections.count)")
-						
-						self.tableView!.reloadData()
-						self.refreshControl?.endRefreshing()
-						self.setLoadingState(false)
-						self.scrollToTop()
-						
-						return
-					}
-				}
-			} else {
-				println("error: \(error)")
-			}
-		}
 		}
 	}
 	

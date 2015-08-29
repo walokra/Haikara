@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
 		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
@@ -99,6 +100,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		36065CEC1B92522800AF0102 /* HighFiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighFiApi.swift; sourceTree = "<group>"; };
 		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				3611412E1B409459001A6BA4 /* InfoController.swift */,
 				361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */,
 				360B4E301B4C69D70019FA1F /* SettingsViewController.swift */,
+				36065CEC1B92522800AF0102 /* HighFiApi.swift */,
 			);
 			path = Haikara;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				36EAF6E51B3DF64000FAD6EC /* DataModels.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				3611412A1B408A85001A6BA4 /* Settings.swift in Sources */,
+				36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */,
 				365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */,
 				36EAF6E01B3DF58A00FAD6EC /* SlideOutViewController.swift in Sources */,
 				3611412F1B409459001A6BA4 /* InfoController.swift in Sources */,

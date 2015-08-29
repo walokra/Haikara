@@ -32,6 +32,17 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         getHighFiCategories()
         
         self.slideOutTableView.dataSource = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
+    }
+    
+    func setRegionCategory(notification: NSNotification) {
+        #if DEBUG
+            println("Received regionChangedNotification")
+            println(notification.userInfo)
+        #endif
+        
+        getHighFiCategories()
     }
     
     func setHeaders() {
@@ -44,13 +55,17 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func getHighFiCategories(){
         let url = "http://" + settings.domainToUse + "/api/"
-        println("getHighFiCategories()")
+        #if DEBUG
+            println("getHighFiCategories()")
+        #endif
         
         Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
             .responseJSON() { (request, response, JSON, error) in
-                println("request: \(request)")
-                // println("response: \(response)")
-                // println("json: \(theJSON)")
+                #if DEBUG
+                    println("request: \(request)")
+                    // println("response: \(response)")
+                    // println("json: \(theJSON)")
+                #endif
                 
                 if error == nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
@@ -120,6 +135,11 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
             (segue.destinationViewController as! ViewController).navigationItemTitle = tableItem.title
             (segue.destinationViewController as! ViewController).highFiSection = tableItem.htmlFilename
         }
+    }
+    
+    // stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }
