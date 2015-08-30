@@ -166,7 +166,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Categories" id="Rwm-VB-qca"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="Category-32.png" id="Rwm-VB-qca"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lg0-cC-J0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -206,7 +206,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Filter" id="Og4-py-LgQ"/>
+                    <tabBarItem key="tabBarItem" title="Filter" image="Filter-32.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -279,7 +279,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="UXB-uv-Inu"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings-32.png" id="UXB-uv-Inu"/>
                     <connections>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
@@ -483,6 +483,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Category-32.png" width="32" height="32"/>
+        <image name="Filter-32.png" width="32" height="32"/>
+        <image name="Settings-32.png" width="32" height="32"/>
         <image name="app-logo_1024x1024.png" width="1024" height="1024"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
