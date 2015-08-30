@@ -8,8 +8,6 @@
 
 import UIKit
 
-import Alamofire
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let cellIdentifier = "tableCell"
@@ -45,8 +43,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		
 		self.tableView!.delegate=self
 		self.tableView!.dataSource = self
-
-		setHeaders()
 		
 		configureTableView()
 		
@@ -115,14 +111,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		}
 	}
 	
-	func setHeaders() {
-		// Specifying the Headers
-		Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-			"User-Agent": settings.appID,
-			"Cache-Control": "private, must-revalidate, max-age=60"
-		]
-	}
-	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75.0
@@ -155,14 +143,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			}
 			
 			// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
-			Alamofire.request(.GET, tableItem.link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
-				.response { (request, response, data, error) in
-					#if DEBUG
-						println(request)
-//						println(response)
-//						println(error)
-					#endif
-			}
+			HighFiApi.trackNewsClick(tableItem.link)
 		}
 	}
 

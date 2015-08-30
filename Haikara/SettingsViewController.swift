@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -38,7 +37,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setHeaders()
         listLanguages()
         
         showDescSwitch.on = settings.showDesc
@@ -103,74 +101,33 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     */
     
-    func setHeaders() {
-        // Specifying the Headers
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=84600"
-        ]
-    }
-    
     // The list of currently supported by the server. 
-    // You should cache this method's return value for min 24h
-    // http://high.fi/api/?act=listLanguages&APIKEY=123
     func listLanguages(){
-        var endpoint = "http://" + settings.domainToUse + "/api"
+        HighFiApi.listLanguages() {
+            (result: Array<Language>) in
         
-        Manager.sharedInstance.request(.GET, endpoint, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY])
-            .responseJSON() { (request, response, data, error) in
-            #if DEBUG
-                println("request: \(request)")
-//                println("response: \(response)")
-//                println("json: \(data)")
-            #endif
-                    
-            if error == nil {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                    let responseData = (data!.valueForKey("responseData") as! NSDictionary)
-                    let languages = (responseData.valueForKey("supportedLanguages") as! [NSDictionary])
-                    .map { Language(
-                            language: $0["language"] as! String,
-                            country: $0["country"] as! String,
-                            domainToUse: $0["domainToUse"] as! String,
-                            languageCode: $0["languageCode"] as! String,
-                            mostPopularName: $0["mostPopularName"] as! String,
-                            latestName: $0["latestName"] as! String,
-                            useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
-                            genericNewsURLPart: $0["genericNewsURLPart"] as! String
-                            )
-                    }
-                    #if DEBUG
-                        println("languages: \(languages.count)")
-//                        println("languages: \(languages)")
-                    #endif
-                
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // Clear old entries
-                        self.supportedLanguages = Array(languages)
+            dispatch_async(dispatch_get_main_queue()) {
+                // Clear old entries
+                self.supportedLanguages = Array(result)
 //                        #if DEBUG
 //                            println("supportedLanguages=\(self.supportedLanguages)")
 //                        #endif
-                        
-                        self.countryPicker!.reloadAllComponents()
-                        
-                        var defaultRowIndex = 0
-                        for (index, element) in enumerate(self.supportedLanguages) {
-                            var lang = element as Language
-                            if (lang.country == self.settings.region) {
-                                defaultRowIndex = index
-                            }
-                        }
-                        #if DEBUG
-                            println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
-                        #endif
-                        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
-                        
-                        return
+            
+                self.countryPicker!.reloadAllComponents()
+            
+                var defaultRowIndex = 0
+                for (index, element) in enumerate(self.supportedLanguages) {
+                    var lang = element as Language
+                    if (lang.country == self.settings.region) {
+                        defaultRowIndex = index
                     }
                 }
-            } else {
-                println("error: \(error)")
+                #if DEBUG
+                    println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+                #endif
+                self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+            
+                return
             }
         }
     }

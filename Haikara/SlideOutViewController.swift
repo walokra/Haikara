@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class SlideOutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
@@ -27,9 +26,7 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         
         currentLanguage = settings.region
         
-   		setHeaders()
-        
-        getHighFiCategories()
+        getCategories()
         
         self.slideOutTableView.dataSource = self
         
@@ -42,62 +39,19 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
             println(notification.userInfo)
         #endif
         
-        getHighFiCategories()
-    }
-    
-    func setHeaders() {
-        // Specifying the Headers
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=84600"
-        ]
+        getCategories()
     }
 
-    func getHighFiCategories(){
-        let url = "http://" + settings.domainToUse + "/api/"
-        #if DEBUG
-            println("getHighFiCategories()")
-        #endif
-        
-        Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
-            .responseJSON() { (request, response, JSON, error) in
-                #if DEBUG
-                    println("request: \(request)")
-                    // println("response: \(response)")
-                    // println("json: \(theJSON)")
-                #endif
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                        let data = (JSON!.valueForKey("responseData") as! NSDictionary)
-                        var categories = (data.valueForKey("categories") as! [NSDictionary])
-                            .filter({ ($0["depth"] as! Int) == 1 })
-                            .map { Category(
-                                title: $0["title"] as! String,
-                                sectionID: $0["sectionID"] as! Int,
-                                depth: $0["depth"] as! Int,
-                                htmlFilename: $0["htmlFilename"] as! String
-                                )
-                        }
-//                        println("categories: \(categories.count)")
-                        var cat = [Category]()
-                        cat.append(Category(title: self.settings.latestName, sectionID: 0, depth: 1, htmlFilename: self.settings.genericNewsURLPart))
-                        cat.append(Category(title: self.settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top"))
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.categories = cat + categories
-                            self.slideOutTableView!.reloadData()
-                            return
-                        }
-                    }
-                } else {
-                    #if DEBUG
-                        println("error: \(error)")
-                    #endif
-                }
+    func getCategories(){
+        HighFiApi.getCategories() {
+            (result: [Category]) in
+            dispatch_async(dispatch_get_main_queue()) {
+                self.categories = result
+                self.slideOutTableView!.reloadData()
+                return
+            }
         }
     }
-
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
