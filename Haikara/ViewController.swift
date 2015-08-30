@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	// default section
 	var highFiSection: String = "uutiset"
 	
-	var navigationItemTitle: String = "Uutiset";
+	var navigationItemTitle: String = NSLocalizedString("MAIN_TITLE", comment: "Title for main view")
 
 	@IBOutlet weak var tableView: UITableView!
 
@@ -50,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		
 		configureTableView()
 		
-		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT");
+		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 
 //		self.tableFooter.hidden = true
@@ -59,7 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		getNews(self.page)
 				
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl.attributedTitle = NSAttributedString(string: "Vedä alas päivittääksesi")
+		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
 		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
     }
@@ -242,25 +242,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			
 			if days == 0 {
 				if hours == 0 {
-					if minutes < 0 { return "Juuri nyt" }
-					else if minutes < 5 { return "< 5 minuuttia" }
-					else if minutes < 15 { return "< 15 minuuttia" }
-					else if minutes < 30 { return "< 30 minuuttia" }
-					else if minutes < 45 { return "< 45 minuuttia" }
-					else if minutes < 60 { return "< tunti" }
+					if minutes < 0 { return NSLocalizedString("JUST_NOW", comment: "") }
+					else if minutes < 5 { return NSLocalizedString("5_MIN", comment: "") }
+					else if minutes < 15 { return NSLocalizedString("15_MIN", comment: "") }
+					else if minutes < 30 { return NSLocalizedString("30_MIN", comment: "") }
+					else if minutes < 45 { return NSLocalizedString("45_MIN", comment: "") }
+					else if minutes < 60 { return NSLocalizedString("HOUR", comment: "") }
 				} else {
-					if hours < 24 { return "< \(hours) tuntia" }
+					if hours < 24 { return String(format: NSLocalizedString("< %d hours", comment: ""), hours) }
 				}
 			} else {
 				if days == 1 {
-					return "Eilen"
+					return NSLocalizedString("YESTERDAY", comment: "")
 				} else {
-					return "\(days) päivää"
+					return String(format: NSLocalizedString("%d days", comment: ""), hours)
 				}
 			}
 		}
 		
-		return "Kauan sitten"
+		return NSLocalizedString("LONG_TIME", comment: "")
 	}
 	
 	override func didReceiveMemoryWarning() {
