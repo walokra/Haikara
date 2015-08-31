@@ -51,6 +51,7 @@ class Settings {
         
         self.APIKEY = ""
         self.appID = "Haikara, 0.4.0-1 (iOS)"
+	self.appID = "Highkara, 0.4.0-1 (iOS)"
         
         self.highFiEndpoint = "json-private"
         self.highFiActCategory = "listCategories"
