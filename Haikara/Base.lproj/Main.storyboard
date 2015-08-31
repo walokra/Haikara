@@ -8,7 +8,7 @@
         <!--Detail-->
         <scene sceneID="VxO-rk-Dux">
             <objects>
-                <viewController title="Detail" id="exn-nL-O7c" customClass="ViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="exn-nL-O7c" customClass="ViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3uu-8b-MAY"/>
                         <viewControllerLayoutGuide type="bottom" id="h25-NN-afO"/>
@@ -25,7 +25,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="75" id="Aft-jA-JIp" customClass="EntryCell" customModule="Haikara" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="75" id="Aft-jA-JIp" customClass="EntryCell" customModule="highkara" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aft-jA-JIp" id="phV-Ch-zbh">
@@ -104,7 +104,7 @@
         <!--News Item View Controller-->
         <scene sceneID="cF1-oy-bt1">
             <objects>
-                <viewController id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="25k-qC-DHb"/>
                         <viewControllerLayoutGuide type="bottom" id="Bbm-FL-ahV"/>
@@ -216,7 +216,7 @@
         <!--Settings-->
         <scene sceneID="b6k-at-iyD">
             <objects>
-                <viewController title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mER-OZ-TlD"/>
                         <viewControllerLayoutGuide type="bottom" id="MnR-eo-9fz"/>
@@ -314,7 +314,7 @@
         <!--Menu-->
         <scene sceneID="m8L-gu-cOX">
             <objects>
-                <viewController title="Menu" id="6hf-xG-t83" customClass="SlideOutViewController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Menu" id="6hf-xG-t83" customClass="SlideOutViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bce-ln-6GG"/>
                         <viewControllerLayoutGuide type="bottom" id="rOY-PS-y7X"/>
@@ -392,7 +392,7 @@
         <!--About-->
         <scene sceneID="0JE-bT-JtN">
             <objects>
-                <viewController id="U9M-il-Efs" customClass="InfoController" customModule="Haikara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="U9M-il-Efs" customClass="InfoController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Cv-xI-FcX"/>
                         <viewControllerLayoutGuide type="bottom" id="wfR-ky-Eni"/>
@@ -406,7 +406,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQL-6E-PpP">
                                 <rect key="frame" x="16" y="72" width="288" height="136"/>
-                                <string key="text">Haikara news reader is unofficial client for High.fi news portal and provides functionality for reading news from several medias and regions. The app is similar to Ampparit.</string>
+                                <string key="text">Highkara news reader is unofficial client for High.fi news portal and provides functionality for reading news from several medias and regions. The app is similar to Ampparit.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

@@ -36,10 +36,10 @@
 "UXB-uv-Inu.title" = "Asetukset";
 
 /* Class = "UISplitViewController"; title = "Haikara"; ObjectID = "WHp-35-hiD"; */
-"WHp-35-hiD.title" = "Haikara";
+"WHp-35-hiD.title" = "Highkara";
 
 /* Class = "UINavigationItem"; title = "Haikara"; ObjectID = "bx7-Bu-h0n"; */
-"bx7-Bu-h0n.title" = "Haikara";
+"bx7-Bu-h0n.title" = "Highkara";
 
 /* Class = "UILabel"; text = "Show synopsis or abbreviation of the news story if available."; ObjectID = "d0n-lp-5fT"; */
 "d0n-lp-5fT.text" = "Näytä ote uutisesta, jos saatavilla.";
@@ -90,4 +90,4 @@
 "s6d-s2-kAz.title" = " ";
 
 /* Class = "UILabel"; text = "Haikara is unofficial client for high.fi news service. App is still experimental."; ObjectID = "xQL-6E-PpP"; */
-"xQL-6E-PpP.text" = "Haikara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
+"xQL-6E-PpP.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";

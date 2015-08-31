@@ -132,12 +132,12 @@
 		36778F7A1B3760C000F387E0 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F861B37651000F387E0 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		36778F871B37651000F387E0 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		36A39C091B2E0AE900BE0C77 /* Haikara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haikara.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36A39C091B2E0AE900BE0C77 /* highkara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highkara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36A39C131B2E0AE900BE0C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		36A39C151B2E0AE900BE0C77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		36A39C1E1B2E0AE900BE0C77 /* HaikaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaikaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = highkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 		36A39C0A1B2E0AE900BE0C77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				36A39C091B2E0AE900BE0C77 /* Haikara.app */,
-				36A39C1E1B2E0AE900BE0C77 /* HaikaraTests.xctest */,
+				36A39C091B2E0AE900BE0C77 /* highkara.app */,
+				36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,9 +302,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		36A39C081B2E0AE900BE0C77 /* Haikara */ = {
+		36A39C081B2E0AE900BE0C77 /* highkara */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "Haikara" */;
+			buildConfigurationList = 36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkara" */;
 			buildPhases = (
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
@@ -316,14 +316,14 @@
 			dependencies = (
 				3640BC1F1B32022A003534ED /* PBXTargetDependency */,
 			);
-			name = Haikara;
+			name = highkara;
 			productName = Haikara;
-			productReference = 36A39C091B2E0AE900BE0C77 /* Haikara.app */;
+			productReference = 36A39C091B2E0AE900BE0C77 /* highkara.app */;
 			productType = "com.apple.product-type.application";
 		};
-		36A39C1D1B2E0AE900BE0C77 /* HaikaraTests */ = {
+		36A39C1D1B2E0AE900BE0C77 /* highkaraTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "HaikaraTests" */;
+			buildConfigurationList = 36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkaraTests" */;
 			buildPhases = (
 				36A39C1A1B2E0AE900BE0C77 /* Sources */,
 				36A39C1B1B2E0AE900BE0C77 /* Frameworks */,
@@ -334,9 +334,9 @@
 			dependencies = (
 				36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */,
 			);
-			name = HaikaraTests;
+			name = highkaraTests;
 			productName = HaikaraTests;
-			productReference = 36A39C1E1B2E0AE900BE0C77 /* HaikaraTests.xctest */;
+			productReference = 36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -359,7 +359,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Haikara" */;
+			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -379,8 +379,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				36A39C081B2E0AE900BE0C77 /* Haikara */,
-				36A39C1D1B2E0AE900BE0C77 /* HaikaraTests */,
+				36A39C081B2E0AE900BE0C77 /* highkara */,
+				36A39C1D1B2E0AE900BE0C77 /* highkaraTests */,
 			);
 		};
 /* End PBXProject section */
@@ -493,7 +493,7 @@
 		};
 		36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 36A39C081B2E0AE900BE0C77 /* Haikara */;
+			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
 			targetProxy = 36A39C1F1B2E0AE900BE0C77 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -552,9 +552,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -575,6 +575,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "9ce39dbd-7117-4616-a1b4-96bfdaca4382";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -598,9 +599,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -614,6 +615,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "9ce39dbd-7117-4616-a1b4-96bfdaca4382";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -624,7 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -635,7 +637,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "9ce39dbd-7117-4616-a1b4-96bfdaca4382";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -644,7 +647,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -655,7 +658,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "9ce39dbd-7117-4616-a1b4-96bfdaca4382";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -674,7 +678,7 @@
 				);
 				INFOPLIST_FILE = HaikaraTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = highkaraTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Haikara.app/Haikara";
 			};
 			name = Debug;
@@ -689,7 +693,7 @@
 				);
 				INFOPLIST_FILE = HaikaraTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = highkaraTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Haikara.app/Haikara";
 			};
 			name = Release;
@@ -697,7 +701,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Haikara" */ = {
+		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C261B2E0AE900BE0C77 /* Debug */,
@@ -706,7 +710,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "Haikara" */ = {
+		36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C291B2E0AE900BE0C77 /* Debug */,
@@ -715,7 +719,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "HaikaraTests" */ = {
+		36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkaraTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C2C1B2E0AE900BE0C77 /* Debug */,
