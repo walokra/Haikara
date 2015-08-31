@@ -201,8 +201,10 @@ class HighFiApi {
         }
     }
     
+    // TODO: Showing error message but not using UIAlertController as there's no need for push notifications
     class func showError(errormsg: String) {
-        var alert = UIAlertController(title: "Error", message: "\(errormsg)", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        #if DEBUG
+            println("HighFiApi, error: \(errormsg)")
+        #endif
     }
 }
