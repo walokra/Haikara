@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SlideOutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+protocol CategorySelectionDelegate: class {
+    func categorySelected(newCategory: Category)
+}
+
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
     let settings = Settings.sharedInstance
     
@@ -17,6 +21,8 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var categories = [Category]()
     var currentLanguage: String = "Finland"
+    
+    weak var delegate: CategorySelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +34,7 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         
         getCategories()
         
+        self.slideOutTableView!.delegate=self
         self.slideOutTableView.dataSource = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
@@ -75,20 +82,16 @@ class SlideOutViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "categorySelected" {
-            // Get the new view controller using [segue destinationViewController].
-            // Pass the selected object to the new view controller.
-            let path = self.slideOutTableView!.indexPathForSelectedRow()!
-            let row = path.row
-            let tableItem: Category = categories[row] as Category
-
-            (segue.destinationViewController as! ViewController).navigationItemTitle = tableItem.title
-            (segue.destinationViewController as! ViewController).highFiSection = tableItem.htmlFilename
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCategory = self.categories[indexPath.row]
+        self.delegate?.categorySelected(selectedCategory)
+        
+        if let detailViewController = self.delegate as? DetailViewController {
+            splitViewController?.showDetailViewController(detailViewController.navigationController, sender: nil)
         }
+
+        splitViewController?.preferredDisplayMode = .PrimaryHidden
+        splitViewController?.preferredDisplayMode = .Automatic
     }
     
     // stop observing

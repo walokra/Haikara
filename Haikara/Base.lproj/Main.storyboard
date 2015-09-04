@@ -8,7 +8,7 @@
         <!--Detail-->
         <scene sceneID="VxO-rk-Dux">
             <objects>
-                <viewController title="Detail" id="exn-nL-O7c" customClass="ViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" title="Detail" id="exn-nL-O7c" customClass="DetailViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3uu-8b-MAY"/>
                         <viewControllerLayoutGuide type="bottom" id="h25-NN-afO"/>
@@ -68,13 +68,13 @@
                                             <outlet property="entryAuthor" destination="fLp-v4-zcy" id="2KX-0c-2WJ"/>
                                             <outlet property="entryDescription" destination="4SW-bs-Kz2" id="jul-be-F73"/>
                                             <outlet property="entryTitle" destination="qfL-UQ-PDu" id="V9t-x7-S4w"/>
-                                            <segue destination="fo2-gm-XwB" kind="push" identifier="NewsItemDetails" id="Yjr-Xj-yfK"/>
+                                            <segue destination="fo2-gm-XwB" kind="push" identifier="NewsItemDetails" splitViewControllerTargetIndex="1" id="Yjr-Xj-yfK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by high.fi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocI-7q-PAB">
-                                <rect key="frame" x="116.5" y="557" width="78" height="11"/>
+                                <rect key="frame" x="117" y="557" width="78" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -83,15 +83,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="h25-NN-afO" firstAttribute="top" secondItem="ocI-7q-PAB" secondAttribute="bottom" id="BiW-Kx-5qF"/>
-                            <constraint firstAttribute="centerX" secondItem="ocI-7q-PAB" secondAttribute="centerX" constant="5" id="LQ5-4f-MtM"/>
-                            <constraint firstAttribute="centerX" secondItem="3hl-Y4-qwf" secondAttribute="centerX" id="OWM-lK-rhe"/>
-                            <constraint firstItem="ocI-7q-PAB" firstAttribute="top" secondItem="3hl-Y4-qwf" secondAttribute="bottom" id="a8k-5n-xbX"/>
-                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="leading" secondItem="vno-5U-UPP" secondAttribute="leadingMargin" constant="-16" id="bu5-Do-CbB"/>
-                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="top" secondItem="3uu-8b-MAY" secondAttribute="bottom" constant="-64" id="kuC-rL-1Xw"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3hl-Y4-qwf" secondAttribute="trailing" constant="-16" id="xiv-39-IfJ"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="centerX" secondItem="ocI-7q-PAB" secondAttribute="centerX" constant="4" id="Mna-x8-tTQ"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="top" secondItem="vno-5U-UPP" secondAttribute="top" id="Mu7-gd-YhI"/>
+                            <constraint firstItem="ocI-7q-PAB" firstAttribute="top" secondItem="3hl-Y4-qwf" secondAttribute="bottom" id="bBZ-5g-vc5"/>
+                            <constraint firstItem="3hl-Y4-qwf" firstAttribute="leading" secondItem="vno-5U-UPP" secondAttribute="leading" id="fpw-qk-MZy"/>
+                            <constraint firstAttribute="trailing" secondItem="3hl-Y4-qwf" secondAttribute="trailing" id="zw3-7T-fTX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Haikara" id="bx7-Bu-h0n"/>
+                    <navigationItem key="navigationItem" title="Highkara" id="bx7-Bu-h0n"/>
                     <connections>
                         <outlet property="loadingIndicator" destination="L02-s7-yig" id="0f3-LK-44K"/>
                         <outlet property="tableView" destination="3hl-Y4-qwf" id="svM-WY-G7k"/>
@@ -99,12 +98,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KkM-kP-aYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="736" y="-1584"/>
+            <point key="canvasLocation" x="1194" y="-1500"/>
         </scene>
         <!--News Item View Controller-->
         <scene sceneID="cF1-oy-bt1">
             <objects>
-                <viewController id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsItemViewController" id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="25k-qC-DHb"/>
                         <viewControllerLayoutGuide type="bottom" id="Bbm-FL-ahV"/>
@@ -126,11 +125,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCB-Nj-ssw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="8lC-WW-fpZ">
                     <connections>
-                        <segue destination="exn-nL-O7c" kind="push" id="zyO-z2-YeD"/>
+                        <segue destination="kTd-Wf-Puh" kind="push" id="zyO-z2-YeD"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1228" y="-1584"/>
+            <point key="canvasLocation" x="1640" y="-1500"/>
         </scene>
         <!--Categories-->
         <scene sceneID="9HQ-Uu-h9g">
@@ -170,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lg0-cC-J0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="-1226"/>
+            <point key="canvasLocation" x="2586" y="-1226"/>
         </scene>
         <!--Filter-->
         <scene sceneID="KK4-uc-NJ9">
@@ -211,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2444" y="-1578"/>
+            <point key="canvasLocation" x="2976" y="-1578"/>
         </scene>
         <!--Settings-->
         <scene sceneID="b6k-at-iyD">
@@ -288,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knU-w9-hPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="-1898"/>
+            <point key="canvasLocation" x="2586" y="-1898"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nBr-eV-Lub">
@@ -309,12 +308,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nfu-PJ-akf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="-1584"/>
+            <point key="canvasLocation" x="2062" y="-1500"/>
         </scene>
         <!--Menu-->
         <scene sceneID="m8L-gu-cOX">
             <objects>
-                <viewController title="Menu" id="6hf-xG-t83" customClass="SlideOutViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MasterViewController" title="Menu" id="6hf-xG-t83" customClass="MasterViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bce-ln-6GG"/>
                         <viewControllerLayoutGuide type="bottom" id="rOY-PS-y7X"/>
@@ -341,9 +340,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="exn-nL-O7c" kind="push" identifier="categorySelected" id="vA5-f7-3xC"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -353,7 +349,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="U9M-il-Efs" kind="push" id="Oj1-j1-zFR"/>
+                                    <segue destination="U9M-il-Efs" kind="push" identifier="aboutSelected" id="Oj1-j1-zFR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdL-QG-9qU">
@@ -362,7 +358,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="mZk-8F-d1U" kind="push" id="0IL-hk-Ibx"/>
+                                    <segue destination="mZk-8F-d1U" kind="push" identifier="settingsSelected" splitViewControllerTargetIndex="0" id="0IL-hk-Ibx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -387,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICV-pi-WeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="-2302"/>
+            <point key="canvasLocation" x="1178" y="-2252"/>
         </scene>
         <!--About-->
         <scene sceneID="0JE-bT-JtN">
@@ -451,7 +447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEf-Yh-Ec6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="-2302"/>
+            <point key="canvasLocation" x="1622" y="-2246"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KTr-eN-C9D">
@@ -469,18 +465,37 @@
             </objects>
             <point key="canvasLocation" x="730" y="-2252"/>
         </scene>
-        <!--Haikara-->
+        <!--Highkara-->
         <scene sceneID="d9j-Xv-lyB">
             <objects>
-                <splitViewController title="Haikara" id="WHp-35-hiD" sceneMemberID="viewController">
+                <splitViewController title="Highkara" id="WHp-35-hiD" sceneMemberID="viewController">
                     <connections>
                         <segue destination="2eb-RL-0np" kind="relationship" relationship="masterViewController" id="uSq-Fp-GHh"/>
-                        <segue destination="exn-nL-O7c" kind="relationship" relationship="detailViewController" id="qwr-sX-9e1"/>
+                        <segue destination="kTd-Wf-Puh" kind="relationship" relationship="detailViewController" id="qwr-sX-9e1"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mi-Zt-i1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="188" y="-1936"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fLR-dg-L0q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kTd-Wf-Puh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ot9-mI-Ogt"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xH-dW-3Lp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="exn-nL-O7c" kind="relationship" relationship="rootViewController" id="GZT-X5-sVg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ICf-Nr-PsU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="730" y="-1500"/>
         </scene>
     </scenes>
     <resources>
@@ -495,6 +510,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vA5-f7-3xC"/>
+        <segue reference="zyO-z2-YeD"/>
     </inferredMetricsTieBreakers>
 </document>

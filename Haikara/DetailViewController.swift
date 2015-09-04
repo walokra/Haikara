@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let cellIdentifier = "tableCell"
 	var entries = NSMutableOrderedSet()
@@ -127,6 +127,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		// Get the new view controller using [segue destinationViewController].
 		// Pass the selected object to the new view controller.
+
 		if segue.identifier == "NewsItemDetails" {
 			let path = self.tableView!.indexPathForSelectedRow()!
 			let row = path.row
@@ -134,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			let tableSection = sections[sortedSections[path.section]]
 			let tableItem = tableSection![row]
 			
-//			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
+			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
 			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
 			if (tableItem.mobileLink?.isEmpty != nil && settings.useMobileUrl) {
 				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.originalURL
@@ -249,4 +250,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		// Dispose of any resources that can be recreated.
 	}
 
+}
+
+extension DetailViewController: CategorySelectionDelegate {
+	func categorySelected(newCategory: Category) {
+		self.page = 1
+		self.navigationItem.title = newCategory.title
+		self.highFiSection = newCategory.htmlFilename
+		getNews(self.page)
+	}
 }

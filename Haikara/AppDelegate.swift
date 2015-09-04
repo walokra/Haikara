@@ -21,6 +21,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setCache()
         
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+
+        let leftNavController = splitViewController.viewControllers.first as! UINavigationController
+        let masterViewController = leftNavController.topViewController as! MasterViewController
+        
+        let rightNavController = splitViewController.viewControllers.last as! UINavigationController
+        let detailViewController = rightNavController.topViewController as! DetailViewController
+        
+        masterViewController.delegate = detailViewController
+
+        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        
         return true
     }
     
