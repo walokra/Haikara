@@ -150,6 +150,20 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
     // MARK: - Table view data source
 
+	// Change the color of the section bg and font
+	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		
+		// This changes the header background
+		view.tintColor = UIColor.lightGrayColor()
+	
+		// UIColor(red: 254.0/255.0, green: 190.0/255.0, blue: 127.0/255.0, alpha: 1)
+		
+		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
+		var headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+		headerView.textLabel.textColor = UIColor.blackColor()
+		
+	}
+	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
 		return self.sections.count

@@ -165,7 +165,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Categories" image="Category-32.png" id="Rwm-VB-qca"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Categories" image="ios-list-outline.png" id="Rwm-VB-qca"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lg0-cC-J0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -205,7 +205,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Filter" image="Filter-32.png" id="Og4-py-LgQ"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Filter" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -215,7 +215,7 @@
         <!--Settings-->
         <scene sceneID="b6k-at-iyD">
             <objects>
-                <viewController title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsView" title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mER-OZ-TlD"/>
                         <viewControllerLayoutGuide type="bottom" id="MnR-eo-9fz"/>
@@ -278,7 +278,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="Settings-32.png" id="UXB-uv-Inu"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="ios-gear-outline.png" id="UXB-uv-Inu"/>
                     <connections>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
@@ -322,8 +322,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AiQ-sB-TXm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="538"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AiQ-sB-TXm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" textLabel="NKF-gP-YCx" style="IBUITableViewCellStyleDefault" id="3VR-c4-1Hc">
@@ -343,41 +343,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Bb-sn-nSV">
-                                <rect key="frame" x="139" y="538" width="42" height="30"/>
-                                <state key="normal" title="About">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="U9M-il-Efs" kind="push" identifier="aboutSelected" id="Oj1-j1-zFR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdL-QG-9qU">
-                                <rect key="frame" x="16" y="538" width="57" height="30"/>
-                                <state key="normal" title="Settings">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="mZk-8F-d1U" kind="push" identifier="settingsSelected" splitViewControllerTargetIndex="0" id="0IL-hk-Ibx"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="6Bb-sn-nSV" firstAttribute="top" secondItem="AiQ-sB-TXm" secondAttribute="bottom" id="7UF-iK-xkh"/>
-                            <constraint firstItem="6Bb-sn-nSV" firstAttribute="centerX" secondItem="AiQ-sB-TXm" secondAttribute="centerX" id="Iti-Ll-WxN"/>
-                            <constraint firstAttribute="trailing" secondItem="AiQ-sB-TXm" secondAttribute="trailing" id="Qb0-pw-uOF"/>
-                            <constraint firstItem="fdL-QG-9qU" firstAttribute="leading" secondItem="B2T-O4-7Rd" secondAttribute="leadingMargin" id="Wt4-tH-LLW"/>
-                            <constraint firstItem="AiQ-sB-TXm" firstAttribute="leading" secondItem="B2T-O4-7Rd" secondAttribute="leading" id="bNy-Yf-Ay9"/>
-                            <constraint firstItem="rOY-PS-y7X" firstAttribute="top" secondItem="6Bb-sn-nSV" secondAttribute="bottom" id="cJB-EK-Mld"/>
-                            <constraint firstItem="rOY-PS-y7X" firstAttribute="top" secondItem="fdL-QG-9qU" secondAttribute="bottom" id="rP0-Nq-NCZ"/>
-                            <constraint firstItem="AiQ-sB-TXm" firstAttribute="top" secondItem="B2T-O4-7Rd" secondAttribute="top" id="toN-Ij-c18"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LYT-n3-4EF">
                         <barButtonItem key="backBarButtonItem" enabled="NO" title=" " id="dbd-Vv-rs7"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="Krv-fG-RGx">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="fdL-QG-9qU">
+                                <rect key="frame" x="205" y="6" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Settings">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="settingsButtonAction:" destination="6hf-xG-t83" eventType="touchUpInside" id="2rA-3h-0oG"/>
+                                    <segue destination="mZk-8F-d1U" kind="push" identifier="settingsSelected" splitViewControllerTargetIndex="0" id="0IL-hk-Ibx"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="settingsButton" destination="fdL-QG-9qU" id="gvv-et-HTX"/>
                         <outlet property="slideOutTableView" destination="AiQ-sB-TXm" id="1eA-hE-sYB"/>
                     </connections>
                 </viewController>
@@ -499,10 +491,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Category-32.png" width="32" height="32"/>
-        <image name="Filter-32.png" width="32" height="32"/>
-        <image name="Settings-32.png" width="32" height="32"/>
         <image name="app-logo_1024x1024.png" width="1024" height="1024"/>
+        <image name="ios-funnel.png" width="32" height="21"/>
+        <image name="ios-gear-outline.png" width="32" height="32"/>
+        <image name="ios-list-outline.png" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

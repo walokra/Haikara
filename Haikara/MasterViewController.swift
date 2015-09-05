@@ -16,6 +16,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     let settings = Settings.sharedInstance
     
+
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBAction func settingsButtonAction(sender: AnyObject) {
+    }
     @IBOutlet weak var slideOutTableView: UITableView!
     let cellIdentifier = "tableCell"
     
@@ -29,6 +33,21 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         let logo = UIImage(named: "app-logo_40x40.png")
         self.navigationItem.titleView = UIImageView(image: logo)
+        
+        // creating settings button from font
+        var settingsButtonString = String.ionIconString("ion-ios-gear-outline")
+        var settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        settingsButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        settingsButtonStringAttributed.addAttribute(
+            NSForegroundColorAttributeName,
+            value: UIColor.blackColor(),
+            range: NSRange(location: 0,length: 1)
+        )
+        
+        settingsButton.titleLabel?.textAlignment = .Center
+        settingsButton.titleLabel?.numberOfLines = 1
+        settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
+        //
         
         currentLanguage = settings.region
         

@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var useMobileUrlSwitch: UISwitch!
     @IBOutlet weak var showDescSwitch: UISwitch!
     @IBOutlet weak var countryPicker: UIPickerView!
@@ -20,7 +21,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var supportedLanguages: Array<Language> = []
     
-    //let regions: [String] = ["Finland", "Estonia", "Germany", "United States", "Norway", "Denmark", "Sweden", "Netherlands", "Italian"]
+    var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
     
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
@@ -37,6 +38,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+        
         listLanguages()
         
         showDescSwitch.on = settings.showDesc
