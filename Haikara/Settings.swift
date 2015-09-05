@@ -49,9 +49,13 @@ class Settings {
             println(__FUNCTION__)
         #endif
         
+        let dictionary = NSBundle.mainBundle().infoDictionary!
+        let version = dictionary["CFBundleShortVersionString"] as! String
+        let build = dictionary["CFBundleVersion"] as! String
+        
         self.APIKEY = ""
-        self.appID = "Haikara, 0.4.0-1 (iOS)"
-	self.appID = "Highkara, 0.4.0-1 (iOS)"
+        
+        self.appID = "Highkara, \(version)-\(build) (iOS)"
         
         self.highFiEndpoint = "json-private"
         self.highFiActCategory = "listCategories"

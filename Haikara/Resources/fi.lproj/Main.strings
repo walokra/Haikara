@@ -74,9 +74,6 @@
 /* Class = "UILabel"; text = "powered by high.fi"; ObjectID = "ocI-7q-PAB"; */
 "ocI-7q-PAB.text" = "voimanlähteenä high.fi";
 
-/* Class = "UILabel"; text = "0.2.0"; ObjectID = "ori-yr-FzX"; */
-"ori-yr-FzX.text" = "0.2.0";
-
 /* Class = "UILabel"; text = "Region for categories"; ObjectID = "pYl-NQ-OlI"; */
 "pYl-NQ-OlI.text" = "Uutissyötteiden alueasetus";
 

@@ -10,18 +10,17 @@ import UIKit
 
 class InfoController: UIViewController {
 
+    @IBOutlet weak var infoLabel: UILabel!
     @IBAction func openHighFi(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
     }
     
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var versioLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let settings = Settings()
 
-        versioLabel.text = settings.appID
+        infoLabel.text = settings.appID + " by Marko Wallin"
     }
 
     override func didReceiveMemoryWarning() {
