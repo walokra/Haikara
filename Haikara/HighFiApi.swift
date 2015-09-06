@@ -10,10 +10,10 @@ import UIKit
 
 import Alamofire
 
-class HighFiApi {
-    
+public class HighFiApi {
+        
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
-    class func getNews(page: Int, section: String, completionHandler:(result: Array<Entry>) -> Void) {
+    class func getNews(page: Int, section: String, successHandler: (Array<Entry>) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             println("HighFiApi.getNews: \(page), \(section)")
         #endif
@@ -31,49 +31,64 @@ class HighFiApi {
         }
         feed = feed + settings.highFiEndpoint
         
-        // Alamofire.request is non-blocking call so we cannot return from this function
-        // using the completion handler to return values
-        Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
-            .responseJSON() { (request, response, data, error: NSError?) in
-				#if DEBUG
+        let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
+        request.validate()
+        request.response {request, response, data, error in
+                #if DEBUG
                     println("HighFiApi, request: \(request)")
 //					println("response: \(response)")
 //					println("json: \(theJSON)")
-				#endif
-				
-                if error == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                        let responseData = (data!.valueForKey("responseData") as! NSDictionary)
-                        let feed = (responseData.valueForKey("feed") as! NSDictionary)
-                        let entries: Array<Entry> = (feed.valueForKey("entries") as! [NSDictionary])
-                            //.filter({ ($0["sectionID"] as! Int) == 98 })
-                            .map { Entry(
-                                title: $0["title"] as! String,
-                                link: $0["link"] as! String,
-                                author: $0["author"] as! String,
-                                publishedDateJS: $0["publishedDateJS"] as! String,
-                                shortDescription: $0["shortDescription"] as? String,
-                                originalURL: $0["originalURL"] as! String,
-                                mobileLink: $0["mobileLink"] as? String,
-                                originalMobileUrl: $0["originalMobileUrl"] as?	String,
-                                //	let picture: String?
-                                //	let originalPicture: String?
-                                articleID: $0["articleID"] as! Int,
-                                sectionID: $0["sectionID"] as! Int,
-                                sourceID: $0["sourceID"] as! Int,
-                                highlight: $0["highlight"] as! Bool,
-                                timeSince: "Juuri nyt"
-                                )
-                        }
-//                        println("entries: \(entries.count)")
-                        
-                        completionHandler(result: entries)
-                    }
-                } else {
+                #endif
+                
+                let data = data as? NSData
+                
+                if data == nil {
+                    #if DEBUG
+                        println("HighFiApi, request error, no data")
+                    #endif
+                    failureHandler(settings.errorAPINoData)
+                    return
+                } else if let error = error {
                     #if DEBUG
                         println("HighFiApi, error: \(error)")
                     #endif
-                    self.showError(error!.localizedDescription)
+                    failureHandler(error.localizedDescription)
+                    return
+                }
+
+                var serializationError: NSError?
+                
+                if let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments, error: &serializationError) {
+                    let responseData = (json.valueForKey("responseData") as! NSDictionary)
+                    let feed = (responseData.valueForKey("feed") as! NSDictionary)
+                    let entries: Array<Entry> = (feed.valueForKey("entries") as! [NSDictionary])
+                        //.filter({ ($0["sectionID"] as! Int) == 98 })
+                        .map { Entry(
+                            title: $0["title"] as! String,
+                            link: $0["link"] as! String,
+                            author: $0["author"] as! String,
+                            publishedDateJS: $0["publishedDateJS"] as! String,
+                            shortDescription: $0["shortDescription"] as? String,
+                            originalURL: $0["originalURL"] as! String,
+                            mobileLink: $0["mobileLink"] as? String,
+                            originalMobileUrl: $0["originalMobileUrl"] as?	String,
+                            //	let picture: String?
+                            //	let originalPicture: String?
+                            articleID: $0["articleID"] as! Int,
+                            sectionID: $0["sectionID"] as! Int,
+                            sourceID: $0["sourceID"] as! Int,
+                            highlight: $0["highlight"] as! Bool,
+                            timeSince: "Juuri nyt"
+                            )
+                    }
+                    // println("entries: \(entries.count)")
+                    
+                    successHandler(entries)
+                } else {
+                    #if DEBUG
+                        println("HighFiApi, failed to serialize json: \(serializationError)")
+                    #endif
+                    failureHandler(settings.errorAPIParse + " \(serializationError)")
                 }
         }
     }
@@ -88,13 +103,13 @@ class HighFiApi {
             .response { (request, response, data, error) in
                 #if DEBUG
                     println(request)
-                    //						println(response)
-                    //						println(error)
+                    // println(response)
+                    // println(error)
                 #endif
         }
     }
     
-    class func getCategories(completionHandler:(result: [Category]) -> Void) {
+    class func getCategories(successHandler: ([Category]) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             println("HighFiApi.getCategories()")
         #endif
@@ -108,47 +123,64 @@ class HighFiApi {
 
         let url = "http://" + settings.domainToUse + "/api/"
         
-        Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
-            .responseJSON() { (request, response, JSON, error: NSError?) in
+        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
+        request.validate()
+        request.response {request, response, data, error in
+            #if DEBUG
+                println("HighFiApi, request: \(request)")
+                // println("response: \(response)")
+                // println("json: \(theJSON)")
+            #endif
+            
+            let data = data as? NSData
+            
+            if data == nil {
                 #if DEBUG
-                    println("HighFiApi, request: \(request)")
-                    // println("response: \(response)")
-                    // println("json: \(theJSON)")
+                    println("HighFiApi, request error, no data")
                 #endif
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                        let data = (JSON!.valueForKey("responseData") as! NSDictionary)
-                        var categories = (data.valueForKey("categories") as! [NSDictionary])
-                            .filter({ ($0["depth"] as! Int) == 1 })
-                            .map { Category(
-                                title: $0["title"] as! String,
-                                sectionID: $0["sectionID"] as! Int,
-                                depth: $0["depth"] as! Int,
-                                htmlFilename: $0["htmlFilename"] as! String
-                                )
-                        }
-                        //                        println("categories: \(categories.count)")
-                        
-                        // Adding always present categories: generic and top
-                        var cat = [Category]()
-                        cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart))
-                        cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top"))
-                        
-                        completionHandler(result: cat + categories)
+                failureHandler(settings.errorAPINoData)
+                return
+            } else if let error = error {
+                #if DEBUG
+                    println("HighFiApi, error: \(error)")
+                #endif
+                failureHandler(error.localizedDescription)
+                return
+            }
+            
+            var serializationError: NSError?
+            
+            if let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments, error: &serializationError) {
+                let responseData = (json.valueForKey("responseData") as! NSDictionary)
+                var categories = (responseData.valueForKey("categories") as! [NSDictionary])
+                    .filter({ ($0["depth"] as! Int) == 1 })
+                    .map { Category(
+                        title: $0["title"] as! String,
+                        sectionID: $0["sectionID"] as! Int,
+                        depth: $0["depth"] as! Int,
+                        htmlFilename: $0["htmlFilename"] as! String
+                        )
                     }
-                } else {
-                    #if DEBUG
-                        println("HighFiApi, error: \(error)")
-                    #endif
-                    self.showError(error!.localizedDescription)
-                }
+                    // println("categories: \(categories.count)")
+                        
+                    // Adding always present categories: generic and top
+                    var cat = [Category]()
+                    cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart))
+                    cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top"))
+            
+                    successHandler(cat + categories)
+            } else {
+                #if DEBUG
+                    println("HighFiApi, failed to serialize json: \(serializationError)")
+                #endif
+                failureHandler(settings.errorAPIParse + " \(serializationError)")
+            }
         }
     }
-    
+
     // You should cache this method's return value for min 24h
     // http://high.fi/api/?act=listLanguages&APIKEY=123
-    class func listLanguages(completionHandler:(result: Array<Language>) -> Void) {
+    class func listLanguages(successHandler: (Array<Language>) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             println("HighFiApi.listLanguages()")
         #endif
@@ -160,51 +192,60 @@ class HighFiApi {
             "Cache-Control": "private, must-revalidate, max-age=84600"
         ]
         
-        let endpoint = "http://" + settings.domainToUse + "/api"
+        let url = "http://" + settings.domainToUse + "/api"
         
-        Manager.sharedInstance.request(.GET, endpoint, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY])
-            .responseJSON() { (request, response, data, error) in
+        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY])
+        request.validate()
+        request.response {request, response, data, error in
+            #if DEBUG
+                println("HighFiApi, request: \(request)")
+                // println("response: \(response)")
+                // println("json: \(theJSON)")
+            #endif
+            
+            let data = data as? NSData
+            
+            if data == nil {
                 #if DEBUG
-                    println("HighFiApi, request: \(request)")
-                    //                println("response: \(response)")
-                    //                println("json: \(data)")
+                    println("HighFiApi, request error, no data")
                 #endif
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                        let responseData = (data!.valueForKey("responseData") as! NSDictionary)
-                        let languages = (responseData.valueForKey("supportedLanguages") as! [NSDictionary])
-                            .map { Language(
-                                language: $0["language"] as! String,
-                                country: $0["country"] as! String,
-                                domainToUse: $0["domainToUse"] as! String,
-                                languageCode: $0["languageCode"] as! String,
-                                mostPopularName: $0["mostPopularName"] as! String,
-                                latestName: $0["latestName"] as! String,
-                                useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
-                                genericNewsURLPart: $0["genericNewsURLPart"] as! String
-                                )
-                        }
-                        #if DEBUG
-                            println("HighFiApi, languages: \(languages.count)")
-//                            println("languages: \(languages)")
-                        #endif
-                        
-                        completionHandler(result: languages)
+                failureHandler(settings.errorAPINoData)
+                return
+            } else if let error = error {
+                #if DEBUG
+                    println("HighFiApi, error: \(error)")
+                #endif
+                failureHandler(error.localizedDescription)
+                return
+            }
+            
+            var serializationError: NSError?
+            
+            if let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments, error: &serializationError) {                                                let responseData = (json.valueForKey("responseData") as! NSDictionary)
+                let languages = (responseData.valueForKey("supportedLanguages") as! [NSDictionary])
+                    .map { Language(
+                        language: $0["language"] as! String,
+                        country: $0["country"] as! String,
+                        domainToUse: $0["domainToUse"] as! String,
+                        languageCode: $0["languageCode"] as! String,
+                        mostPopularName: $0["mostPopularName"] as! String,
+                        latestName: $0["latestName"] as! String,
+                        useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
+                        genericNewsURLPart: $0["genericNewsURLPart"] as! String
+                        )
                     }
-                } else {
                     #if DEBUG
-                        println("HighFiApi, error: \(error)")
+                        println("HighFiApi, languages: \(languages.count)")
+                        //println("languages: \(languages)")
                     #endif
-                    self.showError(error!.localizedDescription)
-                }
+                        
+                successHandler(languages)
+            } else {
+                #if DEBUG
+                    println("HighFiApi, failed to serialize json: \(serializationError)")
+                #endif
+                failureHandler(settings.errorAPIParse + " \(serializationError)")
+            }
         }
-    }
-    
-    // TODO: Showing error message but not using UIAlertController as there's no need for push notifications
-    class func showError(errormsg: String) {
-        #if DEBUG
-            println("HighFiApi, error: \(errormsg)")
-        #endif
     }
 }

@@ -14,17 +14,23 @@ protocol CategorySelectionDelegate: class {
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
-    let settings = Settings.sharedInstance
+    struct MainStoryboard {
+        struct TableViewCellIdentifiers {
+            static let listCategoryCell = "tableCell"
+        }
+    }
     
+    let settings = Settings.sharedInstance
 
     @IBOutlet weak var settingsButton: UIButton!
     @IBAction func settingsButtonAction(sender: AnyObject) {
     }
     @IBOutlet weak var slideOutTableView: UITableView!
-    let cellIdentifier = "tableCell"
     
     var categories = [Category]()
     var currentLanguage: String = "Finland"
+    
+    var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     weak var delegate: CategorySelectionDelegate?
     
@@ -69,14 +75,25 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func getCategories(){
-        HighFiApi.getCategories() {
-            (result: [Category]) in
-            dispatch_async(dispatch_get_main_queue()) {
+        HighFiApi.getCategories(
+            { (result: [Category]) -> Void in
                 self.categories = result
                 self.slideOutTableView!.reloadData()
                 return
-            }
-        }
+            }, failureHandler: { (error: String) -> Void in
+                self.handleError(error)
+        })
+    }
+    
+    func handleError(error: String) {
+        #if DEBUG
+            println("handleError, error: \(error)")
+        #endif
+        let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true){}
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,10 +103,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) as! UITableViewCell
         
         let tableItem: Category = categories[indexPath.row] as Category
-//        println("tableItem=\(tableItem)")
 
         cell.textLabel!.text = tableItem.title
         
@@ -103,9 +119,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCategory = self.categories[indexPath.row]
-        self.delegate?.categorySelected(selectedCategory)
         
         if let detailViewController = self.delegate as? DetailViewController {
+            self.delegate?.categorySelected(selectedCategory)
             splitViewController?.showDetailViewController(detailViewController.navigationController, sender: nil)
         }
 

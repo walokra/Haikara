@@ -23,10 +23,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	var highFiSection: String = "uutiset"
 	
 	var navigationItemTitle: String = NSLocalizedString("MAIN_TITLE", comment: "Title for main view")
+	var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 
 	@IBOutlet weak var tableView: UITableView!
 
-	var refreshControl:UIRefreshControl!
+	var refreshControl: UIRefreshControl!
 
 	let calendar = NSCalendar.autoupdatingCurrentCalendar()
 	let dateFormatter = NSDateFormatter()
@@ -37,8 +38,18 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	// MARK: Lifecycle
 	
     override func viewDidLoad() {
+		#if DEBUG
+			println("viewDidLoad()")
+		#endif
         super.viewDidLoad()
 		
+		self.initView()
+    }
+	
+	func initView() {
+		#if DEBUG
+			println("initView()")
+		#endif
 		self.navigationItem.title = navigationItemTitle
 		
 		self.tableView!.delegate=self
@@ -48,26 +59,39 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
-
-//		self.tableFooter.hidden = true
+		
+		// self.tableFooter.hidden = true
 		
 		self.page = 1
 		getNews(self.page)
-				
+		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
 		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
-    }
+	}
+	
+	func handleError(error: String) {
+		#if DEBUG
+			println("handleError, error: \(error)")
+		#endif
+		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
+		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+		alertController.addAction(OKAction)
+		
+		self.presentViewController(alertController, animated: true){}
+	}
 	
 	func getNews(page: Int) {
 		if (!self.loading) {
 			self.setLoadingState(true)
 			// with trailing closure we get the results that we passed the closure back in async function
-			HighFiApi.getNews(self.page, section: highFiSection) {
-				(result: Array<Entry>) in
-				self.setNews(result)
-			}
+			HighFiApi.getNews(self.page, section: highFiSection,
+				successHandler: { (result: Array<Entry>) -> Void in
+					self.setNews(result)
+				}, failureHandler: { (error: String) -> Void in
+					self.handleError(error)
+			})
 		}
 	}
 	
@@ -124,30 +148,35 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	// MARK: - Navigation
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		// Get the new view controller using [segue destinationViewController].
-		// Pass the selected object to the new view controller.
-
-		if segue.identifier == "NewsItemDetails" {
-			let path = self.tableView!.indexPathForSelectedRow()!
-			let row = path.row
-			
-			let tableSection = sections[sortedSections[path.section]]
-			let tableItem = tableSection![row]
-			
-			println("mobileLink= \(tableItem.mobileLink), link= \(tableItem.link)")
-			(segue.destinationViewController as! NewsItemViewController).title = tableItem.title
-			if (tableItem.mobileLink?.isEmpty != nil && settings.useMobileUrl) {
-				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.originalURL
-			} else {
-				(segue.destinationViewController as! NewsItemViewController).webSite = tableItem.mobileLink
-			}
-			
-			// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
-			HighFiApi.trackNewsClick(tableItem.link)
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let path = self.tableView!.indexPathForSelectedRow()!
+		let row = path.row
+		
+		let tableSection = sections[sortedSections[path.section]]
+		let tableItem = tableSection![row]
+		
+		var webURL = NSURL(string: tableItem.originalURL)
+		var trackingLink = tableItem.link
+		if (tableItem.originalMobileUrl?.isEmpty != nil && settings.useMobileUrl) {
+			webURL = NSURL(string: tableItem.originalMobileUrl!)
+			trackingLink = tableItem.mobileLink!
+		}
+		#if DEBUG
+			println("didSelectRowAtIndexPath, webURL, \(webURL)")
+			println("didSelectRowAtIndexPath, trackingLink, \(webURL)")
+		#endif
+		
+		let vc = NewsItemViewController()
+		vc.title = tableItem.title
+		vc.loadWebView(webURL!)
+		self.navigationController?.pushViewController(vc, animated: true)
+		
+		// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+			HighFiApi.trackNewsClick(trackingLink)
 		}
 	}
-
+	
     // MARK: - Table view data source
 
 	// Change the color of the section bg and font
@@ -180,7 +209,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
-//		println("tableItem=\(tableItem)")
 		cell.entryTitle.text = tableItem.title
 		cell.entryAuthor.text = tableItem.author
 		if tableItem.shortDescription != "" && settings.showDesc {
@@ -216,7 +244,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		}
 	}
 	
-	func setLoadingState(loading:Bool) {
+	func setLoadingState(loading: Bool) {
 		self.loading = loading
 		self.loadingIndicator.hidden = !loading
 		if (loading) {

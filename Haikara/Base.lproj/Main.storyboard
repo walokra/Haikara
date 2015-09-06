@@ -8,7 +8,7 @@
         <!--Detail-->
         <scene sceneID="VxO-rk-Dux">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" title="Detail" id="exn-nL-O7c" customClass="DetailViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailViewController" title="Detail" id="exn-nL-O7c" customClass="DetailViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3uu-8b-MAY"/>
                         <viewControllerLayoutGuide type="bottom" id="h25-NN-afO"/>
@@ -68,7 +68,6 @@
                                             <outlet property="entryAuthor" destination="fLp-v4-zcy" id="2KX-0c-2WJ"/>
                                             <outlet property="entryDescription" destination="4SW-bs-Kz2" id="jul-be-F73"/>
                                             <outlet property="entryTitle" destination="qfL-UQ-PDu" id="V9t-x7-S4w"/>
-                                            <segue destination="fo2-gm-XwB" kind="push" identifier="NewsItemDetails" splitViewControllerTargetIndex="1" id="Yjr-Xj-yfK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -103,7 +102,7 @@
         <!--News Item View Controller-->
         <scene sceneID="cF1-oy-bt1">
             <objects>
-                <viewController storyboardIdentifier="NewsItemViewController" id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newsItemViewController" id="fo2-gm-XwB" customClass="NewsItemViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="25k-qC-DHb"/>
                         <viewControllerLayoutGuide type="bottom" id="Bbm-FL-ahV"/>
@@ -358,7 +357,7 @@
         <!--Menu-->
         <scene sceneID="m8L-gu-cOX">
             <objects>
-                <viewController storyboardIdentifier="MasterViewController" title="Menu" id="6hf-xG-t83" customClass="MasterViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="masterViewController" title="Menu" id="6hf-xG-t83" customClass="MasterViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bce-ln-6GG"/>
                         <viewControllerLayoutGuide type="bottom" id="rOY-PS-y7X"/>
@@ -500,7 +499,7 @@
         <!--Navigation Controller-->
         <scene sceneID="KTr-eN-C9D">
             <objects>
-                <navigationController id="2eb-RL-0np" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="masterViewNavigationController" id="2eb-RL-0np" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="szI-i5-3be">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -529,7 +528,7 @@
         <!--Navigation Controller-->
         <scene sceneID="fLR-dg-L0q">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kTd-Wf-Puh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="detailViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="kTd-Wf-Puh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ot9-mI-Ogt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xH-dW-3Lp">

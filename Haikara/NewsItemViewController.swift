@@ -11,37 +11,32 @@ import WebKit
 
 class NewsItemViewController: UIViewController {
 
-    @IBOutlet var containerView : UIView? = nil
+    @IBOutlet var containerView: UIView? = nil
     var webView: WKWebView?
-    var webSite: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func loadWebView(url: NSURL) {
         self.webView = WKWebView()
         self.view = self.webView
         
-        if let address = webSite {
-            let webURL = NSURL(string: address)
-            webView!.loadRequest(NSURLRequest(URL: webURL!))
-        }
-
-        // Do any additional setup after loading the view.
+        webView!.loadRequest(NSURLRequest(URL: url))
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+//extension NewsItemViewController: LinkSelectionDelegate {
+//    func linkSelected(entry: Entry) {
+//        #if DEBUG
+//            println("linkSelected")
+//        #endif
+//        self.entry = entry
+//        self.loadWebView()
+//    }
+//}

@@ -44,6 +44,10 @@ class Settings {
     var useMobileUrl: Bool // Prefer mobile optimized URLs
     var region: String // http://high.fi/api/?act=listLanguages
     
+    // Messages
+    let errorAPINoData: String = NSLocalizedString("ERROR_API_NO_DATA", comment: "Error text when no data from API.")
+    let errorAPIParse: String = NSLocalizedString("ERROR_API_PARSE", comment: "Error text when data serialization fails.")
+    
     init() {
         #if DEBUG
             println(__FUNCTION__)

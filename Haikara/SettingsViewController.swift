@@ -22,7 +22,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var supportedLanguages: Array<Language> = []
     
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
-    
+    var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
+
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
         defaults.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
@@ -107,33 +108,45 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     // The list of currently supported by the server. 
     func listLanguages(){
-        HighFiApi.listLanguages() {
-            (result: Array<Language>) in
-        
-            dispatch_async(dispatch_get_main_queue()) {
-                // Clear old entries
-                self.supportedLanguages = Array(result)
-//                        #if DEBUG
-//                            println("supportedLanguages=\(self.supportedLanguages)")
-//                        #endif
-            
-                self.countryPicker!.reloadAllComponents()
-            
-                var defaultRowIndex = 0
-                for (index, element) in enumerate(self.supportedLanguages) {
-                    var lang = element as Language
-                    if (lang.country == self.settings.region) {
-                        defaultRowIndex = index
+        HighFiApi.listLanguages(
+            { (result: Array<Language>) -> Void in
+                dispatch_async(dispatch_get_main_queue()) {
+                    // Clear old entries
+                    self.supportedLanguages = Array(result)
+                    //                        #if DEBUG
+                    //                            println("supportedLanguages=\(self.supportedLanguages)")
+                    //                        #endif
+                    
+                    self.countryPicker!.reloadAllComponents()
+                    
+                    var defaultRowIndex = 0
+                    for (index, element) in enumerate(self.supportedLanguages) {
+                        var lang = element as Language
+                        if (lang.country == self.settings.region) {
+                            defaultRowIndex = index
+                        }
                     }
+                    #if DEBUG
+                        println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+                    #endif
+                    self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+                    
+                    return
                 }
-                #if DEBUG
-                    println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
-                #endif
-                self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
-            
-                return
-            }
-        }
+            }, failureHandler: { (error: String) -> Void in
+                self.handleError(error)
+        })
+    }
+    
+    func handleError(error: String) {
+        #if DEBUG
+            println("handleError, error: \(error)")
+        #endif
+        let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true){}
     }
 
 }
