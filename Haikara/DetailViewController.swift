@@ -35,6 +35,15 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 	var loading = false
 	
+	// grey 99
+	let oddRowColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
+	// white smoke
+	let evenRowColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1)
+	// high green
+	let sectionColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
+	// high orange
+	// 242 137 32
+	
 	// MARK: Lifecycle
 	
     override func viewDidLoad() {
@@ -183,9 +192,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		
 		// This changes the header background
-		view.tintColor = UIColor.lightGrayColor()
-	
-		// UIColor(red: 254.0/255.0, green: 190.0/255.0, blue: 127.0/255.0, alpha: 1)
+		view.tintColor = sectionColor
 		
 		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
 		var headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
@@ -216,6 +223,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		}
 		if tableItem.highlight == true {
 			cell.highlighted = true
+		}
+		
+		if (indexPath.row % 2 == 0) {
+			cell.backgroundColor = evenRowColor
+		} else {
+			cell.backgroundColor = oddRowColor
 		}
 		
 		return cell
