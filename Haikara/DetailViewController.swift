@@ -24,6 +24,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	var navigationItemTitle: String = NSLocalizedString("MAIN_TITLE", comment: "Title for main view")
 	var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
+	var shareButtonText: String = NSLocalizedString("SHARE_BUTTON", comment: "Text for share button")
 
 	@IBOutlet weak var tableView: UITableView!
 
@@ -210,7 +211,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		return self.sections[sortedSections[section]]!.count
     }
 	
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
 		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
 
@@ -234,8 +235,46 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		return cell
     }
 	
+	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+		var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
+			(action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+			let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
+			
+			let tableSection = self.sections[self.sortedSections[indexPath.section]]
+			let tableItem = tableSection![indexPath.row]
+			
+			var webURL = tableItem.originalURL
+			if (tableItem.originalMobileUrl?.isEmpty != nil && self.settings.useMobileUrl) {
+				webURL = tableItem.originalMobileUrl!
+			}
+			
+			let objectsToShare = [tableItem.title, webURL]
+			let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+			
+			self.presentViewController(activityViewController, animated: true, completion: nil)
+			
+			// if iPad ?
+//			if let popPresentationController : UIPopoverPresentationController = activityViewController.popoverPresentationController {
+//					// If this happens you'll need to set the UIPopoverPresentationController properties of sourceView, sourceRect and permittedArrowDirections
+//			}
+		}
+//		Background color gets tiled, not good
+//		shareAction.backgroundColor = UIColor(patternImage: UIImage(named:"share")!)
+		
+		return [shareAction]
+	}
+	
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return sortedSections[section]
+	}
+	
+	// Enable swiping for showing action buttons
+	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
+	}
+	
+	// We need empty implementation to get editActionsForRowAtIndexPath to work.
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 	}
 	
 	func scrollToTop() {

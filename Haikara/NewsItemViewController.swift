@@ -31,12 +31,3 @@ class NewsItemViewController: UIViewController {
     }
 }
 
-//extension NewsItemViewController: LinkSelectionDelegate {
-//    func linkSelected(entry: Entry) {
-//        #if DEBUG
-//            println("linkSelected")
-//        #endif
-//        self.entry = entry
-//        self.loadWebView()
-//    }
-//}

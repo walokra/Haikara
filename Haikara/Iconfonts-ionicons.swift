@@ -56,19 +56,12 @@ public extension NSMutableAttributedString {
 
 
 func fetchIconIonIcon(name: String) -> String {
-    
     // default showing question mark, ion-help
     var returnValue = "\u{f143}"
-    let start = name[advance(name.startIndex, 8)]
-    
-    switch start {
-    case "g":
-        switch name {
+    switch name {
         case "ion-ios-gear-outline": returnValue = "\u{f43c}"
+        case "ion-android-share-alt": returnValue = "\u{f3ac}"
         default : returnValue =  "\u{f143}"
-        }
-    default:
-        returnValue =  "\u{f143}"
     }
     
     return returnValue
