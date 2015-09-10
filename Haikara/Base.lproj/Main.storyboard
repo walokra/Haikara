@@ -223,123 +223,98 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZx-dp-6bC">
-                                <rect key="frame" x="16" y="250" width="288" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XV4-KX-BA2">
-                                <rect key="frame" x="16" y="149" width="288" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DVT-ER-0KL">
-                                <rect key="frame" x="16" y="481" width="288" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prefer mobile sites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-JJ-PjM">
-                                <rect key="frame" x="16" y="80" width="231" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show synopsis or abbreviation of the news story if available." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-lp-5fT">
-                                <rect key="frame" x="16" y="107" width="231" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-Di-V4Q">
-                                <rect key="frame" x="255" y="93" width="51" height="31"/>
-                                <connections>
-                                    <action selector="useMobileUrl:" destination="PfJ-fU-JDr" eventType="valueChanged" id="bej-gU-e0a"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use mobile optimized address for the story if available otherwise use normal address." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-yO-xei">
-                                <rect key="frame" x="16" y="191" width="231" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMk-4q-CbN">
-                                <rect key="frame" x="255" y="184" width="51" height="31"/>
-                                <connections>
-                                    <action selector="showDesc:" destination="PfJ-fU-JDr" eventType="valueChanged" id="OOG-Lq-OeM"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvj-bp-i9F">
-                                <rect key="frame" x="16" y="163" width="231" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region for categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYl-NQ-OlI">
-                                <rect key="frame" x="16" y="263" width="296" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Vv-Pac">
-                                <rect key="frame" x="16" y="308" width="288" height="162"/>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select news portal's region for categories." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIB-wJ-NC2">
-                                <rect key="frame" x="16" y="291" width="288" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-nU-aju">
-                                <rect key="frame" x="16" y="489" width="288" height="30"/>
-                                <state key="normal" title="About">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="U9M-il-Efs" kind="push" id="UJn-Nc-Wap"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-dO-bC7">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="288" placeholderIntrinsicHeight="423" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-En-jtv">
+                                        <rect key="frame" x="0.0" y="0.0" width="307" height="455"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prefer mobile sites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-JJ-PjM">
+                                                <rect key="frame" x="9" y="86" width="142.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show synopsis or abbreviation of the news story if available." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-lp-5fT">
+                                                <rect key="frame" x="9" y="36" width="219" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-Di-V4Q">
+                                                <rect key="frame" x="248" y="107" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="useMobileUrl:" destination="PfJ-fU-JDr" eventType="valueChanged" id="bej-gU-e0a"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use mobile optimized address for the story if available otherwise use normal address." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-yO-xei">
+                                                <rect key="frame" x="9" y="113" width="219" height="43"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMk-4q-CbN">
+                                                <rect key="frame" x="248" y="24" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="showDesc:" destination="PfJ-fU-JDr" eventType="valueChanged" id="OOG-Lq-OeM"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Region for categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYl-NQ-OlI">
+                                                <rect key="frame" x="9" y="177" width="296" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select news portal's region for categories." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIB-wJ-NC2">
+                                                <rect key="frame" x="9" y="205" width="288" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Vv-Pac">
+                                                <rect key="frame" x="9" y="205" width="272" height="162"/>
+                                            </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-nU-aju">
+                                                <rect key="frame" x="9" y="410" width="272" height="30"/>
+                                                <state key="normal" title="About">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="U9M-il-Efs" kind="push" id="UJn-Nc-Wap"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvj-bp-i9F">
+                                                <rect key="frame" x="8" y="12" width="134" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="KzN-En-jtv" secondAttribute="bottom" id="08X-T4-UJi"/>
+                                    <constraint firstAttribute="centerX" secondItem="KzN-En-jtv" secondAttribute="centerX" id="1kg-cV-mHW"/>
+                                    <constraint firstItem="KzN-En-jtv" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="top" id="3fA-7y-0qi"/>
+                                    <constraint firstAttribute="width" secondItem="KzN-En-jtv" secondAttribute="width" id="7WU-7C-CqD"/>
+                                    <constraint firstAttribute="centerY" secondItem="KzN-En-jtv" secondAttribute="centerY" id="wit-gd-Hyz"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="d0n-lp-5fT" secondAttribute="trailing" constant="57" id="0ea-yD-H0K"/>
-                            <constraint firstItem="rZx-dp-6bC" firstAttribute="top" secondItem="eA7-yO-xei" secondAttribute="bottom" constant="16" id="0ma-od-scD"/>
-                            <constraint firstItem="XV4-KX-BA2" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="1rw-lZ-TPj"/>
-                            <constraint firstItem="d0n-lp-5fT" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="2zG-nT-4Xc"/>
-                            <constraint firstItem="XV4-KX-BA2" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="4Fa-Ig-29h"/>
-                            <constraint firstItem="yKD-Di-V4Q" firstAttribute="top" secondItem="mER-OZ-TlD" secondAttribute="bottom" constant="29" id="53U-jP-3D4"/>
-                            <constraint firstItem="w5e-nU-aju" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="Fwb-Ab-I40"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="eA7-yO-xei" secondAttribute="trailing" constant="57" id="Ido-uU-Ug1"/>
-                            <constraint firstItem="qvj-bp-i9F" firstAttribute="top" secondItem="d0n-lp-5fT" secondAttribute="bottom" constant="27" id="Isd-21-mcq"/>
-                            <constraint firstItem="DVT-ER-0KL" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="K46-kc-vVQ"/>
-                            <constraint firstItem="4wi-JJ-PjM" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="Mw6-UC-951"/>
-                            <constraint firstItem="pYl-NQ-OlI" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="Pgk-CT-Tle"/>
-                            <constraint firstItem="rZx-dp-6bC" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="ShA-ua-S8d"/>
-                            <constraint firstItem="qvj-bp-i9F" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="U82-Dc-ulJ"/>
-                            <constraint firstItem="WqK-Vv-Pac" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="UvC-g2-Mai"/>
-                            <constraint firstItem="oIB-wJ-NC2" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="V2K-EC-tfw"/>
-                            <constraint firstItem="CMk-4q-CbN" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="WH4-CZ-ibp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pYl-NQ-OlI" secondAttribute="trailing" constant="-8" id="X78-WF-K1A"/>
-                            <constraint firstItem="eA7-yO-xei" firstAttribute="top" secondItem="qvj-bp-i9F" secondAttribute="bottom" constant="7.5" id="YPD-IE-h1G"/>
-                            <constraint firstItem="CMk-4q-CbN" firstAttribute="top" secondItem="d0n-lp-5fT" secondAttribute="bottom" constant="48" id="YYi-7q-hlg"/>
-                            <constraint firstItem="DVT-ER-0KL" firstAttribute="top" secondItem="WqK-Vv-Pac" secondAttribute="bottom" constant="11" id="Zuf-Kh-f9T"/>
-                            <constraint firstItem="rZx-dp-6bC" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="dbw-cA-SVh"/>
-                            <constraint firstItem="eA7-yO-xei" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" id="fQE-hL-m76"/>
-                            <constraint firstItem="yKD-Di-V4Q" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="gRm-aM-H3F"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4wi-JJ-PjM" secondAttribute="trailing" constant="57" id="lB7-yE-ZF3"/>
-                            <constraint firstItem="d0n-lp-5fT" firstAttribute="top" secondItem="4wi-JJ-PjM" secondAttribute="bottom" constant="6.5" id="lIq-pw-ETg"/>
-                            <constraint firstItem="XV4-KX-BA2" firstAttribute="top" secondItem="d0n-lp-5fT" secondAttribute="bottom" constant="13" id="qhJ-a9-xKX"/>
-                            <constraint firstItem="DVT-ER-0KL" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="qs6-30-ODO"/>
-                            <constraint firstItem="w5e-nU-aju" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="rpt-eW-m2W"/>
-                            <constraint firstItem="w5e-nU-aju" firstAttribute="top" secondItem="WqK-Vv-Pac" secondAttribute="bottom" constant="19" id="sM5-OG-MsY"/>
-                            <constraint firstItem="oIB-wJ-NC2" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="skb-H0-RST"/>
-                            <constraint firstItem="4wi-JJ-PjM" firstAttribute="top" secondItem="mER-OZ-TlD" secondAttribute="bottom" constant="16" id="vhA-i0-Vm1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qvj-bp-i9F" secondAttribute="trailing" constant="57" id="wKx-Hs-cAo"/>
-                            <constraint firstItem="pYl-NQ-OlI" firstAttribute="top" secondItem="eA7-yO-xei" secondAttribute="bottom" constant="29" id="xqu-Yu-rrF"/>
-                            <constraint firstItem="WqK-Vv-Pac" firstAttribute="trailing" secondItem="g7S-hX-EUD" secondAttribute="trailingMargin" id="yBG-cN-WbU"/>
-                            <constraint firstItem="WqK-Vv-Pac" firstAttribute="top" secondItem="oIB-wJ-NC2" secondAttribute="bottom" constant="2.5" id="yzf-FO-Nj1"/>
-                            <constraint firstItem="oIB-wJ-NC2" firstAttribute="top" secondItem="pYl-NQ-OlI" secondAttribute="bottom" constant="8" id="znT-Kq-X3M"/>
+                            <constraint firstItem="7fM-dO-bC7" firstAttribute="top" secondItem="mER-OZ-TlD" secondAttribute="bottom" id="5JB-Wx-rYq"/>
+                            <constraint firstItem="MnR-eo-9fz" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="bottom" id="7Kz-sb-Bms"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7fM-dO-bC7" secondAttribute="trailing" constant="-10" id="IRa-J5-nti"/>
+                            <constraint firstItem="7fM-dO-bC7" firstAttribute="leading" secondItem="g7S-hX-EUD" secondAttribute="leadingMargin" constant="-9" id="Jjh-PX-1bm"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="ios-gear-outline.png" id="UXB-uv-Inu"/>
                     <connections>
+                        <outlet property="contentView" destination="KzN-En-jtv" id="eXb-lY-e7J"/>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
+                        <outlet property="scrollView" destination="7fM-dO-bC7" id="f74-7x-1hA"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
                         <outlet property="useMobileUrlSwitch" destination="yKD-Di-V4Q" id="WQq-Va-eHo"/>
                     </connections>
