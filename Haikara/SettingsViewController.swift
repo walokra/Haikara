@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var useMobileUrlSwitch: UISwitch!
@@ -35,10 +35,30 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         defaults.setObject(settings.showDesc, forKey: "showDesc")
 //        println ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
     }
+
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // set the frame of the scroll view to be equal to the frame of the container view
+//        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+//        let scrollViewWidth:CGFloat = self.scrollView.frame.width
+//        let scrollViewHeight:CGFloat = self.scrollView.frame.height
+//        
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width, self.scrollView.frame.height)
+
+        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        self.scrollView.contentSize = self.contentView.bounds.size
+        
+//        self.automaticallyAdjustsScrollViewInsets = false;
+        
+        self.scrollView.addSubview(contentView)
+
+        self.scrollView.delegate = self
+        //
+        
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
         
@@ -51,22 +71,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         countryPicker.delegate = self
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
-    
     override func viewDidLayoutSubviews() {
-        let scrollViewBounds = scrollView.bounds
-        let containerViewBounds = contentView.bounds
-        
-        var scrollViewInsets = UIEdgeInsetsZero
-        scrollViewInsets.top = scrollViewBounds.size.height/2.0;
-        scrollViewInsets.top -= contentView.bounds.size.height/2.0;
-        
-        scrollViewInsets.bottom = scrollViewBounds.size.height/2.0
-        scrollViewInsets.bottom -= contentView.bounds.size.height/2.0;
-        scrollViewInsets.bottom += 1
-        
-        scrollView.contentInset = scrollViewInsets
+
     }
 
     override func didReceiveMemoryWarning() {
