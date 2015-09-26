@@ -49,7 +49,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
     override func viewDidLoad() {
 		#if DEBUG
-			println("viewDidLoad()")
+			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
 		
@@ -58,7 +58,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func initView() {
 		#if DEBUG
-			println("initView()")
+			print("initView()")
 		#endif
 		self.navigationItem.title = navigationItemTitle
 		
@@ -83,7 +83,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func handleError(error: String) {
 		#if DEBUG
-			println("handleError, error: \(error)")
+			print("handleError, error: \(error)")
 		#endif
 		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
 		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -97,12 +97,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			self.setLoadingState(true)
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
-				successHandler: { (result: Array<Entry>) -> Void in
+				completionHandler:{ (result) in
+//					if let error = result.error as? NSError {
+//						self.handleError(error)
+//						return
+//					}
+					
 					self.setNews(result)
-				}, failureHandler: { (error: String) -> Void in
-					self.handleError(error)
-			})
+				})
 		}
+	}
+	
+	func handleError(error: ErrorType) {
+		
 	}
 	
 	func setNews(newsentries: Array<Entry>) {
@@ -123,8 +130,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			for item in self.entries {
 				// If we don't have section for particular time, create new one,
 				// Otherwise just add item to existing section
-				var entry = item as! Entry
-				//							println("section=\(entry.section), title=\(entry.title)")
+				let entry = item as! Entry
+				//	println("section=\(entry.section), title=\(entry.title)")
 				if self.sections[entry.timeSince] == nil {
 					self.sections[entry.timeSince] = [entry]
 				} else {
@@ -159,7 +166,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	// MARK: - Navigation
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let path = self.tableView!.indexPathForSelectedRow()!
+		let path = self.tableView!.indexPathForSelectedRow!
 		let row = path.row
 		
 		let tableSection = sections[sortedSections[path.section]]
@@ -172,8 +179,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			trackingLink = tableItem.mobileLink!
 		}
 		#if DEBUG
-			println("didSelectRowAtIndexPath, webURL, \(webURL)")
-			println("didSelectRowAtIndexPath, trackingLink, \(webURL)")
+			print("didSelectRowAtIndexPath, webURL, \(webURL)")
+			print("didSelectRowAtIndexPath, trackingLink, \(webURL)")
 		#endif
 		
 		let vc = NewsItemViewController()
@@ -196,8 +203,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		view.tintColor = sectionColor
 		
 		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
-		var headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-		headerView.textLabel.textColor = UIColor.blackColor()
+		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+		headerView.textLabel!.textColor = UIColor.blackColor()
 		
 	}
 	
@@ -235,9 +242,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		return cell
     }
 	
-	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-		var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
-			(action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+		let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
+			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
 			let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
@@ -279,7 +286,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func scrollToTop() {
 		if (self.numberOfSectionsInTableView(self.tableView) > 0 ) {
-			var top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
+			let top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
 			self.tableView.scrollToRowAtIndexPath(top, atScrollPosition: UITableViewScrollPosition.Top, animated: true);
 		}
 	}
@@ -309,8 +316,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	func getTimeSince(item: String) -> String {
 		//println("getTimeSince: \(item)")
 		if let startDate = dateFormatter.dateFromString(item) {
-			let components = calendar.components(
-				NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute, fromDate: startDate, toDate: NSDate(), options: nil)
+			let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute], fromDate: startDate, toDate: NSDate(), options: [])
 			let days = components.day
 			let hours = components.hour
 			let minutes = components.minute

@@ -26,7 +26,7 @@
 
 import Foundation
 
-struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable {
+struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStringConvertible {
     private var keyStorage: Array<KeyType> = []
     private var pairStorage: Dictionary<KeyType, ValueType> = [:]
     
@@ -76,10 +76,10 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
             return (key, value)
         }
         set(newValue) {
-            let (key: KeyType, value: ValueType) = newValue
+            let (key, value): (KeyType, ValueType) = newValue
             if let oldValue = pairStorage[key] {
                 var idx: Int = 0
-                if let keyIndex = find(keyStorage, key) {
+                if let keyIndex = keyStorage.indexOf(key) {
                     if index > keyIndex {
                         //Compensate for the deleted entry
                         idx = index - 1
@@ -102,14 +102,14 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     }
     
     /**Gets or a subrange of existing keys in an ordered dictionary using square bracket subscripting with an integer range.*/
-    subscript(#keyRange: Range<Int>) -> ArraySlice<KeyType> {
+    subscript(keyRange keyRange: Range<Int>) -> ArraySlice<KeyType> {
         get {
             return keyStorage[keyRange]
         }
     }
     
     /**Gets or a subrange of existing values in an ordered dictionary using square bracket subscripting with an integer range.*/
-    subscript(#valueRange: Range<Int>) -> ArraySlice<ValueType> {
+    subscript(valueRange valueRange: Range<Int>) -> ArraySlice<ValueType> {
         get {
             return self.values[valueRange]
         }
@@ -133,7 +133,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     
     /**Inserts at the end or updates a value for a given key and returns the previous value for that key if one existed, or nil if a previous value did not exist.*/
     mutating func updateValue(value: ValueType, forKey: KeyType) -> ValueType? {
-        var test: ValueType? = pairStorage.updateValue(value, forKey: forKey)
+        let test: ValueType? = pairStorage.updateValue(value, forKey: forKey)
         if let myValue = test {
             //The key already exists, no need to add
         } else {
@@ -146,7 +146,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     
     /**Removes the key-value pair for the specified key and returns its value, or nil if a value for that key did not previously exist.*/
     mutating func removeEntryForKey(key: KeyType) -> ValueType? {
-        if let index = find(keyStorage, key) {
+        if let index = keyStorage.indexOf(key) {
             keyStorage.removeAtIndex(index)
         }
         return pairStorage.removeValueForKey(key)
@@ -223,7 +223,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements.*/
     mutating func sort(isOrderedBefore sortFunction: ((KeyType, ValueType), (KeyType, ValueType)) -> Bool) {
         var tempArray = Array(pairStorage)
-        tempArray.sort(sortFunction)
+        tempArray.sortInPlace(sortFunction)
         keyStorage = tempArray.map({
             let (key, value) = $0
             return key
@@ -232,13 +232,13 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements by their keys.*/
     mutating func sortByKeys(isOrderedBefore sortFunction: (KeyType, KeyType) -> Bool) {
-        keyStorage.sort(sortFunction)
+        keyStorage.sortInPlace(sortFunction)
     }
     
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements by their values.*/
     mutating func sortByValues(isOrderedBefore sortFunction: (ValueType, ValueType) -> Bool) {
         var tempArray = Array(pairStorage)
-        tempArray.sort({
+        tempArray.sortInPlace({
             let (aKey, aValue) = $0
             let (bKey, bValue) = $1
             return sortFunction(aValue, bValue)
@@ -273,13 +273,13 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     /**Returns an ordered dictionary containing the elements of the receiver in reverse order by index.*/
     func reverse() -> OrderedDictionary<KeyType, ValueType> {
         var temp = OrderedDictionary(orderedDictionary: self)
-        temp.keyStorage = temp.keyStorage.reverse()
+        temp.keyStorage = Array(temp.keyStorage.reverse())
         return temp
     }
     
     /**Returns an ordered dictionary containing the elements of the receiver for which a provided closure indicates a match.*/
     func filter(includeElement filterFunction: ((KeyType, ValueType)) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
-        var tempArray = self.entries.filter(filterFunction)
+        let tempArray = self.entries.filter(filterFunction)
         var temp = OrderedDictionary()
         for entry in tempArray {
             temp.append(entry)
@@ -289,8 +289,8 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     
     /**Returns an ordered dictionary of elements built from the results of applying a provided transforming closure for each element.*/
     func map<NewKeyType, NewValueType>(transform aTransform: (KeyType, ValueType) -> (NewKeyType, NewValueType)) -> OrderedDictionary<NewKeyType, NewValueType> {
-        var tempArray = Array(pairStorage)
-        var newArray = tempArray.map(aTransform)
+        let tempArray = Array(pairStorage)
+        let newArray = tempArray.map(aTransform)
         var temp: OrderedDictionary<NewKeyType, NewValueType> = OrderedDictionary<NewKeyType, NewValueType>()
         for entry in newArray {
             temp.append(entry)
@@ -300,13 +300,13 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
     
     /**Returns an array of elements built from the results of applying a provided transforming closure for each element.*/
     func mapToArray<T>(transform aTransform: (KeyType, ValueType) -> T) -> Array<T> {
-        var tempArray = Array(pairStorage)
+        let tempArray = Array(pairStorage)
         return tempArray.map(aTransform)
     }
     
     /**Returns a single value representing the result of applying a provided reduction closure for each element.*/
     func reduce<NewKeyType, NewValueType>(initial value: (NewKeyType, NewValueType), combine combo: ((NewKeyType, NewValueType), (KeyType, ValueType)) -> (NewKeyType, NewValueType)) ->  (NewKeyType, NewValueType) {
-        var tempArray = Array(pairStorage)
+        let tempArray = Array(pairStorage)
         return tempArray.reduce(value, combine: combo)
     }
     
@@ -315,7 +315,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, Printable 
         get {
             var temp: String = "OrderedDictionary {\n"
             let entries = self.entries
-            var int = 0
+            let int = 0
             for entry in entries {
                 let (key, value) = entry
                 temp += "    [\(int)] {\(key): \(value)}\n"

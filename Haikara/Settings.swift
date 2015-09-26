@@ -50,7 +50,7 @@ class Settings {
     
     init() {
         #if DEBUG
-            println(__FUNCTION__)
+            print(__FUNCTION__)
         #endif
         
         let dictionary = NSBundle.mainBundle().infoDictionary!
@@ -65,7 +65,7 @@ class Settings {
         self.highFiActCategory = "listCategories"
         self.highFiActUsedLanguage = "usedLanguage"
         
-        var defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = NSUserDefaults.standardUserDefaults()
 
         if let useToRetrieveLists: String = defaults.objectForKey("useToRetrieveLists") as? String {
             self.useToRetrieveLists = useToRetrieveLists
@@ -99,7 +99,7 @@ class Settings {
             defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
             self.deviceID = defaults.stringForKey("deviceID")!
             #if DEBUG
-                println("Setting new deviceID value: \(self.deviceID)")
+                print("Setting new deviceID value: \(self.deviceID)")
             #endif
         }
         
@@ -121,13 +121,13 @@ class Settings {
         } else {
             self.region = "Finland"
         }
-        self.preferredLanguage = NSLocale.preferredLanguages()[0] as! String
+        self.preferredLanguage = NSLocale.preferredLanguages()[0] 
         
         #if DEBUG
 //            println("showDesc: \(self.showDesc)")
 //            println("useMobileUrl: \(self.useMobileUrl)")
 //            println("region: \(self.region)")
-            println("\(self.description)")
+            print("\(self.description)")
         #endif
     
     }

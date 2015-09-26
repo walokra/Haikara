@@ -41,8 +41,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         self.navigationItem.titleView = UIImageView(image: logo)
         
         // creating settings button from font
-        var settingsButtonString = String.ionIconString("ion-ios-gear-outline")
-        var settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        let settingsButtonString = String.ionIconString("ion-ios-gear-outline")
+        let settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         settingsButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         settingsButtonStringAttributed.addAttribute(
             NSForegroundColorAttributeName,
@@ -67,8 +67,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
-            println("Received regionChangedNotification")
-            println(notification.userInfo)
+            print("Received regionChangedNotification")
+            print(notification.userInfo)
         #endif
         
         getCategories()
@@ -76,18 +76,21 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     func getCategories(){
         HighFiApi.getCategories(
-            { (result: [Category]) -> Void in
+            { (result) in
+//				if let error = result.error as? NSError {
+//					self.handleError(error)
+//					return
+//				}
+                
                 self.categories = result
                 self.slideOutTableView!.reloadData()
                 return
-            }, failureHandler: { (error: String) -> Void in
-                self.handleError(error)
-        })
+            })
     }
     
     func handleError(error: String) {
         #if DEBUG
-            println("handleError, error: \(error)")
+            print("handleError, error: \(error)")
         #endif
         let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -103,7 +106,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) as! UITableViewCell
+        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) 
         
         let tableItem: Category = categories[indexPath.row] as Category
 
@@ -122,7 +125,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         if let detailViewController = self.delegate as? DetailViewController {
             self.delegate?.categorySelected(selectedCategory)
-            splitViewController?.showDetailViewController(detailViewController.navigationController, sender: nil)
+            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
 
         splitViewController?.preferredDisplayMode = .PrimaryHidden

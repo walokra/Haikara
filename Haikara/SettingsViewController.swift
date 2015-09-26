@@ -88,7 +88,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         return supportedLanguages.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.supportedLanguages[row].country
     }
     
@@ -101,7 +101,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         settings.domainToUse = selectedRegion.domainToUse
         settings.genericNewsURLPart = selectedRegion.genericNewsURLPart
         #if DEBUG
-            println ("selected region = \(settings.region)")
+            print ("selected region = \(settings.region)")
         #endif
 
         defaults.setObject(settings.region, forKey: "region")
@@ -112,7 +112,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         defaults.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
         
         #if DEBUG
-            println ("Settings = \(settings.description)")
+            print ("Settings = \(settings.description)")
         #endif
         
         NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedRegion]) //userInfo parameter has to be of type [NSObject : AnyObject]?
@@ -133,38 +133,41 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     // The list of currently supported by the server. 
     func listLanguages(){
         HighFiApi.listLanguages(
-            { (result: Array<Language>) -> Void in
+            { (result) in
+//                if let error = result.error as? NSError {
+//                    self.handleError(error.localizedDescription)
+//                    return
+//                }
+                
                 dispatch_async(dispatch_get_main_queue()) {
                     // Clear old entries
-                    self.supportedLanguages = Array(result)
-                    //                        #if DEBUG
-                    //                            println("supportedLanguages=\(self.supportedLanguages)")
-                    //                        #endif
+                    self.supportedLanguages = result
+//                  #if DEBUG
+//                      println("supportedLanguages=\(self.supportedLanguages)")
+//                  #endif
                     
                     self.countryPicker!.reloadAllComponents()
                     
                     var defaultRowIndex = 0
-                    for (index, element) in enumerate(self.supportedLanguages) {
-                        var lang = element as Language
+                    for (index, element) in self.supportedLanguages.enumerate() {
+                        let lang = element as Language
                         if (lang.country == self.settings.region) {
                             defaultRowIndex = index
                         }
                     }
                     #if DEBUG
-                        println("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+                        print("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
                     #endif
                     self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
                     
                     return
                 }
-            }, failureHandler: { (error: String) -> Void in
-                self.handleError(error)
-        })
+            })
     }
     
     func handleError(error: String) {
         #if DEBUG
-            println("handleError, error: \(error)")
+            print("handleError, error: \(error)")
         #endif
         let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
