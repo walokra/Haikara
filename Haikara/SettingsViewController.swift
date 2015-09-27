@@ -41,24 +41,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // set the frame of the scroll view to be equal to the frame of the container view
-//        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
-//        let scrollViewWidth:CGFloat = self.scrollView.frame.width
-//        let scrollViewHeight:CGFloat = self.scrollView.frame.height
-//        
-//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width, self.scrollView.frame.height)
-
-        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
-        self.scrollView.contentSize = self.contentView.bounds.size
         
-//        self.automaticallyAdjustsScrollViewInsets = false;
-        
-        self.scrollView.addSubview(contentView)
-
         self.scrollView.delegate = self
-        //
-        
+
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
         
@@ -72,7 +57,16 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     }
     
     override func viewDidLayoutSubviews() {
+        // set the frame of the scroll view to be equal to the frame of the container view
+        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
 
+//        self.scrollView.contentSize = self.contentView.bounds.size
+//        self.scrollView.contentSize = CGSizeMake(self.contentView.frame.width, self.contentView.frame.height)
+
+//        self.automaticallyAdjustsScrollViewInsets = false;
+        
+        self.scrollView.addSubview(contentView)
+        self.scrollView.flashScrollIndicators()
     }
 
     override func didReceiveMemoryWarning() {
