@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     @IBOutlet weak var useMobileUrlSwitch: UISwitch!
     @IBOutlet weak var showDescSwitch: UISwitch!
     @IBOutlet weak var countryPicker: UIPickerView!
+    @IBOutlet weak var useReaderViewSwitch: UISwitch!
 
     let settings = Settings.sharedInstance
 
@@ -23,7 +24,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
-
+    
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
         defaults.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
@@ -37,6 +38,14 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         defaults.setObject(settings.showDesc, forKey: "showDesc")
         #if DEBUG
             print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
+        #endif
+    }
+    
+    @IBAction func useReaderView(sender: UISwitch) {
+        settings.useReaderView = sender.on
+        defaults.setObject(settings.useReaderView, forKey: "useReaderView")
+        #if DEBUG
+            print ("useReaderView \(settings.useReaderView), sender.on=\(sender.on)")
         #endif
     }
 
@@ -55,6 +64,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
+        useReaderViewSwitch.on = settings.useReaderView
         
         countryPicker.dataSource = self
         countryPicker.delegate = self
@@ -64,12 +74,16 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         // set the frame of the scroll view to be equal to the frame of the container view
         self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
 
-//        self.scrollView.contentSize = self.contentView.bounds.size
+        self.scrollView.addSubview(contentView)
+
+        self.scrollView.contentSize = self.contentView.bounds.size
 //        self.scrollView.contentSize = CGSizeMake(self.contentView.frame.width, self.contentView.frame.height)
 
 //        self.automaticallyAdjustsScrollViewInsets = false;
         
-        self.scrollView.addSubview(contentView)
+        // Hack
+        self.scrollView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 32, right: 0)
+
         self.scrollView.flashScrollIndicators()
     }
 

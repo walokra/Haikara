@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SafariServices
+
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let cellIdentifier = "tableCell"
@@ -177,20 +179,37 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			trackingLink = tableItem.mobileLink!
 		}
 		#if DEBUG
-			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl)")
+			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl), useReaderView=\(settings.useReaderView)")
 			print("didSelectRowAtIndexPath, webURL=\(webURL)")
 			print("didSelectRowAtIndexPath, trackingLink=\(trackingLink)")
 		#endif
 		
-		let vc = NewsItemViewController()
-		vc.title = tableItem.title
-		vc.loadWebView(webURL!)
-		self.navigationController?.pushViewController(vc, animated: true)
+		if #available(iOS 9.0, *) {
+			#if DEBUG
+				print("iOS 9.0, *")
+			#endif
+			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+			self.presentViewController(svc, animated: true, completion: nil)
+		} else {
+			#if DEBUG
+				print("Fallback on earlier versions")
+			#endif
+			let vc = NewsItemViewController()
+			vc.title = tableItem.title
+			vc.loadWebView(webURL!)
+			self.navigationController?.pushViewController(vc, animated: true)
+		}
 		
 		// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 			HighFiApi.trackNewsClick(trackingLink)
 		}
+	}
+	
+	// Dismiss the view controller and return to app.
+	@available(iOS 9.0, *)
+	func safariViewControllerDidFinish(controller: SFSafariViewController) {
+		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
     // MARK: - Table view data source

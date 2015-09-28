@@ -50,6 +50,10 @@
 /* Class = "UILabel"; text = "Use mobile optimized address for the story if available otherwise use normal address."; ObjectID = "eA7-yO-xei"; */
 "eA7-yO-xei.text" = "Käytä mobiilioptimoituja osoitteita, jos saatavilla.";
 
+
+/* Class = "UILabel"; text = "Use Reader View while reading news if available."; ObjectID = "ebh-f8-Wqp"; */
+"ebh-f8-Wqp.text" = "Käytä lukutilaa uutisia lukiessa, jos mahdollista.";
+
 /* Class = "UIViewController"; title = "Detail"; ObjectID = "exn-nL-O7c"; */
 "exn-nL-O7c.title" = "Detail";
 
@@ -82,6 +86,9 @@
 
 /* Class = "UILabel"; text = "Show description"; ObjectID = "qvj-bp-i9F"; */
 "qvj-bp-i9F.text" = "Näytä tiivistelmä";
+
+/* Class = "UILabel"; text = "Use Reader View"; ObjectID = "sAe-mY-AEU"; */
+"sAe-mY-AEU.text" = "Käytä lukutilaa";
 
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "s6d-s2-kAz"; */
 "s6d-s2-kAz.title" = " ";

@@ -223,60 +223,69 @@
                         <viewControllerLayoutGuide type="bottom" id="MnR-eo-9fz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="g7S-hX-EUD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-dO-bC7">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="506"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="288" placeholderIntrinsicHeight="423" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-En-jtv">
-                                        <rect key="frame" x="7" y="8" width="307" height="439"/>
+                                        <rect key="frame" x="7" y="8" width="307" height="490"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prefer mobile sites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-JJ-PjM">
-                                                <rect key="frame" x="9" y="78" width="143" height="21"/>
+                                                <rect key="frame" x="8" y="70" width="143" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use Reader View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAe-mY-AEU">
+                                                <rect key="frame" x="8" y="149" width="131" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show synopsis or abbreviation of the news story if available." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-lp-5fT">
-                                                <rect key="frame" x="9" y="28" width="219" height="29"/>
+                                                <rect key="frame" x="9" y="27" width="219" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use Reader View while reading news if available." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebh-f8-Wqp">
+                                                <rect key="frame" x="8" y="173" width="219" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-Di-V4Q">
-                                                <rect key="frame" x="248" y="99" width="51" height="31"/>
+                                                <rect key="frame" x="248" y="92" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="useMobileUrl:" destination="PfJ-fU-JDr" eventType="valueChanged" id="bej-gU-e0a"/>
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use mobile optimized address for the story if available otherwise use normal address." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-yO-xei">
-                                                <rect key="frame" x="9" y="105" width="219" height="43"/>
+                                                <rect key="frame" x="9" y="92" width="219" height="43"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMk-4q-CbN">
-                                                <rect key="frame" x="248" y="16" width="51" height="31"/>
+                                                <rect key="frame" x="248" y="20" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="showDesc:" destination="PfJ-fU-JDr" eventType="valueChanged" id="OOG-Lq-OeM"/>
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Region for categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYl-NQ-OlI">
-                                                <rect key="frame" x="9" y="169" width="296" height="21"/>
+                                                <rect key="frame" x="5" y="218" width="296" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select news portal's region for categories." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIB-wJ-NC2">
-                                                <rect key="frame" x="9" y="197" width="288" height="15"/>
+                                                <rect key="frame" x="5" y="241" width="288" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Vv-Pac">
-                                                <rect key="frame" x="17" y="197" width="272" height="162"/>
-                                            </pickerView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvj-bp-i9F">
                                                 <rect key="frame" x="8" y="4" width="134" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -284,7 +293,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-nU-aju">
-                                                <rect key="frame" x="17" y="367" width="272" height="30"/>
+                                                <rect key="frame" x="17" y="422" width="272" height="35"/>
                                                 <state key="normal" title="About">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -292,32 +301,44 @@
                                                     <segue destination="U9M-il-Efs" kind="push" id="UJn-Nc-Wap"/>
                                                 </connections>
                                             </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x14-e7-guv">
+                                                <rect key="frame" x="248" y="163" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="useReaderView:" destination="PfJ-fU-JDr" eventType="valueChanged" id="08w-kE-jSz"/>
+                                                </connections>
+                                            </switch>
+                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Vv-Pac">
+                                                <rect key="frame" x="17" y="252" width="272" height="162"/>
+                                            </pickerView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="KzN-En-jtv" secondAttribute="bottom" id="6c5-Rc-Pzz"/>
                                     <constraint firstItem="KzN-En-jtv" firstAttribute="leading" secondItem="7fM-dO-bC7" secondAttribute="leading" id="AZv-Ox-i8L"/>
                                     <constraint firstItem="KzN-En-jtv" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="top" id="N42-vC-GoB"/>
-                                    <constraint firstAttribute="bottom" secondItem="KzN-En-jtv" secondAttribute="bottom" constant="8" id="dfO-u3-QMK"/>
-                                    <constraint firstAttribute="trailing" secondItem="KzN-En-jtv" secondAttribute="trailing" id="iTg-ps-3OH"/>
+                                    <constraint firstAttribute="trailing" secondItem="KzN-En-jtv" secondAttribute="trailing" constant="6" id="dRX-c6-WaH"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MnR-eo-9fz" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="bottom" id="8HH-fO-Dx9"/>
+                            <constraint firstItem="MnR-eo-9fz" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="bottom" constant="-1" id="493-Fd-DqR"/>
                             <constraint firstItem="7fM-dO-bC7" firstAttribute="top" secondItem="mER-OZ-TlD" secondAttribute="bottom" id="HnA-mG-KSS"/>
                             <constraint firstItem="7fM-dO-bC7" firstAttribute="centerX" secondItem="g7S-hX-EUD" secondAttribute="centerX" id="JGo-Ij-zGi"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="ios-gear-outline.png" id="UXB-uv-Inu"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="618"/>
                     <connections>
                         <outlet property="contentView" destination="KzN-En-jtv" id="eXb-lY-e7J"/>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
                         <outlet property="scrollView" destination="7fM-dO-bC7" id="f74-7x-1hA"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
                         <outlet property="useMobileUrlSwitch" destination="yKD-Di-V4Q" id="WQq-Va-eHo"/>
+                        <outlet property="useReaderViewSwitch" destination="x14-e7-guv" id="IWv-JW-nvR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knU-w9-hPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -429,7 +450,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfR-ky-Eni"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zP7-EK-4VM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAU-ih-H8K">

@@ -42,6 +42,7 @@ class Settings {
     
     var showDesc: Bool // Showing descriptions for news items or not
     var useMobileUrl: Bool // Prefer mobile optimized URLs
+    var useReaderView: Bool // Use Reader View with SFSafariViewController if available
     var region: String // http://high.fi/api/?act=listLanguages
     
     // Messages
@@ -116,6 +117,12 @@ class Settings {
             self.useMobileUrl = true
         }
         
+        if let useReaderView: Bool = defaults.objectForKey("useReaderView") as? Bool {
+            self.useReaderView = useReaderView
+        } else {
+            self.useReaderView = false
+        }
+        
         if let region: String = defaults.objectForKey("region") as? String {
             self.region = region
         } else {
@@ -133,7 +140,7 @@ class Settings {
     }
     
     var description: String {
-        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage)" + ", highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage)" + ", useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName)" + ", domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc)" + ", useMobileUrl=\(self.useMobileUrl), region=\(self.region)"
+        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), region=\(self.region)"
     }
 
 }
