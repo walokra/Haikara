@@ -27,13 +27,17 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
         defaults.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
-//        println ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
+        #if DEBUG
+            print ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
+        #endif
     }
     
     @IBAction func showDesc(sender: UISwitch) {
         settings.showDesc = sender.on
         defaults.setObject(settings.showDesc, forKey: "showDesc")
-//        println ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
+        #if DEBUG
+            print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
+        #endif
     }
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -128,11 +132,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     func listLanguages(){
         HighFiApi.listLanguages(
             { (result) in
-//                if let error = result.error as? NSError {
-//                    self.handleError(error.localizedDescription)
-//                    return
-//                }
-                
                 dispatch_async(dispatch_get_main_queue()) {
                     // Clear old entries
                     self.supportedLanguages = result
@@ -156,7 +155,11 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
                     
                     return
                 }
-            })
+            }
+            , failureHandler: {(error)in
+                self.handleError(error)
+            }
+        )
     }
     
     func handleError(error: String) {

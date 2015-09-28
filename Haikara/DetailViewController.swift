@@ -98,13 +98,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
-//					if let error = result.error as? NSError {
-//						self.handleError(error)
-//						return
-//					}
-					
 					self.setNews(result)
-				})
+				}
+				, failureHandler: {(error)in
+					self.handleError(error)
+				}
+			)
 		}
 	}
 	
@@ -158,7 +157,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	}
 	
 	func refresh(sender:AnyObject) {
-//		println("refresh: \(sender)")
 		self.page = 1
 		getNews(self.page)
 	}
@@ -179,8 +177,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			trackingLink = tableItem.mobileLink!
 		}
 		#if DEBUG
-			print("didSelectRowAtIndexPath, webURL, \(webURL)")
-			print("didSelectRowAtIndexPath, trackingLink, \(webURL)")
+			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl)")
+			print("didSelectRowAtIndexPath, webURL=\(webURL)")
+			print("didSelectRowAtIndexPath, trackingLink=\(trackingLink)")
 		#endif
 		
 		let vc = NewsItemViewController()
@@ -226,9 +225,14 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		let tableItem = tableSection![indexPath.row]
 		cell.entryTitle.text = tableItem.title
 		cell.entryAuthor.text = tableItem.author
-		if tableItem.shortDescription != "" && settings.showDesc {
-			cell.entryDescription!.text = tableItem.shortDescription
+		if (tableItem.shortDescription != "" && settings.showDesc) {
+			cell.entryDescription.text = tableItem.shortDescription
+			cell.entryDescription.hidden = false
+		} else {
+			cell.entryDescription.text = ""
+			cell.entryDescription.hidden = true
 		}
+		
 		if tableItem.highlight == true {
 			cell.highlighted = true
 		}
@@ -245,7 +249,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
 			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-			let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
+//			let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]

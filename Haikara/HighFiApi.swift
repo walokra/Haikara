@@ -13,7 +13,7 @@ import Alamofire
 public class HighFiApi {
         
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
-    class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void) {
+    class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getNews: \(page), \(section)")
         #endif
@@ -42,13 +42,6 @@ public class HighFiApi {
 //                    print("response: \(response)")
 //                    print("json: \(data)")
                 #endif
-                
-//                if data == nil {
-//                    #if DEBUG
-//                        print("HighFiApi, request error, no data")
-//                    #endif
-//                    return
-//                }
                 
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
                 let feed = (responseData.valueForKey("feed") as! NSDictionary)
@@ -80,7 +73,9 @@ public class HighFiApi {
                 #if DEBUG
                     print("Error: \(__FUNCTION__)\n", data, error)
                 #endif
-//                completionHandler(error)
+                if let error = result.error as? NSError {
+                    failureHandler(error.localizedDescription)
+                }
             }
         }
     }
@@ -101,7 +96,7 @@ public class HighFiApi {
         }
     }
     
-    class func getCategories(completionHandler: ([Category]) -> Void) {
+    class func getCategories(completionHandler: ([Category]) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")
         #endif
@@ -125,16 +120,9 @@ public class HighFiApi {
 //                    println("response: \(response)")
 //                    print("json: \(data)")
                 #endif
-                
-//                if data == nil {
-//                    #if DEBUG
-//                        print("HighFiApi, request error, no data")
-//                    #endif
-//                    return
-//                }
 
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
-                var categories = (responseData.valueForKey("categories") as! [NSDictionary])
+                let categories = (responseData.valueForKey("categories") as! [NSDictionary])
                     .filter({ ($0["depth"] as! Int) == 1 })
                     .map { Category(
                         title: $0["title"] as! String,
@@ -155,15 +143,16 @@ public class HighFiApi {
                 #if DEBUG
                     print("Error: \(__FUNCTION__)\n", data, error)
                 #endif
-                // settings.errorAPIParse + "\(error.localizedDescription)")
-//                completionHandler(error)
+                if let error = result.error as? NSError {
+                    failureHandler(error.localizedDescription)
+                }
         }
         }
     }
 
     // You should cache this method's return value for min 24h
     // http://high.fi/api/?act=listLanguages&APIKEY=123
-    class func listLanguages(completionHandler: ([Language]) -> Void) {
+    class func listLanguages(completionHandler: ([Language]) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             print("HighFiApi.listLanguages()")
         #endif
@@ -213,8 +202,9 @@ public class HighFiApi {
                 #if DEBUG
                     print("Error: \(__FUNCTION__)\n", data, error)
                 #endif
-                // settings.errorAPIParse + "\(error.localizedDescription)")
-//                completionHandler(error)
+                if let error = result.error as? NSError {
+                    failureHandler(error.localizedDescription)
+                }
             }
         }
     }

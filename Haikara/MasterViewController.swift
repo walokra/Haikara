@@ -77,15 +77,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func getCategories(){
         HighFiApi.getCategories(
             { (result) in
-//				if let error = result.error as? NSError {
-//					self.handleError(error)
-//					return
-//				}
-                
                 self.categories = result
                 self.slideOutTableView!.reloadData()
                 return
-            })
+            }
+            , failureHandler: {(error)in
+                self.handleError(error)
+            }
+        )
     }
     
     func handleError(error: String) {
