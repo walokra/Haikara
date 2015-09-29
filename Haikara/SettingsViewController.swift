@@ -77,12 +77,12 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         self.scrollView.addSubview(contentView)
 
         self.scrollView.contentSize = self.contentView.bounds.size
-//        self.scrollView.contentSize = CGSizeMake(self.contentView.frame.width, self.contentView.frame.height)
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width, self.scrollView.frame.height)
 
 //        self.automaticallyAdjustsScrollViewInsets = false;
         
         // Hack
-        self.scrollView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 32, right: 0)
+        self.scrollView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 52, right: 0)
 
         self.scrollView.flashScrollIndicators()
     }
