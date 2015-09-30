@@ -35,6 +35,7 @@
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
+		36B264341BBC6C5D00F008FA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B264331BBC6C5D00F008FA /* Alamofire.framework */; settings = {ASSET_TAGS = (); }; };
 		36B3F4391B9B0BBC0095F85A /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4381B9B0BBC0095F85A /* ionicons.ttf */; };
 		36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */; };
 		36B3F4421B9B19D70095F85A /* ios-gear-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4411B9B19D70095F85A /* ios-gear-outline.png */; };
@@ -90,6 +91,7 @@
 		36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = highkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
+		36B264331BBC6C5D00F008FA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		36B3F4381B9B0BBC0095F85A /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Iconfonts-ionicons.swift"; sourceTree = "<group>"; };
 		36B3F4411B9B19D70095F85A /* ios-gear-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-gear-outline.png"; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B264341BBC6C5D00F008FA /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +168,7 @@
 		36A39C001B2E0AE900BE0C77 = {
 			isa = PBXGroup;
 			children = (
+				36B264331BBC6C5D00F008FA /* Alamofire.framework */,
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
 				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
 				36A39C0A1B2E0AE900BE0C77 /* Products */,
@@ -250,6 +254,7 @@
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
 				36A39C071B2E0AE900BE0C77 /* Resources */,
+				36B264351BBC6CB700F008FA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -360,6 +365,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		36B264351BBC6CB700F008FA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		36A39C051B2E0AE900BE0C77 /* Sources */ = {
