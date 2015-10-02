@@ -172,12 +172,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		let tableSection = sections[sortedSections[path.section]]
 		let tableItem = tableSection![row]
 		
-		var webURL = NSURL(string: tableItem.originalURL)
-		var trackingLink = tableItem.link
-		if (tableItem.originalMobileUrl?.isEmpty != nil && settings.useMobileUrl) {
-			webURL = NSURL(string: tableItem.originalMobileUrl!)
-			trackingLink = tableItem.mobileLink!
-		}
+		let webURL = NSURL(string: tableItem.originalURL)
+		let trackingLink = tableItem.clickTrackingLink
 		#if DEBUG
 			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl), useReaderView=\(settings.useReaderView)")
 			print("didSelectRowAtIndexPath, webURL=\(webURL)")

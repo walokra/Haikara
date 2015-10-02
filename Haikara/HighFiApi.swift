@@ -50,6 +50,7 @@ public class HighFiApi {
                     .map { Entry(
                         title: $0["title"] as! String,
                         link: $0["link"] as! String,
+                        clickTrackingLink: $0["clickTrackingLink"] as! String,
                         author: $0["author"] as! String,
                         publishedDateJS: $0["publishedDateJS"] as! String,
                         shortDescription: $0["shortDescription"] as? String,
