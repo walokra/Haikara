@@ -269,9 +269,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
 			
-			var webURL = tableItem.originalURL
-			if (tableItem.originalMobileUrl?.isEmpty != nil && self.settings.useMobileUrl) {
-				webURL = tableItem.originalMobileUrl!
+			var webURL = tableItem.shareURL
+			if (tableItem.mobileShareURL?.isEmpty != nil && self.settings.useMobileUrl) {
+				webURL = tableItem.mobileShareURL!
 			}
 			
 			let objectsToShare = [tableItem.title, webURL]

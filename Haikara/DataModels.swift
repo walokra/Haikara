@@ -108,6 +108,8 @@ class Entry: NSObject {
     let originalURL: String
     var mobileLink: String?
     let originalMobileUrl: String?
+    let shareURL: String
+    var mobileShareURL: String?
     let articleID: Int
     var sectionID: Int
     let sourceID: Int
@@ -115,7 +117,7 @@ class Entry: NSObject {
     var timeSince: String
     
     init(title: String, link: String, clickTrackingLink: String, author: String, publishedDateJS: String,
-        shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, timeSince: String) {
+        shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, shareURL: String, mobileShareURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, timeSince: String) {
             self.title = title
             self.link = link
             self.clickTrackingLink = clickTrackingLink
@@ -127,6 +129,8 @@ class Entry: NSObject {
             self.originalURL = originalURL
             self.mobileLink = mobileLink
             self.originalMobileUrl = originalMobileUrl
+            self.shareURL = shareURL
+            self.mobileShareURL = mobileShareURL
             self.articleID = articleID
             self.sectionID = sectionID
             self.sourceID = sourceID
@@ -135,6 +139,6 @@ class Entry: NSObject {
     }
     
     override var description: String {
-        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), timeSince=\(self.timeSince)"
+        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), shareURL=\(self.shareURL), mobileShareURL=\(self.mobileShareURL), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), timeSince=\(self.timeSince)"
     }
 }

@@ -57,6 +57,8 @@ public class HighFiApi {
                         originalURL: $0["originalURL"] as! String,
                         mobileLink: $0["mobileLink"] as? String,
                         originalMobileUrl: $0["originalMobileUrl"] as?	String,
+                        shareURL: $0["shareURL"] as! String,
+                        mobileShareURL: $0["mobileShareURL"] as? String,
                         //	let picture: String?
                         //	let originalPicture: String?
                         articleID: $0["articleID"] as! Int,
