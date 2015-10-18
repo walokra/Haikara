@@ -57,12 +57,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         currentLanguage = settings.region
         
-        getCategories()
+        if self.categories.isEmpty {
+            getCategories()
+        }
         
         self.slideOutTableView!.delegate=self
         self.slideOutTableView.dataSource = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSelectedCategories:", name: "selectedCategoriesChangedNotification", object: nil)
     }
     
     func setRegionCategory(notification: NSNotification) {
@@ -73,12 +76,48 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         getCategories()
     }
+    
+    func updateSelectedCategories(notification: NSNotification) {
+        #if DEBUG
+            print("Received selectedCategoriesChangedNotification")
+            print(notification.userInfo)
+        #endif
+        setCategories()
+    }
+    
+    func setCategories() {
+        print("setCategories")
+        
+        // Adding always present categories: generic and top
+        var cat = [Category]()
+        cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
+        cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
+        
+        if let favoriteCategories = settings.favoriteCategories[settings.region] {
+            print("showing selected categories=\(favoriteCategories)")
+
+            var filteredCategories = [Category]()
+            
+            self.settings.categories.forEach({ (category: Category) -> () in
+                if favoriteCategories.contains(category.sectionID) {
+                    filteredCategories.append(category)
+                }
+            })
+            
+            self.categories = cat + filteredCategories
+        } else {
+            self.categories = cat + self.settings.categories
+        }
+
+        self.slideOutTableView!.reloadData()
+    }
 
     func getCategories(){
         HighFiApi.getCategories(
             { (result) in
+                self.settings.categories = result
                 self.categories = result
-                self.slideOutTableView!.reloadData()
+                self.setCategories()
                 return
             }
             , failureHandler: {(error)in
@@ -106,9 +145,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) 
-        
-        let tableItem: Category = categories[indexPath.row] as Category
 
+        let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
         
         return cell

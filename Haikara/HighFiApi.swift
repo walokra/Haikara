@@ -131,17 +131,13 @@ public class HighFiApi {
                         title: $0["title"] as! String,
                         sectionID: $0["sectionID"] as! Int,
                         depth: $0["depth"] as! Int,
-                        htmlFilename: $0["htmlFilename"] as! String
+                        htmlFilename: $0["htmlFilename"] as! String,
+                        selected: false
                         )
                     }
                     // println("categories: \(categories.count)")
-                        
-                // Adding always present categories: generic and top
-                var cat = [Category]()
-                cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart))
-                cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top"))
                 
-                return completionHandler(cat + categories)
+                return completionHandler(categories)
             case .Failure(let data, let error):
                 #if DEBUG
                     print("Error: \(__FUNCTION__)\n", data, error)

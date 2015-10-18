@@ -55,16 +55,18 @@ class Category: NSObject {
     let sectionID: Int
     let depth: Int
     let htmlFilename: String
+    var selected: Bool
     
-    init(title: String, sectionID: Int, depth: Int, htmlFilename: String) {
+    init(title: String, sectionID: Int, depth: Int, htmlFilename: String, selected: Bool) {
         self.title = title
         self.sectionID = sectionID
         self.depth = depth
         self.htmlFilename = htmlFilename
+        self.selected = selected
     }
     
     override var description: String {
-        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename)"
+        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename), selected=\(self.selected)"
     }
 }
 
