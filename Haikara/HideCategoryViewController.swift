@@ -1,27 +1,26 @@
 //
-//  FavoriteCategoriesViewController.swift
+//  HideCategoryViewController.swift
 //  highkara
 //
-//  Created by Marko Wallin on 6.10.2015.
+//  Created by Marko Wallin on 20.10.2015.
 //  Copyright © 2015 Rule of tech. All rights reserved.
 //
 
 import UIKit
 
-class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-    
+class HideCategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCategoryCell = "tableCell"
         }
     }
     
+    @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
     
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
-
-    @IBOutlet weak var tableView: UITableView!
     
     var categories = [Category]()
     
@@ -35,7 +34,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         
         self.categories = settings.categories
         
-        print("selected categories=\(settings.categoriesFavorited[settings.region])")
+        print("categories hidden=\(settings.categoriesHidden[settings.region])")
         
         self.tableView!.delegate=self
         self.tableView.dataSource = self
@@ -55,7 +54,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
         
-        if (settings.categoriesFavorited[settings.region]?.indexOf(tableItem.sectionID) != nil) {
+        if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = selectedColor
         } else {
             cell.backgroundColor = normalColor
@@ -74,33 +73,32 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
         
         var removed: Bool = false
-        if var langFavoriteCats = settings.categoriesFavorited[settings.region] {
-            print("langFavoriteCats=\(langFavoriteCats)")
+        if var catHiddenForLang = settings.categoriesHidden[settings.region] {
+            print("catHiddenForLang=\(catHiddenForLang)")
             
-            if let index = langFavoriteCats.indexOf(selectedCategory.sectionID) {
+            if let index = catHiddenForLang.indexOf(selectedCategory.sectionID) {
                 print("Removing item at index \(index)")
-                langFavoriteCats.removeAtIndex(index)
+                catHiddenForLang.removeAtIndex(index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
             if (!removed) {
-                print("Adding item to favorite categories, \(selectedCategory.sectionID)")
-                langFavoriteCats.append(selectedCategory.sectionID)
+                print("Adding item to hidden categories, \(selectedCategory.sectionID)")
+                catHiddenForLang.append(selectedCategory.sectionID)
                 self.categories[indexPath.row].selected = true
             }
-            settings.categoriesFavorited.updateValue(langFavoriteCats, forKey: settings.region)
+            settings.categoriesHidden.updateValue(catHiddenForLang, forKey: settings.region)
         } else {
             print("Creating new key for language categories, \(settings.region)")
-            settings.categoriesFavorited.updateValue([selectedCategory.sectionID], forKey: settings.region)
+            settings.categoriesHidden.updateValue([selectedCategory.sectionID], forKey: settings.region)
         }
         
-        print("langFavoriteCats=\(settings.categoriesFavorited[settings.region])")
+        print("categoriesHidden[region]=\(settings.categoriesHidden[settings.region])")
         
-        defaults.setObject(settings.categoriesFavorited, forKey: "categories")
+        defaults.setObject(settings.categoriesHidden, forKey: "categoriesHidden")
         self.tableView!.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"]) //userInfo parameter has to be of type [NSObject : AnyObject]?
-
+//        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"]) //userInfo parameter has to be of type [NSObject : AnyObject]?
+        
     }
-    
 
 }

@@ -11,9 +11,10 @@ import UIKit
 import Alamofire
 
 public class HighFiApi {
-        
+    
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
     class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
+        
         #if DEBUG
             print("HighFiApi.getNews: \(page), \(section)")
         #endif
@@ -31,7 +32,21 @@ public class HighFiApi {
         }
         feed = feed + settings.highFiEndpoint
         
-        let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY])
+        var categoriesHidden: Array<Int> = []
+        var categoriesHiddenParam: String = ""
+        if (!settings.categoriesHidden.isEmpty && settings.categoriesHidden[settings.region] != nil) {
+            categoriesHidden = settings.categoriesHidden[settings.region]!
+            // categoriesHidden.description
+            categoriesHidden.forEach({ (item) -> () in
+                categoriesHiddenParam += String(item)
+                if categoriesHidden.count > 1 {
+                    categoriesHiddenParam += ","
+                }
+            })
+        }
+        print("categoriesHidden=\(categoriesHidden)")
+        
+        let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
             request.responseJSON{(request, response, result) in
@@ -126,7 +141,7 @@ public class HighFiApi {
 
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
                 let categories = (responseData.valueForKey("categories") as! [NSDictionary])
-                    .filter({ ($0["depth"] as! Int) == 1 })
+//                    .filter({ ($0["depth"] as! Int) == 1 })
                     .map { Category(
                         title: $0["title"] as! String,
                         sectionID: $0["sectionID"] as! Int,

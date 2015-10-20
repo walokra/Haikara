@@ -45,8 +45,9 @@ class Settings {
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
     var region: String // http://high.fi/api/?act=listLanguages
     
-    var favoriteCategories = Dictionary<String, Array<Int>>()
     var categories = [Category]()
+    var categoriesFavorited = Dictionary<String, Array<Int>>()
+    var categoriesHidden = Dictionary<String, Array<Int>>()
     
     // Messages
     let errorAPINoData: String = NSLocalizedString("ERROR_API_NO_DATA", comment: "Error text when no data from API.")
@@ -133,8 +134,12 @@ class Settings {
         }
         self.preferredLanguage = NSLocale.preferredLanguages()[0] 
 
-        if let favoriteCategories: Dictionary<String, Array<Int>> = defaults.objectForKey("categories") as? Dictionary<String, Array<Int>> {
-            self.favoriteCategories = favoriteCategories
+        if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesFavorited") as? Dictionary<String, Array<Int>> {
+            self.categoriesFavorited = categoriesFavorited
+        }
+        
+        if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesHidden") as? Dictionary<String, Array<Int>> {
+            self.categoriesHidden = categoriesHidden
         }
         
         #if DEBUG

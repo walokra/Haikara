@@ -153,8 +153,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PSc-w6-6CB">
-                                <rect key="frame" x="0.0" y="64" width="600" height="504"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PSc-w6-6CB">
+                                <rect key="frame" x="0.0" y="40" width="600" height="511"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -180,16 +180,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select favorite categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxB-h8-nBo">
-                                <rect key="frame" x="16" y="72" width="288" height="21"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcJ-Zh-1pv">
+                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select favorite categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxB-h8-nBo">
+                                        <rect key="frame" x="8" y="0.0" width="584" height="40"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PSc-w6-6CB" firstAttribute="leading" secondItem="XCy-hf-nvI" secondAttribute="leadingMargin" constant="-20" id="H3p-Ah-d3Y"/>
+                            <constraint firstItem="PSc-w6-6CB" firstAttribute="top" secondItem="cY5-Z4-ghi" secondAttribute="bottom" constant="-24" id="cw1-d4-fLM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PSc-w6-6CB" secondAttribute="trailing" constant="-20" id="k6f-zj-BPL"/>
+                            <constraint firstItem="9cf-85-dod" firstAttribute="top" secondItem="PSc-w6-6CB" secondAttribute="bottom" id="v4q-7l-mkn"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Categories" image="ios-list-outline.png" id="Rwm-VB-qca"/>
                     <connections>
@@ -200,10 +213,10 @@
             </objects>
             <point key="canvasLocation" x="4848" y="-1296"/>
         </scene>
-        <!--Filter-->
+        <!--Hide-->
         <scene sceneID="KK4-uc-NJ9">
             <objects>
-                <viewController id="ZlS-SQ-8sA" sceneMemberID="viewController">
+                <viewController id="ZlS-SQ-8sA" customClass="HideCategoryViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sll-4e-fI4"/>
                         <viewControllerLayoutGuide type="bottom" id="E6Q-7U-ip8"/>
@@ -212,16 +225,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
+                                <rect key="frame" x="0.0" y="50" width="600" height="501"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="9yE-1X-ule">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9yE-1X-ule" id="PP0-js-bfV">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </tableViewCellContentView>
@@ -229,23 +242,39 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hide categories shown in news" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAN-Se-lAx">
-                                <rect key="frame" x="16" y="72" width="288" height="21"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRd-ta-AaE">
+                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hide categories shown in news" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAN-Se-lAx">
+                                        <rect key="frame" x="8" y="0.0" width="584" height="40"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZUC-0f-GhU" secondAttribute="trailing" constant="-20" id="07W-0G-ML3"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leadingMargin" constant="-20" id="1nY-gV-ArK"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" constant="-14" id="Mbf-AU-tHP"/>
+                            <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="hXv-S9-ekq"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" enabled="NO" title="Filter" image="ios-funnel.png" id="Og4-py-LgQ"/>
+                    <tabBarItem key="tabBarItem" title="Hide" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="ZUC-0f-GhU" id="RWa-0M-QF7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5580" y="-1666.9014084507041"/>
+            <point key="canvasLocation" x="5580" y="-1667"/>
         </scene>
         <!--Settings-->
         <scene sceneID="b6k-at-iyD">

@@ -93,18 +93,22 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
         cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
         
-        if let favoriteCategories = settings.favoriteCategories[settings.region] {
-            print("showing selected categories=\(favoriteCategories)")
-
-            var filteredCategories = [Category]()
+        if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
+            print("showing selected categories=\(categoriesFavorited)")
             
-            self.settings.categories.forEach({ (category: Category) -> () in
-                if favoriteCategories.contains(category.sectionID) {
-                    filteredCategories.append(category)
-                }
-            })
+            if categoriesFavorited.isEmpty {
+                self.categories = cat + self.settings.categories
+            } else {
+                var filteredCategories = [Category]()
             
-            self.categories = cat + filteredCategories
+                self.settings.categories.forEach({ (category: Category) -> () in
+                    if categoriesFavorited.contains(category.sectionID) {
+                        filteredCategories.append(category)
+                    }
+                })
+            
+                self.categories = cat + filteredCategories
+            }
         } else {
             self.categories = cat + self.settings.categories
         }
@@ -148,6 +152,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
+        cell.indentationLevel = tableItem.depth
         
         return cell
     }
