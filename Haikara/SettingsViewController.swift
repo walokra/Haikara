@@ -45,7 +45,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         
         // Notify user
         
-        let alertController = UIAlertController(title: "Settings resetted", message: "All settings are now resetted back to defaults.", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: resetMessageTitle, message: resetMessage, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
         alertController.addAction(OKAction)
         
@@ -66,6 +66,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
+    
+    let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
+    let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
     
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
