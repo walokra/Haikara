@@ -207,14 +207,6 @@ class Settings {
             }
         }
         
-//        if let categoriesByLang: Dictionary<String, Array<Category>> = defaults.objectForKey("categoriesByLang") as? Dictionary<String, Array<Category>> {
-//            self.categoriesByLang = categoriesByLang
-//            
-//            if let categories: [Category] = categoriesByLang[self.region] {
-//                self.categories = categories
-//            }
-//        }
-        
         if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesFavorited") as? Dictionary<String, Array<Int>> {
             self.categoriesFavorited = categoriesFavorited
         }
