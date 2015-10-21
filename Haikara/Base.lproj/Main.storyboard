@@ -225,8 +225,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
-                                <rect key="frame" x="0.0" y="50" width="600" height="501"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
+                                <rect key="frame" x="0.0" y="40" width="600" height="501"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -262,7 +262,6 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ZUC-0f-GhU" secondAttribute="trailing" constant="-20" id="07W-0G-ML3"/>
                             <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leadingMargin" constant="-20" id="1nY-gV-ArK"/>
-                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" constant="-14" id="Mbf-AU-tHP"/>
                             <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="hXv-S9-ekq"/>
                         </constraints>
                     </view>
@@ -285,14 +284,14 @@
                         <viewControllerLayoutGuide type="bottom" id="MnR-eo-9fz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="g7S-hX-EUD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="479" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-dO-bC7">
-                                <rect key="frame" x="0.0" y="64" width="331" height="479"/>
+                                <rect key="frame" x="0.0" y="64" width="331" height="532"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="288" placeholderIntrinsicHeight="423" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-En-jtv">
-                                        <rect key="frame" x="7" y="8" width="317" height="463"/>
+                                        <rect key="frame" x="7" y="8" width="317" height="516"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prefer mobile sites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-JJ-PjM">
                                                 <rect key="frame" x="8" y="75" width="224" height="21"/>
@@ -376,13 +375,29 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-nU-aju">
-                                                <rect key="frame" x="17" y="428" width="272" height="35"/>
+                                                <rect key="frame" x="13" y="422" width="272" height="35"/>
                                                 <animations/>
                                                 <state key="normal" title="About">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <segue destination="U9M-il-Efs" kind="show" id="UJn-Nc-Wap"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset all settings to defaults" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-sH-qTR">
+                                                <rect key="frame" x="8" y="475" width="224" height="21"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jas-hM-GU3">
+                                                <rect key="frame" x="217" y="471" width="80" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Reset"/>
+                                                <connections>
+                                                    <action selector="resetAction:" destination="PfJ-fU-JDr" eventType="touchUpInside" id="j0G-fQ-lnu"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -401,13 +416,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7fM-dO-bC7" firstAttribute="top" secondItem="mER-OZ-TlD" secondAttribute="bottom" id="HnA-mG-KSS"/>
-                            <constraint firstItem="MnR-eo-9fz" firstAttribute="top" secondItem="7fM-dO-bC7" secondAttribute="bottom" constant="26" id="whS-Cf-5LA"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="ios-gear-outline.png" id="UXB-uv-Inu"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="700"/>
                     <connections>
                         <outlet property="contentView" destination="KzN-En-jtv" id="eXb-lY-e7J"/>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
+                        <outlet property="resetButton" destination="Jas-hM-GU3" id="gJP-at-5qN"/>
                         <outlet property="scrollView" destination="7fM-dO-bC7" id="f74-7x-1hA"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
                         <outlet property="useMobileUrlSwitch" destination="yKD-Di-V4Q" id="WQq-Va-eHo"/>
@@ -530,7 +547,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfR-ky-Eni"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zP7-EK-4VM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-A7-SMo">

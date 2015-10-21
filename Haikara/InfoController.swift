@@ -20,7 +20,7 @@ class InfoController: UIViewController {
 
         let settings = Settings()
 
-        infoLabel.text = settings.appID + " by Marko Wallin"
+        infoLabel.text = settings.appID + ", Marko Wallin"
     }
 
     override func didReceiveMemoryWarning() {

@@ -10,6 +10,21 @@ import UIKit
 
 class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var resetButton: UIButton!
+    
+    @IBAction func resetAction(sender: AnyObject) {
+        
+        self.settings.resetToDefaults()
+        
+        // Notify user
+        
+        let alertController = UIAlertController(title: "Settings resetted", message: "All settings are now resetted back to defaults.", preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true){}
+    }
+    
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var useMobileUrlSwitch: UISwitch!
     @IBOutlet weak var showDescSwitch: UISwitch!

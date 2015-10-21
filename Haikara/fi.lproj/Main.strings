@@ -2,32 +2,32 @@
 /* Class = "UILabel"; text = "Prefer mobile sites"; ObjectID = "4wi-JJ-PjM"; */
 "4wi-JJ-PjM.text" = "Käytä mobiilisivustoja";
 
-/* Class = "UIButton"; normalTitle = "About"; ObjectID = "6Bb-sn-nSV"; */
-"6Bb-sn-nSV.normalTitle" = "Tietoa";
-
 /* Class = "UIViewController"; title = "Menu"; ObjectID = "6hf-xG-t83"; */
 "6hf-xG-t83.title" = "Menu";
+
+/* Class = "UILabel"; text = "Reset all settings to defaults"; ObjectID = "B6G-sH-qTR"; */
+"B6G-sH-qTR.text" = "Alusta asetukset oletusarvoiksi";
 
 /* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "BAN-Se-lAx"; */
 "BAN-Se-lAx.text" = "Piilota uutisissa näytettävä kategoria";
 
-/* Class = "UILabel"; text = "Powered by"; ObjectID = "ILQ-b0-gaS"; */
-"ILQ-b0-gaS.text" = "Voimanlähteenä";
+/* Class = "UILabel"; text = "Highkara news reader is unofficial client for High.fi news portal and provides functionality for reading news from several medias and regions. The app is similar to Ampparit."; ObjectID = "Br1-A7-SMo"; */
+"Br1-A7-SMo.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
 
-/* Class = "UIButton"; normalTitle = "High.fi"; ObjectID = "Jhk-1t-omv"; */
-"Jhk-1t-omv.normalTitle" = "High.fi";
+/* Class = "UIButton"; normalTitle = "Reset"; ObjectID = "Jas-hM-GU3"; */
+"Jas-hM-GU3.normalTitle" = "Tyhjennä";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "NKF-gP-YCx"; */
-"NKF-gP-YCx.text" = "Title";
+"NKF-gP-YCx.text" = "Otsikko";
 
-/* Class = "UITabBarItem"; title = "Filter"; ObjectID = "Og4-py-LgQ"; */
-"Og4-py-LgQ.title" = "Rajaa";
+/* Class = "UITabBarItem"; title = "Hide"; ObjectID = "Og4-py-LgQ"; */
+"Og4-py-LgQ.title" = "Piilota";
+
+/* Class = "UILabel"; text = "Powered by"; ObjectID = "PcG-uA-lGW"; */
+"PcG-uA-lGW.text" = "Voimanlähteenä";
 
 /* Class = "UIViewController"; title = "Settings"; ObjectID = "PfJ-fU-JDr"; */
 "PfJ-fU-JDr.title" = "Asetukset";
-
-/* Class = "UILabel"; text = "Version"; ObjectID = "Qv8-Jy-ZsG"; */
-"Qv8-Jy-ZsG.text" = "Versio";
 
 /* Class = "UITabBarItem"; title = "Categories"; ObjectID = "Rwm-VB-qca"; */
 "Rwm-VB-qca.title" = "Kategoriat";
@@ -35,10 +35,10 @@
 /* Class = "UITabBarItem"; title = "Settings"; ObjectID = "UXB-uv-Inu"; */
 "UXB-uv-Inu.title" = "Asetukset";
 
-/* Class = "UISplitViewController"; title = "Haikara"; ObjectID = "WHp-35-hiD"; */
+/* Class = "UISplitViewController"; title = "Highkara"; ObjectID = "WHp-35-hiD"; */
 "WHp-35-hiD.title" = "Highkara";
 
-/* Class = "UINavigationItem"; title = "Haikara"; ObjectID = "bx7-Bu-h0n"; */
+/* Class = "UINavigationItem"; title = "Highkara"; ObjectID = "bx7-Bu-h0n"; */
 "bx7-Bu-h0n.title" = "Highkara";
 
 /* Class = "UILabel"; text = "Show synopsis or abbreviation of the news story if available."; ObjectID = "d0n-lp-5fT"; */
@@ -50,30 +50,35 @@
 /* Class = "UILabel"; text = "Use mobile optimized address for the story if available otherwise use normal address."; ObjectID = "eA7-yO-xei"; */
 "eA7-yO-xei.text" = "Käytä mobiilioptimoituja osoitteita, jos saatavilla.";
 
-
 /* Class = "UILabel"; text = "Use Reader View while reading news if available."; ObjectID = "ebh-f8-Wqp"; */
 "ebh-f8-Wqp.text" = "Käytä lukutilaa uutisia lukiessa, jos mahdollista.";
 
 /* Class = "UIViewController"; title = "Detail"; ObjectID = "exn-nL-O7c"; */
-"exn-nL-O7c.title" = "Detail";
+"exn-nL-O7c.title" = "Lisätieto";
 
 /* Class = "UIViewController"; title = "Categories"; ObjectID = "f8J-Dx-PVd"; */
 "f8J-Dx-PVd.title" = "Kategoriat";
 
 /* Class = "UILabel"; text = "author"; ObjectID = "fLp-v4-zcy"; */
-"fLp-v4-zcy.text" = "author";
+"fLp-v4-zcy.text" = "kirjoittaja";
 
-/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "fdL-QG-9qU"; */
-"fdL-QG-9qU.normalTitle" = "Asetukset";
+/* Class = "UILabel"; text = "Title"; ObjectID = "gVK-F5-DyW"; */
+"gVK-F5-DyW.text" = "Otsikko";
+
+/* Class = "UIButton"; normalTitle = "High.fi"; ObjectID = "hch-WQ-bjL"; */
+"hch-WQ-bjL.normalTitle" = "High.fi";
 
 /* Class = "UINavigationItem"; title = "About"; ObjectID = "i05-GV-4cH"; */
 "i05-GV-4cH.title" = "Tietoa";
+
+/* Class = "UILabel"; text = "Highkara version by Marko Wallin"; ObjectID = "inR-1W-EPg"; */
+"inR-1W-EPg.text" = "Highkara version, Marko Wallin";
 
 /* Class = "UILabel"; text = "Select favorite categories"; ObjectID = "mxB-h8-nBo"; */
 "mxB-h8-nBo.text" = "Valitse suosikkikategoriat";
 
 /* Class = "UILabel"; text = "Select news portal's region for categories."; ObjectID = "oIB-wJ-NC2"; */
-"oIB-wJ-NC2.text" = "Valitse alue, jonka uutiskategoriat haetaan";
+"oIB-wJ-NC2.text" = "Valitse alue, jonka uutiskategoriat haetaan.";
 
 /* Class = "UILabel"; text = "powered by high.fi"; ObjectID = "ocI-7q-PAB"; */
 "ocI-7q-PAB.text" = "voimanlähteenä high.fi";
@@ -82,16 +87,16 @@
 "pYl-NQ-OlI.text" = "Uutissyötteiden alueasetus";
 
 /* Class = "UILabel"; text = "title"; ObjectID = "qfL-UQ-PDu"; */
-"qfL-UQ-PDu.text" = "title";
+"qfL-UQ-PDu.text" = "otsikko";
 
 /* Class = "UILabel"; text = "Show description"; ObjectID = "qvj-bp-i9F"; */
 "qvj-bp-i9F.text" = "Näytä tiivistelmä";
 
-/* Class = "UILabel"; text = "Use Reader View"; ObjectID = "sAe-mY-AEU"; */
-"sAe-mY-AEU.text" = "Käytä lukutilaa";
-
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "s6d-s2-kAz"; */
 "s6d-s2-kAz.title" = " ";
 
-/* Class = "UILabel"; text = "Haikara is unofficial client for high.fi news service. App is still experimental."; ObjectID = "xQL-6E-PpP"; */
-"xQL-6E-PpP.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
+/* Class = "UILabel"; text = "Use Reader View"; ObjectID = "sAe-mY-AEU"; */
+"sAe-mY-AEU.text" = "Käytä lukutilaa";
+
+/* Class = "UIButton"; normalTitle = "About"; ObjectID = "w5e-nU-aju"; */
+"w5e-nU-aju.normalTitle" = "Tietoa";

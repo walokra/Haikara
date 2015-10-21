@@ -10,6 +10,51 @@ import UIKit
 
 var instance: Settings?
 class Settings {
+    
+    func resetToDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+
+        self.useToRetrieveLists = "finnish"
+        defaults.setObject(self.useToRetrieveLists, forKey: "useToRetrieveLists")
+        
+        self.mostPopularName = "Suosituimmat"
+        defaults.setObject(self.mostPopularName, forKey: "mostPopularName")
+
+        self.latestName = "Uutiset"
+        defaults.setObject(self.latestName, forKey: "latestName")
+
+        self.domainToUse = "fi.high.fi"
+        defaults.setObject(self.domainToUse, forKey: "domainToUse")
+        
+        self.genericNewsURLPart = "uutiset"
+        defaults.setObject(self.genericNewsURLPart, forKey: "genericNewsURLPart")
+        
+        defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
+        self.deviceID = defaults.stringForKey("deviceID")!
+        
+        self.showDesc = true
+        defaults.setObject(self.showDesc, forKey: "showDesc")
+        
+        self.useMobileUrl = true
+        defaults.setObject(self.useMobileUrl, forKey: "useMobileUrl")
+        
+        self.useReaderView = false
+        defaults.setObject(self.useReaderView, forKey: "useReaderView")
+        
+        self.region = "Finland"
+        defaults.setObject(self.region, forKey: "region")
+        
+        self.categoriesFavorited = Dictionary<String, Array<Int>>()
+        defaults.setObject(self.categoriesFavorited, forKey: "categoriesFavorited")
+        
+        self.categoriesHidden = Dictionary<String, Array<Int>>()        
+        defaults.setObject(self.categoriesHidden, forKey: "categoriesHidden")
+        
+        #if DEBUG
+            print("Settings resetted to defaults: \(self.description)")
+        #endif
+    }
+    
     // Singleton
     class var sharedInstance: Settings {
         struct Static {
@@ -25,7 +70,7 @@ class Settings {
     }
     
     let APIKEY: String
-    let deviceID: String
+    var deviceID: String
     let appID: String
     
     let preferredLanguage: String
