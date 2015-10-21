@@ -34,10 +34,33 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         
         self.categories = settings.categories
         
-        print("categories hidden=\(settings.categoriesHidden[settings.region])")
-        
+        #if DEBUG
+            print("categories hidden=\(settings.categoriesHidden[settings.region])")
+        #endif
+            
         self.tableView!.delegate=self
         self.tableView.dataSource = self
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "categoriesRefreshedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetHidden:", name: "settingsResetedNotification", object: nil)
+    }
+    
+    func setRegionCategory(notification: NSNotification) {
+        #if DEBUG
+            print("Received categoriesRefreshedNotification")
+        #endif
+        
+        self.categories = settings.categories
+        self.tableView!.reloadData()
+    }
+    
+    func resetHidden(notification: NSNotification) {
+        #if DEBUG
+            print("Received settingsResetedNotification")
+        #endif
+        
+        self.categories = settings.categories
+        self.tableView!.reloadData()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,35 +93,44 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCategory = self.categories[indexPath.row]
-        print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
+        #if DEBUG
+            print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
+        #endif
         
         var removed: Bool = false
         if var catHiddenForLang = settings.categoriesHidden[settings.region] {
-            print("catHiddenForLang=\(catHiddenForLang)")
+            #if DEBUG
+                print("catHiddenForLang=\(catHiddenForLang)")
+            #endif
             
             if let index = catHiddenForLang.indexOf(selectedCategory.sectionID) {
-                print("Removing item at index \(index)")
+//                print("Removing item at index \(index)")
                 catHiddenForLang.removeAtIndex(index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
             if (!removed) {
-                print("Adding item to hidden categories, \(selectedCategory.sectionID)")
+//                print("Adding item to hidden categories, \(selectedCategory.sectionID)")
                 catHiddenForLang.append(selectedCategory.sectionID)
                 self.categories[indexPath.row].selected = true
             }
             settings.categoriesHidden.updateValue(catHiddenForLang, forKey: settings.region)
         } else {
-            print("Creating new key for language categories, \(settings.region)")
+//            print("Creating new key for language categories, \(settings.region)")
             settings.categoriesHidden.updateValue([selectedCategory.sectionID], forKey: settings.region)
         }
         
-        print("categoriesHidden[region]=\(settings.categoriesHidden[settings.region])")
+        #if DEBUG
+            print("categoriesHidden[region]=\(settings.categoriesHidden[settings.region])")
+        #endif
         
         defaults.setObject(settings.categoriesHidden, forKey: "categoriesHidden")
         self.tableView!.reloadData()
-//        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"]) //userInfo parameter has to be of type [NSObject : AnyObject]?
-        
+    }
+    
+    // stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }

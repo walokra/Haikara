@@ -50,9 +50,22 @@ class Settings {
         self.categoriesHidden = Dictionary<String, Array<Int>>()        
         defaults.setObject(self.categoriesHidden, forKey: "categoriesHidden")
         
+        self.categoriesByLang = Dictionary<String, Array<Category>>()
+        defaults.setObject(self.categoriesByLang, forKey: "categoriesByLang")
+        let archivedCategoriesByLang = NSKeyedArchiver.archivedDataWithRootObject(self.categoriesByLang as Dictionary<String, Array<Category>>)
+        defaults.setObject(archivedCategoriesByLang, forKey: "categoriesByLang")
+        
+        self.categories = [Category]()
+
+        self.languages = [Language]()
+        let archivedLanguages = NSKeyedArchiver.archivedDataWithRootObject(self.languages as [Language])
+        defaults.setObject(archivedLanguages, forKey: "languages")
+
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
         #endif
+        
+        defaults.synchronize()
     }
     
     // Singleton
@@ -89,7 +102,10 @@ class Settings {
     var useMobileUrl: Bool // Prefer mobile optimized URLs
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
     var region: String // http://high.fi/api/?act=listLanguages
+
+    var languages = [Language]()
     
+    var categoriesByLang = Dictionary<String, Array<Category>>()
     var categories = [Category]()
     var categoriesFavorited = Dictionary<String, Array<Int>>()
     var categoriesHidden = Dictionary<String, Array<Int>>()
@@ -179,6 +195,26 @@ class Settings {
         }
         self.preferredLanguage = NSLocale.preferredLanguages()[0] 
 
+        if let unarchivedLanguages = defaults.objectForKey("languages") as? NSData {
+            self.languages = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedLanguages) as! [Language]
+        }
+        
+        if let unarchivedCategoriesByLang = defaults.objectForKey("categoriesByLang") as? NSData {
+            self.categoriesByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
+            
+            if let categories: [Category] = categoriesByLang[self.region] {
+                self.categories = categories
+            }
+        }
+        
+//        if let categoriesByLang: Dictionary<String, Array<Category>> = defaults.objectForKey("categoriesByLang") as? Dictionary<String, Array<Category>> {
+//            self.categoriesByLang = categoriesByLang
+//            
+//            if let categories: [Category] = categoriesByLang[self.region] {
+//                self.categories = categories
+//            }
+//        }
+        
         if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesFavorited") as? Dictionary<String, Array<Int>> {
             self.categoriesFavorited = categoriesFavorited
         }

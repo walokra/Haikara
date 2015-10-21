@@ -66,6 +66,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSelectedCategories:", name: "selectedCategoriesChangedNotification", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "settingsResetedNotification", object: nil)
     }
     
     func setRegionCategory(notification: NSNotification) {
@@ -86,15 +88,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func setCategories() {
-        print("setCategories")
-        
         // Adding always present categories: generic and top
         var cat = [Category]()
         cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
         cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
         
         if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
-            print("showing selected categories=\(categoriesFavorited)")
+            #if DEBUG
+                print("showing selected categories=\(categoriesFavorited)")
+            #endif
             
             if categoriesFavorited.isEmpty {
                 self.categories = cat + self.settings.categories
@@ -117,11 +119,46 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func getCategories(){
+        // Get categories for selected region from settings' store
+        if self.settings.categoriesByLang[self.settings.region] != nil {
+            #if DEBUG
+                print("masterview, getCategories: getting categories for lang from settings")
+            #endif
+            if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
+                self.settings.categories = categories
+                self.categories = categories
+                self.setCategories()
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
+
+                return
+            }
+        }
+        
+        #if DEBUG
+            print("masterview, getCategories: getting categories for lang from API")
+        #endif
+        // If categories for selected region is not found, fetch from API
         HighFiApi.getCategories(
             { (result) in
                 self.settings.categories = result
                 self.categories = result
+                
+                self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
+                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
+
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(archivedObject, forKey: "categoriesByLang")
+                defaults.synchronize()
+                                
+//                #if DEBUG
+//                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
+//                #endif
+                
                 self.setCategories()
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
+                
                 return
             }
             , failureHandler: {(error)in

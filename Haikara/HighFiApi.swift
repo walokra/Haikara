@@ -44,7 +44,7 @@ public class HighFiApi {
                 }
             })
         }
-        print("categoriesHidden=\(categoriesHidden)")
+//        print("categoriesHidden=\(categoriesHidden)")
         
         let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "jsonHideSections": categoriesHiddenParam])
 
@@ -114,7 +114,7 @@ public class HighFiApi {
         }
     }
     
-    class func getCategories(completionHandler: ([Category]) -> Void, failureHandler: (String) -> Void) {
+    class func getCategories(completionHandler: (Array<Category>) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")
         #endif

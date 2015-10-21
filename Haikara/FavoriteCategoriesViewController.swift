@@ -35,12 +35,35 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         
         self.categories = settings.categories
         
-        print("selected categories=\(settings.categoriesFavorited[settings.region])")
+        #if DEBUG
+            print("selected categories=\(settings.categoriesFavorited[settings.region])")
+        #endif
         
         self.tableView!.delegate=self
         self.tableView.dataSource = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "categoriesRefreshedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetFavorited:", name: "settingsResetedNotification", object: nil)
     }
     
+    func setRegionCategory(notification: NSNotification) {
+        #if DEBUG
+            print("Received categoriesRefreshedNotification")
+        #endif
+        
+        self.categories = settings.categories
+        self.tableView!.reloadData()
+    }
+    
+    func resetFavorited(notification: NSNotification) {
+        #if DEBUG
+            print("Received settingsResetedNotification")
+        #endif
+
+        self.categories = settings.categories
+        self.tableView!.reloadData()
+    }
+        
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.categories.count
@@ -71,36 +94,46 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCategory = self.categories[indexPath.row]
-        print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
+        #if DEBUG
+            print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
+        #endif
         
         var removed: Bool = false
         if var langFavoriteCats = settings.categoriesFavorited[settings.region] {
-            print("langFavoriteCats=\(langFavoriteCats)")
+            #if DEBUG
+                print("langFavoriteCats=\(langFavoriteCats)")
+            #endif
             
             if let index = langFavoriteCats.indexOf(selectedCategory.sectionID) {
-                print("Removing item at index \(index)")
+//                print("Removing item at index \(index)")
                 langFavoriteCats.removeAtIndex(index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
             if (!removed) {
-                print("Adding item to favorite categories, \(selectedCategory.sectionID)")
+//                print("Adding item to favorite categories, \(selectedCategory.sectionID)")
                 langFavoriteCats.append(selectedCategory.sectionID)
                 self.categories[indexPath.row].selected = true
             }
             settings.categoriesFavorited.updateValue(langFavoriteCats, forKey: settings.region)
         } else {
-            print("Creating new key for language categories, \(settings.region)")
+//            print("Creating new key for language categories, \(settings.region)")
             settings.categoriesFavorited.updateValue([selectedCategory.sectionID], forKey: settings.region)
         }
         
-        print("langFavoriteCats=\(settings.categoriesFavorited[settings.region])")
+        #if DEBUG
+            print("langFavoriteCats=\(settings.categoriesFavorited[settings.region])")
+        #endif
         
-        defaults.setObject(settings.categoriesFavorited, forKey: "categories")
+        defaults.setObject(settings.categoriesFavorited, forKey: "categoriesFavorited")
         self.tableView!.reloadData()
         NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"]) //userInfo parameter has to be of type [NSObject : AnyObject]?
 
     }
     
+    // stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
 }

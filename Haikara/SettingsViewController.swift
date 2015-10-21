@@ -16,6 +16,33 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         
         self.settings.resetToDefaults()
         
+        HighFiApi.getCategories(
+            { (result) in
+                self.settings.categories = result
+                
+                self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
+                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(archivedObject, forKey: "categoriesByLang")
+                defaults.synchronize()
+                
+                // Send notification to inform favorite & hide views to refresh
+                NSNotificationCenter.defaultCenter().postNotificationName("settingsResetedNotification", object: nil, userInfo: nil)
+
+                return
+            }
+            , failureHandler: {(error)in
+                self.handleError(error)
+            }
+        )
+        
+        listLanguages()
+        
+        showDescSwitch.on = settings.showDesc
+        useMobileUrlSwitch.on = settings.useMobileUrl
+        useReaderViewSwitch.on = settings.useReaderView
+        
         // Notify user
         
         let alertController = UIAlertController(title: "Settings resetted", message: "All settings are now resetted back to defaults.", preferredStyle: .Alert)
@@ -35,7 +62,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 
     var defaults = NSUserDefaults.standardUserDefaults()
     
-    var supportedLanguages: Array<Language> = []
+    var languages = [Language]()
     
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -112,15 +139,15 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return supportedLanguages.count
+        return self.languages.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.supportedLanguages[row].country
+        return self.languages[row].country
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        let selectedRegion = self.supportedLanguages[row]
+        let selectedRegion = self.languages[row]
         settings.region = selectedRegion.country
         settings.useToRetrieveLists = selectedRegion.useToRetrieveLists
         settings.mostPopularName = selectedRegion.mostPopularName
@@ -138,9 +165,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         defaults.setObject(settings.domainToUse, forKey: "domainToUse")
         defaults.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
         
-        #if DEBUG
-            print ("Settings = \(settings.description)")
-        #endif
+//        #if DEBUG
+//            print ("Settings = \(settings.description)")
+//        #endif
         
         NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedRegion]) //userInfo parameter has to be of type [NSObject : AnyObject]?
 
@@ -159,28 +186,40 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     // The list of currently supported by the server. 
     func listLanguages(){
+        #if DEBUG
+            print("settingsView, listLanguages: self.settings.languages=\(self.settings.languages)")
+        #endif
+        
+        if !self.settings.languages.isEmpty {
+            #if DEBUG
+                print("settingsView, listLanguages: getting languages from settings")
+            #endif
+            self.languages = self.settings.languages
+            self.setSelectedRegion()
+            return
+        }
+        
+        #if DEBUG
+            print("settingsView, listLanguages: getting languages from API")
+        #endif
         HighFiApi.listLanguages(
             { (result) in
                 dispatch_async(dispatch_get_main_queue()) {
                     // Clear old entries
-                    self.supportedLanguages = result
+                    self.languages = result
+                    self.settings.languages = result
+
 //                  #if DEBUG
 //                      println("supportedLanguages=\(self.supportedLanguages)")
 //                  #endif
                     
-                    self.countryPicker!.reloadAllComponents()
+                    let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.languages as Array<Language>)
                     
-                    var defaultRowIndex = 0
-                    for (index, element) in self.supportedLanguages.enumerate() {
-                        let lang = element as Language
-                        if (lang.country == self.settings.region) {
-                            defaultRowIndex = index
-                        }
-                    }
-                    #if DEBUG
-                        print("self.settings.region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
-                    #endif
-                    self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(archivedObject, forKey: "languages")
+                    defaults.synchronize()
+                    
+                    self.setSelectedRegion()
                     
                     return
                 }
@@ -189,6 +228,24 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
                 self.handleError(error)
             }
         )
+    }
+    
+    func setSelectedRegion() {
+        dispatch_async(dispatch_get_main_queue()) {
+        self.countryPicker!.reloadAllComponents()
+
+        var defaultRowIndex = 0
+        for (index, element) in self.languages.enumerate() {
+            let lang = element as Language
+            if (lang.country == self.settings.region) {
+                defaultRowIndex = index
+            }
+        }
+        #if DEBUG
+            print("settingsView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+        #endif
+        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+        }
     }
     
     func handleError(error: String) {

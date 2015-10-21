@@ -19,7 +19,7 @@ import UIKit
 // http://high.fi/api/?act=listLanguages&APIKEY=123
 // { "responseData": { "supportedLanguages": [ { "language": "Finnish", "country": "Finland", "domainToUse": "high.fi", "languageCode": "fi-fi", "mostPopularName": "Suosituimmat", "latestName": "Uusimmat", "useToRetrieveLists": "finnish", "genericNewsURLPart": "uutiset" }, { "language": "English", "country": "United States", "domainToUse": "en.high.fi", "languageCode": "en-us", "mostPopularName": "Most Popular", "latestName": "Latest News", "useToRetrieveLists": "english", "genericNewsURLPart": "news" } ] } }
 
-class Language: NSObject {
+class Language: NSObject, NSCoding {
     let language: String
     let country: String
     let domainToUse: String
@@ -39,6 +39,29 @@ class Language: NSObject {
         self.latestName = latestName
         self.useToRetrieveLists = useToRetrieveLists
         self.genericNewsURLPart = genericNewsURLPart
+        super.init()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        language = aDecoder.decodeObjectForKey("language") as! String
+        country = aDecoder.decodeObjectForKey("country") as! String
+        domainToUse = aDecoder.decodeObjectForKey("domainToUse") as! String
+        languageCode = aDecoder.decodeObjectForKey("languageCode") as! String
+        mostPopularName = aDecoder.decodeObjectForKey("mostPopularName") as! String
+        latestName = aDecoder.decodeObjectForKey("latestName") as! String
+        useToRetrieveLists = aDecoder.decodeObjectForKey("useToRetrieveLists") as! String
+        genericNewsURLPart = aDecoder.decodeObjectForKey("genericNewsURLPart") as! String
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(language, forKey: "language")
+        aCoder.encodeObject(country, forKey: "country")
+        aCoder.encodeObject(domainToUse, forKey: "domainToUse")
+        aCoder.encodeObject(languageCode, forKey: "languageCode")
+        aCoder.encodeObject(mostPopularName, forKey: "mostPopularName")
+        aCoder.encodeObject(latestName, forKey: "latestName")
+        aCoder.encodeObject(useToRetrieveLists, forKey: "useToRetrieveLists")
+        aCoder.encodeObject(genericNewsURLPart, forKey: "genericNewsURLPart")
     }
     
     override var description: String {
@@ -50,19 +73,36 @@ class Language: NSObject {
 // http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
 // { "responseData": { "categories": [ { "title": "Kotimaa", "sectionID": 95, "depth": 1, "htmlFilename": "kotimaa" }, { "title": "Ulkomaat", "sectionID": 96, "depth": 1, "htmlFilename": "ulkomaat" }, { "title": "Talous", "sectionID": 94, "depth": 1, "htmlFilename": "talous" }, { "title": "Urheilu", "sectionID": 98, "depth": 1, "htmlFilename": "urheilu" } ] } }
 
-class Category: NSObject {
+class Category: NSObject, NSCoding {
     let title: String
     let sectionID: Int
     let depth: Int
     let htmlFilename: String
     var selected: Bool
     
-    init(title: String, sectionID: Int, depth: Int, htmlFilename: String, selected: Bool) {
+    required init(title: String, sectionID: Int, depth: Int, htmlFilename: String, selected: Bool) {
         self.title = title
         self.sectionID = sectionID
         self.depth = depth
         self.htmlFilename = htmlFilename
         self.selected = selected
+        super.init()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        title = aDecoder.decodeObjectForKey("title") as! String
+        sectionID = aDecoder.decodeObjectForKey("sectionID") as! Int
+        depth = aDecoder.decodeObjectForKey("depth") as! Int
+        htmlFilename = aDecoder.decodeObjectForKey("htmlFilename") as! String
+        selected = aDecoder.decodeObjectForKey("selected") as! Bool
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(title, forKey: "title")
+        aCoder.encodeObject(sectionID, forKey: "sectionID")
+        aCoder.encodeObject(depth, forKey: "depth")
+        aCoder.encodeObject(htmlFilename, forKey: "htmlFilename")
+        aCoder.encodeObject(selected, forKey: "selected")
     }
     
     override var description: String {
