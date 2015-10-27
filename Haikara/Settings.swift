@@ -60,7 +60,7 @@ class Settings {
         self.languages = [Language]()
         let archivedLanguages = NSKeyedArchiver.archivedDataWithRootObject(self.languages as [Language])
         defaults.setObject(archivedLanguages, forKey: "languages")
-
+        
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
         #endif
@@ -103,8 +103,10 @@ class Settings {
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
     var region: String // http://high.fi/api/?act=listLanguages
 
+    var languagesUpdated = NSDate()
     var languages = [Language]()
     
+    var categoriesUpdatedByLang = Dictionary<String, NSDate>()
     var categoriesByLang = Dictionary<String, Array<Category>>()
     var categories = [Category]()
     var categoriesFavorited = Dictionary<String, Array<Int>>()
@@ -195,10 +197,12 @@ class Settings {
         }
         self.preferredLanguage = NSLocale.preferredLanguages()[0] 
 
+        // Get array of languages from storage
         if let unarchivedLanguages = defaults.objectForKey("languages") as? NSData {
             self.languages = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedLanguages) as! [Language]
         }
-        
+
+        // Get Dictionary of categories from storage
         if let unarchivedCategoriesByLang = defaults.objectForKey("categoriesByLang") as? NSData {
             self.categoriesByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
             
@@ -214,6 +218,18 @@ class Settings {
         if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesHidden") as? Dictionary<String, Array<Int>> {
             self.categoriesHidden = categoriesHidden
         }
+        
+        // Get dates when data was updated last time from API
+        if let languagesUpdated: NSDate = defaults.objectForKey("languagesUpdated") as? NSDate {
+            self.languagesUpdated = languagesUpdated
+        }
+        if let categoriesUpdatedByLang: Dictionary<String, NSDate> = defaults.objectForKey("categoriesUpdatedByLang") as? Dictionary<String, NSDate> {
+            self.categoriesUpdatedByLang = categoriesUpdatedByLang
+        }
+
+        // For development
+//        self.categoriesByLang = Dictionary<String, Array<Category>>()
+//        self.categoriesUpdatedByLang = Dictionary<String, NSDate>()
         
         #if DEBUG
 //            println("showDesc: \(self.showDesc)")

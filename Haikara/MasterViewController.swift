@@ -120,11 +120,30 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     func getCategories(){
         // Get categories for selected region from settings' store
-        if self.settings.categoriesByLang[self.settings.region] != nil {
-            #if DEBUG
-                print("masterview, getCategories: getting categories for lang from settings")
-            #endif
+//        if self.settings.categoriesByLang[self.settings.region] != nil {
+
             if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
+                #if DEBUG
+                    print("masterview, getCategories: getting categories for '\(self.settings.region)' from settings")
+                #endif
+                
+                if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
+                    let calendar = NSCalendar.currentCalendar()
+                    let comps = NSDateComponents()
+                    comps.day = 1
+                    let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+                    let today = NSDate()
+                    
+                    #if DEBUG
+                        print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
+                    #endif
+                        
+                    if updatedPlusWeek!.isLessThanDate(today) {
+                        getCategoriesFromAPI()
+                        return
+                    }
+                }
+                
                 self.settings.categories = categories
                 self.categories = categories
                 self.setCategories()
@@ -133,12 +152,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
                 return
             }
-        }
+//        }
         
         #if DEBUG
             print("masterview, getCategories: getting categories for lang from API")
         #endif
         // If categories for selected region is not found, fetch from API
+        getCategoriesFromAPI()
+    }
+    
+    func getCategoriesFromAPI() {
         HighFiApi.getCategories(
             { (result) in
                 self.settings.categories = result
@@ -146,11 +169,18 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
                 let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-
+                
                 let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(archivedObject, forKey: "categoriesByLang")
+                
+                self.settings.categoriesUpdatedByLang.updateValue(NSDate(), forKey: self.settings.region)
+                defaults.setObject(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")
+                #if DEBUG
+                    print("categories updated, \(self.settings.categoriesUpdatedByLang[self.settings.region])")
+                #endif
+                
                 defaults.synchronize()
-                                
+                
 //                #if DEBUG
 //                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
 //                #endif

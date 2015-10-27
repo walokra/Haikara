@@ -197,6 +197,24 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
             #if DEBUG
                 print("settingsView, listLanguages: getting languages from settings")
             #endif
+            
+            if let updated: NSDate = self.settings.languagesUpdated {
+                let calendar = NSCalendar.currentCalendar()
+                let comps = NSDateComponents()
+                comps.day = 1
+                let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+                let today = NSDate()
+                
+                #if DEBUG
+                    print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
+                #endif
+                
+                if updatedPlusWeek!.isLessThanDate(today) {
+                    getLanguagesFromAPI()
+                    return
+                }
+            }
+            
             self.languages = self.settings.languages
             self.setSelectedRegion()
             return
@@ -205,6 +223,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         #if DEBUG
             print("settingsView, listLanguages: getting languages from API")
         #endif
+        getLanguagesFromAPI()
+    }
+    
+    func getLanguagesFromAPI() {
         HighFiApi.listLanguages(
             { (result) in
                 dispatch_async(dispatch_get_main_queue()) {
@@ -220,6 +242,13 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(archivedObject, forKey: "languages")
+                    
+                    self.settings.languagesUpdated = NSDate()
+                    defaults.setObject(self.settings.languagesUpdated, forKey: "languagesUpdated")
+                    #if DEBUG
+                        print("languages update, \(self.settings.languagesUpdated)")
+                    #endif
+                    
                     defaults.synchronize()
                     
                     self.setSelectedRegion()
