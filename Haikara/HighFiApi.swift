@@ -150,7 +150,37 @@ public class HighFiApi {
                         selected: false
                         )
                     }
-                    // println("categories: \(categories.count)")
+                
+//                // HACK for dealing with missing values from API
+//                var categories = [Category]()
+//                let responseData = (data.valueForKey("responseData") as! NSDictionary)
+//                let cats = responseData.valueForKey("categories") as! [NSDictionary]
+//                for category in cats {
+//                    var title: String = ""
+//                    var sectionID: Int = 0
+//                    var depth: Int = 0
+//                    var htmlFilename: String = ""
+//                    if let t = category["title"] as? String {
+//                        title = t
+//                    }
+//                    if let sid = category["sectionID"] as? Int {
+//                        sectionID = sid
+//                    }
+//                    if let d = category["depth"] as? Int {
+//                        depth = d
+//                    }
+//                    if let html = category["htmlFilename"] as? String {
+//                        htmlFilename = html
+//                    }
+//                    
+//                    // Checking for needed information
+//                    if title != "" && sectionID != 0 && htmlFilename != "" {
+//                        let cat = Category(title: title, sectionID: sectionID, depth: depth, htmlFilename: htmlFilename, selected: false)
+//                        
+//                        categories.append(cat)
+//                    }
+//                }
+                // println("categories: \(categories.count)")
                 
                 return completionHandler(categories)
             case .Failure(let data, let error):
