@@ -139,8 +139,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 					self.sections[entry.timeSince]!.append(entry)
 				}
 				
-				// Storing sections in dictionary, so we need to sort it
-				self.sortedSections = self.sections.keys //.array.sorted(<)
+				self.sortedSections = self.sections.keys
 			}
 			//println("sections=\(self.sections.count)")
 			
@@ -356,7 +355,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 				if days == 1 {
 					return NSLocalizedString("YESTERDAY", comment: "")
 				} else {
-					return String(format: NSLocalizedString("%d days", comment: ""), hours)
+					return String(format: NSLocalizedString("%d days", comment: ""), days)
 				}
 			}
 		}
