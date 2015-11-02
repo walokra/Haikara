@@ -22,6 +22,19 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     let settings = Settings.sharedInstance
 
+    var favoritesSelected: Bool = false
+    @IBOutlet weak var favoritesButton: UIButton!
+    @IBAction func favoritesButtonAction(sender: AnyObject) {
+        if (favoritesSelected == false) {
+            favoritesSelected = true
+            createFavoritesButton(UIColor.redColor())
+        } else {
+            favoritesSelected = false
+            createFavoritesButton(UIColor.blackColor())
+        }
+        getCategories()
+    }
+    
     @IBOutlet weak var settingsButton: UIButton!
     @IBAction func settingsButtonAction(sender: AnyObject) {
     }
@@ -55,6 +68,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
         //
         
+        // creating favorites button from font
+        createFavoritesButton(UIColor.blackColor())
+        
         currentLanguage = settings.region
         
         if self.categories.isEmpty {
@@ -68,6 +84,21 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSelectedCategories:", name: "selectedCategoriesChangedNotification", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "settingsResetedNotification", object: nil)
+    }
+    
+    func createFavoritesButton(color: UIColor) {
+        let favoritesButtonString = String.ionIconString("ion-ios-star-outline")
+        let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        favoritesButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        favoritesButtonStringAttributed.addAttribute(
+        NSForegroundColorAttributeName,
+        value: color,
+        range: NSRange(location: 0,length: 1)
+        )
+        
+        favoritesButton.titleLabel?.textAlignment = .Center
+        favoritesButton.titleLabel?.numberOfLines = 1
+        favoritesButton.setAttributedTitle(favoritesButtonStringAttributed, forState: .Normal)
     }
     
     func setRegionCategory(notification: NSNotification) {
@@ -93,18 +124,20 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
         cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
         
-        if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
+        let categoriesFavorited = settings.categoriesFavorited[settings.region]
+        
+        if favoritesSelected && categoriesFavorited != nil {
             #if DEBUG
                 print("showing selected categories=\(categoriesFavorited)")
             #endif
             
-            if categoriesFavorited.isEmpty {
+            if categoriesFavorited!.isEmpty {
                 self.categories = cat + self.settings.categories
             } else {
                 var filteredCategories = [Category]()
             
                 self.settings.categories.forEach({ (category: Category) -> () in
-                    if categoriesFavorited.contains(category.sectionID) {
+                    if categoriesFavorited!.contains(category.sectionID) {
                         filteredCategories.append(category)
                     }
                 })
