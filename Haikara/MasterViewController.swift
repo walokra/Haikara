@@ -27,7 +27,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func favoritesButtonAction(sender: AnyObject) {
         if (favoritesSelected == false) {
             favoritesSelected = true
-            createFavoritesButton(UIColor.redColor())
+            createFavoritesButton(UIColor.greenColor())
         } else {
             favoritesSelected = false
             createFavoritesButton(UIColor.blackColor())
@@ -87,7 +87,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func createFavoritesButton(color: UIColor) {
-        let favoritesButtonString = String.ionIconString("ion-ios-star-outline")
+        let favoritesButtonString = String.ionIconString("ion-ios-star")
         let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         favoritesButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         favoritesButtonStringAttributed.addAttribute(

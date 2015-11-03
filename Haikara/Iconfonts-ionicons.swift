@@ -62,6 +62,7 @@ func fetchIconIonIcon(name: String) -> String {
         case "ion-ios-gear-outline": returnValue = "\u{f43c}"
         case "ion-android-share-alt": returnValue = "\u{f3ac}"
         case "ion-ios-star-outline": returnValue = "\u{f4b2}"
+        case "ion-ios-star": returnValue = "\u{f4b3}"
         default : returnValue =  "\u{f143}"
     }
     
