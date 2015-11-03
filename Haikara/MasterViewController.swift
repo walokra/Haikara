@@ -92,7 +92,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func createFavoritesButton(color: UIColor) {
-        let favoritesButtonString = String.ionIconString("ion-ios-star")
+        let favoritesButtonString = String.ionIconString("ion-ios-star-outline")
         let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         favoritesButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         favoritesButtonStringAttributed.addAttribute(
