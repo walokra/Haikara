@@ -610,7 +610,7 @@
                                 <animations/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
-                                <rect key="frame" x="8" y="513" width="583" height="14.5"/>
+                                <rect key="frame" x="8" y="519" width="583" height="14.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -620,14 +620,14 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="inR-1W-EPg" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="-15" id="0dh-Zw-4tq"/>
+                            <constraint firstItem="wfR-ky-Eni" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="117" id="8n1-2V-TPI"/>
                             <constraint firstItem="8Ld-0q-qBs" firstAttribute="top" secondItem="hch-WQ-bjL" secondAttribute="bottom" constant="8" id="B3W-vb-0ct"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8Ld-0q-qBs" secondAttribute="trailing" constant="101" id="DdN-PT-juI"/>
-                            <constraint firstItem="inR-1W-EPg" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="-21" id="MGk-3V-KDn"/>
                             <constraint firstItem="hch-WQ-bjL" firstAttribute="top" secondItem="PcG-uA-lGW" secondAttribute="bottom" constant="-2" id="N1n-Dx-obX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hch-WQ-bjL" secondAttribute="trailing" constant="-11" id="OFi-zq-djB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="inR-1W-EPg" secondAttribute="trailing" constant="-11" id="U8F-O7-9Y1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Br1-A7-SMo" secondAttribute="trailing" constant="-11" id="Y2i-yb-czT"/>
-                            <constraint firstItem="wfR-ky-Eni" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="117" id="Yli-Kb-OCk"/>
                             <constraint firstItem="PcG-uA-lGW" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="eGU-Ku-6Vl"/>
                             <constraint firstItem="8Ld-0q-qBs" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="105" id="fRS-I6-Ns5"/>
                             <constraint firstItem="PcG-uA-lGW" firstAttribute="top" secondItem="Br1-A7-SMo" secondAttribute="bottom" constant="16" id="fz2-Kk-Zmp"/>
