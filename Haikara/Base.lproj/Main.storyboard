@@ -580,23 +580,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-A7-SMo">
-                                <rect key="frame" x="8" y="72" width="305" height="92"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-A7-SMo">
+                                <rect key="frame" x="8" y="72" width="583" height="33.5"/>
                                 <animations/>
                                 <string key="text">Highkara news reader is unofficial client for High.fi news portal and provides functionality for reading news from several medias and regions. The app is similar to Ampparit.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
-                                <rect key="frame" x="8" y="172" width="296" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
+                                <rect key="frame" x="8" y="121" width="583" height="19.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
-                                <rect key="frame" x="8" y="188" width="296" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
+                                <rect key="frame" x="8" y="139" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="High.fi">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -605,12 +605,12 @@
                                     <action selector="openHighFi:" destination="U9M-il-Efs" eventType="touchUpInside" id="Cel-93-rJ1"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app-logo_1024x1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ld-0q-qBs">
-                                <rect key="frame" x="16" y="226" width="288" height="214"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="app-logo_1024x1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ld-0q-qBs">
+                                <rect key="frame" x="125" y="177" width="354" height="357"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
-                                <rect key="frame" x="9" y="439" width="295" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
+                                <rect key="frame" x="8" y="513" width="583" height="14.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -619,6 +619,24 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8Ld-0q-qBs" firstAttribute="top" secondItem="hch-WQ-bjL" secondAttribute="bottom" constant="8" id="B3W-vb-0ct"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Ld-0q-qBs" secondAttribute="trailing" constant="101" id="DdN-PT-juI"/>
+                            <constraint firstItem="inR-1W-EPg" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="-21" id="MGk-3V-KDn"/>
+                            <constraint firstItem="hch-WQ-bjL" firstAttribute="top" secondItem="PcG-uA-lGW" secondAttribute="bottom" constant="-2" id="N1n-Dx-obX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hch-WQ-bjL" secondAttribute="trailing" constant="-11" id="OFi-zq-djB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="inR-1W-EPg" secondAttribute="trailing" constant="-11" id="U8F-O7-9Y1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Br1-A7-SMo" secondAttribute="trailing" constant="-11" id="Y2i-yb-czT"/>
+                            <constraint firstItem="wfR-ky-Eni" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="117" id="Yli-Kb-OCk"/>
+                            <constraint firstItem="PcG-uA-lGW" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="eGU-Ku-6Vl"/>
+                            <constraint firstItem="8Ld-0q-qBs" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="105" id="fRS-I6-Ns5"/>
+                            <constraint firstItem="PcG-uA-lGW" firstAttribute="top" secondItem="Br1-A7-SMo" secondAttribute="bottom" constant="16" id="fz2-Kk-Zmp"/>
+                            <constraint firstItem="hch-WQ-bjL" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="i8g-Qm-5Fx"/>
+                            <constraint firstItem="Br1-A7-SMo" firstAttribute="top" secondItem="1Cv-xI-FcX" secondAttribute="bottom" constant="8" id="j1N-cg-TOH"/>
+                            <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="rpL-Fd-aYe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PcG-uA-lGW" secondAttribute="trailing" constant="-11" id="up0-cb-4Hr"/>
+                            <constraint firstItem="Br1-A7-SMo" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="zlN-QG-Kzt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="i05-GV-4cH">
                         <barButtonItem key="backBarButtonItem" title=" " id="s6d-s2-kAz"/>
