@@ -68,15 +68,20 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
         //
         
-        // creating favorites button from font
-        createFavoritesButton(UIColor.blackColor())
-        
         currentLanguage = settings.region
+        
+        if settings.categoriesFavorited[settings.region] != nil {
+            favoritesSelected = true
+            createFavoritesButton(UIColor.greenColor())
+        } else {
+            favoritesSelected = false
+            createFavoritesButton(UIColor.blackColor())
+        }
         
         if self.categories.isEmpty {
             getCategories()
         }
-        
+
         self.slideOutTableView!.delegate=self
         self.slideOutTableView.dataSource = self
         
