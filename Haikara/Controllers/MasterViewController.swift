@@ -257,8 +257,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
-        cell.indentationLevel = tableItem.depth
-        
+        cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth
+
         return cell
     }
     
