@@ -1,8 +1,15 @@
-# Haikara - News reader for iOS
+# Highkara news reader
 
-Haikara project is a news reader for High.fi site's sources. It helps you to follow news from Finland and other countries. The app's workname is Highkara.
+Highkara news reader helps you to follow news from Finland and other countries. It's an unofficial client for High.fi news aggregator and provides functionality for reading news from several medias and regions. The app is similar to Ampparit
 
-## Pre-requirements
+Highkara is available both for iPhone and iPad with iOS 8 or newer operating system. The application is open source and licensed under MIT.
+
+## Technologies
+
+* Swift 2
+* Alamofire
+
+# Building
 
 XCode to build the app.
 
