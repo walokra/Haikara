@@ -349,7 +349,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 					else if minutes < 45 { return NSLocalizedString("45_MIN", comment: "") }
 					else if minutes < 60 { return NSLocalizedString("HOUR", comment: "") }
 				} else {
-					if hours < 24 { return String(format: NSLocalizedString("< %d hours", comment: ""), hours) }
+					if hours == 1 {
+						return String(format: NSLocalizedString("< %d hours", comment: ""), hours+1)
+					} else {
+						return String(format: NSLocalizedString("< %d hours", comment: ""), hours)
+					}
 				}
 			} else {
 				if days == 1 {
