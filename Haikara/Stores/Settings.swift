@@ -20,7 +20,7 @@ class Settings {
         self.mostPopularName = "Suosituimmat"
         defaults.setObject(self.mostPopularName, forKey: "mostPopularName")
 
-        self.latestName = "Uutiset"
+        self.latestName = "Uusimmat"
         defaults.setObject(self.latestName, forKey: "latestName")
 
         self.domainToUse = "fi.high.fi"
@@ -148,7 +148,7 @@ class Settings {
         if let latestName: String = defaults.objectForKey("latestName") as? String {
             self.latestName = latestName
         } else {
-            self.latestName = "Uutiset"
+            self.latestName = "Uusimmat"
         }
         if let domainToUse: String = defaults.objectForKey("domainToUse") as? String {
             self.domainToUse = domainToUse

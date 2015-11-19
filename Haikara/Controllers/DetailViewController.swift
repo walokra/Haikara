@@ -24,7 +24,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	// default section
 	var highFiSection: String = "uutiset"
 	
-	var navigationItemTitle: String = NSLocalizedString("MAIN_TITLE", comment: "Title for main view")
+	var navigationItemTitle: String = ""
 	var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	var shareButtonText: String = NSLocalizedString("SHARE_BUTTON", comment: "Text for share button")
 
@@ -55,6 +55,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		#endif
         super.viewDidLoad()
 		
+		navigationItemTitle = settings.latestName
+
 		self.initView()
     }
 	
