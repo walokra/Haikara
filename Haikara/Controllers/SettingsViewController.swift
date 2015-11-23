@@ -57,6 +57,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     @IBOutlet weak var showDescSwitch: UISwitch!
     @IBOutlet weak var countryPicker: UIPickerView!
     @IBOutlet weak var useReaderViewSwitch: UISwitch!
+	@IBOutlet weak var darkThemeSwitch: UISwitch!
 
     let settings = Settings.sharedInstance
 
@@ -93,6 +94,17 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
             print ("useReaderView \(settings.useReaderView), sender.on=\(sender.on)")
         #endif
     }
+	
+	@IBAction func useDarkTheme(sender: UISwitch) {
+		settings.useDarkTheme = sender.on
+        defaults.setObject(settings.useDarkTheme, forKey: "useDarkTheme")
+        #if DEBUG
+            print ("useDarkTheme \(settings.useDarkTheme), sender.on=\(sender.on)")
+        #endif
+		
+		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)	
+	}
+	
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -110,6 +122,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
+		darkThemeSwitch.on = settings.useDarkTheme
         
         countryPicker.dataSource = self
         countryPicker.delegate = self

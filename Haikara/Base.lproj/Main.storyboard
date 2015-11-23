@@ -102,6 +102,7 @@
                     <navigationItem key="navigationItem" title="News" id="bx7-Bu-h0n"/>
                     <connections>
                         <outlet property="loadingIndicator" destination="L02-s7-yig" id="0f3-LK-44K"/>
+                        <outlet property="poweredLabel" destination="ocI-7q-PAB" id="mSY-xI-Bxx"/>
                         <outlet property="tableView" destination="3hl-Y4-qwf" id="svM-WY-G7k"/>
                     </connections>
                 </viewController>
@@ -298,10 +299,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="479" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-dO-bC7">
-                                <rect key="frame" x="0.0" y="64" width="331" height="532"/>
+                                <rect key="frame" x="0.0" y="64" width="331" height="587"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="288" placeholderIntrinsicHeight="423" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-En-jtv">
-                                        <rect key="frame" x="7" y="8" width="317" height="516"/>
+                                        <rect key="frame" x="7" y="8" width="317" height="571"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prefer mobile sites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wi-JJ-PjM">
                                                 <rect key="frame" x="8" y="75" width="224" height="21"/>
@@ -346,14 +347,14 @@
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Region for categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYl-NQ-OlI">
-                                                <rect key="frame" x="8" y="223" width="272" height="21"/>
+                                                <rect key="frame" x="8" y="293" width="272" height="21"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select news portal's region for categories." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIB-wJ-NC2">
-                                                <rect key="frame" x="13" y="247" width="272" height="15"/>
+                                                <rect key="frame" x="13" y="317" width="272" height="15"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -366,7 +367,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x14-e7-guv">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="x14-e7-guv">
                                                 <rect key="frame" x="248" y="163" width="51" height="31"/>
                                                 <animations/>
                                                 <connections>
@@ -374,7 +375,7 @@
                                                 </connections>
                                             </switch>
                                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Vv-Pac">
-                                                <rect key="frame" x="17" y="252" width="272" height="162"/>
+                                                <rect key="frame" x="22" y="329" width="272" height="162"/>
                                                 <animations/>
                                             </pickerView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use Reader View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAe-mY-AEU">
@@ -384,8 +385,15 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use dark theme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFs-Re-xWj">
+                                                <rect key="frame" x="8" y="225" width="224" height="21"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-nU-aju">
-                                                <rect key="frame" x="13" y="422" width="272" height="35"/>
+                                                <rect key="frame" x="13" y="499" width="272" height="35"/>
                                                 <animations/>
                                                 <state key="normal" title="About">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -395,14 +403,14 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset all settings to defaults" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-sH-qTR">
-                                                <rect key="frame" x="8" y="475" width="224" height="21"/>
+                                                <rect key="frame" x="8" y="542" width="224" height="21"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jas-hM-GU3">
-                                                <rect key="frame" x="217" y="471" width="80" height="30"/>
+                                                <rect key="frame" x="217" y="535" width="80" height="30"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <state key="normal" title="Reset"/>
@@ -410,6 +418,13 @@
                                                     <action selector="resetAction:" destination="PfJ-fU-JDr" eventType="touchUpInside" id="j0G-fQ-lnu"/>
                                                 </connections>
                                             </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Kpa-N8-jIj">
+                                                <rect key="frame" x="248" y="220" width="51" height="31"/>
+                                                <animations/>
+                                                <connections>
+                                                    <action selector="useDarkTheme:" destination="PfJ-fU-JDr" eventType="valueChanged" id="6yl-K4-6nn"/>
+                                                </connections>
+                                            </switch>
                                         </subviews>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -434,6 +449,7 @@
                     <connections>
                         <outlet property="contentView" destination="KzN-En-jtv" id="eXb-lY-e7J"/>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
+                        <outlet property="darkThemeSwitch" destination="Kpa-N8-jIj" id="eHH-rJ-IQx"/>
                         <outlet property="resetButton" destination="Jas-hM-GU3" id="gJP-at-5qN"/>
                         <outlet property="scrollView" destination="7fM-dO-bC7" id="f74-7x-1hA"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>

@@ -29,6 +29,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	var shareButtonText: String = NSLocalizedString("SHARE_BUTTON", comment: "Text for share button")
 
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var poweredLabel: UILabel!
 
 	var refreshControl: UIRefreshControl!
 
@@ -38,15 +39,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 	var loading = false
 	
-	// grey 99
-	let oddRowColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
-	// white smoke
-	let evenRowColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1)
-	// high green
-	let sectionColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
-	// high orange
-	// 242 137 32
-	
 	// MARK: Lifecycle
 	
     override func viewDidLoad() {
@@ -55,9 +47,22 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		#endif
         super.viewDidLoad()
 		
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+		
 		navigationItemTitle = settings.latestName
 
 		self.initView()
+    }
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("Received themeChangedNotification")
+        #endif
+		Theme.loadTheme()
+		
+		self.view.backgroundColor = Theme.backgroundColor
+		self.tableView.backgroundColor = Theme.backgroundColor
+		self.poweredLabel.textColor = Theme.poweredLabelColor
     }
 	
 	func initView() {
@@ -65,6 +70,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			print("initView()")
 		#endif
 		self.navigationItem.title = navigationItemTitle
+		
+		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 		
 		self.tableView!.delegate=self
 		self.tableView!.dataSource = self
@@ -215,7 +222,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		
 		// This changes the header background
-		view.tintColor = sectionColor
+		view.tintColor = Theme.sectionColor
 		
 		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
 		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
@@ -240,7 +247,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
 		cell.entryTitle.text = tableItem.title
+		cell.entryTitle.textColor = Theme.cellTitleColor
 		cell.entryAuthor.text = tableItem.author
+		cell.entryAuthor.textColor = Theme.cellAuthorColor
 		if (tableItem.shortDescription != "" && settings.showDesc) {
 			cell.entryDescription.text = tableItem.shortDescription
 			cell.entryDescription.hidden = false
@@ -248,19 +257,24 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			cell.entryDescription.text = ""
 			cell.entryDescription.hidden = true
 		}
+		cell.entryDescription.textColor = Theme.cellDescriptionColor
 		
 		if tableItem.highlight == true {
 			cell.highlighted = true
+			cell.selectedBackgroundView = Theme.selectedCellBackground
 		}
 		
 		if (indexPath.row % 2 == 0) {
-			cell.backgroundColor = evenRowColor
+			cell.backgroundColor = Theme.evenRowColor
 		} else {
-			cell.backgroundColor = oddRowColor
+			cell.backgroundColor = Theme.oddRowColor
 		}
 		
 		return cell
     }
+	
+//	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//	}
 	
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
