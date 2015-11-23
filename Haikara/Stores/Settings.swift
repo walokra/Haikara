@@ -8,40 +8,60 @@
 
 import UIKit
 
+struct Defaults {
+	// API defaults
+	let useToRetrieveLists: String
+	let mostPopularName: String
+	let latestName: String
+	let domainToUse: String
+	let genericNewsURLPart: String
+	
+	// settings
+	let showDesc: Bool
+	let useMobileUrl: Bool
+	let useReaderView: Bool
+	let useDarkTheme: Bool
+	let region: String
+}
+
 var instance: Settings?
 class Settings {
+	let defaultValues = Defaults(useToRetrieveLists: "finnish", mostPopularName: "Suosituimmat", latestName: "Uusimmat", domainToUse: "fi.high.fi", genericNewsURLPart: "uutiset", showDesc: true, useMobileUrl: true, useReaderView: false, useDarkTheme: false, region: "Finland")
     
     func resetToDefaults() {
         let defaults = NSUserDefaults.standardUserDefaults()
 
-        self.useToRetrieveLists = "finnish"
+        self.useToRetrieveLists = defaultValues.useToRetrieveLists
         defaults.setObject(self.useToRetrieveLists, forKey: "useToRetrieveLists")
         
-        self.mostPopularName = "Suosituimmat"
+        self.mostPopularName = defaultValues.mostPopularName
         defaults.setObject(self.mostPopularName, forKey: "mostPopularName")
 
-        self.latestName = "Uusimmat"
+        self.latestName = defaultValues.latestName
         defaults.setObject(self.latestName, forKey: "latestName")
 
-        self.domainToUse = "fi.high.fi"
+        self.domainToUse = defaultValues.domainToUse
         defaults.setObject(self.domainToUse, forKey: "domainToUse")
         
-        self.genericNewsURLPart = "uutiset"
+        self.genericNewsURLPart = defaultValues.genericNewsURLPart
         defaults.setObject(self.genericNewsURLPart, forKey: "genericNewsURLPart")
         
         defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
         self.deviceID = defaults.stringForKey("deviceID")!
         
-        self.showDesc = true
+        self.showDesc = defaultValues.showDesc
         defaults.setObject(self.showDesc, forKey: "showDesc")
         
-        self.useMobileUrl = true
+        self.useMobileUrl = defaultValues.useMobileUrl
         defaults.setObject(self.useMobileUrl, forKey: "useMobileUrl")
         
-        self.useReaderView = false
+        self.useReaderView = defaultValues.useReaderView
         defaults.setObject(self.useReaderView, forKey: "useReaderView")
+
+        self.useDarkTheme = defaultValues.useDarkTheme
+        defaults.setObject(self.useDarkTheme, forKey: "useDarkTheme")
         
-        self.region = "Finland"
+        self.region = defaultValues.region
         defaults.setObject(self.region, forKey: "region")
         
         self.categoriesFavorited = Dictionary<String, Array<Int>>()
@@ -101,6 +121,7 @@ class Settings {
     var showDesc: Bool // Showing descriptions for news items or not
     var useMobileUrl: Bool // Prefer mobile optimized URLs
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
+	var useDarkTheme: Bool // Use Dark Theme
     var region: String // http://high.fi/api/?act=listLanguages
 
     var languagesUpdated = NSDate()
@@ -111,10 +132,6 @@ class Settings {
     var categories = [Category]()
     var categoriesFavorited = Dictionary<String, Array<Int>>()
     var categoriesHidden = Dictionary<String, Array<Int>>()
-    
-    // Messages
-    let errorAPINoData: String = NSLocalizedString("ERROR_API_NO_DATA", comment: "Error text when no data from API.")
-    let errorAPIParse: String = NSLocalizedString("ERROR_API_PARSE", comment: "Error text when data serialization fails.")
     
     init() {
         #if DEBUG
@@ -138,27 +155,27 @@ class Settings {
         if let useToRetrieveLists: String = defaults.objectForKey("useToRetrieveLists") as? String {
             self.useToRetrieveLists = useToRetrieveLists
         } else {
-            self.useToRetrieveLists = "finnish"
+            self.useToRetrieveLists = defaultValues.useToRetrieveLists
         }
         if let mostPopularName: String = defaults.objectForKey("mostPopularName") as? String {
             self.mostPopularName = mostPopularName
         } else {
-            self.mostPopularName = "Suosituimmat"
+            self.mostPopularName = defaultValues.mostPopularName
         }
         if let latestName: String = defaults.objectForKey("latestName") as? String {
             self.latestName = latestName
         } else {
-            self.latestName = "Uusimmat"
+            self.latestName = defaultValues.latestName
         }
         if let domainToUse: String = defaults.objectForKey("domainToUse") as? String {
             self.domainToUse = domainToUse
         } else {
-            self.domainToUse = "fi.high.fi"
+            self.domainToUse = defaultValues.domainToUse
         }
         if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
             self.genericNewsURLPart = genericNewsURLPart
         } else {
-            self.genericNewsURLPart = "uutiset"
+            self.genericNewsURLPart = defaultValues.genericNewsURLPart
         }
         
         if let deviceID = defaults.stringForKey("deviceID") {
@@ -175,25 +192,31 @@ class Settings {
         if let showDesc: Bool = defaults.objectForKey("showDesc") as? Bool {
             self.showDesc = showDesc
         } else {
-            self.showDesc = true
+            self.showDesc = defaultValues.showDesc
         }
         
         if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
             self.useMobileUrl = useMobileUrl
         } else {
-            self.useMobileUrl = true
+            self.useMobileUrl = defaultValues.useMobileUrl
         }
         
         if let useReaderView: Bool = defaults.objectForKey("useReaderView") as? Bool {
             self.useReaderView = useReaderView
         } else {
-            self.useReaderView = false
+            self.useReaderView = defaultValues.useReaderView
+        }
+
+        if let useDarkTheme: Bool = defaults.objectForKey("useDarkTheme") as? Bool {
+            self.useDarkTheme = useDarkTheme
+        } else {
+            self.useDarkTheme = defaultValues.useDarkTheme
         }
         
         if let region: String = defaults.objectForKey("region") as? String {
             self.region = region
         } else {
-            self.region = "Finland"
+            self.region = defaultValues.region
         }
         self.preferredLanguage = NSLocale.preferredLanguages()[0] 
 
@@ -241,7 +264,7 @@ class Settings {
     }
     
     var description: String {
-        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), region=\(self.region)"
+        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), region=\(self.region)"
     }
 
 }
