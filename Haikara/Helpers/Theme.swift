@@ -9,20 +9,8 @@
 import UIKit
 
 struct Theme {
-
-	enum Theme {
-		case Default, Dark
 	
-		var mainColor: UIColor {
-			switch self {
-			case .Default:
-			  return UIColor.blackColor()
-			case .Dark:
-			  return UIColor.lightGrayColor()
-			}
-		}
-	}
-
+	static var textColor: UIColor = Light.textColor
 	static var sectionColor: UIColor = Light.sectionColor
 	static var backgroundColor: UIColor = Light.backgroundColor
 	static var evenRowColor: UIColor = Light.evenRowColor
@@ -32,6 +20,10 @@ struct Theme {
 	static var cellDescriptionColor: UIColor = Light.descriptionColor
 	static var selectedCellBackground = UIView()
 	static var barStyle: UIBarStyle = .Default
+	
+	static var buttonColor: UIColor = Light.buttonColor
+	static var tintColor: UIColor = Light.tintColor
+	static var selectedColor = Light.selectedColor
 	
 	static var poweredLabelColor: UIColor = Light.poweredLabelColor
 	
@@ -45,9 +37,10 @@ struct Theme {
 	
 	// MARK: Light Theme Schemes
 	static func themeLight(){
-		sectionColor = Light.sectionColor
+		textColor = Light.textColor
 		backgroundColor = Light.backgroundColor
-		
+
+		sectionColor = Light.sectionColor
 		evenRowColor = Light.evenRowColor
 		oddRowColor = Light.oddRowColor
 		cellTitleColor = Light.textColor
@@ -57,36 +50,43 @@ struct Theme {
 		
 		poweredLabelColor = Light.poweredLabelColor
 		
-		let sharedApplication = UIApplication.sharedApplication()
-		sharedApplication.delegate?.window??.tintColor = UIColor.blackColor()
-		UINavigationBar.appearance().barStyle = .Default
+		UIApplication.sharedApplication().delegate?.window??.tintColor = Light.tintColor
+		UINavigationBar.appearance().barStyle = UIBarStyle.Default
+		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+		UITabBar.appearance().barStyle = UIBarStyle.Default
 		
-		sharedApplication.setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+		buttonColor = Light.buttonColor
+		selectedColor = Light.selectedColor
 		
-		UITabBar.appearance().barStyle = .Default
+		UISwitch.appearance().onTintColor = Light.tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().thumbTintColor = Light.tintColor
 	}
 
 	// MARK: Dark Theme Schemes
 	static func themeDark(){
-		sectionColor = Dark.sectionColor
+		textColor = Dark.textColor
 		backgroundColor = Dark.backgroundColor
-
+		
+		sectionColor = Dark.sectionColor
 		evenRowColor = Dark.evenRowColor
 		oddRowColor = Dark.oddRowColor
 		cellTitleColor = Dark.textColor
 		cellAuthorColor = Dark.authorColor
 		cellDescriptionColor = Dark.descriptionColor
-		selectedCellBackground.backgroundColor = Dark.selectedBackgroudColor
+		selectedCellBackground.backgroundColor = Dark.selectedBackgroundColor
 		
 		poweredLabelColor = Dark.poweredLabelColor
 		
-		let sharedApplication = UIApplication.sharedApplication()
-		sharedApplication.delegate?.window??.tintColor = UIColor.lightGrayColor()
-		UINavigationBar.appearance().barStyle = .Black
+		UIApplication.sharedApplication().delegate?.window??.tintColor = Dark.tintColor
+		UINavigationBar.appearance().barStyle = UIBarStyle.Black
+		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+		UITabBar.appearance().barStyle = UIBarStyle.Black
 		
-		sharedApplication.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-
-		UITabBar.appearance().barStyle = .Black
+		buttonColor = Dark.buttonColor
+		selectedColor = Dark.selectedColor
+		
+		UISwitch.appearance().onTintColor = Dark.tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().thumbTintColor = Dark.tintColor
 	}
 	
 	struct Light {
@@ -105,6 +105,12 @@ struct Theme {
 		static let selectedBackgroudColor = UIColor.lightGrayColor()
 		
 		static let poweredLabelColor = UIColor.darkGrayColor()
+
+		// high green
+		static let buttonColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
+		static let tintColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
+		// high green
+		static let selectedColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
 	}
 	
 	struct Dark {
@@ -120,8 +126,14 @@ struct Theme {
 		// white smoke
 		static let authorColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1)
 		static let descriptionColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1)
-		static let selectedBackgroudColor = UIColor.darkGrayColor()
+		static let selectedBackgroundColor = UIColor.darkGrayColor()
 		
 		static let poweredLabelColor = UIColor.lightGrayColor()
+		
+		// high green
+		static let buttonColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
+		static let tintColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
+		// high green
+		static let selectedColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
 	}
 }

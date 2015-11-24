@@ -46,32 +46,43 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
-		
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+
+		setObservers()
+		setTheme()
 		
 		navigationItemTitle = settings.latestName
 
 		self.initView()
     }
 	
-	func setTheme(notification: NSNotification) {
-        #if DEBUG
-            print("Received themeChangedNotification")
-        #endif
+	func setObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
 		Theme.loadTheme()
 		
 		self.view.backgroundColor = Theme.backgroundColor
 		self.tableView.backgroundColor = Theme.backgroundColor
 		self.poweredLabel.textColor = Theme.poweredLabelColor
-    }
+		
+		// TODO: How to update the bar after changing
+		self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
+
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("DetailViewController, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
 	
 	func initView() {
 		#if DEBUG
 			print("initView()")
 		#endif
 		self.navigationItem.title = navigationItemTitle
-		
-		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 		
 		self.tableView!.delegate=self
 		self.tableView!.dataSource = self
@@ -193,6 +204,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 				print("iOS 9.0, *")
 			#endif
 			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+			svc.view.tintColor = Theme.tintColor
 			self.presentViewController(svc, animated: true, completion: nil)
 		} else {
 			#if DEBUG
@@ -227,7 +239,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
 		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
 		headerView.textLabel!.textColor = UIColor.blackColor()
-		
 	}
 	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -261,8 +272,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		if tableItem.highlight == true {
 			cell.highlighted = true
-			cell.selectedBackgroundView = Theme.selectedCellBackground
 		}
+		
+		cell.selectedBackgroundView = Theme.selectedCellBackground
 		
 		if (indexPath.row % 2 == 0) {
 			cell.backgroundColor = Theme.evenRowColor
@@ -388,6 +400,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		// Dispose of any resources that can be recreated.
 	}
 
+	// stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
 
 extension DetailViewController: CategorySelectionDelegate {

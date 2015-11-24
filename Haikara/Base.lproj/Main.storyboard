@@ -207,6 +207,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Categories" image="ios-list-outline.png" id="Rwm-VB-qca"/>
                     <connections>
+                        <outlet property="tableTitleLabel" destination="mxB-h8-nBo" id="0HA-lf-3Zy"/>
                         <outlet property="tableView" destination="PSc-w6-6CB" id="0ZQ-nY-adi"/>
                     </connections>
                 </viewController>
@@ -279,6 +280,7 @@
                     <tabBarItem key="tabBarItem" title="Hide" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="tableTitleLabel" destination="BAN-Se-lAx" id="pcN-ZR-1pP"/>
                         <outlet property="tableView" destination="ZUC-0f-GhU" id="RWa-0M-QF7"/>
                     </connections>
                 </viewController>
@@ -450,10 +452,20 @@
                         <outlet property="contentView" destination="KzN-En-jtv" id="eXb-lY-e7J"/>
                         <outlet property="countryPicker" destination="WqK-Vv-Pac" id="TLB-Rq-FeF"/>
                         <outlet property="darkThemeSwitch" destination="Kpa-N8-jIj" id="eHH-rJ-IQx"/>
+                        <outlet property="regionDesc" destination="oIB-wJ-NC2" id="GXs-Pu-FHy"/>
+                        <outlet property="regionLabel" destination="pYl-NQ-OlI" id="qoI-bf-Zif"/>
                         <outlet property="resetButton" destination="Jas-hM-GU3" id="gJP-at-5qN"/>
+                        <outlet property="resetLabel" destination="B6G-sH-qTR" id="yg5-3y-LeE"/>
                         <outlet property="scrollView" destination="7fM-dO-bC7" id="f74-7x-1hA"/>
+                        <outlet property="showDescDesc" destination="d0n-lp-5fT" id="5U9-T7-P7O"/>
+                        <outlet property="showDescLabel" destination="qvj-bp-i9F" id="7ro-FG-kG1"/>
                         <outlet property="showDescSwitch" destination="CMk-4q-CbN" id="R85-3k-kjr"/>
+                        <outlet property="useDarkLabel" destination="eFs-Re-xWj" id="nEb-dH-QML"/>
+                        <outlet property="useMobileDesc" destination="eA7-yO-xei" id="po1-q9-Uid"/>
+                        <outlet property="useMobileLabel" destination="4wi-JJ-PjM" id="8vh-fp-G0P"/>
                         <outlet property="useMobileUrlSwitch" destination="yKD-Di-V4Q" id="WQq-Va-eHo"/>
+                        <outlet property="useReaderDesc" destination="ebh-f8-Wqp" id="Q4p-8c-qUV"/>
+                        <outlet property="useReaderLabel" destination="sAe-mY-AEU" id="ers-Fn-IDV"/>
                         <outlet property="useReaderViewSwitch" destination="x14-e7-guv" id="IWv-JW-nvR"/>
                     </connections>
                 </viewController>
@@ -500,22 +512,12 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" textLabel="NKF-gP-YCx" style="IBUITableViewCellStyleDefault" id="3VR-c4-1Hc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" id="3VR-c4-1Hc">
                                         <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3VR-c4-1Hc" id="Jw9-hV-UiG">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NKF-gP-YCx">
-                                                    <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                             <animations/>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -604,21 +606,21 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
                                 <rect key="frame" x="8" y="168" width="583" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Feedback and support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqu-lY-gQF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Feedback and support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqu-lY-gQF">
                                 <rect key="frame" x="8" y="221" width="583" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
                                 <rect key="frame" x="8" y="184" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="High.fi">
@@ -628,14 +630,14 @@
                                     <action selector="openHighFi:" destination="U9M-il-Efs" eventType="touchUpInside" id="Cel-93-rJ1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Open Source, MIT licensed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBq-8u-25y">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Source, MIT licensed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBq-8u-25y">
                                 <rect key="frame" x="8" y="612" width="583" height="14.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eN9-81-Chf">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eN9-81-Chf">
                                 <rect key="frame" x="8" y="240" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Twitter"/>
@@ -643,15 +645,15 @@
                                     <action selector="openTwitter:" destination="U9M-il-Efs" eventType="touchUpInside" id="cbI-CA-OKy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrf-Jk-bbP">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrf-Jk-bbP">
                                 <rect key="frame" x="8" y="268" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Bug reports"/>
                                 <connections>
-                                    <action selector="openGitHub:" destination="U9M-il-Efs" eventType="touchUpInside" id="vDe-SN-cPr"/>
+                                    <action selector="bugsButtonAction:" destination="U9M-il-Efs" eventType="touchUpInside" id="I1G-Sq-RN3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rod-Pj-vys">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rod-Pj-vys">
                                 <rect key="frame" x="8" y="300" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Email"/>
@@ -667,11 +669,11 @@
                                     <action selector="openAppStore:" destination="U9M-il-Efs" eventType="touchUpInside" id="5r1-dU-xRJ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="app-logo_1024x1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ld-0q-qBs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="app-logo_1024x1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ld-0q-qBs">
                                 <rect key="frame" x="123" y="306" width="354" height="312"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
                                 <rect key="frame" x="9" y="595" width="583" height="14.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -690,13 +692,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="8Ld-0q-qBs" secondAttribute="trailing" constant="103" id="DdN-PT-juI"/>
                             <constraint firstItem="eN9-81-Chf" firstAttribute="top" secondItem="Dqu-lY-gQF" secondAttribute="bottom" constant="0.5" id="E1Z-sm-AE9"/>
                             <constraint firstItem="inR-1W-EPg" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="-23" id="FRE-vS-W4P"/>
-                            <constraint firstItem="HBq-8u-25y" firstAttribute="top" secondItem="inR-1W-EPg" secondAttribute="bottom" constant="3.5" id="Fyn-rr-c4Y"/>
-                            <constraint firstItem="PcG-uA-lGW" firstAttribute="top" secondItem="bnT-Gf-Yzk" secondAttribute="bottom" constant="8" id="GqL-Zk-yT3"/>
+                            <constraint firstItem="HBq-8u-25y" firstAttribute="top" secondItem="inR-1W-EPg" secondAttribute="bottom" constant="2.5" id="Fyn-rr-c4Y"/>
+                            <constraint firstItem="PcG-uA-lGW" firstAttribute="top" secondItem="bnT-Gf-Yzk" secondAttribute="bottom" constant="2" id="GqL-Zk-yT3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bnT-Gf-Yzk" secondAttribute="trailing" constant="-11" id="HwX-qr-jZg"/>
                             <constraint firstItem="hch-WQ-bjL" firstAttribute="top" secondItem="PcG-uA-lGW" secondAttribute="bottom" constant="-2" id="J5W-I8-lgR"/>
                             <constraint firstItem="zrf-Jk-bbP" firstAttribute="top" secondItem="eN9-81-Chf" secondAttribute="bottom" constant="-3" id="KTI-1T-1Lh"/>
                             <constraint firstItem="hch-WQ-bjL" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="Kgd-zw-rlJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="inR-1W-EPg" secondAttribute="trailing" constant="-11" id="U8F-O7-9Y1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="inR-1W-EPg" secondAttribute="trailing" constant="-12" id="U8F-O7-9Y1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Br1-A7-SMo" secondAttribute="trailing" constant="-11" id="Y2i-yb-czT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HBq-8u-25y" secondAttribute="trailing" constant="-11" id="Z93-0E-fat"/>
                             <constraint firstItem="zrf-Jk-bbP" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="aFs-NR-dlA"/>
@@ -709,7 +711,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="eN9-81-Chf" secondAttribute="trailing" constant="-11" id="jx3-xm-3MA"/>
                             <constraint firstItem="HBq-8u-25y" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="lFh-y2-yfW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dqu-lY-gQF" secondAttribute="trailing" constant="-11" id="pCK-y9-VeM"/>
-                            <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="rpL-Fd-aYe"/>
+                            <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-11" id="rpL-Fd-aYe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hch-WQ-bjL" secondAttribute="trailing" constant="-11" id="siC-7S-S90"/>
                             <constraint firstItem="rod-Pj-vys" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="tRY-xr-Zkd"/>
                             <constraint firstItem="eN9-81-Chf" firstAttribute="top" secondItem="Dqu-lY-gQF" secondAttribute="bottom" constant="0.5" id="u2W-gz-Ppx"/>
@@ -723,9 +725,15 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="s6d-s2-kAz"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="appStoreLabel" destination="bnT-Gf-Yzk" id="1Tv-ja-BjN"/>
-                        <outlet property="bugsLabel" destination="zrf-Jk-bbP" id="eA0-tl-z6D"/>
+                        <outlet property="aboutLabel" destination="Br1-A7-SMo" id="zIS-uA-3et"/>
+                        <outlet property="appStoreButton" destination="bnT-Gf-Yzk" id="24A-su-OIT"/>
+                        <outlet property="bugsButton" destination="zrf-Jk-bbP" id="7bI-8z-z2M"/>
+                        <outlet property="feedbackLabel" destination="Dqu-lY-gQF" id="Yf0-Ob-u1Y"/>
                         <outlet property="infoLabel" destination="inR-1W-EPg" id="YYQ-El-ual"/>
+                        <outlet property="openEmailButton" destination="rod-Pj-vys" id="jy5-o3-1Z2"/>
+                        <outlet property="openTwitterButton" destination="eN9-81-Chf" id="NlY-Cc-NpJ"/>
+                        <outlet property="poweredByButton" destination="hch-WQ-bjL" id="K1x-8w-ufl"/>
+                        <outlet property="poweredByLabel" destination="PcG-uA-lGW" id="jU2-X9-xIN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEf-Yh-Ec6" userLabel="First Responder" sceneMemberID="firstResponder"/>

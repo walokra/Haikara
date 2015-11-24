@@ -15,7 +15,9 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
             static let listCategoryCell = "tableCell"
         }
     }
-    
+	
+	
+	@IBOutlet weak var tableTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -24,13 +26,11 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     
     var categories = [Category]()
     
-    // white smoke
-    let normalColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1)
-    // high green
-    let selectedColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		setObservers()
+		setTheme()
         
         self.categories = settings.categories
         
@@ -40,10 +40,28 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
             
         self.tableView!.delegate=self
         self.tableView.dataSource = self
-
+    }
+	
+	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "categoriesRefreshedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetHidden:", name: "settingsResetedNotification", object: nil)
-    }
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
+		Theme.loadTheme()
+		view.backgroundColor = Theme.backgroundColor
+		tableView.backgroundColor = Theme.backgroundColor
+		tableTitleLabel.textColor = Theme.textColor
+		tableTitleLabel.backgroundColor = Theme.backgroundColor
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("HideCategoriesView, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
     
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
@@ -76,11 +94,16 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
+		cell.textLabel!.textColor = Theme.cellTitleColor
         
         if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
-            cell.backgroundColor = selectedColor
+            cell.backgroundColor = Theme.selectedColor
         } else {
-            cell.backgroundColor = normalColor
+			if (indexPath.row % 2 == 0) {
+				cell.backgroundColor = Theme.evenRowColor
+			} else {
+				cell.backgroundColor = Theme.oddRowColor
+			}
         }
         
         return cell

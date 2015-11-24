@@ -16,6 +16,14 @@ class NewsItemViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		setTheme()
+    }
+	
+	func setTheme() {
+		Theme.loadTheme()
+		
+		self.view.backgroundColor = Theme.backgroundColor
+		self.webView?.backgroundColor = Theme.backgroundColor
     }
     
     func loadWebView(url: NSURL) {

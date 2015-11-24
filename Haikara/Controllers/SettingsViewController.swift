@@ -10,6 +10,17 @@ import UIKit
 
 class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+	@IBOutlet weak var showDescLabel: UILabel!
+	@IBOutlet weak var showDescDesc: UILabel!
+	@IBOutlet weak var useMobileLabel: UILabel!
+	@IBOutlet weak var useMobileDesc: UILabel!
+	@IBOutlet weak var useReaderLabel: UILabel!
+	@IBOutlet weak var useReaderDesc: UILabel!
+	@IBOutlet weak var useDarkLabel: UILabel!
+	@IBOutlet weak var regionLabel: UILabel!
+	@IBOutlet weak var regionDesc: UILabel!
+	@IBOutlet weak var resetLabel: UILabel!
+
     @IBOutlet weak var resetButton: UIButton!
     
     @IBAction func resetAction(sender: AnyObject) {
@@ -98,20 +109,23 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	@IBAction func useDarkTheme(sender: UISwitch) {
 		settings.useDarkTheme = sender.on
         defaults.setObject(settings.useDarkTheme, forKey: "useDarkTheme")
+
         #if DEBUG
             print ("useDarkTheme \(settings.useDarkTheme), sender.on=\(sender.on)")
         #endif
 		
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)	
 	}
-	
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
+		setObservers()
+		setTheme()
+		
         self.scrollView.delegate = self
 
         self.tabBarController!.title = navigationItemTitle
@@ -127,6 +141,41 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         countryPicker.dataSource = self
         countryPicker.delegate = self
     }
+	
+	func setObservers() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
+		#if DEBUG
+            print("SettingsViewController, setTheme()")
+        #endif
+		Theme.loadTheme()
+		
+		view.backgroundColor = Theme.backgroundColor
+		scrollView.backgroundColor = Theme.backgroundColor
+		contentView.backgroundColor = Theme.backgroundColor
+		
+		showDescLabel.textColor = Theme.textColor
+		showDescDesc.textColor = Theme.textColor
+		useMobileLabel.textColor = Theme.textColor
+		useMobileDesc.textColor = Theme.textColor
+		useReaderLabel.textColor = Theme.textColor
+		useReaderDesc.textColor = Theme.textColor
+		useDarkLabel.textColor = Theme.textColor
+		regionLabel.textColor = Theme.textColor
+		regionDesc.textColor = Theme.textColor
+		resetLabel.textColor = Theme.textColor
+		
+		countryPicker.reloadAllComponents()
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("SettingsViewController, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
     
     override func viewDidLayoutSubviews() {
         // set the frame of the scroll view to be equal to the frame of the container view
@@ -161,6 +210,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.languages[row].country
     }
+	
+	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+	    return NSAttributedString(string: self.languages[row].country, attributes: [NSForegroundColorAttributeName:Theme.textColor])
+	}
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         let selectedRegion = self.languages[row]
@@ -304,4 +357,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         self.presentViewController(alertController, animated: true){}
     }
 
+	// stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

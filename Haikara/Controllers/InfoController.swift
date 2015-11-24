@@ -13,16 +13,19 @@ class InfoController: UIViewController {
 	var appStoreButtonText: String = NSLocalizedString("INFO_REVIEW_TITLE", comment: "Review in app store")
 	var bugsButtonText: String = NSLocalizedString("INFO_BUGS_TITLE", comment: "Bug reports")
 
+	@IBOutlet weak var aboutLabel: UILabel!
+
     @IBOutlet weak var infoLabel: UILabel!
     @IBAction func openHighFi(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
     }
 	
-	@IBOutlet weak var appStoreLabel: UIButton!
+	@IBOutlet weak var appStoreButton: UIButton!
 	@IBAction func openAppStore(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
 	
+	@IBOutlet weak var openTwitterButton: UIButton!
 	@IBAction func openTwitter(sender: AnyObject) {
 		let url = NSURL(string: "twitter://user?screen_name=walokra")
 		if UIApplication.sharedApplication().canOpenURL(url!) {
@@ -32,26 +35,56 @@ class InfoController: UIViewController {
 		}
 	}
 	
-	@IBOutlet weak var bugsLabel: UIButton!
-	@IBAction func openGitHub(sender: AnyObject) {
+	@IBOutlet weak var bugsButton: UIButton!
+	@IBAction func bugsButtonAction(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "https://github.com/walokra/haikara/issues")!)
 	}
 	
+	@IBOutlet weak var openEmailButton: UIButton!
 	@IBAction func openEmail(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "mailto:marko.wallin@iki.fi")!)
 	}
 	
+	@IBOutlet weak var poweredByLabel: UILabel!
+	@IBOutlet weak var poweredByButton: UIButton!
+	@IBOutlet weak var feedbackLabel: UILabel!
 	
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let settings = Settings()
-
-        infoLabel.text = settings.appID + ", Marko Wallin"
-		appStoreLabel.setTitle(appStoreButtonText, forState: UIControlState.Normal)
-		bugsLabel.setTitle(bugsButtonText, forState: UIControlState.Normal)
+		setObservers()
 		
+		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
+		
+        let settings = Settings()
+		
+        infoLabel.text = settings.appID + ", Marko Wallin"
+		appStoreButton.setTitle(appStoreButtonText, forState: UIControlState.Normal)
+		bugsButton.setTitle(bugsButtonText, forState: UIControlState.Normal)
+	}
+	
+	func setObservers() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("Received themeChangedNotification")
+        #endif
+		Theme.loadTheme()
+		
+		self.view.backgroundColor = Theme.backgroundColor
+		
+		aboutLabel.textColor = Theme.textColor
+		appStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		poweredByLabel.textColor = Theme.textColor
+		poweredByButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		feedbackLabel.textColor = Theme.textColor
+		bugsButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		openTwitterButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		openEmailButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+
+		infoLabel.textColor = Theme.textColor
     }
 
     override func didReceiveMemoryWarning() {

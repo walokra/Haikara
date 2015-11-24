@@ -30,7 +30,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             createFavoritesButton(UIColor.greenColor())
         } else {
             favoritesSelected = false
-            createFavoritesButton(UIColor.blackColor())
+            createFavoritesButton(Theme.tintColor)
         }
         getCategories()
     }
@@ -49,34 +49,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		setObservers()
+		setTheme()
         
         let logo = UIImage(named: "app-logo_40x40.png")
         self.navigationItem.titleView = UIImageView(image: logo)
-        
-        // creating settings button from font
-        let settingsButtonString = String.ionIconString("ion-ios-gear-outline")
-        let settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        settingsButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
-        settingsButtonStringAttributed.addAttribute(
-            NSForegroundColorAttributeName,
-            value: UIColor.blackColor(),
-            range: NSRange(location: 0,length: 1)
-        )
-        
-        settingsButton.titleLabel?.textAlignment = .Center
-        settingsButton.titleLabel?.numberOfLines = 1
-        settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
-        //
-        
+		
         currentLanguage = settings.region
-        
-        if settings.categoriesFavorited[settings.region] != nil {
-            favoritesSelected = true
-            createFavoritesButton(UIColor.greenColor())
-        } else {
-            favoritesSelected = false
-            createFavoritesButton(UIColor.blackColor())
-        }
         
         if self.categories.isEmpty {
             getCategories()
@@ -84,13 +64,39 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         self.slideOutTableView!.delegate=self
         self.slideOutTableView.dataSource = self
-        
+    }
+	
+	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSelectedCategories:", name: "selectedCategoriesChangedNotification", object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "settingsResetedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
+		Theme.loadTheme()
+		
+		self.view.backgroundColor = Theme.backgroundColor
+		self.slideOutTableView.backgroundColor = Theme.backgroundColor
+		
+		createSettingsButton(Theme.tintColor)
+		if settings.categoriesFavorited[settings.region] != nil {
+            favoritesSelected = true
+            createFavoritesButton(UIColor.greenColor())
+        } else {
+            favoritesSelected = false
+            createFavoritesButton(Theme.tintColor)
+        }
+		self.slideOutTableView!.reloadData()
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("MasterViewController, Received themeChangedNotification")
+        #endif
+		setTheme()
     }
-    
+
     func createFavoritesButton(color: UIColor) {
         let favoritesButtonString = String.ionIconString("ion-ios-star-outline")
         let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
@@ -105,6 +111,22 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         favoritesButton.titleLabel?.numberOfLines = 1
         favoritesButton.setAttributedTitle(favoritesButtonStringAttributed, forState: .Normal)
     }
+	
+	func createSettingsButton(color: UIColor) {
+		// creating settings button from font
+        let settingsButtonString = String.ionIconString("ion-ios-gear-outline")
+        let settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        settingsButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        settingsButtonStringAttributed.addAttribute(
+            NSForegroundColorAttributeName,
+            value: color,
+            range: NSRange(location: 0,length: 1)
+        )
+        
+        settingsButton.titleLabel?.textAlignment = .Center
+        settingsButton.titleLabel?.numberOfLines = 1
+        settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
+	}
     
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
@@ -258,6 +280,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth - 1
+		cell.textLabel!.textColor = Theme.textColor
+		
+		cell.selectedBackgroundView = Theme.selectedCellBackground
+		
+		if (indexPath.row % 2 == 0) {
+			cell.backgroundColor = Theme.evenRowColor
+		} else {
+			cell.backgroundColor = Theme.oddRowColor
+		}
 
         return cell
     }
