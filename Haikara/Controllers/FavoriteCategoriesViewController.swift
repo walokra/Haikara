@@ -21,6 +21,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 
+	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var tableTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,7 +54,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
 		tableTitleLabel.textColor = Theme.textColor
-		tableTitleLabel.backgroundColor = Theme.backgroundColor
+		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	func setTheme(notification: NSNotification) {

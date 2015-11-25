@@ -17,6 +17,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     }
 	
 	
+	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var tableTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
@@ -53,7 +54,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
 		tableTitleLabel.textColor = Theme.textColor
-		tableTitleLabel.backgroundColor = Theme.backgroundColor
+		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	func setTheme(notification: NSNotification) {
