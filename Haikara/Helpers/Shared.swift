@@ -23,5 +23,20 @@ extension NSDate
 
 class Shared: NSObject {
 
+	static func hideWhiteSpaceBeforeCell(tableView: UITableView, cell: UITableViewCell) {
+		// Cell separator from left side, make it disappear
+		if (tableView.respondsToSelector("separatorInset")) {
+			tableView.separatorInset = UIEdgeInsetsZero
+		}
+		if (tableView.respondsToSelector("layoutMargins")) {
+			tableView.layoutMargins = UIEdgeInsetsZero
+	    }
+
+		cell.separatorInset = UIEdgeInsetsMake(0, 0, cell.frame.size.width, 0)
+		if (cell.respondsToSelector("preservesSuperviewLayoutMargins")){
+			cell.layoutMargins = UIEdgeInsetsZero
+			cell.preservesSuperviewLayoutMargins = false
+		}
+	}
 
 }

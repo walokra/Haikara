@@ -107,6 +107,8 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 			}
         }
         
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+
         return cell
     }
     

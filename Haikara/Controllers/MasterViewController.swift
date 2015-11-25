@@ -290,6 +290,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			cell.backgroundColor = Theme.oddRowColor
 		}
 
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+
         return cell
     }
     

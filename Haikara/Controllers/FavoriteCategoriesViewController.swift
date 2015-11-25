@@ -107,8 +107,10 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 			}
         }
         
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+
         return cell
-    }
+	}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

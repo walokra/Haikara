@@ -337,8 +337,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		} else {
 			cell.backgroundColor = Theme.oddRowColor
 		}
-		
-		return cell
+				
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+
+        return cell
     }
 	
 //	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
