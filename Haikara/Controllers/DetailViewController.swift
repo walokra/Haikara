@@ -134,41 +134,97 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	}
 	
 	func setNews(newsentries: Array<Entry>) {
-		for item in newsentries {
-			item.timeSince = self.getTimeSince(item.publishedDateJS)
-		}
-		
-		dispatch_async(dispatch_get_main_queue()) {
-			// Clear old entries
-			self.entries = NSMutableOrderedSet()
-			self.sections = OrderedDictionary<String, Array<Entry>>()
-			self.sortedSections = [String]()
-			
-			self.entries.addObjectsFromArray(newsentries)
-			//println("newsEntries=\(self.newsEntries.count)")
-			
-			// Put each item in a section
-			for item in self.entries {
-				// If we don't have section for particular time, create new one,
-				// Otherwise just add item to existing section
-				let entry = item as! Entry
-				//	println("section=\(entry.section), title=\(entry.title)")
-				if self.sections[entry.timeSince] == nil {
-					self.sections[entry.timeSince] = [entry]
-				} else {
-					self.sections[entry.timeSince]!.append(entry)
-				}
+		// Top items are not grouped by time
+		print("highFiSection=\(highFiSection)")
+		if highFiSection == "top" {
+			dispatch_async(dispatch_get_main_queue()) {
+				// Clear old entries
+				self.entries = NSMutableOrderedSet()
+				self.sections = OrderedDictionary<String, Array<Entry>>()
+				self.sortedSections = [String]()
 				
-				self.sortedSections = self.sections.keys
+				self.entries.addObjectsFromArray(newsentries)
+				
+				var i = 0
+				var range = "1 ..10"
+				for item in self.entries {
+					let entry = item as! Entry
+					if (i < 10) {
+						range = "1 ..10"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 20) {
+						range = "11 ..20"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 30) {
+						range = "21 ..30"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 40) {
+						range = "31 ..40"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 50) {
+						range = "41 ..50"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 60) {
+						range = "51 ..60"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else if (i < 70) {
+						range = "61 ..70"
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					} else {
+						range = "70 ..."
+						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+					}
+					
+					self.sortedSections = self.sections.keys
+					i++
+				}
+				//println("sections=\(self.sections.count)")
+				
+				self.tableView!.reloadData()
+				self.refreshControl?.endRefreshing()
+				self.setLoadingState(false)
+				self.scrollToTop()
+				
+				return
 			}
-			//println("sections=\(self.sections.count)")
+		} else {
+			// Other categories are grouped by time
+			for item in newsentries {
+				item.timeSince = self.getTimeSince(item.publishedDateJS)
+			}
 			
-			self.tableView!.reloadData()
-			self.refreshControl?.endRefreshing()
-			self.setLoadingState(false)
-			self.scrollToTop()
-			
-			return
+			dispatch_async(dispatch_get_main_queue()) {
+				// Clear old entries
+				self.entries = NSMutableOrderedSet()
+				self.sections = OrderedDictionary<String, Array<Entry>>()
+				self.sortedSections = [String]()
+				
+				self.entries.addObjectsFromArray(newsentries)
+				//println("newsEntries=\(self.newsEntries.count)")
+				
+				// Put each item in a section
+				for item in self.entries {
+					// If we don't have section for particular time, create new one,
+					// Otherwise just add item to existing section
+					let entry = item as! Entry
+					//	println("section=\(entry.section), title=\(entry.title)")
+					if self.sections[entry.timeSince] == nil {
+						self.sections[entry.timeSince] = [entry]
+					} else {
+						self.sections[entry.timeSince]!.append(entry)
+					}
+					
+					self.sortedSections = self.sections.keys
+				}
+				//println("sections=\(self.sections.count)")
+				
+				self.tableView!.reloadData()
+				self.refreshControl?.endRefreshing()
+				self.setLoadingState(false)
+				self.scrollToTop()
+				
+				return
+			}
 		}
 	}
 	
