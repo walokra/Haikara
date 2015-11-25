@@ -81,6 +81,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
     let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
+	let darkThemeTitle: String = NSLocalizedString("SETTINGS_DARK_THEME", comment: "")
     
     @IBAction func useMobileUrl(sender: UISwitch) {
         settings.useMobileUrl = sender.on
@@ -125,6 +126,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 		
 		setObservers()
 		setTheme()
+		setText()
 		
         self.scrollView.delegate = self
 
@@ -144,6 +146,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	
 	func setObservers() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setText() {
+		useDarkLabel.text = darkThemeTitle
 	}
 	
 	func setTheme() {
