@@ -209,16 +209,17 @@
                     <connections>
                         <outlet property="tableTitleLabel" destination="mxB-h8-nBo" id="0HA-lf-3Zy"/>
                         <outlet property="tableView" destination="PSc-w6-6CB" id="0ZQ-nY-adi"/>
+                        <outlet property="titleView" destination="AcJ-Zh-1pv" id="yR1-P5-cLg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lg0-cC-J0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4848" y="-1296"/>
         </scene>
-        <!--Hide-->
+        <!--Filter-->
         <scene sceneID="KK4-uc-NJ9">
             <objects>
-                <viewController id="ZlS-SQ-8sA" customClass="HideCategoryViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZlS-SQ-8sA" customClass="FilterNewsSourcesViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sll-4e-fI4"/>
                         <viewControllerLayoutGuide type="bottom" id="E6Q-7U-ip8"/>
@@ -257,7 +258,7 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRd-ta-AaE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hide categories shown in news" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAN-Se-lAx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select news sources to hide from news" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAN-Se-lAx">
                                         <rect key="frame" x="8" y="0.0" width="584" height="40"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -277,11 +278,12 @@
                             <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="hXv-S9-ekq"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Hide" image="ios-funnel.png" id="Og4-py-LgQ"/>
+                    <tabBarItem key="tabBarItem" title="Filter" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableTitleLabel" destination="BAN-Se-lAx" id="pcN-ZR-1pP"/>
                         <outlet property="tableView" destination="ZUC-0f-GhU" id="RWa-0M-QF7"/>
+                        <outlet property="titleView" destination="XRd-ta-AaE" id="1VH-te-scZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -515,7 +517,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tableCell" id="3VR-c4-1Hc">
                                         <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3VR-c4-1Hc" id="Jw9-hV-UiG">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="3VR-c4-1Hc" id="Jw9-hV-UiG">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
@@ -598,29 +600,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-A7-SMo">
-                                <rect key="frame" x="8" y="72" width="583" height="56"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-A7-SMo">
+                                <rect key="frame" x="8" y="72" width="583" height="50.5"/>
                                 <animations/>
                                 <string key="text">Highkara news reader is unofficial client for High.fi news aggregator and provides functionality for reading news from several medias and regions. The app is similar to Ampparit.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcG-uA-lGW">
                                 <rect key="frame" x="8" y="168" width="583" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Feedback and support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqu-lY-gQF">
-                                <rect key="frame" x="8" y="221" width="583" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Feedback and support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqu-lY-gQF">
+                                <rect key="frame" x="8" y="221.5" width="583" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hch-WQ-bjL">
                                 <rect key="frame" x="8" y="184" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="High.fi">
@@ -637,7 +639,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eN9-81-Chf">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eN9-81-Chf">
                                 <rect key="frame" x="8" y="240" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Twitter"/>
@@ -645,23 +647,23 @@
                                     <action selector="openTwitter:" destination="U9M-il-Efs" eventType="touchUpInside" id="cbI-CA-OKy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrf-Jk-bbP">
-                                <rect key="frame" x="8" y="268" width="583" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrf-Jk-bbP">
+                                <rect key="frame" x="8" y="267" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Bug reports"/>
                                 <connections>
                                     <action selector="bugsButtonAction:" destination="U9M-il-Efs" eventType="touchUpInside" id="I1G-Sq-RN3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rod-Pj-vys">
-                                <rect key="frame" x="8" y="300" width="583" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rod-Pj-vys">
+                                <rect key="frame" x="8" y="299" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Email"/>
                                 <connections>
                                     <action selector="openEmail:" destination="U9M-il-Efs" eventType="touchUpInside" id="mnB-FJ-atS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnT-Gf-Yzk">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnT-Gf-Yzk">
                                 <rect key="frame" x="8" y="136" width="583" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Review on App Store"/>
@@ -686,6 +688,7 @@
                         <constraints>
                             <constraint firstItem="wfR-ky-Eni" firstAttribute="top" secondItem="8Ld-0q-qBs" secondAttribute="bottom" constant="33" id="1VB-ai-kZK"/>
                             <constraint firstItem="8Ld-0q-qBs" firstAttribute="top" secondItem="zrf-Jk-bbP" secondAttribute="bottom" constant="8" id="2i3-0T-esA"/>
+                            <constraint firstItem="Br1-A7-SMo" firstAttribute="top" secondItem="1Cv-xI-FcX" secondAttribute="bottom" constant="8" id="2mr-ky-YWo"/>
                             <constraint firstItem="PcG-uA-lGW" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="92g-vM-Klu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zrf-Jk-bbP" secondAttribute="trailing" constant="-11" id="BtT-zP-yeM"/>
                             <constraint firstItem="eN9-81-Chf" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="DCF-md-55Q"/>
@@ -699,7 +702,6 @@
                             <constraint firstItem="zrf-Jk-bbP" firstAttribute="top" secondItem="eN9-81-Chf" secondAttribute="bottom" constant="-3" id="KTI-1T-1Lh"/>
                             <constraint firstItem="hch-WQ-bjL" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="Kgd-zw-rlJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="inR-1W-EPg" secondAttribute="trailing" constant="-12" id="U8F-O7-9Y1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Br1-A7-SMo" secondAttribute="trailing" constant="-11" id="Y2i-yb-czT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HBq-8u-25y" secondAttribute="trailing" constant="-11" id="Z93-0E-fat"/>
                             <constraint firstItem="zrf-Jk-bbP" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="aFs-NR-dlA"/>
                             <constraint firstItem="bnT-Gf-Yzk" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="ack-Pf-4BT"/>
@@ -707,18 +709,18 @@
                             <constraint firstAttribute="trailingMargin" secondItem="rod-Pj-vys" secondAttribute="trailing" constant="-11" id="dxE-v4-DV2"/>
                             <constraint firstItem="Dqu-lY-gQF" firstAttribute="top" secondItem="hch-WQ-bjL" secondAttribute="bottom" constant="7.5" id="esy-JN-o9V"/>
                             <constraint firstItem="8Ld-0q-qBs" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="103" id="fRS-I6-Ns5"/>
-                            <constraint firstItem="Br1-A7-SMo" firstAttribute="top" secondItem="1Cv-xI-FcX" secondAttribute="bottom" constant="8" id="j1N-cg-TOH"/>
+                            <constraint firstItem="bnT-Gf-Yzk" firstAttribute="top" secondItem="Br1-A7-SMo" secondAttribute="bottom" constant="13.5" id="g4P-Hf-5as"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eN9-81-Chf" secondAttribute="trailing" constant="-11" id="jx3-xm-3MA"/>
                             <constraint firstItem="HBq-8u-25y" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="lFh-y2-yfW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Br1-A7-SMo" secondAttribute="trailing" constant="-11" id="nvQ-OQ-u8C"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dqu-lY-gQF" secondAttribute="trailing" constant="-11" id="pCK-y9-VeM"/>
                             <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-11" id="rpL-Fd-aYe"/>
+                            <constraint firstItem="Br1-A7-SMo" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="sMI-tA-fpM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hch-WQ-bjL" secondAttribute="trailing" constant="-11" id="siC-7S-S90"/>
                             <constraint firstItem="rod-Pj-vys" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="tRY-xr-Zkd"/>
                             <constraint firstItem="eN9-81-Chf" firstAttribute="top" secondItem="Dqu-lY-gQF" secondAttribute="bottom" constant="0.5" id="u2W-gz-Ppx"/>
-                            <constraint firstItem="bnT-Gf-Yzk" firstAttribute="top" secondItem="Br1-A7-SMo" secondAttribute="bottom" constant="8" id="xPG-SD-j7l"/>
                             <constraint firstItem="rod-Pj-vys" firstAttribute="top" secondItem="zrf-Jk-bbP" secondAttribute="bottom" constant="2" id="ylc-PA-VvN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PcG-uA-lGW" secondAttribute="trailing" constant="-11" id="zew-nV-Ho3"/>
-                            <constraint firstItem="Br1-A7-SMo" firstAttribute="leading" secondItem="zP7-EK-4VM" secondAttribute="leadingMargin" constant="-12" id="zlN-QG-Kzt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="i05-GV-4cH">

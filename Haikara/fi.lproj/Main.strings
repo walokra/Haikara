@@ -9,7 +9,8 @@
 "B6G-sH-qTR.text" = "Alusta asetukset oletusarvoiksi";
 
 /* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "BAN-Se-lAx"; */
-"BAN-Se-lAx.text" = "Piilota uutisissa näytettävä kategoria";
+//"BAN-Se-lAx.text" = "Piilota uutisissa näytettävä kategoria";
+"BAN-Se-lAx.text" = "Valitse piilotettavat uutislähteet";
 
 /* Class = "UILabel"; text = "Highkara news reader is unofficial client for High.fi news portal and provides functionality for reading news from several medias and regions. The app is similar to Ampparit."; ObjectID = "Br1-A7-SMo"; */
 "Br1-A7-SMo.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
@@ -21,7 +22,8 @@
 "NKF-gP-YCx.text" = "Otsikko";
 
 /* Class = "UITabBarItem"; title = "Hide"; ObjectID = "Og4-py-LgQ"; */
-"Og4-py-LgQ.title" = "Piilota";
+//"Og4-py-LgQ.title" = "Piilota";
+"Og4-py-LgQ.title" = "Suodata";
 
 /* Class = "UILabel"; text = "Powered by"; ObjectID = "PcG-uA-lGW"; */
 "PcG-uA-lGW.text" = "Voimanlähteenä";

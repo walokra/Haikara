@@ -57,11 +57,17 @@ public class HighFiApi {
 //                    print("response: \(response)")
 //                    print("json: \(data)")
                 #endif
-                
+				
+				
+				var newsSourcesFiltered = [Int]()
+				if settings.newsSourcesFiltered[settings.region] != nil {
+					newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
+				}
+				
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
                 let feed = (responseData.valueForKey("feed") as! NSDictionary)
                 let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
-                    //.filter({ ($0["sectionID"] as! Int) == 98 })
+                    .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
                     .map { Entry(
                         title: $0["title"] as! String,
                         link: $0["link"] as! String,
@@ -241,6 +247,58 @@ public class HighFiApi {
                     #endif
                 
                 return completionHandler(languages)
+                
+            case .Failure(let data, let error):
+                #if DEBUG
+                    print("Error: \(__FUNCTION__)\n", data, error)
+                #endif
+                if let error = result.error as? NSError {
+                    failureHandler(error.localizedDescription)
+                }
+            }
+        }
+    }
+	
+    // http://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
+    class func listSources(completionHandler: ([NewsSources]) -> Void, failureHandler: (String) -> Void) {
+        #if DEBUG
+            print("listSources()")
+        #endif
+    
+        let settings = Settings.sharedInstance
+    
+        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+            "User-Agent": settings.appID,
+            "Cache-Control": "private, must-revalidate, max-age=84600"
+        ]
+        
+        let url = "http://" + settings.domainToUse + "/api"
+        
+        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY])
+        request.validate()
+        request.responseJSON {request, response, result in
+            switch result {
+            case .Success(let data):
+
+                #if DEBUG
+                    print("HighFiApi, request: \(request)")
+                    // println("response: \(response)")
+                    // println("json: \(theJSON)")
+                #endif
+            
+                let responseData = (data.valueForKey("responseData") as! NSDictionary)
+                let newsSources = (responseData.valueForKey("newsSources") as! [NSDictionary])
+                    .map { NewsSources(
+                        sourceName: $0["sourceName"] as! String,
+                        sourceID: $0["sourceID"] as! Int,
+						selected: false
+                        )
+                    }
+                    #if DEBUG
+                        print("HighFiApi, newsSources: \(newsSources.count)")
+                    #endif
+                
+                return completionHandler(newsSources)
                 
             case .Failure(let data, let error):
                 #if DEBUG
