@@ -146,32 +146,32 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 				self.entries.addObjectsFromArray(newsentries)
 				
 				var i = 0
-				var range = "1 ..10"
+				var range = " 1 ..10"
 				for item in self.entries {
 					let entry = item as! Entry
 					if (i < 10) {
-						range = "1 ..10"
+						range = " 1 ..10"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 20) {
-						range = "11 ..20"
+						range = " 11 ..20"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 30) {
-						range = "21 ..30"
+						range = " 21 ..30"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 40) {
-						range = "31 ..40"
+						range = " 31 ..40"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 50) {
-						range = "41 ..50"
+						range = " 41 ..50"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 60) {
-						range = "51 ..60"
+						range = " 51 ..60"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else if (i < 70) {
-						range = "61 ..70"
+						range = " 61 ..70"
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					} else {
-						range = "70 ..."
+						range = " 70 ..."
 						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
 					}
 					
