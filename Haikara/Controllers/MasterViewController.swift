@@ -130,7 +130,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
-            print("Received regionChangedNotification")
+            print("MasterView, Received regionChangedNotification")
             print(notification.userInfo)
         #endif
         
@@ -139,7 +139,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func updateSelectedCategories(notification: NSNotification) {
         #if DEBUG
-            print("Received selectedCategoriesChangedNotification")
+            print("MasterView, Received selectedCategoriesChangedNotification")
             print(notification.userInfo)
         #endif
         setCategories()
@@ -184,7 +184,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
             if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
                 #if DEBUG
-                    print("masterview, getCategories: getting categories for '\(self.settings.region)' from settings")
+                    print("MasterView, getCategories: getting categories for '\(self.settings.region)' from settings")
                 #endif
                 
                 if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
@@ -215,7 +215,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 //        }
         
         #if DEBUG
-            print("masterview, getCategories: getting categories for lang from API")
+            print("MasterView, getCategories: getting categories for lang from API")
         #endif
         // If categories for selected region is not found, fetch from API
         getCategoriesFromAPI()

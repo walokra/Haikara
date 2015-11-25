@@ -51,7 +51,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		setTheme()
 		
 		navigationItemTitle = settings.latestName
-
+		
 		self.initView()
     }
 	
@@ -62,13 +62,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	func setTheme() {
 		Theme.loadTheme()
 		
-		self.view.backgroundColor = Theme.backgroundColor
-		self.tableView.backgroundColor = Theme.backgroundColor
-		self.poweredLabel.textColor = Theme.poweredLabelColor
+		view.backgroundColor = Theme.backgroundColor
+		tableView.backgroundColor = Theme.backgroundColor
+		poweredLabel.textColor = Theme.poweredLabelColor
 		
 		// TODO: How to update the bar after changing
 		self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
-
 	}
 	
 	func setTheme(notification: NSNotification) {
@@ -313,6 +312,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
+		
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor
 		cell.entryAuthor.text = tableItem.author

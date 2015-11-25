@@ -38,6 +38,7 @@
 		36778F851B3760C000F387E0 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F7A1B3760C000F387E0 /* Default@2x~iphone.png */; };
 		36778F881B37651000F387E0 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F861B37651000F387E0 /* iTunesArtwork.png */; };
 		36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F871B37651000F387E0 /* iTunesArtwork@2x.png */; };
+		369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */; };
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
@@ -104,6 +105,9 @@
 		36778F861B37651000F387E0 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		36778F871B37651000F387E0 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		369A6D811BD7DDFD00ABB4F9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
+		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
+		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C091B2E0AE900BE0C77 /* highkara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highkara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,9 +125,17 @@
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		369AAEE01BF29DE10038EDA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36A39C061B2E0AE900BE0C77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,12 +250,22 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		369AAEE41BF29DE10038EDA2 /* HighkaraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */,
+				369AAEE71BF29DE10038EDA2 /* Info.plist */,
+			);
+			path = HighkaraUITests;
+			sourceTree = "<group>";
+		};
 		36A39C001B2E0AE900BE0C77 = {
 			isa = PBXGroup;
 			children = (
 				36B264331BBC6C5D00F008FA /* Alamofire.framework */,
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
 				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
+				369AAEE41BF29DE10038EDA2 /* HighkaraUITests */,
 				36A39C0A1B2E0AE900BE0C77 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -253,6 +275,7 @@
 			children = (
 				36A39C091B2E0AE900BE0C77 /* highkara.app */,
 				36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */,
+				369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -314,6 +337,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		369AAEE21BF29DE10038EDA2 /* HighkaraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 369AAEEC1BF29DE20038EDA2 /* Build configuration list for PBXNativeTarget "HighkaraUITests" */;
+			buildPhases = (
+				369AAEDF1BF29DE10038EDA2 /* Sources */,
+				369AAEE01BF29DE10038EDA2 /* Frameworks */,
+				369AAEE11BF29DE10038EDA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				369AAEE91BF29DE10038EDA2 /* PBXTargetDependency */,
+			);
+			name = HighkaraUITests;
+			productName = HighkaraUITests;
+			productReference = 369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		36A39C081B2E0AE900BE0C77 /* highkara */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkara" */;
@@ -358,10 +399,14 @@
 			attributes = {
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
+					369AAEE21BF29DE10038EDA2 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 36A39C081B2E0AE900BE0C77;
+					};
 					36A39C081B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
@@ -388,11 +433,19 @@
 			targets = (
 				36A39C081B2E0AE900BE0C77 /* highkara */,
 				36A39C1D1B2E0AE900BE0C77 /* highkaraTests */,
+				369AAEE21BF29DE10038EDA2 /* HighkaraUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		369AAEE11BF29DE10038EDA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36A39C071B2E0AE900BE0C77 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,6 +503,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		369AAEDF1BF29DE10038EDA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36A39C051B2E0AE900BE0C77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +549,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		369AAEE91BF29DE10038EDA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
+			targetProxy = 369AAEE81BF29DE10038EDA2 /* PBXContainerItemProxy */;
+		};
 		36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
@@ -524,6 +590,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		369AAEEA1BF29DE10038EDA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = HighkaraUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				TEST_TARGET_NAME = highkara;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		369AAEEB1BF29DE10038EDA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = HighkaraUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				TEST_TARGET_NAME = highkara;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		36A39C261B2E0AE900BE0C77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -701,6 +800,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		369AAEEC1BF29DE20038EDA2 /* Build configuration list for PBXNativeTarget "HighkaraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				369AAEEA1BF29DE10038EDA2 /* Debug */,
+				369AAEEB1BF29DE10038EDA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
