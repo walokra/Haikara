@@ -1,0 +1,7 @@
+0.9.0
+* Show full title in news list.
+* Dark theme.
+* Add API methods to list news sources. 
+* Switch hiding categories feature to filtering news sources.
+* Filter shown news by SourceID when getting news from API.
+* Fix top category grouping which isn't by time but just numbers.
