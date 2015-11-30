@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
 import SafariServices
 
-class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
+
+    let animator = SCModalPushPopAnimator()
 
 	let cellIdentifier = "tableCell"
 	var entries = NSMutableOrderedSet()
@@ -53,6 +54,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		navigationItemTitle = settings.latestName
 		
 		self.initView()
+		
     }
 	
 	func setObservers() {
@@ -126,10 +128,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 				}
 			)
 		}
-	}
-	
-	func handleError(error: ErrorType) {
-		
 	}
 	
 	func setNews(newsentries: Array<Entry>) {
@@ -258,9 +256,17 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 			#if DEBUG
 				print("iOS 9.0, *")
 			#endif
-			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+			let svc = SCSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 			svc.view.tintColor = Theme.tintColor
-			self.presentViewController(svc, animated: true, completion: nil)
+//			self.presentViewController(svc, animated: true, completion: nil)
+			svc.delegate = self;
+	        svc.transitioningDelegate = self
+			self.presentViewController(svc, animated: true) { () -> Void in
+            	let recognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleGesture:")
+	            recognizer.edges = UIRectEdge.Left
+    	        svc.edgeView?.addGestureRecognizer(recognizer)
+	        }
+		
 		} else {
 			#if DEBUG
 				print("Fallback on earlier versions")
@@ -277,11 +283,38 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 		}
 	}
 	
+	func handleGesture(recognizer:UIScreenEdgePanGestureRecognizer) {
+        self.animator.percentageDriven = true
+        let percentComplete = recognizer.locationInView(view).x / view.bounds.size.width / 2.0
+        switch recognizer.state {
+        case .Began: dismissViewControllerAnimated(true, completion: nil)
+        case .Changed: animator.updateInteractiveTransition(percentComplete > 0.99 ? 0.99 : percentComplete)
+        case .Ended, .Cancelled:
+            (recognizer.velocityInView(view).x < 0) ? animator.cancelInteractiveTransition() : animator.finishInteractiveTransition()
+            self.animator.percentageDriven = false
+        default: ()
+        }
+    }
+	
 	// Dismiss the view controller and return to app.
 	@available(iOS 9.0, *)
 	func safariViewControllerDidFinish(controller: SFSafariViewController) {
-		controller.dismissViewControllerAnimated(true, completion: nil)
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
+	
+	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.dismissing = false
+        return animator
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.dismissing = true
+        return animator
+    }
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self.animator.percentageDriven ? self.animator : nil
+    }
 	
     // MARK: - Table view data source
 
@@ -396,15 +429,23 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
+		// Bottom, get next page
 		let currentOffset = scrollView.contentOffset.y
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-//		println("scrollViewDidScroll, maximumOffset=\(maximumOffset); currentOffset=\(currentOffset)")
-		if (maximumOffset - currentOffset) <= -40 {
+//		print("scrollViewDidScroll, currentOffset=\(currentOffset), maximumOffset=\(maximumOffset), diff=\(maximumOffset - currentOffset)")
+		if (maximumOffset - currentOffset) <= -80 {
 			if (!self.loading && self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
 				self.page += 1
 				self.getNews(page)
 			}
 		}
+		
+//		// Top, get previous page (if page > 1)
+//		if (currentOffset >= -100 && self.page > 1) {
+//			print("#### self.page=\(self.page)")
+//			self.page -= 1
+//			self.getNews(page)
+//		}
 	}
 	
 	func setLoadingState(loading: Bool) {

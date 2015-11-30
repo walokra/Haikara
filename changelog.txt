@@ -5,3 +5,4 @@
 * Switch hiding categories feature to filtering news sources.
 * Filter shown news by SourceID when getting news from API.
 * Fix top category grouping which isn't by time but just numbers.
+* Add swipe from edge gesture to SFSafariViewController until it comes in iOS 9.2.

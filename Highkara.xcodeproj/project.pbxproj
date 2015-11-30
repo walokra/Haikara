@@ -49,6 +49,8 @@
 		36B3F4421B9B19D70095F85A /* ios-gear-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4411B9B19D70095F85A /* ios-gear-outline.png */; };
 		36B3F4451B9B1B0A0095F85A /* ios-funnel.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4431B9B1B0A0095F85A /* ios-funnel.png */; };
 		36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */; };
+		36B8ADE41C0C8C5D0074CFCA /* SCSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */; };
+		36B8ADE61C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* DetailViewController.swift */; };
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
@@ -122,6 +124,8 @@
 		36B3F4411B9B19D70095F85A /* ios-gear-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-gear-outline.png"; sourceTree = "<group>"; };
 		36B3F4431B9B1B0A0095F85A /* ios-funnel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-funnel.png"; sourceTree = "<group>"; };
 		36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-list-outline.png"; sourceTree = "<group>"; };
+		36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCSafariViewController.swift; sourceTree = "<group>"; };
+		36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 				364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */,
 				360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */,
 				366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */,
+				36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				365A045A1B3EB9090032C5B6 /* EntryCell.swift */,
+				36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -519,12 +525,14 @@
 				3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */,
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
+				36B8ADE61C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
+				36B8ADE41C0C8C5D0074CFCA /* SCSafariViewController.swift in Sources */,
 				360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */,
 				3611412A1B408A85001A6BA4 /* Settings.swift in Sources */,
 				36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */,
