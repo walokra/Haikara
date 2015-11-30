@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 		
-		Theme.loadTheme()
+		setObservers()
 		
         setCache()
         
@@ -38,7 +38,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
+	
+	func setObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
+		#if DEBUG
+            print("AppDelegate, setTheme()")
+        #endif
+		Theme.loadTheme()
+		
+		// We have to set the tint colors for nav controllers manually as they are already created
+		let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let leftNavController = splitViewController.viewControllers.first as! UINavigationController
+        let rightNavController = splitViewController.viewControllers.last as! UINavigationController
+
+		leftNavController.navigationBar.barTintColor = Theme.backgroundColor
+		leftNavController.navigationBar.tintColor = Theme.tintColor
+		rightNavController.navigationBar.barTintColor = Theme.backgroundColor
+		rightNavController.navigationBar.tintColor = Theme.tintColor
+		leftNavController.navigationBar.barStyle = Theme.barStyle
+		rightNavController.navigationBar.barStyle = Theme.barStyle
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("AppDelegate, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
+	
     // http://nshipster.com/nsurlcache/
     func setCache() {
         let cacheSizeMemory = 4 * 1024 * 1024
@@ -80,6 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+	// stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
 

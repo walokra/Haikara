@@ -174,6 +174,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 		resetLabel.textColor = Theme.textColor
 		
 		countryPicker.reloadAllComponents()
+		
+		self.tabBarController?.tabBar.barStyle = Theme.barStyle
 	}
 	
 	func setTheme(notification: NSNotification) {

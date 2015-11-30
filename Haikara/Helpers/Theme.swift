@@ -19,7 +19,8 @@ struct Theme {
 	static var cellAuthorColor: UIColor = Light.authorColor
 	static var cellDescriptionColor: UIColor = Light.descriptionColor
 	static var selectedCellBackground = UIView()
-	static var barStyle: UIBarStyle = .Default
+	static var barStyle: UIBarStyle = UIBarStyle.Default
+	static var statusBarStyle: UIStatusBarStyle = UIStatusBarStyle.Default
 	
 	static var buttonColor: UIColor = Light.buttonColor
 	static var tintColor: UIColor = Light.tintColor
@@ -50,16 +51,20 @@ struct Theme {
 		
 		poweredLabelColor = Light.poweredLabelColor
 		
-		UIApplication.sharedApplication().delegate?.window??.tintColor = Light.tintColor
-		UINavigationBar.appearance().barStyle = UIBarStyle.Default
-		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-		UITabBar.appearance().barStyle = UIBarStyle.Default
+		tintColor = Light.tintColor
+		barStyle = UIBarStyle.Default
+		statusBarStyle = UIStatusBarStyle.Default
+
+		UIApplication.sharedApplication().delegate?.window??.tintColor = tintColor
+		UINavigationBar.appearance().barStyle = barStyle
+		UIApplication.sharedApplication().setStatusBarStyle(statusBarStyle, animated: true)
+		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Light.buttonColor
 		selectedColor = Light.selectedColor
 		
-		UISwitch.appearance().onTintColor = Light.tintColor.colorWithAlphaComponent(0.3)
-		UISwitch.appearance().thumbTintColor = Light.tintColor
+		UISwitch.appearance().onTintColor = tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().thumbTintColor = tintColor
 	}
 
 	// MARK: Dark Theme Schemes
@@ -77,16 +82,20 @@ struct Theme {
 		
 		poweredLabelColor = Dark.poweredLabelColor
 		
-		UIApplication.sharedApplication().delegate?.window??.tintColor = Dark.tintColor
-		UINavigationBar.appearance().barStyle = UIBarStyle.Black
-		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-		UITabBar.appearance().barStyle = UIBarStyle.Black
+		tintColor = Dark.tintColor
+		barStyle = UIBarStyle.Black
+		statusBarStyle = UIStatusBarStyle.LightContent
+		
+		UIApplication.sharedApplication().delegate?.window??.tintColor = tintColor
+		UINavigationBar.appearance().barStyle = barStyle
+		UIApplication.sharedApplication().setStatusBarStyle(statusBarStyle, animated: true)
+		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Dark.buttonColor
 		selectedColor = Dark.selectedColor
 		
-		UISwitch.appearance().onTintColor = Dark.tintColor.colorWithAlphaComponent(0.3)
-		UISwitch.appearance().thumbTintColor = Dark.tintColor
+		UISwitch.appearance().onTintColor = tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().thumbTintColor = tintColor
 	}
 	
 	struct Light {
@@ -106,7 +115,7 @@ struct Theme {
 		
 		static let poweredLabelColor = UIColor.darkGrayColor()
 
-		// high green
+		// orange
 		static let buttonColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
 		static let tintColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
 		// high green
@@ -130,7 +139,7 @@ struct Theme {
 		
 		static let poweredLabelColor = UIColor.lightGrayColor()
 		
-		// high green
+		// orange
 		static let buttonColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
 		static let tintColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
 		// high green
