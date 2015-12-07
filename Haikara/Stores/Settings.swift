@@ -26,7 +26,18 @@ struct Defaults {
 
 var instance: Settings?
 class Settings {
-	let defaultValues = Defaults(useToRetrieveLists: "finnish", mostPopularName: "Suosituimmat", latestName: "Uusimmat", domainToUse: "fi.high.fi", genericNewsURLPart: "uutiset", showDesc: true, useMobileUrl: true, useReaderView: false, useDarkTheme: false, region: "Finland")
+	let defaultValues = Defaults(
+			useToRetrieveLists: "finnish",
+			mostPopularName: "Suosituimmat",
+			latestName: "Uusimmat",
+			domainToUse: "fi.high.fi",
+			genericNewsURLPart: "uutiset",
+			showDesc: false,
+			useMobileUrl: true,
+			useReaderView: false,
+			useDarkTheme: false,
+			region: "Finland"
+		)
     
     func resetToDefaults() {
         let defaults = NSUserDefaults.standardUserDefaults()
