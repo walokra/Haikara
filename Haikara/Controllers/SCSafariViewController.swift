@@ -21,7 +21,7 @@ class SCSafariViewController: SFSafariViewController {
                 _edgeView?.backgroundColor = UIColor(white: 1.0, alpha: 0.005)
                 let bindings = ["edgeView": _edgeView!]
                 let options = NSLayoutFormatOptions(rawValue: 0)
-                let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-0-[edgeView(5)]", options: options, metrics: nil, views: bindings)
+                let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-0-[edgeView(20)]", options: options, metrics: nil, views: bindings)
                 let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[edgeView]-0-|", options: options, metrics: nil, views: bindings)
                 view?.addConstraints(hConstraints)
                 view?.addConstraints(vConstraints)

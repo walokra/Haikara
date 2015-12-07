@@ -285,7 +285,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func handleGesture(recognizer:UIScreenEdgePanGestureRecognizer) {
         self.animator.percentageDriven = true
-        let percentComplete = recognizer.locationInView(view).x / view.bounds.size.width / 2.0
+		let percentComplete = recognizer.locationInView(view).x / view.bounds.size.width
+		
         switch recognizer.state {
         case .Began: dismissViewControllerAnimated(true, completion: nil)
         case .Changed: animator.updateInteractiveTransition(percentComplete > 0.99 ? 0.99 : percentComplete)

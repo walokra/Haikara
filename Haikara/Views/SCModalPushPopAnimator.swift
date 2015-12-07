@@ -10,12 +10,13 @@
 import UIKit
 
 class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
-    
-    var dismissing = false
-    var percentageDriven: Bool = false
-    
+	
+	var dismissing: Bool = false
+	var percentageDriven: Bool = false
+	var opts: UIViewAnimationOptions = UIViewAnimationOptions.CurveEaseInOut
+	
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.75
+        return 0.35
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -44,7 +45,7 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
         shadowView.transform = dismissing ? CGAffineTransformMakeScale(0.01, 1) : CGAffineTransformIdentity
         shadowView.alpha = self.dismissing ? 1.0 : 0.0
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.0, options: SCModalPushPopAnimator.animOpts(), animations: { () -> Void in
+        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, options: animOpts(), animations: { () -> Void in
                 topView.transform = self.dismissing ? CGAffineTransformMakeTranslation(offset, 0) : CGAffineTransformIdentity
                 shadowView.transform = self.dismissing ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0.01, 1)
                 shadowView.alpha = self.dismissing ? 0.0 : 1.0
@@ -55,7 +56,9 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-    class func animOpts() -> UIViewAnimationOptions {
-        return UIViewAnimationOptions.AllowAnimatedContent.union(UIViewAnimationOptions.BeginFromCurrentState).union(UIViewAnimationOptions.LayoutSubviews)
+	func animOpts() -> UIViewAnimationOptions {
+		let opts = self.percentageDriven ? UIViewAnimationOptions.CurveLinear : UIViewAnimationOptions.CurveEaseInOut
+	
+		return opts.union(UIViewAnimationOptions.AllowAnimatedContent).union(UIViewAnimationOptions.BeginFromCurrentState).union(UIViewAnimationOptions.LayoutSubviews)
     }
 }
