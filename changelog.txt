@@ -1,3 +1,9 @@
+0.9.1 (2015-12-07)
+* Add possibility to hide categories from news back to settings.
+* Adjust even row color in light theme.
+* Adjust swipe to dismiss gesture in SFSafariViewController
+* Don't show descriptions by default.
+
 0.9.0
 * Show full title in news list.
 * Dark theme.
