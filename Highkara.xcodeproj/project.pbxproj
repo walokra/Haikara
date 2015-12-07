@@ -13,6 +13,7 @@
 		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
 		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
 		361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */; };
+		361E2F851C162C6D00D27F7C /* ios-star-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 361E2F841C162C6D00D27F7C /* ios-star-outline.png */; };
 		36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F081B3F385F00CB10AB /* app-logo_40x40.png */; };
 		36221F0E1B3F3DF000CB10AB /* app-logo_1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */; };
 		3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA5E1BEA6BF500C5A0BD /* Language.swift */; };
@@ -81,6 +82,8 @@
 		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		361E2F841C162C6D00D27F7C /* ios-star-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-star-outline.png"; sourceTree = "<group>"; };
+		361E2F871C1633FF00D27F7C /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		36221F081B3F385F00CB10AB /* app-logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_40x40.png"; sourceTree = "<group>"; };
 		36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_1024x1024.png"; sourceTree = "<group>"; };
 		3631CA5E1BEA6BF500C5A0BD /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -106,7 +109,6 @@
 		36778F7A1B3760C000F387E0 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F861B37651000F387E0 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		36778F871B37651000F387E0 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		369A6D811BD7DDFD00ABB4F9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
 		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 		36D3DC2A1B9319F8000673ED /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				361E2F841C162C6D00D27F7C /* ios-star-outline.png */,
 				36B3F4431B9B1B0A0095F85A /* ios-funnel.png */,
 				36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */,
 				36B3F4411B9B19D70095F85A /* ios-gear-outline.png */,
@@ -478,6 +481,7 @@
 				3650D7881B9312B000A4D528 /* Localizable.strings in Resources */,
 				36778F7E1B3760C000F387E0 /* Default-667h@2x~iphone.png in Resources */,
 				36778F841B3760C000F387E0 /* Default-Portrait~ipad.png in Resources */,
+				361E2F851C162C6D00D27F7C /* ios-star-outline.png in Resources */,
 				36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,7 +594,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				36A39C131B2E0AE900BE0C77 /* Base */,
-				369A6D811BD7DDFD00ABB4F9 /* fi */,
+				361E2F871C1633FF00D27F7C /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

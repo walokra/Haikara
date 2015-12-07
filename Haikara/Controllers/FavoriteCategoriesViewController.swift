@@ -18,7 +18,8 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
-    
+	
+	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 
 	@IBOutlet weak var titleView: UIView!
@@ -29,6 +30,9 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+        self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
 		
 		setObservers()
 		setTheme()

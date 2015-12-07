@@ -16,19 +16,22 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         }
     }
 	
-	
 	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var tableTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
-    
+	
+	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FILTERED_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     var newsSources = [NewsSources]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
 		
 		setObservers()
 		setTheme()

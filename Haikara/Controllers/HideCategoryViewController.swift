@@ -16,13 +16,14 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
 	
-	
-	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var tableTitleLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var tableView: UITableView!
+	
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
-    
+	
+	var navigationItemTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TITLE", comment: "")
+	var tableTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TABLE_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     var categories = [Category]()
@@ -30,6 +31,10 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.tableTitleLabel.text = tableTitle
+        self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+				
 		setObservers()
 		setTheme()
         
@@ -54,7 +59,6 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
 		tableTitleLabel.textColor = Theme.textColor
-		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	func setTheme(notification: NSNotification) {
