@@ -154,7 +154,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PSc-w6-6CB">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PSc-w6-6CB">
                                 <rect key="frame" x="0.0" y="35" width="600" height="516"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -198,6 +198,12 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PSc-w6-6CB" firstAttribute="leading" secondItem="XCy-hf-nvI" secondAttribute="leadingMargin" constant="-20" id="bfE-Og-fMw"/>
+                            <constraint firstItem="PSc-w6-6CB" firstAttribute="top" secondItem="cY5-Z4-ghi" secondAttribute="bottom" constant="-29" id="c9n-DB-B7g"/>
+                            <constraint firstItem="9cf-85-dod" firstAttribute="top" secondItem="PSc-w6-6CB" secondAttribute="bottom" id="cF4-of-Nle"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PSc-w6-6CB" secondAttribute="trailing" constant="-20" id="pNf-Hw-eIS"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" image="ios-star-outline.png" id="Rwm-VB-qca"/>
                     <connections>
@@ -222,7 +228,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
                                 <rect key="frame" x="0.0" y="37" width="600" height="514"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -266,6 +272,12 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZUC-0f-GhU" secondAttribute="trailing" constant="-20" id="8lA-ZA-zE6"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" constant="-27" id="Znm-ar-fGL"/>
+                            <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="lKL-Ai-Rsd"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leadingMargin" constant="-20" id="mmO-Vr-znf"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Filter" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -499,7 +511,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fDC-sf-d4V">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fDC-sf-d4V">
                                 <rect key="frame" x="0.0" y="35" width="600" height="516"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -536,6 +548,12 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fDC-sf-d4V" firstAttribute="leading" secondItem="gTY-q5-3S8" secondAttribute="leadingMargin" constant="-20" id="JXC-2d-DrQ"/>
+                            <constraint firstItem="gAA-5N-yws" firstAttribute="top" secondItem="fDC-sf-d4V" secondAttribute="bottom" id="ebf-9t-4ZQ"/>
+                            <constraint firstItem="fDC-sf-d4V" firstAttribute="top" secondItem="aDf-vE-mfn" secondAttribute="bottom" constant="-29" id="lnj-4s-h2H"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fDC-sf-d4V" secondAttribute="trailing" constant="-20" id="tyX-BZ-drl"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Hidden" image="ios-list-outline.png" id="abl-A6-THO"/>
                     <connections>
