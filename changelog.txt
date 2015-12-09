@@ -1,3 +1,7 @@
+0.9.2 (2015-12-09)
+* Fix sharing news.
+* Fix UI issues with settings table views.
+
 0.9.1 (2015-12-07)
 * Add possibility to hide categories from news back to settings.
 * Adjust even row color in light theme.
