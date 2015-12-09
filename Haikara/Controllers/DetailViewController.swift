@@ -389,11 +389,19 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			let tableItem = tableSection![indexPath.row]
 			
 			var webURL = NSURL(string: tableItem.shareURL)
-			if (tableItem.mobileShareURL?.isEmpty != nil && self.settings.useMobileUrl) {
+			if ((tableItem.mobileShareURL != nil && !tableItem.mobileShareURL!.isEmpty) && self.settings.useMobileUrl) {
 				webURL = NSURL(string: tableItem.mobileShareURL!)
 			}
 			
-			let activityViewController = UIActivityViewController(activityItems: [tableItem.title, webURL!], applicationActivities: nil)
+			#if DEBUG
+				print("shareAction, title=\(tableItem.title), webURL=\(webURL)")
+				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(tableItem.mobileShareURL)")
+			#endif
+			
+			let objectsToShare = [tableItem.title, webURL!]
+			let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+			
+			activityViewController.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
 			
 			self.presentViewController(activityViewController, animated: true, completion: nil)
 			
