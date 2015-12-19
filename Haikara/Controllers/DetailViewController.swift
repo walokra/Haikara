@@ -320,16 +320,49 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     // MARK: - Table view data source
 
 	// Change the color of the section bg and font
-	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		
-		// This changes the header background
-		view.tintColor = Theme.sectionColor
-		
-		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
-		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-		headerView.textLabel!.textColor = UIColor.blackColor()
-	}
+//	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//		
+//		// This changes the header background
+//		view.tintColor = Theme.sectionColor
+//		
+//		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
+//		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//		headerView.textLabel!.textColor = Theme.sectionTitleColor
+//		headerView.textLabel!.font = UIFont.boldSystemFontOfSize(14)
+//	}
 	
+	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
+		headerView.tintColor = Theme.sectionColor
+		headerView.backgroundColor = Theme.sectionColor
+
+		let clockLabel: UILabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		let clockString = String.ionIconString("ion-ios-clock-outline")
+        let clockStringAttributed = NSMutableAttributedString(string: clockString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
+        clockStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
+        clockStringAttributed.addAttribute(
+        	NSForegroundColorAttributeName, value: Theme.sectionTitleColor, range: NSRange(location: 0,length: 1)
+        )
+		clockLabel.attributedText = clockStringAttributed
+
+		var sectionLabel: UILabel
+		if highFiSection != "top" {
+			sectionLabel = UILabel(frame: CGRectMake(25, 0, tableView.frame.size.width/2, 20))
+		} else {
+			sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		}
+		sectionLabel.text = sortedSections[section]
+		sectionLabel.textColor = Theme.sectionTitleColor
+		sectionLabel.font = UIFont.systemFontOfSize(14)
+
+		if highFiSection != "top" {
+			headerView.addSubview(clockLabel)
+		}
+		headerView.addSubview(sectionLabel)
+		
+    	return headerView
+	}
+
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
 		return self.sections.count
@@ -416,9 +449,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return [shareAction]
 	}
 	
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return sortedSections[section]
-	}
+//	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//		return sortedSections[section]
+//	}
 	
 	// Enable swiping for showing action buttons
 	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

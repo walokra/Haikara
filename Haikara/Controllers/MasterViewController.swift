@@ -27,7 +27,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func favoritesButtonAction(sender: AnyObject) {
         if (favoritesSelected == false) {
             favoritesSelected = true
-            createFavoritesButton(UIColor.greenColor())
+            createFavoritesButton(Theme.starColor)
         } else {
             favoritesSelected = false
             createFavoritesButton(Theme.tintColor)
@@ -82,7 +82,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		createSettingsButton(Theme.tintColor)
 		if settings.categoriesFavorited[settings.region] != nil {
             favoritesSelected = true
-            createFavoritesButton(UIColor.greenColor())
+            createFavoritesButton(Theme.starColor)
         } else {
             favoritesSelected = false
             createFavoritesButton(Theme.tintColor)
@@ -102,14 +102,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         favoritesButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         favoritesButtonStringAttributed.addAttribute(
-        NSForegroundColorAttributeName,
-        value: color,
-        range: NSRange(location: 0,length: 1)
+        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
         )
         
         favoritesButton.titleLabel?.textAlignment = .Center
         favoritesButton.titleLabel?.numberOfLines = 1
-        favoritesButton.setAttributedTitle(favoritesButtonStringAttributed, forState: .Normal)
+        favoritesButton.setAttributedTitle(favoritesButtonStringAttributed, forState: .Normal)		
     }
 	
 	func createSettingsButton(color: UIColor) {
