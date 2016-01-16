@@ -256,17 +256,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("iOS 9.0, *")
 			#endif
-			let svc = SCSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 			svc.view.tintColor = Theme.tintColor
-//			self.presentViewController(svc, animated: true, completion: nil)
-			svc.delegate = self;
-	        svc.transitioningDelegate = self
-			self.presentViewController(svc, animated: true) { () -> Void in
-            	let recognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleGesture:")
-	            recognizer.edges = UIRectEdge.Left
-    	        svc.edgeView?.addGestureRecognizer(recognizer)
-	        }
-		
+			self.presentViewController(svc, animated: true, completion: nil)
 		} else {
 			#if DEBUG
 				print("Fallback on earlier versions")
