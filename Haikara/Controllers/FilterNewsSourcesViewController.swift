@@ -8,28 +8,30 @@
 
 import UIKit
 
-class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCategoryCell = "tableCell"
         }
     }
-	
-	@IBOutlet weak var titleView: UIView!
-	@IBOutlet weak var tableTitleLabel: UILabel!
+
+	var searchController: UISearchController!
+
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FILTERED_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
-    
+	var searchPlaceholderText: String = NSLocalizedString("FILTER_SEARCH_PLACEHOLDER", comment: "Search sources to filter")
+	
     var newsSources = [NewsSources]()
-    
+	var filteredTableData = [NewsSources]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+	
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
 		
@@ -46,6 +48,21 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             
         self.tableView!.delegate=self
         self.tableView.dataSource = self
+		
+		self.searchController = ({
+			let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+			controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+            controller.searchBar.barStyle = Theme.barStyle
+            controller.searchBar.barTintColor = Theme.searchBarTintColor
+            controller.searchBar.backgroundColor = Theme.backgroundColor
+			controller.searchBar.placeholder = searchPlaceholderText
+            self.tableView.tableHeaderView = controller.searchBar
+            return controller
+        })()
+
     }
 	
 	func setObservers() {
@@ -58,8 +75,6 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		Theme.loadTheme()
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
-		tableTitleLabel.textColor = Theme.textColor
-		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	func setTheme(notification: NSNotification) {
@@ -85,31 +100,53 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         self.newsSources = settings.newsSources
         self.tableView!.reloadData()
     }
-    
+	
+	func updateSearchResultsForSearchController(searchController: UISearchController) {
+		filteredTableData.removeAll(keepCapacity: false)
+		
+        let searchPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchController.searchBar.text! + "*")
+
+        let array = (newsSources as NSArray).filteredArrayUsingPredicate(searchPredicate)
+        filteredTableData = array as! [NewsSources]
+		#if DEBUG
+			print("search=\(searchController.searchBar.text), filteredTableData.count=\(filteredTableData.count)");
+		#endif
+
+        self.tableView.reloadData()
+	}
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.newsSources.count
+		if self.searchController.active {
+		   return self.filteredTableData.count
+        } else{
+		  return self.newsSources.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // Configure the cell for this indexPath
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath)
-        
-        let tableItem: NewsSources = newsSources[indexPath.row] as NewsSources
 		
-        cell.textLabel!.text = tableItem.sourceName
+		var tableItem: NewsSources
+		if self.searchController.active {
+			tableItem = filteredTableData[indexPath.row] as NewsSources
+        } else {
+			tableItem = newsSources[indexPath.row] as NewsSources
+        }
+			
+		cell.textLabel!.text = tableItem.sourceName
 		cell.textLabel!.textColor = Theme.cellTitleColor
         
-        if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
-            cell.backgroundColor = Theme.selectedColor
-        } else {
+		if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
+			cell.backgroundColor = Theme.selectedColor
+		} else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor
 			} else {
 				cell.backgroundColor = Theme.oddRowColor
 			}
-        }
-        
+		}
+		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 
         return cell
@@ -121,7 +158,13 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedNewsSource = self.newsSources[indexPath.row]
+		var selectedNewsSource: NewsSources
+		if self.searchController.active {
+			selectedNewsSource = self.filteredTableData[indexPath.row]
+		} else {
+			selectedNewsSource = self.newsSources[indexPath.row]
+		}
+
         #if DEBUG
             print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
         #endif
@@ -133,19 +176,25 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             #endif
             
             if let index = sourceFilteredForLang.indexOf(selectedNewsSource.sourceID) {
-                print("Removing item at index \(index)")
+				#if DEBUG
+	                print("Removing item at index \(index)")
+				#endif
                 sourceFilteredForLang.removeAtIndex(index)
                 removed = true
                 self.newsSources[indexPath.row].selected = false
             }
             if (!removed) {
-                print("Adding item to filtered sources, \(selectedNewsSource.sourceID)")
+				#if DEBUG
+					print("Adding item to filtered sources, \(selectedNewsSource.sourceID)")
+				#endif
                 sourceFilteredForLang.append(selectedNewsSource.sourceID)
                 self.newsSources[indexPath.row].selected = true
             }
             settings.newsSourcesFiltered.updateValue(sourceFilteredForLang, forKey: settings.region)
         } else {
-            print("Creating new key for language news sources, \(settings.region)")
+			#if DEBUG
+	            print("Creating new key for language news sources, \(settings.region)")
+			#endif
             settings.newsSourcesFiltered.updateValue([selectedNewsSource.sourceID], forKey: settings.region)
         }
         

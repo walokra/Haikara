@@ -21,6 +21,7 @@ struct Theme {
 	static var selectedCellBackground = UIView()
 	static var barStyle: UIBarStyle = UIBarStyle.Default
 	static var statusBarStyle: UIStatusBarStyle = UIStatusBarStyle.Default
+	static var searchBarTintColor: UIColor = Light.backgroundColor
 	
 	static var buttonColor: UIColor = Light.buttonColor
 	static var tintColor: UIColor = Light.tintColor
@@ -54,6 +55,7 @@ struct Theme {
 		poweredLabelColor = Light.poweredLabelColor
 		
 		tintColor = Light.tintColor
+		searchBarTintColor = Light.backgroundColor
 		barStyle = UIBarStyle.Default
 		statusBarStyle = UIStatusBarStyle.Default
 
@@ -88,6 +90,7 @@ struct Theme {
 		poweredLabelColor = Dark.poweredLabelColor
 		
 		tintColor = Dark.tintColor
+		searchBarTintColor = Dark.backgroundColor
 		barStyle = UIBarStyle.Black
 		statusBarStyle = UIStatusBarStyle.LightContent
 		
