@@ -18,6 +18,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 
 	var searchController: UISearchController!
 
+	@IBOutlet weak var tableTitleView: UIView!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -59,7 +60,8 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             controller.searchBar.barTintColor = Theme.searchBarTintColor
             controller.searchBar.backgroundColor = Theme.backgroundColor
 			controller.searchBar.placeholder = searchPlaceholderText
-            self.tableView.tableHeaderView = controller.searchBar
+//            self.tableView.tableHeaderView = controller.searchBar
+			self.tableTitleView.addSubview(controller.searchBar)
             return controller
         })()
 
@@ -75,6 +77,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		Theme.loadTheme()
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
+		tableTitleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	func setTheme(notification: NSNotification) {
@@ -109,7 +112,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         let array = (newsSources as NSArray).filteredArrayUsingPredicate(searchPredicate)
         filteredTableData = array as! [NewsSources]
 		#if DEBUG
-			print("search=\(searchController.searchBar.text), filteredTableData.count=\(filteredTableData.count)");
+//			print("search=\(searchController.searchBar.text), filteredTableData.count=\(filteredTableData.count)");
 		#endif
 
         self.tableView.reloadData()

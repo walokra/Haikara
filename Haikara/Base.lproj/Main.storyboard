@@ -211,20 +211,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-0f-GhU">
+                                <rect key="frame" x="0.0" y="46" width="600" height="505"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search sources to hide from news" id="YjY-Ko-aHJ">
-                                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="ZlS-SQ-8sA" id="SXb-wl-tOC"/>
-                                    </connections>
-                                </searchBar>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" textLabel="lRR-cs-k1m" style="IBUITableViewCellStyleDefault" id="9yE-1X-ule">
-                                        <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9yE-1X-ule" id="PP0-js-bfV">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -242,18 +234,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mh9-K2-ab4">
+                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZUC-0f-GhU" secondAttribute="trailing" constant="-20" id="8lA-ZA-zE6"/>
-                            <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="lKL-Ai-Rsd"/>
-                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leadingMargin" constant="-20" id="mmO-Vr-znf"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" id="BMw-NE-cz9"/>
+                            <constraint firstAttribute="trailing" secondItem="Mh9-K2-ab4" secondAttribute="trailing" id="OM1-b8-rSb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZUC-0f-GhU" secondAttribute="trailing" constant="-20" id="ORY-4a-NQa"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" constant="-18" id="PWs-wC-1Mc"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="trailing" secondItem="ZUC-0f-GhU" secondAttribute="trailing" id="YIs-xt-v7h"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="leading" secondItem="ZUC-0f-GhU" secondAttribute="leading" id="bcK-7o-Kif"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leading" id="eR3-r3-pAm"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="bottom" secondItem="E6Q-7U-ip8" secondAttribute="top" id="feW-CV-Lab"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leadingMargin" constant="-20" id="kSd-R5-3LZ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Filter" image="ios-funnel.png" id="Og4-py-LgQ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="6oO-ze-egU" id="hKD-Qy-uln"/>
+                        <outlet property="tableTitleView" destination="Mh9-K2-ab4" id="jz3-pm-yLU"/>
                         <outlet property="tableView" destination="ZUC-0f-GhU" id="RWa-0M-QF7"/>
                     </connections>
                 </viewController>
@@ -269,7 +272,6 @@
                 <searchDisplayController id="6oO-ze-egU">
                     <connections>
                         <outlet property="delegate" destination="ZlS-SQ-8sA" id="mS9-ll-uIs"/>
-                        <outlet property="searchBar" destination="YjY-Ko-aHJ" id="3DF-t7-K3q"/>
                         <outlet property="searchContentsController" destination="ZlS-SQ-8sA" id="jh3-TK-nzF"/>
                         <outlet property="searchResultsDataSource" destination="ZlS-SQ-8sA" id="Gps-Ul-rRH"/>
                         <outlet property="searchResultsDelegate" destination="ZlS-SQ-8sA" id="hfd-ZM-LcR"/>
