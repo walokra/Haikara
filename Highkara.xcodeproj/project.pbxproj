@@ -44,17 +44,17 @@
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
+		36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA1A781C66900C008268B3 /* TouchableTextView.swift */; };
 		36B264341BBC6C5D00F008FA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B264331BBC6C5D00F008FA /* Alamofire.framework */; };
 		36B3F4391B9B0BBC0095F85A /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4381B9B0BBC0095F85A /* ionicons.ttf */; };
 		36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */; };
 		36B3F4421B9B19D70095F85A /* ios-gear-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4411B9B19D70095F85A /* ios-gear-outline.png */; };
 		36B3F4451B9B1B0A0095F85A /* ios-funnel.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4431B9B1B0A0095F85A /* ios-funnel.png */; };
 		36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */; };
-		36B8ADE41C0C8C5D0074CFCA /* SCSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */; };
-		36B8ADE61C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* DetailViewController.swift */; };
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
+		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,17 +120,17 @@
 		36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = highkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
+		36AA1A781C66900C008268B3 /* TouchableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableTextView.swift; sourceTree = "<group>"; };
 		36B264331BBC6C5D00F008FA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		36B3F4381B9B0BBC0095F85A /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Iconfonts-ionicons.swift"; sourceTree = "<group>"; };
 		36B3F4411B9B19D70095F85A /* ios-gear-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-gear-outline.png"; sourceTree = "<group>"; };
 		36B3F4431B9B1B0A0095F85A /* ios-funnel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-funnel.png"; sourceTree = "<group>"; };
 		36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-list-outline.png"; sourceTree = "<group>"; };
-		36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCSafariViewController.swift; sourceTree = "<group>"; };
-		36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,7 +182,6 @@
 				364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */,
 				360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */,
 				366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */,
-				36B8ADE31C0C8C5D0074CFCA /* SCSafariViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -190,8 +189,9 @@
 		3631CA5B1BEA6A7100C5A0BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */,
 				365A045A1B3EB9090032C5B6 /* EntryCell.swift */,
-				36B8ADE51C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift */,
+				36AA1A781C66900C008268B3 /* TouchableTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -529,14 +529,14 @@
 				3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */,
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
-				36B8ADE61C0C8E3C0074CFCA /* SCModalPushPopAnimator.swift in Sources */,
+				36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
-				36B8ADE41C0C8C5D0074CFCA /* SCSafariViewController.swift in Sources */,
+				36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */,
 				360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */,
 				3611412A1B408A85001A6BA4 /* Settings.swift in Sources */,
 				36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */,
@@ -731,8 +731,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -745,7 +745,7 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -754,8 +754,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Marko Wallin (8X9ZUVVBWA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marko Wallin (VZSFR9BSV5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -768,7 +768,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

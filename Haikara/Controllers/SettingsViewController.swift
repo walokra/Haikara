@@ -17,8 +17,15 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderDesc: UILabel!
 	@IBOutlet weak var useDarkLabel: UILabel!
+	
+	@IBOutlet weak var regionText: TouchableTextView!
 	@IBOutlet weak var regionLabel: UILabel!
 	@IBOutlet weak var regionDesc: UILabel!
+	
+	// Close picker when touching somewhere, not necessary to select value
+	@IBAction func viewTapped(sender: AnyObject) {
+		self.view.endEditing(true)
+	}
 	@IBOutlet weak var resetLabel: UILabel!
 
     @IBOutlet weak var resetButton: UIButton!
@@ -66,10 +73,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var useMobileUrlSwitch: UISwitch!
     @IBOutlet weak var showDescSwitch: UISwitch!
-    @IBOutlet weak var countryPicker: UIPickerView!
     @IBOutlet weak var useReaderViewSwitch: UISwitch!
 	@IBOutlet weak var darkThemeSwitch: UISwitch!
 
+   	var countryPicker: UIPickerView!
     let settings = Settings.sharedInstance
 
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -124,6 +131,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		countryPicker = UIPickerView()
+
 		setObservers()
 		setTheme()
 		setText()
@@ -132,16 +141,17 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
-        
+
         listLanguages()
-        
+		
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
 		darkThemeSwitch.on = settings.useDarkTheme
-        
+		
         countryPicker.dataSource = self
         countryPicker.delegate = self
+		self.regionText.inputView = countryPicker
     }
 	
 	func setObservers() {
@@ -171,13 +181,16 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 		useDarkLabel.textColor = Theme.textColor
 		regionLabel.textColor = Theme.textColor
 		regionDesc.textColor = Theme.textColor
+		regionText.textColor = Theme.textColor
+		regionText.backgroundColor = Theme.backgroundColor
 		resetLabel.textColor = Theme.textColor
+		countryPicker.backgroundColor = UIColor.darkGrayColor()
 		
-		countryPicker.reloadAllComponents()
+		self.countryPicker.reloadAllComponents()
 		
 		self.tabBarController?.tabBar.barStyle = Theme.barStyle
 	}
-	
+
 	func setTheme(notification: NSNotification) {
         #if DEBUG
             print("SettingsViewController, Received themeChangedNotification")
@@ -206,7 +219,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
         return 1
     }
@@ -224,6 +237,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	}
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+		regionText.text = languages[row].country
+		
         let selectedRegion = self.languages[row]
         settings.region = selectedRegion.country
         settings.useToRetrieveLists = selectedRegion.useToRetrieveLists
@@ -250,7 +265,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 
         self.view.endEditing(true)
     }
-
+	
     /*
     // MARK: - Navigation
 
@@ -338,7 +353,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     func setSelectedRegion() {
         dispatch_async(dispatch_get_main_queue()) {
-        self.countryPicker!.reloadAllComponents()
+        self.countryPicker.reloadAllComponents()
 
         var defaultRowIndex = 0
         for (index, element) in self.languages.enumerate() {
@@ -351,6 +366,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
             print("settingsView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
         #endif
         self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+	    self.regionText.text = self.languages[defaultRowIndex].country
         }
     }
     
