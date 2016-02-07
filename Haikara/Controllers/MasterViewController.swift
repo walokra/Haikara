@@ -132,7 +132,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         settingsButton.titleLabel?.numberOfLines = 1
         settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
 	}
-    
+	
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
             print("MasterView, Received regionChangedNotification")

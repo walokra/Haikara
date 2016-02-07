@@ -172,38 +172,8 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
         #endif
         
-        var removed: Bool = false
-        if var sourceFilteredForLang = settings.newsSourcesFiltered[settings.region] {
-            #if DEBUG
-                print("sourceFilteredForLang=\(sourceFilteredForLang)")
-            #endif
-            
-            if let index = sourceFilteredForLang.indexOf(selectedNewsSource.sourceID) {
-				#if DEBUG
-	                print("Removing item at index \(index)")
-				#endif
-                sourceFilteredForLang.removeAtIndex(index)
-                removed = true
-                self.newsSources[indexPath.row].selected = false
-            }
-            if (!removed) {
-				#if DEBUG
-					print("Adding item to filtered sources, \(selectedNewsSource.sourceID)")
-				#endif
-                sourceFilteredForLang.append(selectedNewsSource.sourceID)
-                self.newsSources[indexPath.row].selected = true
-            }
-            settings.newsSourcesFiltered.updateValue(sourceFilteredForLang, forKey: settings.region)
-        } else {
-			#if DEBUG
-	            print("Creating new key for language news sources, \(settings.region)")
-			#endif
-            settings.newsSourcesFiltered.updateValue([selectedNewsSource.sourceID], forKey: settings.region)
-        }
-        
-        #if DEBUG
-            print("newsSourcesFiltered[\(settings.region)]=\(settings.newsSourcesFiltered[settings.region])")
-        #endif
+		let removed = self.settings.removeSource(selectedNewsSource.sourceID)
+		self.newsSources[indexPath.row].selected = removed
         
         defaults.setObject(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
         self.tableView!.reloadData()

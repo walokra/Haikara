@@ -103,21 +103,24 @@ public class HighFiApi {
             }
         }
     }
-    
+	
+	// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
     class func trackNewsClick(link: String) {
         #if DEBUG
             print("HighFiApi.trackNewsClick(\(link))")
         #endif
         let settings = Settings.sharedInstance
-        
-        Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
-            .response { (request, response, data, error) in
-                #if DEBUG
-                    print(request)
-                    // println(response)
-                    // println(error)
-                #endif
-        }
+		
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        	Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+	            .response { (request, response, data, error) in
+    	            #if DEBUG
+        	            print(request)
+            	        // println(response)
+                	    // println(error)
+                	#endif
+	        }
+		}
     }
     
     class func getCategories(completionHandler: (Array<Category>) -> Void, failureHandler: (String) -> Void) {

@@ -163,4 +163,18 @@ struct Theme {
 		// darker green, #21474e
 		static let starColor = UIColor(red: 90.0/255.0, green: 178.0/255.0, blue: 168.0/255.0, alpha: 1)
 	}
+	
+	static func clockIcon(color: UIColor, width: CGFloat) -> UILabel {
+		let label: UILabel = UILabel(frame: CGRectMake(8, 0, width, 20))
+		let string = String.ionIconString("ion-ios-clock-outline")
+        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
+        stringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
+        stringAttributed.addAttribute(
+        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
+        )
+		label.attributedText = stringAttributed
+	
+		return label
+	}
+
 }

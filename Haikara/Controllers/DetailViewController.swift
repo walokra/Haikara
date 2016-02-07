@@ -28,6 +28,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	var navigationItemTitle: String = ""
 	var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	var shareButtonText: String = NSLocalizedString("SHARE_BUTTON", comment: "Text for share button")
+	var filterButtonText: String = NSLocalizedString("FILTER_BUTTON", comment: "Text for filter button")
+	var browserButtonText: String = NSLocalizedString("BROWSER_BUTTON", comment: "Text for browser button")
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var poweredLabel: UILabel!
@@ -39,6 +41,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 	var loading = false
+	
+	// Icons
+	var clockLabel: UILabel!
 	
 	// MARK: Lifecycle
 	
@@ -102,6 +107,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		// self.tableFooter.hidden = true
 		
+		self.clockLabel = Theme.clockIcon(Theme.tintColor, width: self.tableView.frame.size.width/2)
+	
 		self.page = 1
 		getNews(self.page)
 		
@@ -255,11 +262,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
 			webURL = NSURL(string: tableItem.originalMobileUrl!)
 		}		
-		let trackingLink = tableItem.clickTrackingLink
 		#if DEBUG
-			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl), useReaderView=\(settings.useReaderView)")
+			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
 			print("didSelectRowAtIndexPath, webURL=\(webURL)")
-			print("didSelectRowAtIndexPath, trackingLink=\(trackingLink)")
 		#endif
 		
 		if #available(iOS 9.0, *) {
@@ -279,10 +284,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			self.navigationController?.pushViewController(vc, animated: true)
 		}
 		
-		// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-			HighFiApi.trackNewsClick(trackingLink)
-		}
+		self.trackNewsClick(tableItem)
 	}
 	
 	func handleGesture(recognizer:UIScreenEdgePanGestureRecognizer) {
@@ -337,15 +339,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
-
-		let clockLabel: UILabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
-		let clockString = String.ionIconString("ion-ios-clock-outline")
-        let clockStringAttributed = NSMutableAttributedString(string: clockString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
-        clockStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
-        clockStringAttributed.addAttribute(
-        	NSForegroundColorAttributeName, value: Theme.sectionTitleColor, range: NSRange(location: 0,length: 1)
-        )
-		clockLabel.attributedText = clockStringAttributed
 
 		var sectionLabel: UILabel
 		if highFiSection != "top" {
@@ -416,9 +409,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 //	}
 	
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-		let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: shareButtonText) {
+	
+		let share = UITableViewRowAction(style: .Default, title: shareButtonText) {
 			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-//			let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
+			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.None, forRowAtIndexPath: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
@@ -440,15 +434,48 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			
 			self.presentViewController(activityViewController, animated: true, completion: nil)
 			
-			// if iPad ?
-//			if let popPresentationController : UIPopoverPresentationController = activityViewController.popoverPresentationController {
-//					// If this happens you'll need to set the UIPopoverPresentationController properties of sourceView, sourceRect and permittedArrowDirections
-//			}
 		}
-//		Background color gets tiled, not good
-//		shareAction.backgroundColor = UIColor(patternImage: UIImage(named:"share")!)
+		share.backgroundColor = UIColor(red: 0.0/255, green: 171.0/255, blue: 132.0/255, alpha: 1)
 		
-		return [shareAction]
+		let filter = UITableViewRowAction(style: .Default, title: filterButtonText) {
+			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
+			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+			
+			let tableSection = self.sections[self.sortedSections[indexPath.section]]
+			let tableItem = tableSection![indexPath.row]
+			
+			#if DEBUG
+				print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
+			#endif
+			
+			self.settings.removeSource(tableItem.sourceID)
+		}
+		filter.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
+		
+		let browser = UITableViewRowAction(style: .Default, title: browserButtonText) {
+			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
+			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Insert, forRowAtIndexPath: indexPath)
+			
+			let tableSection = self.sections[self.sortedSections[indexPath.section]]
+			let tableItem = tableSection![indexPath.row]
+			
+			var webURL = NSURL(string: tableItem.originalURL)
+			if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
+				webURL = NSURL(string: tableItem.originalMobileUrl!)
+			}
+			#if DEBUG
+				print("browser, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
+				print("browser, webURL=\(webURL)")
+			#endif
+			
+			// Open news item in external browser, like Safari
+			UIApplication.sharedApplication().openURL(webURL!)
+			
+			self.trackNewsClick(tableItem)
+		}
+		browser.backgroundColor = UIColor.orangeColor()
+		
+		return [share, browser, filter]
 	}
 	
 //	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -535,6 +562,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		
 		return NSLocalizedString("LONG_TIME", comment: "")
+	}
+	
+	func trackNewsClick(entry: Entry) {
+		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
 	
 	override func didReceiveMemoryWarning() {

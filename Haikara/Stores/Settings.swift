@@ -308,6 +308,41 @@ class Settings {
     var description: String {
         return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), region=\(self.region)"
     }
+	
+	func removeSource(sourceID: Int) -> Bool {
+		var removed: Bool = false
+        if var sourceFilteredForLang = self.newsSourcesFiltered[self.region] {
+            #if DEBUG
+                print("sourceFilteredForLang=\(sourceFilteredForLang)")
+            #endif
+            
+            if let index = sourceFilteredForLang.indexOf(sourceID) {
+				#if DEBUG
+	                print("Removing item at index \(index)")
+				#endif
+                sourceFilteredForLang.removeAtIndex(index)
+                removed = true
+            }
+            if (!removed) {
+				#if DEBUG
+					print("Adding item to filtered sources, \(sourceID)")
+				#endif
+                sourceFilteredForLang.append(sourceID)
+            }
+            self.newsSourcesFiltered.updateValue(sourceFilteredForLang, forKey: self.region)
+        } else {
+			#if DEBUG
+	            print("Creating new key for language news sources, \(self.region)")
+			#endif
+            self.newsSourcesFiltered.updateValue([sourceID], forKey: self.region)
+        }
+        
+        #if DEBUG
+            print("newsSourcesFiltered[\(self.region)]=\(self.newsSourcesFiltered[self.region])")
+        #endif
+		
+		return removed
+	}
 
 }
 
