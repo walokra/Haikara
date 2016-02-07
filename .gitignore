@@ -21,3 +21,7 @@ DerivedData
 # Carthage
 Carthage/Build
 Carthage/Checkouts
+
+# CocoaPods
+Pods
+Podfile.lock
