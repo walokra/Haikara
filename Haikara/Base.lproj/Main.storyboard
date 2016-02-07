@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Detail-->
+        <!--DetailView-->
         <scene sceneID="VxO-rk-Dux">
             <objects>
-                <viewController storyboardIdentifier="detailViewController" title="Detail" id="exn-nL-O7c" customClass="DetailViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" title="DetailView" id="exn-nL-O7c" customClass="DetailViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3uu-8b-MAY"/>
                         <viewControllerLayoutGuide type="bottom" id="h25-NN-afO"/>
@@ -542,7 +542,7 @@
         <!--Menu-->
         <scene sceneID="m8L-gu-cOX">
             <objects>
-                <viewController storyboardIdentifier="masterViewController" title="Menu" id="6hf-xG-t83" customClass="MasterViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MasterViewController" title="Menu" id="6hf-xG-t83" customClass="MasterViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bce-ln-6GG"/>
                         <viewControllerLayoutGuide type="bottom" id="rOY-PS-y7X"/>
@@ -617,7 +617,7 @@
                     <connections>
                         <outlet property="favoritesButton" destination="RQQ-BU-BLv" id="2NU-jW-ja8"/>
                         <outlet property="settingsButton" destination="fdL-QG-9qU" id="gvv-et-HTX"/>
-                        <outlet property="slideOutTableView" destination="AiQ-sB-TXm" id="1eA-hE-sYB"/>
+                        <outlet property="tableView" destination="AiQ-sB-TXm" id="VC3-Gc-oMm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICV-pi-WeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -823,6 +823,6 @@
         <image name="ios-star-outline.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qwr-sX-9e1"/>
+        <segue reference="zyO-z2-YeD"/>
     </inferredMetricsTieBreakers>
 </document>

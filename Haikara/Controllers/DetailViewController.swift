@@ -48,13 +48,19 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		#endif
         super.viewDidLoad()
 
+		// Check for force touch feature, and add force touch/previewing capability.
+        if #available(iOS 9.0, *) {
+            if traitCollection.forceTouchCapability == .Available {
+                registerForPreviewingWithDelegate(self, sourceView: tableView)
+            }
+        }
+
 		setObservers()
 		setTheme()
 		
 		navigationItemTitle = settings.latestName
 		
 		self.initView()
-		
     }
 	
 	func setObservers() {
@@ -69,7 +75,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		poweredLabel.textColor = Theme.poweredLabelColor
 		
 		// TODO: How to update the bar after changing
-		self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
+		// FIXME: Crashes with 3D Touch
+		// self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
 	}
 	
 	func setTheme(notification: NSNotification) {
@@ -244,7 +251,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let tableSection = sections[sortedSections[path.section]]
 		let tableItem = tableSection![row]
 		
-		let webURL = NSURL(string: tableItem.originalURL)
+		var webURL = NSURL(string: tableItem.originalURL)
+		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
+			webURL = NSURL(string: tableItem.originalMobileUrl!)
+		}		
 		let trackingLink = tableItem.clickTrackingLink
 		#if DEBUG
 			print("didSelectRowAtIndexPath, useMobileUrl=\(settings.useMobileUrl), useReaderView=\(settings.useReaderView)")

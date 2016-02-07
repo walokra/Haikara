@@ -35,11 +35,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         getCategories()
     }
     
+	@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBAction func settingsButtonAction(sender: AnyObject) {
     }
-    @IBOutlet weak var slideOutTableView: UITableView!
-    
+	
     var categories = [Category]()
     var currentLanguage: String = "Finland"
     
@@ -49,6 +49,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		// Check for force touch feature, and add force touch/previewing capability.
+        if #available(iOS 9.0, *) {
+            if traitCollection.forceTouchCapability == .Available {
+                registerForPreviewingWithDelegate(self, sourceView: tableView)
+            }
+        }
 		
 		setObservers()
 		setTheme()
@@ -62,8 +69,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             getCategories()
         }
 
-        self.slideOutTableView!.delegate=self
-        self.slideOutTableView.dataSource = self
+        self.tableView!.delegate=self
+        self.tableView.dataSource = self
     }
 	
 	func setObservers() {
@@ -77,7 +84,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		Theme.loadTheme()
 		
 		self.view.backgroundColor = Theme.backgroundColor
-		self.slideOutTableView.backgroundColor = Theme.backgroundColor
+		self.tableView.backgroundColor = Theme.backgroundColor
 		
 		createSettingsButton(Theme.tintColor)
 		if settings.categoriesFavorited[settings.region] != nil {
@@ -87,7 +94,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             favoritesSelected = false
             createFavoritesButton(Theme.tintColor)
         }
-		self.slideOutTableView!.reloadData()
+		self.tableView!.reloadData()
 	}
 	
 	func setTheme(notification: NSNotification) {
@@ -173,7 +180,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             self.categories = cat + self.settings.categories
         }
 
-        self.slideOutTableView!.reloadData()
+        self.tableView!.reloadData()
     }
 
     func getCategories(){

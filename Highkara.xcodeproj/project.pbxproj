@@ -45,6 +45,8 @@
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
 		36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA1A781C66900C008268B3 /* TouchableTextView.swift */; };
+		36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */; };
+		36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */; };
 		36B3F4391B9B0BBC0095F85A /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4381B9B0BBC0095F85A /* ionicons.ttf */; };
 		36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */; };
 		36B3F4421B9B19D70095F85A /* ios-gear-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4411B9B19D70095F85A /* ios-gear-outline.png */; };
@@ -122,6 +124,8 @@
 		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
 		36AA1A781C66900C008268B3 /* TouchableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableTextView.swift; sourceTree = "<group>"; };
+		36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MasterViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
+		36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
 		36B3F4381B9B0BBC0095F85A /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Iconfonts-ionicons.swift"; sourceTree = "<group>"; };
 		36B3F4411B9B19D70095F85A /* ios-gear-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-gear-outline.png"; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		3631CA5A1BEA6A6D00C5A0BD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */,
+				36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */,
 				36C1AFF11B2E32A400D87522 /* DetailViewController.swift */,
 				36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */,
 				36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */,
@@ -578,6 +584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */,
 				364E87301BDFEE5A003F2EE5 /* Shared.swift in Sources */,
 				3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */,
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
@@ -586,6 +593,7 @@
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
+				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
