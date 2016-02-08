@@ -24,14 +24,14 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
 		
         // Create a detail view controller and set its properties.
         if #available(iOS 9.0, *) {
-            let safariViewController = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+            let destinationViewController = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 
-    	    safariViewController.preferredContentSize = CGSize(width: 0.0, height: 0.0)
+    	    destinationViewController.preferredContentSize = view.frame.size //CGSize(width: 0.0, height: 0.0)
         
 	        // Set the source rect to the cell frame, so surrounding elements are blurred.
             previewingContext.sourceRect = cell.frame
         
-        	return safariViewController
+        	return destinationViewController
 		}
 		return nil
     }

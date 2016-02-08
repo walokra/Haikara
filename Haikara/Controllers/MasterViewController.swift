@@ -26,11 +26,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var favoritesButton: UIButton!
     @IBAction func favoritesButtonAction(sender: AnyObject) {
         if (favoritesSelected == false) {
-            favoritesSelected = true
-            createFavoritesButton(Theme.starColor)
+            self.favoritesSelected = true
+            createfavoritesIconButton(Theme.starColor)
         } else {
-            favoritesSelected = false
-            createFavoritesButton(Theme.tintColor)
+            self.favoritesSelected = false
+            createfavoritesIconButton(Theme.tintColor)
         }
         getCategories()
     }
@@ -86,13 +86,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.view.backgroundColor = Theme.backgroundColor
 		self.tableView.backgroundColor = Theme.backgroundColor
 		
-		createSettingsButton(Theme.tintColor)
+		createSettingsIconButton(Theme.tintColor)
 		if settings.categoriesFavorited[settings.region] != nil {
-            favoritesSelected = true
-            createFavoritesButton(Theme.starColor)
+            self.favoritesSelected = true
+			createfavoritesIconButton(Theme.starColor)
         } else {
-            favoritesSelected = false
-            createFavoritesButton(Theme.tintColor)
+            self.favoritesSelected = false
+            createfavoritesIconButton(Theme.tintColor)
         }
 		self.tableView!.reloadData()
 	}
@@ -103,35 +103,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         #endif
 		setTheme()
     }
-
-    func createFavoritesButton(color: UIColor) {
-        let favoritesButtonString = String.ionIconString("ion-ios-star-outline")
-        let favoritesButtonStringAttributed = NSMutableAttributedString(string: favoritesButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        favoritesButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
-        favoritesButtonStringAttributed.addAttribute(
-        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
-        )
-        
-        favoritesButton.titleLabel?.textAlignment = .Center
-        favoritesButton.titleLabel?.numberOfLines = 1
-        favoritesButton.setAttributedTitle(favoritesButtonStringAttributed, forState: .Normal)		
-    }
-	
-	func createSettingsButton(color: UIColor) {
-		// creating settings button from font
-        let settingsButtonString = String.ionIconString("ion-ios-gear-outline")
-        let settingsButtonStringAttributed = NSMutableAttributedString(string: settingsButtonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        settingsButtonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
-        settingsButtonStringAttributed.addAttribute(
-            NSForegroundColorAttributeName,
-            value: color,
-            range: NSRange(location: 0,length: 1)
-        )
-        
-        settingsButton.titleLabel?.textAlignment = .Center
-        settingsButton.titleLabel?.numberOfLines = 1
-        settingsButton.setAttributedTitle(settingsButtonStringAttributed, forState: .Normal)
-	}
 	
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
@@ -299,11 +270,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         return cell
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCategory = self.categories[indexPath.row]
@@ -316,7 +282,40 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         splitViewController?.preferredDisplayMode = .PrimaryHidden
         splitViewController?.preferredDisplayMode = .Automatic
     }
-    
+	
+	func createfavoritesIconButton(color: UIColor) {
+        let buttonString = String.ionIconString("ion-ios-star-outline")
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        buttonStringAttributed.addAttribute(
+        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
+        )
+        
+        favoritesButton.titleLabel?.textAlignment = .Center
+        favoritesButton.titleLabel?.numberOfLines = 1
+        favoritesButton.setAttributedTitle(buttonStringAttributed, forState: .Normal)
+    }
+	
+	func createSettingsIconButton(color: UIColor) {
+        let buttonString = String.ionIconString("ion-ios-gear-outline")
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        buttonStringAttributed.addAttribute(
+            NSForegroundColorAttributeName,
+            value: color,
+            range: NSRange(location: 0,length: 1)
+        )
+        
+        settingsButton.titleLabel?.textAlignment = .Center
+        settingsButton.titleLabel?.numberOfLines = 1
+        settingsButton.setAttributedTitle(buttonStringAttributed, forState: .Normal)
+	}
+	
+	override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+	
     // stop observing
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

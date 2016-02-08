@@ -108,8 +108,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 		
 		// self.tableFooter.hidden = true
-		
-		self.clockLabel = Theme.clockIcon(Theme.tintColor, width: self.tableView.frame.size.width/2)
 	
 		self.page = 1
 		getNews(self.page)
@@ -352,6 +350,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		sectionLabel.textColor = Theme.sectionTitleColor
 		sectionLabel.font = UIFont.systemFontOfSize(14)
 
+		clockLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		createClockIcon(Theme.textColor)
+
 		if highFiSection != "top" {
 			headerView.addSubview(clockLabel)
 		}
@@ -452,6 +453,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
 				#endif
 				self.settings.removeSource(tableItem.sourceID)
+				tableView.editing = false
+				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
 			}))
 
 			deleteAlert.addAction(UIAlertAction(title: self.cancelText, style: .Cancel, handler: { (action: UIAlertAction!) in
@@ -577,6 +580,16 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func trackNewsClick(entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
+	}
+	
+	func createClockIcon(color: UIColor) {
+		let string = String.ionIconString("ion-ios-clock-outline")
+        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
+        stringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
+        stringAttributed.addAttribute(
+        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
+        )
+		clockLabel.attributedText = stringAttributed
 	}
 	
 	override func didReceiveMemoryWarning() {
