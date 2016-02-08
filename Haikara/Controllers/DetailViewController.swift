@@ -28,8 +28,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	var navigationItemTitle: String = ""
 	var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	var shareButtonText: String = NSLocalizedString("SHARE_BUTTON", comment: "Text for share button")
-	var filterButtonText: String = NSLocalizedString("FILTER_BUTTON", comment: "Text for filter button")
+	var deleteButtonText: String = NSLocalizedString("DELETE_BUTTON", comment: "Text for delete button")
 	var browserButtonText: String = NSLocalizedString("BROWSER_BUTTON", comment: "Text for browser button")
+	var deleteAlertText: String = NSLocalizedString("DELETE_ACTION_DESC", comment: "Text for delete action description button")
+	var cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var poweredLabel: UILabel!
@@ -433,24 +435,33 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			activityViewController.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
 			
 			self.presentViewController(activityViewController, animated: true, completion: nil)
-			
 		}
 		share.backgroundColor = UIColor(red: 0.0/255, green: 171.0/255, blue: 132.0/255, alpha: 1)
 		
-		let filter = UITableViewRowAction(style: .Default, title: filterButtonText) {
+		let delete = UITableViewRowAction(style: .Default, title: deleteButtonText) {
 			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertControllerStyle.Alert)
+
+			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .Destructive, handler: { (action: UIAlertAction!) in
+				self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
 			
-			let tableSection = self.sections[self.sortedSections[indexPath.section]]
-			let tableItem = tableSection![indexPath.row]
+				let tableSection = self.sections[self.sortedSections[indexPath.section]]
+				let tableItem = tableSection![indexPath.row]
 			
-			#if DEBUG
-				print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
-			#endif
+				#if DEBUG
+					print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
+				#endif
+				self.settings.removeSource(tableItem.sourceID)
+			}))
+
+			deleteAlert.addAction(UIAlertAction(title: self.cancelText, style: .Cancel, handler: { (action: UIAlertAction!) in
+				tableView.editing = false
+				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
+			}))
 			
-			self.settings.removeSource(tableItem.sourceID)
+			self.presentViewController(deleteAlert, animated: true, completion: nil)
 		}
-		filter.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
+		delete.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
 		
 		let browser = UITableViewRowAction(style: .Default, title: browserButtonText) {
 			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
@@ -475,7 +486,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		browser.backgroundColor = UIColor.orangeColor()
 		
-		return [share, browser, filter]
+		return [share, browser, delete]
 	}
 	
 //	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
