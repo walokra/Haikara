@@ -2,6 +2,7 @@
 * Add search for filtering news sources
 * Move region selection to textfield with picker as input
 * Add 3D Touch to peek in category view and news view
+* Add new actions for news item: filter, open in external browser
 
 0.9.3 (2016-01-16)
 * Add darker dark theme
