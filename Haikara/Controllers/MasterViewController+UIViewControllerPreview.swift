@@ -19,10 +19,10 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
         
         // Create a detail view controller and set its properties.
         guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else { return nil }
- 
-        let previewCategory = categories[indexPath.row]
+		
+		let selectedCategory = self.categories[indexPath.row]
 //		print("previewCategory=\(previewCategory)")
-        detailViewController.highFiSection = previewCategory.htmlFilename
+        self.delegate?.categorySelected(selectedCategory)
 		
         /*
             Set the height of the preview by setting the preferred content size of the detail view controller.
