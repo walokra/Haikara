@@ -22,7 +22,8 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
 		
 		let selectedCategory = self.categories[indexPath.row]
 //		print("previewCategory=\(previewCategory)")
-        self.delegate?.categorySelected(selectedCategory)
+		detailViewController.navigationItem.title = selectedCategory.title
+		detailViewController.highFiSection = selectedCategory.htmlFilename
 		
         /*
             Set the height of the preview by setting the preferred content size of the detail view controller.
