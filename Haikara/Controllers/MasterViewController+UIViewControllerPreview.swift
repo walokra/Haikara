@@ -22,7 +22,7 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
 		
 		let selectedCategory = self.categories[indexPath.row]
 //		print("previewCategory=\(previewCategory)")
-		detailViewController.navigationItem.title = selectedCategory.title
+		detailViewController.navigationItemTitle = selectedCategory.title
 		detailViewController.highFiSection = selectedCategory.htmlFilename
 		
         /*
