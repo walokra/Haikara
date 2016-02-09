@@ -65,7 +65,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		setObservers()
 		setTheme()
 		
-		navigationItemTitle = settings.latestName
+		if navigationItemTitle.isEmpty {
+			self.navigationItemTitle = settings.latestName
+		}
 		
 		self.initView()
     }

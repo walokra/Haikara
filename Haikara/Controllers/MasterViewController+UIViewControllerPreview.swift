@@ -16,12 +16,11 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
         // Obtain the index path and the cell that was pressed.
         guard let indexPath = tableView.indexPathForRowAtPoint(location),
                   cell = tableView.cellForRowAtIndexPath(indexPath) else { return nil }
-        
+		
         // Create a detail view controller and set its properties.
         guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else { return nil }
 		
 		let selectedCategory = self.categories[indexPath.row]
-//		print("previewCategory=\(previewCategory)")
 		detailViewController.navigationItemTitle = selectedCategory.title
 		detailViewController.highFiSection = selectedCategory.htmlFilename
 		
