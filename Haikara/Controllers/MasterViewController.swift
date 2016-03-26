@@ -75,10 +75,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "regionChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSelectedCategories:", name: "selectedCategoriesChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "regionChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: "selectedCategoriesChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "settingsResetedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {

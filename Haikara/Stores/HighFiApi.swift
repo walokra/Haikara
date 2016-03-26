@@ -95,7 +95,7 @@ public class HighFiApi {
 
             case .Failure(let data, let error):
                 #if DEBUG
-                    print("Error: \(__FUNCTION__)\n", data, error)
+                    print("Error: \(#function)\n", data, error)
                 #endif
                 if let error = result.error as? NSError {
                     failureHandler(error.localizedDescription)
@@ -169,7 +169,7 @@ public class HighFiApi {
                 return completionHandler(cat + categories)
             case .Failure(let data, let error):
                 #if DEBUG
-                    print("Error: \(__FUNCTION__)\n", data, error)
+                    print("Error: \(#function)\n", data, error)
                 #endif
                 if let error = result.error as? NSError {
                     failureHandler(error.localizedDescription)
@@ -228,7 +228,7 @@ public class HighFiApi {
                 
             case .Failure(let data, let error):
                 #if DEBUG
-                    print("Error: \(__FUNCTION__)\n", data, error)
+                    print("Error: \(#function)\n", data, error)
                 #endif
                 if let error = result.error as? NSError {
                     failureHandler(error.localizedDescription)
@@ -280,7 +280,7 @@ public class HighFiApi {
                 
             case .Failure(let data, let error):
                 #if DEBUG
-                    print("Error: \(__FUNCTION__)\n", data, error)
+                    print("Error: \(#function)\n", data, error)
                 #endif
                 if let error = result.error as? NSError {
                     failureHandler(error.localizedDescription)

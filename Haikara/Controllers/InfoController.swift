@@ -64,7 +64,7 @@ class InfoController: UIViewController {
 	}
 	
 	func setObservers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InfoController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme(notification: NSNotification) {

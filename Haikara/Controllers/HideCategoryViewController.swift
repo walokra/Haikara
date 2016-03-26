@@ -50,9 +50,9 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "categoriesRefreshedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetHidden:", name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.resetHidden(_:)), name: "settingsResetedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {

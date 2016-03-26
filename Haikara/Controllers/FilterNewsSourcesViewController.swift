@@ -68,9 +68,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionNewsSources:", name: "regionChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetNewsSourcesFiltered:", name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setRegionNewsSources(_:)), name: "regionChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.resetNewsSourcesFiltered(_:)), name: "settingsResetedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {

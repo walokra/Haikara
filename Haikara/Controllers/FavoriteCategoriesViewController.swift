@@ -48,9 +48,9 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     }
 	
 	func setObservers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setRegionCategory:", name: "categoriesRefreshedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetFavorited:", name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.resetFavorited(_:)), name: "settingsResetedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {

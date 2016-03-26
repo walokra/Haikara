@@ -161,7 +161,7 @@ class Settings {
     
     init() {
         #if DEBUG
-            print(__FUNCTION__)
+            print(#function)
         #endif
         
         let dictionary = NSBundle.mainBundle().infoDictionary!
@@ -169,7 +169,7 @@ class Settings {
         let build = dictionary["CFBundleVersion"] as! String
         
         self.APIKEY = ""
-        
+
         self.appID = "Highkara, \(version)-\(build) (iOS)"
         
         self.highFiEndpoint = "json-private"

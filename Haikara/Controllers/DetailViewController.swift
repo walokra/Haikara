@@ -75,7 +75,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {
@@ -122,7 +122,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
-		self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
 	}
 	
@@ -235,7 +235,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					}
 					
 					self.sortedSections = self.sections.keys
-					i++
+					i += 1
 				}
 				//println("sections=\(self.sections.count)")
 				

@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setTheme:", name: "themeChangedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
 	
 	func setTheme() {
