@@ -41,6 +41,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let calendar = NSCalendar.autoupdatingCurrentCalendar()
 	let dateFormatter = NSDateFormatter()
 	let publishedFormatter = NSDateFormatter()
+	let publishedTimeFormatter = NSDateFormatter()
 	
 	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 	var loading = false
@@ -111,6 +112,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
 		publishedFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
 		publishedFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
+		publishedTimeFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		publishedTimeFormatter.dateFormat = "HH:mm"
 		
 		// self.tableFooter.hidden = true
 	
@@ -428,6 +431,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return self.sections[sortedSections[section]]!.count
     }
 	
+	func formatTime(dateString: String) -> String {
+		let date = dateFormatter.dateFromString(dateString)
+		return publishedTimeFormatter.stringFromDate(date!)
+	}
 	func formatDate(dateString: String) -> String {
 		let date = dateFormatter.dateFromString(dateString)
 		return publishedFormatter.stringFromDate(date!)
@@ -440,10 +447,16 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
 		
-		let date = formatDate(tableItem.publishedDateJS)
+		var date = ""
+		if tableItem.orderNro >= 1440 {
+			date = formatDate(tableItem.publishedDateJS)
+		} else {
+			date = formatTime(tableItem.publishedDateJS)
+		}
+		
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor
-		cell.entryAuthor.text = tableItem.author + " (" + date + ")"
+		cell.entryAuthor.text = tableItem.author + " - " + date
 		cell.entryAuthor.textColor = Theme.cellAuthorColor
 		if (tableItem.shortDescription != "" && settings.showDesc) {
 			cell.entryDescription.text = tableItem.shortDescription
