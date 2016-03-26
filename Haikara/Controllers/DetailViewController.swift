@@ -40,6 +40,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	let calendar = NSCalendar.autoupdatingCurrentCalendar()
 	let dateFormatter = NSDateFormatter()
+	let publishedFormatter = NSDateFormatter()
 	
 	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 	var loading = false
@@ -108,6 +109,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
+		publishedFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		publishedFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
 		
 		// self.tableFooter.hidden = true
 	
@@ -197,7 +200,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.entries = [Entry]()
 				self.sections = OrderedDictionary<String, Array<Entry>>()
 				self.sortedSections = [String]()
-				
 				self.entries = newsentries
 				
 				var i = 0
@@ -249,11 +251,15 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			
 			dispatch_async(dispatch_get_main_queue()) {
-				// Clear old entries
-				self.sections = OrderedDictionary<String, Array<Entry>>()
-				self.sortedSections = [String]()
-				
-				self.entries = newsentries
+				if self.page == 1 {
+					// Clear old entries
+					self.entries = [Entry]()
+					self.sections = OrderedDictionary<String, Array<Entry>>()
+					self.sortedSections = [String]()
+					self.entries = newsentries
+				} else {
+					self.entries = self.entries + newsentries
+				}
 				//println("newsEntries=\(self.newsEntries.count)")
 				
 				self.entries = self.entries.sort { $0.orderNro < $1.orderNro }
@@ -277,7 +283,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.tableView!.reloadData()
 				self.refreshControl?.endRefreshing()
 				self.setLoadingState(false)
-				self.scrollToTop()
+				if self.page == 1 {
+					self.scrollToTop()
+				}
 				
 				return
 			}
@@ -420,6 +428,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return self.sections[sortedSections[section]]!.count
     }
 	
+	func formatDate(dateString: String) -> String {
+		let date = dateFormatter.dateFromString(dateString)
+		return publishedFormatter.stringFromDate(date!)
+	}
+	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
 		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
@@ -427,9 +440,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
 		
+		let date = formatDate(tableItem.publishedDateJS)
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor
-		cell.entryAuthor.text = tableItem.author
+		cell.entryAuthor.text = tableItem.author + " (" + date + ")"
 		cell.entryAuthor.textColor = Theme.cellAuthorColor
 		if (tableItem.shortDescription != "" && settings.showDesc) {
 			cell.entryDescription.text = tableItem.shortDescription
@@ -643,14 +657,22 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					else if minutes < 45 { return 45 }
 					else if minutes < 60 { return 60 }
 				} else {
-					return 60 * hours
+					if hours == 1 {
+						return 60 * (hours + 1)
+					} else {
+						return 60 * hours
+					}
 				}
 			} else {
-				return 360 * days
+				if days == 1 {
+					return 1440
+				} else {
+					return 1440 * days
+				}
 			}
 		}
 		
-		return 9999
+		return 99999
 	}
 	
 	func trackNewsClick(entry: Entry) {
