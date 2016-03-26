@@ -14,7 +14,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     let animator = SCModalPushPopAnimator()
 
 	let cellIdentifier = "tableCell"
-	var entries = NSMutableOrderedSet()
+	var entries = [Entry]()
 	let settings = Settings.sharedInstance
 	let maxHeadlines: Int = 70
 	var page: Int = 1
@@ -124,6 +124,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		#if DEBUG
 			print("handleError, error: \(error)")
 		#endif
+		
+		self.refreshControl?.endRefreshing()
+		self.setLoadingState(false)
+		
 		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
 		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
 		alertController.addAction(OKAction)
@@ -146,46 +150,83 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
+	func getFavorites() {
+		if (!self.loading) {
+			self.setLoadingState(true)
+			// with trailing closure we get the results that we passed the closure back in async function
+			let categoriesFavorited = settings.categoriesFavorited[settings.region]
+			var filteredCategories = [Category]()
+			self.settings.categories.forEach({ (category: Category) -> () in
+				if categoriesFavorited!.contains(category.sectionID) {
+					filteredCategories.append(category)
+				}
+			})
+			
+			let getNewsGroup = dispatch_group_create()
+
+			var news = [Entry]()
+			filteredCategories.forEach({(category: Category) -> () in
+				dispatch_group_enter(getNewsGroup)
+			
+				HighFiApi.getNews(1, section: category.htmlFilename,
+					completionHandler: {(result) in
+						news = news + result
+						dispatch_group_leave(getNewsGroup)
+					}
+					, failureHandler: {(error)in
+						self.handleError(error)
+						dispatch_group_leave(getNewsGroup)
+					}
+				)
+			})
+			
+			// called once all code blocks entered into group have left
+    		dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
+				self.setNews(news)
+			}
+	
+		}
+	}
+	
 	func setNews(newsentries: Array<Entry>) {
 		// Top items are not grouped by time
 		print("highFiSection=\(highFiSection)")
 		if highFiSection == "top" {
 			dispatch_async(dispatch_get_main_queue()) {
 				// Clear old entries
-				self.entries = NSMutableOrderedSet()
+				self.entries = [Entry]()
 				self.sections = OrderedDictionary<String, Array<Entry>>()
 				self.sortedSections = [String]()
 				
-				self.entries.addObjectsFromArray(newsentries)
+				self.entries = newsentries
 				
 				var i = 0
 				var range = " 1 ..10"
 				for item in self.entries {
-					let entry = item as! Entry
 					if (i < 10) {
 						range = " 1 ..10"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 20) {
 						range = " 11 ..20"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 30) {
 						range = " 21 ..30"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 40) {
 						range = " 31 ..40"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 50) {
 						range = " 41 ..50"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 60) {
 						range = " 51 ..60"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else if (i < 70) {
 						range = " 61 ..70"
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					} else {
 						range = " 70 ..."
-						self.sections[range] == nil ? self.sections[range] = [entry] : self.sections[range]!.append(entry)
+						self.sections[range] == nil ? self.sections[range] = [item] : self.sections[range]!.append(item)
 					}
 					
 					self.sortedSections = self.sections.keys
@@ -204,32 +245,34 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			// Other categories are grouped by time
 			for item in newsentries {
 				item.timeSince = self.getTimeSince(item.publishedDateJS)
+				item.orderNro = self.getOrder(item.publishedDateJS)
 			}
 			
 			dispatch_async(dispatch_get_main_queue()) {
 				// Clear old entries
-				self.entries = NSMutableOrderedSet()
 				self.sections = OrderedDictionary<String, Array<Entry>>()
 				self.sortedSections = [String]()
 				
-				self.entries.addObjectsFromArray(newsentries)
+				self.entries = newsentries
 				//println("newsEntries=\(self.newsEntries.count)")
+				
+				self.entries = self.entries.sort { $0.orderNro < $1.orderNro }
 				
 				// Put each item in a section
 				for item in self.entries {
 					// If we don't have section for particular time, create new one,
 					// Otherwise just add item to existing section
-					let entry = item as! Entry
 					//	println("section=\(entry.section), title=\(entry.title)")
-					if self.sections[entry.timeSince] == nil {
-						self.sections[entry.timeSince] = [entry]
+					if self.sections[item.timeSince] == nil {
+						self.sections[item.timeSince] = [item]
 					} else {
-						self.sections[entry.timeSince]!.append(entry)
+						self.sections[item.timeSince]!.append(item)
 					}
 					
 					self.sortedSections = self.sections.keys
 				}
 				//println("sections=\(self.sections.count)")
+				//self.sortedSections.sortInPlace{ $0 < $1 }
 				
 				self.tableView!.reloadData()
 				self.refreshControl?.endRefreshing()
@@ -248,7 +291,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func refresh(sender:AnyObject) {
 		self.page = 1
-		getNews(self.page)
+		if (self.highFiSection == "favorites") {
+			getFavorites()
+		} else {
+			getNews(self.page)
+		}
 	}
 	
 	// MARK: - Navigation
@@ -580,6 +627,32 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return NSLocalizedString("LONG_TIME", comment: "")
 	}
 	
+	func getOrder(item: String) -> Int {
+		if let startDate = dateFormatter.dateFromString(item) {
+			let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute], fromDate: startDate, toDate: NSDate(), options: [])
+			let days = components.day
+			let hours = components.hour
+			let minutes = components.minute
+			
+			if days == 0 {
+				if hours == 0 {
+					if minutes < 0 { return 0 }
+					else if minutes < 5 { return 5 }
+					else if minutes < 15 { return 15 }
+					else if minutes < 30 { return 30 }
+					else if minutes < 45 { return 45 }
+					else if minutes < 60 { return 60 }
+				} else {
+					return 60 * hours
+				}
+			} else {
+				return 360 * days
+			}
+		}
+		
+		return 9999
+	}
+	
 	func trackNewsClick(entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
@@ -610,6 +683,10 @@ extension DetailViewController: CategorySelectionDelegate {
 		self.page = 1
 		self.navigationItem.title = newCategory.title
 		self.highFiSection = newCategory.htmlFilename
-		getNews(self.page)
+		if newCategory.htmlFilename == "favorites" {
+			getFavorites()
+		} else {
+			getNews(self.page)
+		}
 	}
 }

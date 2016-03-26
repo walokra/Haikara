@@ -42,7 +42,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
     var categories = [Category]()
     var currentLanguage: String = "Finland"
-    
+	
+	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     weak var delegate: CategorySelectionDelegate?
@@ -124,18 +125,20 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func setCategories() {
         // Adding always present categories: generic and top
         var cat = [Category]()
-        cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
-        cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
-        
         let categoriesFavorited = settings.categoriesFavorited[settings.region]
-        
+		
+		cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", selected: true))
+		
         if favoritesSelected && categoriesFavorited != nil {
             #if DEBUG
                 print("showing selected categories=\(categoriesFavorited)")
             #endif
             
             if categoriesFavorited!.isEmpty {
-                self.categories = cat + self.settings.categories
+				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
+        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
+		
+                self.categories = cat // + self.settings.categories
             } else {
                 var filteredCategories = [Category]()
             
@@ -148,7 +151,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 self.categories = cat + filteredCategories
             }
         } else {
-            self.categories = cat + self.settings.categories
+			if categoriesFavorited != nil && !categoriesFavorited!.isEmpty {
+				self.categories = cat + self.settings.categories
+			} else {
+				self.categories = cat + self.settings.categories
+			}
         }
 
         self.tableView!.reloadData()

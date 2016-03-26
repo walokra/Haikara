@@ -58,7 +58,6 @@ public class HighFiApi {
 //                    print("json: \(data)")
                 #endif
 				
-				
 				var newsSourcesFiltered = [Int]()
 				if settings.newsSourcesFiltered[settings.region] != nil {
 					newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
@@ -86,7 +85,8 @@ public class HighFiApi {
                         sectionID: $0["sectionID"] as! Int,
                         sourceID: $0["sourceID"] as! Int,
                         highlight: $0["highlight"] as! Bool,
-                        timeSince: "Juuri nyt"
+                        timeSince: "Juuri nyt",
+						orderNro: 0
                         )
                 }
                 // println("entries: \(entries.count)")
@@ -149,6 +149,12 @@ public class HighFiApi {
                 #endif
 
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
+				
+				// Add always found categories to the list
+				var cat = [Category]()
+				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
+        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
+				
                 let categories = (responseData.valueForKey("categories") as! [NSDictionary])
 //                    .filter({ ($0["depth"] as! Int) == 1 })
                     .map { Category(
@@ -160,38 +166,7 @@ public class HighFiApi {
                         )
                     }
                 
-//                // HACK for dealing with missing values from API
-//                var categories = [Category]()
-//                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-//                let cats = responseData.valueForKey("categories") as! [NSDictionary]
-//                for category in cats {
-//                    var title: String = ""
-//                    var sectionID: Int = 0
-//                    var depth: Int = 0
-//                    var htmlFilename: String = ""
-//                    if let t = category["title"] as? String {
-//                        title = t
-//                    }
-//                    if let sid = category["sectionID"] as? Int {
-//                        sectionID = sid
-//                    }
-//                    if let d = category["depth"] as? Int {
-//                        depth = d
-//                    }
-//                    if let html = category["htmlFilename"] as? String {
-//                        htmlFilename = html
-//                    }
-//                    
-//                    // Checking for needed information
-//                    if title != "" && sectionID != 0 && htmlFilename != "" {
-//                        let cat = Category(title: title, sectionID: sectionID, depth: depth, htmlFilename: htmlFilename, selected: false)
-//                        
-//                        categories.append(cat)
-//                    }
-//                }
-                // println("categories: \(categories.count)")
-                
-                return completionHandler(categories)
+                return completionHandler(cat + categories)
             case .Failure(let data, let error):
                 #if DEBUG
                     print("Error: \(__FUNCTION__)\n", data, error)
