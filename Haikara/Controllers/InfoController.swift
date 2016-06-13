@@ -12,16 +12,19 @@ class InfoController: UIViewController {
 
 	var appStoreButtonText: String = NSLocalizedString("INFO_REVIEW_TITLE", comment: "Review in app store")
 	var bugsButtonText: String = NSLocalizedString("INFO_BUGS_TITLE", comment: "Bug reports")
+	var licenseLabelText: String = NSLocalizedString("INFO_LICENSE_TITLE", comment: "License")
 
 	@IBOutlet weak var aboutLabel: UILabel!
+	@IBOutlet weak var licenseLabel: UILabel!
 
+	@IBOutlet weak var openAppStoreCell: UICollectionViewCell!
     @IBOutlet weak var infoLabel: UILabel!
     @IBAction func openHighFi(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
     }
-	
+
 	@IBOutlet weak var appStoreButton: UIButton!
-	@IBAction func openAppStore(sender: AnyObject) {
+	@IBAction func openAppStore(sender: UIButton) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
 	
@@ -59,6 +62,7 @@ class InfoController: UIViewController {
         let settings = Settings()
 		
         infoLabel.text = settings.appID + ", Marko Wallin"
+		licenseLabel.text = licenseLabelText;
 		appStoreButton.setTitle(appStoreButtonText, forState: UIControlState.Normal)
 		bugsButton.setTitle(bugsButtonText, forState: UIControlState.Normal)
 	}
@@ -76,6 +80,7 @@ class InfoController: UIViewController {
 		self.view.backgroundColor = Theme.backgroundColor
 		
 		aboutLabel.textColor = Theme.textColor
+		licenseLabel.textColor = Theme.textColor
 		appStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		poweredByLabel.textColor = Theme.textColor
 		poweredByButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
