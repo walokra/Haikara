@@ -159,38 +159,38 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	func getFavorites() {
 		if (!self.loading) {
 			self.setLoadingState(true)
-			// with trailing closure we get the results that we passed the closure back in async function
-			let categoriesFavorited = settings.categoriesFavorited[settings.region]
-			var filteredCategories = [Category]()
-			self.settings.categories.forEach({ (category: Category) -> () in
-				if categoriesFavorited!.contains(category.sectionID) {
-					filteredCategories.append(category)
+			if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
+				var filteredCategories = [Category]()
+				self.settings.categories.forEach({ (category: Category) -> () in
+					if categoriesFavorited.contains(category.sectionID) {
+						filteredCategories.append(category)
+					}
+				})
+				
+				let getNewsGroup = dispatch_group_create()
+				var news = [Entry]()
+				filteredCategories.forEach({(category: Category) -> () in
+					dispatch_group_enter(getNewsGroup)
+				
+					HighFiApi.getNews(1, section: category.htmlFilename,
+						completionHandler: {(result) in
+							news = news + result
+							dispatch_group_leave(getNewsGroup)
+						}
+						, failureHandler: {(error)in
+							self.handleError(error)
+							dispatch_group_leave(getNewsGroup)
+						}
+					)
+				})
+			
+				// called once all code blocks entered into group have left
+    			dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
+					self.setNews(news)
 				}
-			})
-			
-			let getNewsGroup = dispatch_group_create()
-
-			var news = [Entry]()
-			filteredCategories.forEach({(category: Category) -> () in
-				dispatch_group_enter(getNewsGroup)
-			
-				HighFiApi.getNews(1, section: category.htmlFilename,
-					completionHandler: {(result) in
-						news = news + result
-						dispatch_group_leave(getNewsGroup)
-					}
-					, failureHandler: {(error)in
-						self.handleError(error)
-						dispatch_group_leave(getNewsGroup)
-					}
-				)
-			})
-			
-			// called once all code blocks entered into group have left
-    		dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
-				self.setNews(news)
+			} else {
+				// TODO: do something?
 			}
-	
 		}
 	}
 	

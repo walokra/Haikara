@@ -22,6 +22,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	@IBOutlet weak var regionLabel: UILabel!
 	@IBOutlet weak var regionDesc: UILabel!
 	
+	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
+	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
+	
 	// Close picker when touching somewhere, not necessary to select value
 	@IBAction func viewTapped(sender: AnyObject) {
 		self.view.endEditing(true)
@@ -31,43 +34,58 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     @IBOutlet weak var resetButton: UIButton!
     
     @IBAction func resetAction(sender: AnyObject) {
-        
-        self.settings.resetToDefaults()
-        
-        HighFiApi.getCategories(
-            { (result) in
-                self.settings.categories = result
-                
-                self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
-                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-                
-                let defaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(archivedObject, forKey: "categoriesByLang")
-                defaults.synchronize()
-                
-                // Send notification to inform favorite & hide views to refresh
-                NSNotificationCenter.defaultCenter().postNotificationName("settingsResetedNotification", object: nil, userInfo: nil)
+		
+		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .Alert)
+		
+		let cancelAction = UIAlertAction(title: cancelText, style: .Default, handler: nil)
+		alertController.addAction(cancelAction)
 
-                return
-            }
-            , failureHandler: {(error)in
-                self.handleError(error)
-            }
-        )
+		let destroyAction = UIAlertAction(title: resetText, style: .Destructive) { (action) in
+			#if DEBUG
+            	print ("destroyAction, action=\(action)")
+        	#endif
+			
+			self.settings.resetToDefaults()
         
-        listLanguages()
+        	HighFiApi.getCategories(
+        	    { (result) in
+        	        self.settings.categories = result
+					
+        	        self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
+	                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
+                
+    	            let defaults = NSUserDefaults.standardUserDefaults()
+        	        defaults.setObject(archivedObject, forKey: "categoriesByLang")
+            	    defaults.synchronize()
+                
+                	// Send notification to inform favorite & hide views to refresh
+                	NSNotificationCenter.defaultCenter().postNotificationName("settingsResetedNotification", object: nil, userInfo: nil)
+
+                	return
+            	}
+            	, failureHandler: {(error)in
+	                self.handleError(error)
+    	        }
+    	    )
         
-        showDescSwitch.on = settings.showDesc
-        useMobileUrlSwitch.on = settings.useMobileUrl
-        useReaderViewSwitch.on = settings.useReaderView
+        	self.listLanguages()
         
-        // Notify user
-        
-        let alertController = UIAlertController(title: resetMessageTitle, message: resetMessage, preferredStyle: .Alert)
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alertController.addAction(OKAction)
-        
-        self.presentViewController(alertController, animated: true){}
+        	self.showDescSwitch.on = self.settings.showDesc
+        	self.useMobileUrlSwitch.on = self.settings.useMobileUrl
+        	self.useReaderViewSwitch.on = self.settings.useReaderView
+		
+			// All done
+			let doneController = UIAlertController(title: self.resetMessageTitle, message: self.resetMessage, preferredStyle: .Alert)
+        	let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        	doneController.addAction(OKAction)
+			
+			self.presentViewController(doneController, animated: true) {}
+		}
+		alertController.addAction(destroyAction)
+
+		self.presentViewController(alertController, animated: true) {
+
+		}
     }
     
     @IBOutlet weak var settingsButton: UIBarButtonItem!
@@ -88,6 +106,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
     let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
+	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
+    let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
+	
 	let darkThemeTitle: String = NSLocalizedString("SETTINGS_DARK_THEME", comment: "")
     
     @IBAction func useMobileUrl(sender: UISwitch) {

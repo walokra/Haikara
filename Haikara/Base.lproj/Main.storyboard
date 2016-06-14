@@ -135,7 +135,7 @@
         <!--Categories-->
         <scene sceneID="9HQ-Uu-h9g">
             <objects>
-                <viewController title="Categories" id="f8J-Dx-PVd" customClass="FavoriteCategoriesViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoriteCategoriesViewController" title="Categories" id="f8J-Dx-PVd" customClass="FavoriteCategoriesViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cY5-Z4-ghi"/>
                         <viewControllerLayoutGuide type="bottom" id="9cf-85-dod"/>
@@ -276,7 +276,7 @@
         <!--Settings-->
         <scene sceneID="b6k-at-iyD">
             <objects>
-                <viewController storyboardIdentifier="SettingsView" title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" title="Settings" id="PfJ-fU-JDr" customClass="SettingsViewController" customModule="highkara" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mER-OZ-TlD"/>
                         <viewControllerLayoutGuide type="bottom" id="MnR-eo-9fz"/>
@@ -452,7 +452,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="nBr-eV-Lub">
             <objects>
-                <tabBarController id="mZk-8F-d1U" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="SettingsTabBarController" id="mZk-8F-d1U" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="30q-t2-sz3"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="yvM-4m-9vn">

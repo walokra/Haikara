@@ -22,17 +22,40 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     let settings = Settings.sharedInstance
 
+	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
+    var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
+	var favoritesCategoryTitle: String = NSLocalizedString("FAVORITES_NONE_TITLE", comment: "Title for no favorite categories found")
+	var favoritesCategoryMessage: String = NSLocalizedString("FAVORITES_NONE_DESC", comment: "Message for no favorite categories found")
+	var settingsText: String = NSLocalizedString("SETTINGS", comment: "Settings")
+	
     var favoritesSelected: Bool = false
     @IBOutlet weak var favoritesButton: UIButton!
     @IBAction func favoritesButtonAction(sender: AnyObject) {
-        if (favoritesSelected == false) {
-            self.favoritesSelected = true
-            createfavoritesIconButton(Theme.starColor)
-        } else {
-            self.favoritesSelected = false
-            createfavoritesIconButton(Theme.tintColor)
-        }
-        getCategories()
+		if settings.categoriesFavorited[settings.region] != nil {
+			if (favoritesSelected == false) {
+        	    self.favoritesSelected = true
+        	    createfavoritesIconButton(Theme.starColor)
+        	} else {
+        	    self.favoritesSelected = false
+        	    createfavoritesIconButton(Theme.tintColor)
+        	}
+        	getCategories()
+		} else {
+			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .Alert)
+		
+			let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+			alertController.addAction(okAction)
+
+			let gotoSettingsAction = UIAlertAction(title: settingsText, style: .Default) { (action) in
+				if let settingsTabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsTabBarController") as? UITabBarController {
+					settingsTabBarController.selectedIndex = 1
+					self.navigationController!.pushViewController(settingsTabBarController, animated: true)
+				}
+			}
+			alertController.addAction(gotoSettingsAction)
+
+			self.presentViewController(alertController, animated: true){}
+		}
     }
     
 	@IBOutlet weak var tableView: UITableView!
@@ -43,9 +66,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     var categories = [Category]()
     var currentLanguage: String = "Finland"
 	
-	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
-    var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
-    
     weak var delegate: CategorySelectionDelegate?
     
     override func viewDidLoad() {
@@ -125,39 +145,30 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func setCategories() {
         // Adding always present categories: generic and top
         var cat = [Category]()
-        let categoriesFavorited = settings.categoriesFavorited[settings.region]
-		
-		cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", selected: true))
-		
-        if favoritesSelected && categoriesFavorited != nil {
-            #if DEBUG
-                print("showing selected categories=\(categoriesFavorited)")
-            #endif
-            
-            if categoriesFavorited!.isEmpty {
-				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
-        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
-		
-                self.categories = cat // + self.settings.categories
-            } else {
-                var filteredCategories = [Category]()
-            
-                self.settings.categories.forEach({ (category: Category) -> () in
-                    if categoriesFavorited!.contains(category.sectionID) {
-                        filteredCategories.append(category)
-                    }
-                })
-            
-                self.categories = cat + filteredCategories
-            }
-        } else {
-			if categoriesFavorited != nil && !categoriesFavorited!.isEmpty {
-				self.categories = cat + self.settings.categories
+		if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
+			cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", selected: true))
+			if favoritesSelected {
+				#if DEBUG
+                	print("showing selected categories=\(categoriesFavorited)")
+           	 	#endif
+//					cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
+//	        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
+   	            var filteredCategories = [Category]()
+					
+   	            self.settings.categories.forEach({ (category: Category) -> () in
+   	                if categoriesFavorited.contains(category.sectionID) {
+   	                    filteredCategories.append(category)
+   	                }
+				})
+				
+				self.categories = cat + filteredCategories
 			} else {
 				self.categories = cat + self.settings.categories
 			}
-        }
-
+		} else {
+			self.categories = self.settings.categories
+		}
+		
         self.tableView!.reloadData()
     }
 
