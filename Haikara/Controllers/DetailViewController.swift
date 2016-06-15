@@ -168,13 +168,15 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				})
 				
 				let getNewsGroup = dispatch_group_create()
-				var news = [Entry]()
+				var news = Dictionary<Int, Entry>()
 				filteredCategories.forEach({(category: Category) -> () in
 					dispatch_group_enter(getNewsGroup)
 				
 					HighFiApi.getNews(1, section: category.htmlFilename,
 						completionHandler: {(result) in
-							news = news + result
+							result.forEach({(entry: Entry) -> () in
+								news.updateValue(entry, forKey: entry.articleID)
+							})
 							dispatch_group_leave(getNewsGroup)
 						}
 						, failureHandler: {(error)in
@@ -186,7 +188,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			
 				// called once all code blocks entered into group have left
     			dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
-					self.setNews(news)
+					self.setNews(Array(news.values))
+					news.removeAll(keepCapacity: true)
 				}
 			} else {
 				// TODO: do something?
