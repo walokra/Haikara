@@ -1,4 +1,10 @@
-0.9.4 ()
+0.9.6 (2016-06-15)
+* Add new category for showing combined favorites in one list
+* Add publishedtime to news entry.
+* Don't clear news list when getting next page. 
+* Add alert dialog to ask if resetting settings.
+
+0.9.5 (2016-02-16)
 * Add search for filtering news sources
 * Move region selection to textfield with picker as input
 * Add 3D Touch to peek in category view and news view
@@ -19,7 +25,7 @@
 * Adjust swipe to dismiss gesture in SFSafariViewController
 * Don't show descriptions by default.
 
-0.9.0
+0.9.0 (2015-11-30)
 * Show full title in news list.
 * Dark theme.
 * Add API methods to list news sources. 
