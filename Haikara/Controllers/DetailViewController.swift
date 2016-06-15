@@ -619,6 +619,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func setLoadingState(loading: Bool) {
 		self.loading = loading
+		self.loadingIndicator.hidden = !loading
 		if (loading) {
 			self.loadingIndicator.startAnimating()
 		} else {
