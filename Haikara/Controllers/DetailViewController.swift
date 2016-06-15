@@ -43,7 +43,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let publishedFormatter = NSDateFormatter()
 	let publishedTimeFormatter = NSDateFormatter()
 	
-	@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
 	var loading = false
 	
 	// Icons
@@ -67,6 +67,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		setObservers()
 		setTheme()
 		
+		loadingIndicator.color = Theme.tintColor
+   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+   		loadingIndicator.center = self.view.center
+   		self.view.addSubview(loadingIndicator)
+   		loadingIndicator.bringSubviewToFront(self.view)
+	
 		if navigationItemTitle.isEmpty {
 			self.navigationItemTitle = settings.latestName
 		}
@@ -613,11 +619,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func setLoadingState(loading: Bool) {
 		self.loading = loading
-		self.loadingIndicator.hidden = !loading
 		if (loading) {
 			self.loadingIndicator.startAnimating()
 		} else {
 			self.loadingIndicator.stopAnimating()
+			self.loadingIndicator.hidesWhenStopped = true
 		}
 	}
 	

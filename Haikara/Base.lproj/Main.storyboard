@@ -21,10 +21,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-Y4-qwf">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="589"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="L02-s7-yig">
-                                    <rect key="frame" x="0.0" y="102" width="600" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="80" id="Aft-jA-JIp" customClass="EntryCell" customModule="highkara" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="80"/>
@@ -92,7 +88,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="News" id="bx7-Bu-h0n"/>
                     <connections>
-                        <outlet property="loadingIndicator" destination="L02-s7-yig" id="0f3-LK-44K"/>
                         <outlet property="poweredLabel" destination="ocI-7q-PAB" id="mSY-xI-Bxx"/>
                         <outlet property="tableView" destination="3hl-Y4-qwf" id="svM-WY-G7k"/>
                     </connections>
