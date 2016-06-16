@@ -265,21 +265,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			
 			dispatch_async(dispatch_get_main_queue()) {
+				let fetchedEntries = newsentries.sort { $0.orderNro < $1.orderNro }
+				
 				if self.page == 1 {
 					// Clear old entries
 					self.entries = [Entry]()
 					self.sections = OrderedDictionary<String, Array<Entry>>()
 					self.sortedSections = [String]()
-					self.entries = newsentries
+					self.entries = fetchedEntries
 				} else {
-					self.entries = self.entries + newsentries
+					self.entries = self.entries + fetchedEntries
 				}
 				//println("newsEntries=\(self.newsEntries.count)")
 				
-				self.entries = self.entries.sort { $0.orderNro < $1.orderNro }
-				
 				// Put each item in a section
-				for item in self.entries {
+				for item in fetchedEntries {
 					// If we don't have section for particular time, create new one,
 					// Otherwise just add item to existing section
 					//	println("section=\(entry.section), title=\(entry.title)")
