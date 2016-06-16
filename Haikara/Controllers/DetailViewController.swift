@@ -114,11 +114,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		configureTableView()
 		
+		var localTimeZone: String { return NSTimeZone.localTimeZone().abbreviation ?? "" }
+
 		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
-		publishedFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		publishedFormatter.timeZone = NSTimeZone(abbreviation: localTimeZone)
 		publishedFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
-		publishedTimeFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		publishedTimeFormatter.timeZone = NSTimeZone(abbreviation: localTimeZone)
 		publishedTimeFormatter.dateFormat = "HH:mm"
 		
 		// self.tableFooter.hidden = true
