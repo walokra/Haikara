@@ -8,29 +8,43 @@
 
 import UIKit
 import NotificationCenter
-import highkara
 
-class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NCWidgetProviding {
-	
+class TodayViewController: UITableViewController, NCWidgetProviding {
+
 	struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCell = "tableCell"
         }
     }
 	
+	let settings = Settings.sharedInstance
+	
+	// Variables
 	var entries = [Entry]()
 	// default section
 	var highFiSection: String = "uutiset"
 	var page: Int = 1
 	
+	// Loading indicator
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
 	var loading = false
 	
+	// Theme colors
 	let textColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
 	var selectedCellBackground = UIView()
 	let tintColor = UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0)
 	
-	@IBOutlet weak var tableView: UITableView!
+//	@IBOutlet weak var tableView: UITableView!
+	
+	override func awakeFromNib() {
+  	  super.awakeFromNib()
+  	  resetContentSize()
+  	}
+  
+  	override func viewDidAppear(animated: Bool) {
+  	  super.viewDidAppear(animated)
+  	  resetContentSize()
+  	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +56,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
    		self.view.addSubview(loadingIndicator)
    		loadingIndicator.bringSubviewToFront(self.view)
 		
+//		self.tableView!.delegate = self
+//		self.tableView!.dataSource = self
+
 		if self.entries.isEmpty {
             getNews(self.page)
         }
-		
-		self.tableView!.delegate = self
-		self.tableView!.dataSource = self
 		
 		selectedCellBackground.backgroundColor = UIColor.darkGrayColor()
 		
@@ -59,7 +73,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 50.0
+		tableView.estimatedRowHeight = 30.0
 	}
 	
 	func handleError(error: String) {
@@ -76,42 +90,65 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 //		self.presentViewController(alertController, animated: true){}
 	}
 	
-	func getNews(page: Int) {
-		if (!self.loading) {
+	func getNews(page: Int) -> NCUpdateResult {
+//		if (!self.loading) {
 			self.setLoadingState(true)
+			var entries = Array<Entry>()
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
-					let entries = Array(result[0..<5])
-					self.setNews(entries)
+					print("getNews, result=\(result.count)")
+					entries = Array(result[0..<5])
+					
+					self.entries = entries
+		
+					self.tableView.reloadData()
+					self.resetContentSize()
+					self.setLoadingState(false)
 				}
 				, failureHandler: {(error)in
 					self.handleError(error)
 				}
 			)
-		}
+//		}
+		
+		return .NewData
 	}
 	
-	func setNews(newsentries: Array<Entry>) {
-		dispatch_async(dispatch_get_main_queue()) {
-			// Clear old entries
-			self.entries = [Entry]()
-			self.entries =  newsentries
-				
-			self.tableView!.reloadData()
-			self.setLoadingState(false)
-		}
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let path = self.tableView!.indexPathForSelectedRow!
+		let row = path.row
+		
+		let tableItem = self.entries[row]
+		
+		var webURL = NSURL(string: tableItem.originalURL)
+		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
+			webURL = NSURL(string: tableItem.originalMobileUrl!)
+		}		
+		#if DEBUG
+			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
+			print("didSelectRowAtIndexPath, webURL=\(webURL)")
+		#endif
+		
+//		let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+//		svc.view.tintColor = tintColor
+//		self.presentViewController(svc, animated: true, completion: nil)
+
+		let url: NSURL = NSURL(string: "Highkara://\(webURL)")!
+		self.extensionContext?.openURL(url, completionHandler: nil)
+
+		// Safari
+		//self.extensionContext?.openURL(webURL!, completionHandler: nil)
+
+		self.trackNewsClick(tableItem)
 	}
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-	}
-	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.entries.count
     }
 	
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
 		let cell: TodayEntryCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCell, forIndexPath: indexPath) as? TodayEntryCell
 
@@ -138,14 +175,18 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 	}
 	
 	func trackNewsClick(entry: Entry) {
-//		HighFiApi.trackNewsClick(entry.clickTrackingLink)
+		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
 	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	func resetContentSize(){
+		self.preferredContentSize = tableView.contentSize
+  	}
+	
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
 
@@ -156,9 +197,19 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 		dispatch_async(dispatch_get_main_queue(),{
 //            let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.Highkara.Widget")!
             //self.labelWidget.text = defaults.objectForKey("AAPLvalue") as NSString
+			
+			let result = self.getNews(self.page)
+			if result == .NewData {
+				#if DEBUG
+					print("widgetPerformUpdateWithCompletionHandler, .NewData. results=\(self.entries.count)")
+				#endif
+				self.tableView.reloadData()
+				self.resetContentSize()
+				self.setLoadingState(false)
+			
+				completionHandler(result)
+			}
         });
-		
-        completionHandler(NCUpdateResult.NewData)
     }
 
 }

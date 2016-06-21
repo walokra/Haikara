@@ -9,8 +9,9 @@
 import UIKit
 
 class TodayEntryCell: UITableViewCell {
-	@IBOutlet weak var entryTitle: UILabel!
 
+	@IBOutlet weak var entryTitle: UILabel!
+	
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

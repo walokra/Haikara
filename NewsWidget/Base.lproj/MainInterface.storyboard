@@ -1,75 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bif-Jq-892">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
-        <scene sceneID="cwh-vc-ff4">
+        <scene sceneID="6eZ-R8-ekF">
             <objects>
-                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="NewsWidget" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
-                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                <tableViewController id="bif-Jq-892" customClass="TodayViewController" customModule="NewsWidget" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" id="NJ6-SD-fGY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="25" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZdM-xY-N6Y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="25" id="tCt-qs-sag" customClass="TodayEntryCell" customModule="NewsWidget">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="25"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tCt-qs-sag" id="1UX-JU-Sb3">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="24.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxD-z9-k7m">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="WxD-z9-k7m" secondAttribute="trailing" id="4vU-At-Txd"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="WxD-z9-k7m" secondAttribute="leading" id="AYf-E5-nZH"/>
-                                                <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="1UX-JU-Sb3" secondAttribute="topMargin" constant="-8" id="VSw-sP-a8B"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="-4.5" id="YvN-lR-IfE"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="entryTitle" destination="WxD-z9-k7m" id="Pzk-q3-ZFU"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="ZdM-xY-N6Y" firstAttribute="bottom" secondItem="FKl-LY-JtV" secondAttribute="top" id="8da-qH-qSM"/>
-                            <constraint firstAttribute="trailing" secondItem="ZdM-xY-N6Y" secondAttribute="trailing" id="NpL-eL-sIo"/>
-                            <constraint firstItem="ZdM-xY-N6Y" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="al9-6d-MIj"/>
-                            <constraint firstItem="ZdM-xY-N6Y" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="oPD-EA-qiN"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="30" id="X2u-51-6eg" customClass="TodayEntryCell" customModule="NewsWidget" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X2u-51-6eg" id="6Lw-ck-tsQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxD-z9-k7m">
+                                            <rect key="frame" x="8" y="4" width="304" height="21"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="5cD-RY-GeE"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="Phs-Ag-BYr"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="centerY" secondItem="6Lw-ck-tsQ" secondAttribute="centerY" id="ane-J1-vFp"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="ybt-WO-2bs"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="entryTitle" destination="WxD-z9-k7m" id="cSt-Xg-bsZ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bif-Jq-892" id="bo4-ZJ-mRc"/>
+                            <outlet property="delegate" destination="bif-Jq-892" id="hKq-SS-ZTX"/>
+                        </connections>
+                    </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="150"/>
-                    <connections>
-                        <outlet property="tableView" destination="ZdM-xY-N6Y" id="wHX-Ck-Nuo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T2U-fH-XIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="285"/>
+            <point key="canvasLocation" x="533" y="47"/>
         </scene>
     </scenes>
 </document>

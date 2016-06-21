@@ -13,7 +13,7 @@ Highkara is available both for iPhone and iPad with iOS 8 or newer operating sys
 
 XCode to build the app.
 
-[Carthage](https://github.com/Carthage/Carthage) is used to manage dependencies.
+[CocoaPods](https://github.com/CocoaPods) is used to manage dependencies.
 
 ## Dependencies
 
