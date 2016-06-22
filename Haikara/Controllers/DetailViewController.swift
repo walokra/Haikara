@@ -78,10 +78,48 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		
 		self.initView()
+		
+		// Reset delegates url after we've opened it 
+    	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    	if (delegate?.openUrl) != nil {
+        	delegate?.openUrl = nil
+    	}
     }
+	
+	func handleOpenURL(notification:NSNotification){
+    	if let url = notification.object as? String{
+			let webURL = NSURL(string: getQueryStringParameter(url, param: "url")!)
+
+			#if DEBUG
+				print("handleOpenURL. webURL=\(webURL)")
+			#endif
+			
+			if #available(iOS 9.0, *) {
+				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+				svc.view.tintColor = Theme.tintColor
+				self.presentViewController(svc, animated: true, completion: nil)
+				
+				// TODO
+//				HighFiApi.trackNewsClick(entry.clickTrackingLink)
+			} else {
+				// Fallback on earlier versions
+			}
+    	}
+	}
+	
+	func getQueryStringParameter(url: String, param: String) -> String? {
+        
+    	let url = NSURLComponents(string: url)!
+      
+    	return
+      		(url.queryItems! as [NSURLQueryItem])
+      		.filter({ (item) in item.name == param }).first?
+      		.value!
+  	}
 	
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
 	}
 	
 	func setTheme() {
@@ -722,6 +760,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	// stop observing
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+	    NSNotificationCenter.defaultCenter().removeObserver(self, name: "HANDLEOPENURL", object:nil)
     }
 }
 

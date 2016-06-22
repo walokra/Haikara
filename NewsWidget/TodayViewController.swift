@@ -55,9 +55,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
    		loadingIndicator.center = self.view.center
    		self.view.addSubview(loadingIndicator)
    		loadingIndicator.bringSubviewToFront(self.view)
-		
-//		self.tableView!.delegate = self
-//		self.tableView!.dataSource = self
 
 		if self.entries.isEmpty {
             getNews(self.page)
@@ -97,7 +94,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
-					print("getNews, result=\(result.count)")
 					entries = Array(result[0..<5])
 					
 					self.entries = entries
@@ -121,23 +117,18 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		
 		let tableItem = self.entries[row]
 		
-		var webURL = NSURL(string: tableItem.originalURL)
+		var webURLString = tableItem.originalURL
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
-			webURL = NSURL(string: tableItem.originalMobileUrl!)
+			webURLString = tableItem.originalMobileUrl!
 		}		
 		#if DEBUG
-			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
-			print("didSelectRowAtIndexPath, webURL=\(webURL)")
+			print("didSelectRowAtIndexPath, webURL=\(webURLString)")
 		#endif
-		
-//		let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
-//		svc.view.tintColor = tintColor
-//		self.presentViewController(svc, animated: true, completion: nil)
 
-		let url: NSURL = NSURL(string: "Highkara://\(webURL)")!
+		let url: NSURL = NSURL(string: "Highkara://com.ruleoftech/article?url=\(webURLString)")!
 		self.extensionContext?.openURL(url, completionHandler: nil)
 
-		// Safari
+		// direct Safari
 		//self.extensionContext?.openURL(webURL!, completionHandler: nil)
 
 		self.trackNewsClick(tableItem)

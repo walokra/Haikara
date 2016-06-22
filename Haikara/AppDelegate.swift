@@ -13,6 +13,7 @@ import Alamofire
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+	var openUrl: NSURL? // used to save state when App is not running before the url triggered
 
     static let settings = Settings()
     
@@ -38,7 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-	
+
+	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    	let url = url.standardizedURL
+		let urlString = url!.absoluteString
+    	let openUrlPath = url!.path
+		
+		if openUrlPath!.rangeOfString("article") != nil {
+           	NSNotificationCenter.defaultCenter().postNotificationName("handleOpenURL", object: urlString)
+   			self.openUrl = url
+   			return true
+    	}
+
+		return false
+	}
+
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setTheme(_:)), name: "themeChangedNotification", object: nil)
 	}
