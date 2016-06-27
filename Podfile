@@ -8,7 +8,7 @@ end
 
 target 'highkara' do
 	shared_pods
-	pod 'FLEX', '~> 2.0', :configurations => ['Debug']
+	#pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 end
 
 target 'NewsWidget' do
