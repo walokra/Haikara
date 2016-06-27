@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2F1B67C542F755B481F91D /* Pods_NewsWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487ED0AB50CC0C5A387AF817 /* Pods_NewsWidget.framework */; };
 		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */; };
@@ -70,7 +69,8 @@
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
-		702D83E69B9CA396B99FD3FC /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7DE1F198CE94A3A7ECECE5 /* Pods_highkara.framework */; };
+		523AC93AA7C7B2C9BAFBDA93 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7DE1F198CE94A3A7ECECE5 /* Pods_highkara.framework */; };
+		C4E2B61AA08B47474FE9295A /* Pods_NewsWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487ED0AB50CC0C5A387AF817 /* Pods_NewsWidget.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +155,8 @@
 		367BAD2F1D1874FC00F6B949 /* highkara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = highkara.entitlements; sourceTree = "<group>"; };
 		367BAD301D18750E00F6B949 /* NewsWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewsWidget.entitlements; sourceTree = "<group>"; };
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
+		3688FDE41D21CD5D0039DB9A /* Pods_highkara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_highkara.framework; path = "Pods/../build/Debug-iphoneos/Pods_highkara.framework"; sourceTree = "<group>"; };
+		3688FDE61D21CD640039DB9A /* Pods_NewsWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_NewsWidget.framework; path = "Pods/../build/Release-iphoneos/Pods_NewsWidget.framework"; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
 		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367BAD201D1874B600F6B949 /* NotificationCenter.framework in Frameworks */,
-				1A2F1B67C542F755B481F91D /* Pods_NewsWidget.framework in Frameworks */,
+				C4E2B61AA08B47474FE9295A /* Pods_NewsWidget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				702D83E69B9CA396B99FD3FC /* Pods_highkara.framework in Frameworks */,
+				523AC93AA7C7B2C9BAFBDA93 /* Pods_highkara.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +228,8 @@
 		0370D6607F96A7F8D5340885 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3688FDE61D21CD640039DB9A /* Pods_NewsWidget.framework */,
+				3688FDE41D21CD5D0039DB9A /* Pods_highkara.framework */,
 				36B5CD331D19DE4D0006EB06 /* Pods_highkara.framework */,
 				36B5CD311D19DD0E0006EB06 /* Alamofire.framework */,
 				53974A5916078384EF46D640 /* Pods.framework */,
@@ -455,12 +459,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "NewsWidget" */;
 			buildPhases = (
-				41B4ACA6F02189C85E6057CB /* [CP] Check Pods Manifest.lock */,
+				B3E6060956C727285AA78676 /* [CP] Check Pods Manifest.lock */,
 				367BAD1B1D1874B600F6B949 /* Frameworks */,
 				367BAD1A1D1874B600F6B949 /* Sources */,
 				367BAD1C1D1874B600F6B949 /* Resources */,
-				A01C274CC1C8D054F3D2CAB3 /* [CP] Embed Pods Frameworks */,
-				654DA2EDFA05547EF925AFC1 /* [CP] Copy Pods Resources */,
+				4AA1DBCF37D3E7BBE00B75E2 /* [CP] Embed Pods Frameworks */,
+				0BA645639772DFDC318B9D9E /* [CP] Copy Pods Resources */,
+				3688FDEA1D21D0E30039DB9A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -493,13 +498,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkara" */;
 			buildPhases = (
-				63DC2E9F0E3FF8E9E5B1EEE6 /* [CP] Check Pods Manifest.lock */,
+				6A08E5398CF4CE0C49BBE03A /* [CP] Check Pods Manifest.lock */,
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
-				5C36F909204F5B53897E83C0 /* [CP] Embed Pods Frameworks */,
-				0B7FBB498F10ADD9FBF5BAE8 /* [CP] Copy Pods Resources */,
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C071B2E0AE900BE0C77 /* Resources */,
 				367BAD2E1D1874B600F6B949 /* Embed App Extensions */,
+				6FB2B074D3C8EA44D6179BF4 /* [CP] Embed Pods Frameworks */,
+				6F83F46AB88BF209BFA28A06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -648,67 +653,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B7FBB498F10ADD9FBF5BAE8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		41B4ACA6F02189C85E6057CB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5C36F909204F5B53897E83C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		63DC2E9F0E3FF8E9E5B1EEE6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		654DA2EDFA05547EF925AFC1 /* [CP] Copy Pods Resources */ = {
+		0BA645639772DFDC318B9D9E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -723,7 +668,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A01C274CC1C8D054F3D2CAB3 /* [CP] Embed Pods Frameworks */ = {
+		3688FDEA1D21D0E30039DB9A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\n   rm -fr Frameworks\nfi";
+		};
+		4AA1DBCF37D3E7BBE00B75E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -736,6 +694,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A08E5398CF4CE0C49BBE03A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6F83F46AB88BF209BFA28A06 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FB2B074D3C8EA44D6179BF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3E6060956C727285AA78676 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -874,6 +892,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -901,6 +921,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1046,6 +1068,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
@@ -1072,6 +1095,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
