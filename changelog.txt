@@ -1,3 +1,6 @@
+0.9.7 (2016-06-27)
+* Add Today Widget
+
 0.9.6 (2016-06-15)
 * Add new category for showing combined favorites in one list
 * Add publishedtime to news entry.

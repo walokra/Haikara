@@ -36,10 +36,10 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	// localization
 	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
-	override func awakeFromNib() {
-  	  super.awakeFromNib()
-  	  resetContentSize()
-  	}
+//	override func awakeFromNib() {
+//  	  super.awakeFromNib()
+//  	  resetContentSize()
+//  	}
 	
   	override func viewDidAppear(animated: Bool) {
   	  super.viewDidAppear(animated)
@@ -81,14 +81,14 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		self.tableView.tableFooterView?.hidden = true
 		
-//		if self.entries.isEmpty {
-//            getNews(self.page)
-//		}
+		if self.entries.isEmpty {
+            getNews(self.page)
+		}
 	}
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 28.0
+		tableView.estimatedRowHeight = 30.0
 	}
 	
 	func handleError(error: String) {
