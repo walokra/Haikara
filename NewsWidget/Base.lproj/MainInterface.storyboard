@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Today View Controller-->
+        <!--TodayWidget-->
         <scene sceneID="6eZ-R8-ekF">
             <objects>
-                <tableViewController id="bif-Jq-892" customClass="TodayViewController" customModule="NewsWidget" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="TodayWidget" id="bif-Jq-892" customClass="TodayViewController" customModule="NewsWidget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" id="NJ6-SD-fGY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,10 +29,10 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="5cD-RY-GeE"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="Phs-Ag-BYr"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="centerY" secondItem="6Lw-ck-tsQ" secondAttribute="centerY" id="ane-J1-vFp"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="ybt-WO-2bs"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="3Kd-6v-OW4"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="KPY-JI-cAT"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="centerY" secondItem="6Lw-ck-tsQ" secondAttribute="centerY" id="Lpt-lq-sgD"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="rUX-27-nqy"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -40,7 +40,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
   	  super.awakeFromNib()
   	  resetContentSize()
   	}
-  
+	
   	override func viewDidAppear(animated: Bool) {
   	  super.viewDidAppear(animated)
   	  resetContentSize()
@@ -81,9 +81,9 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		self.tableView.tableFooterView?.hidden = true
 		
-		if self.entries.isEmpty {
-            getNews(self.page)
-        }
+//		if self.entries.isEmpty {
+//            getNews(self.page)
+//		}
 	}
 	
 	func configureTableView() {
@@ -185,7 +185,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	func resetContentSize(){
 		self.preferredContentSize = tableView.contentSize
-  	}
+	}
 	
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
 		#if DEBUG

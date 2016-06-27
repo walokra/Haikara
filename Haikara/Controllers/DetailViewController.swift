@@ -248,7 +248,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func setNews(newsentries: Array<Entry>) {
 		// Top items are not grouped by time
-		print("highFiSection=\(highFiSection)")
+		#if DEBUG
+			print("highFiSection=\(highFiSection)")
+		#endif
 		if highFiSection == "top" {
 			dispatch_async(dispatch_get_main_queue()) {
 				// Clear old entries
