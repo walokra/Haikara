@@ -66,18 +66,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 		setObservers()
 		setTheme()
+		setLoadingIndicator()
 		
-		loadingIndicator.color = Theme.tintColor
-   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
-   		loadingIndicator.center = self.view.center
-   		self.view.addSubview(loadingIndicator)
-   		loadingIndicator.bringSubviewToFront(self.view)
-	
 		if navigationItemTitle.isEmpty {
 			self.navigationItemTitle = settings.latestName
 		}
 		
-		self.initView()
+		initView()
 		
 		// Reset delegates url after we've opened it 
     	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
@@ -139,6 +134,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             print("DetailViewController, Received themeChangedNotification")
         #endif
 		setTheme()
+	}
+	
+	func setLoadingIndicator() {
+		loadingIndicator.color = Theme.tintColor
+   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+   		loadingIndicator.center = self.view.center
+   		self.view.addSubview(loadingIndicator)
+   		loadingIndicator.bringSubviewToFront(self.view)
 	}
 	
 	func initView() {

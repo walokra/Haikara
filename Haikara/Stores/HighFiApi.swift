@@ -13,6 +13,7 @@ import Alamofire
 public class HighFiApi {
     
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
+	// e.g. http://high.fi/uutiset/json-private
     class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
         
         #if DEBUG
@@ -122,7 +123,8 @@ public class HighFiApi {
 	        }
 		}
     }
-    
+	
+	// e.g. http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
     class func getCategories(completionHandler: (Array<Category>) -> Void, failureHandler: (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")

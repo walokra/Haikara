@@ -21,10 +21,9 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	// Variables
 	var entries = [Entry]()
-	// default section
-	var highFiSection: String = "uutiset"
-	var page: Int = 1
-	
+	let page: Int = 1
+	let maxNewsItems: Int = 5
+
 	// Loading indicator
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
 	var loading = false
@@ -34,7 +33,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	var selectedCellBackground = UIView()
 	let tintColor = UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0)
 	
-//	@IBOutlet weak var tableView: UITableView!
+	// localization
+	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
 	override func awakeFromNib() {
   	  super.awakeFromNib()
@@ -47,30 +47,48 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
   	}
 	
     override func viewDidLoad() {
+		#if DEBUG
+			print("viewDidLoad()")
+		#endif
         super.viewDidLoad()
-        // Do any additional setup after loading the view from its nib.
 		
-		loadingIndicator.color = tintColor
-   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
-   		loadingIndicator.center = self.view.center
-   		self.view.addSubview(loadingIndicator)
-   		loadingIndicator.bringSubviewToFront(self.view)
-
-		if self.entries.isEmpty {
-            getNews(self.page)
-        }
+		setTheme()
 		
+		setLoadingIndicator()
+		
+		initView()
+    }
+	
+	func setTheme() {
 		selectedCellBackground.backgroundColor = UIColor.darkGrayColor()
+	}
+	
+	func setLoadingIndicator() {
+		loadingIndicator.color = tintColor
+		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+		loadingIndicator.center = self.view.center
+		self.view.addSubview(loadingIndicator)
+		loadingIndicator.bringSubviewToFront(self.view)
+	}
+	
+	func initView() {
+		#if DEBUG
+			print("initView()")
+		#endif
+		
+		configureTableView()
 		
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		self.tableView.tableFooterView?.hidden = true
 		
-		configureTableView()
-    }
+		if self.entries.isEmpty {
+            getNews(self.page)
+        }
+	}
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 30.0
+		tableView.estimatedRowHeight = 28.0
 	}
 	
 	func handleError(error: String) {
@@ -79,22 +97,21 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		#endif
 		
 		self.setLoadingState(false)
+		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
+		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+		alertController.addAction(OKAction)
 		
-//		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-//		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-//		alertController.addAction(OKAction)
-		
-//		self.presentViewController(alertController, animated: true){}
+		self.presentViewController(alertController, animated: true){}
 	}
 	
 	func getNews(page: Int) -> NCUpdateResult {
-//		if (!self.loading) {
+		if (!self.loading) {
 			self.setLoadingState(true)
 			var entries = Array<Entry>()
 			// with trailing closure we get the results that we passed the closure back in async function
-			HighFiApi.getNews(self.page, section: highFiSection,
-				completionHandler:{ (result) in
-					entries = Array(result[0..<5])
+			HighFiApi.getNews(self.page, section: settings.genericNewsURLPart,
+				completionHandler: { (result) in
+					entries = Array(result[0..<self.maxNewsItems])
 					
 					self.entries = entries
 		
@@ -106,7 +123,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 					self.handleError(error)
 				}
 			)
-//		}
+		}
 		
 		return .NewData
 	}
@@ -127,9 +144,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
 		let url: NSURL = NSURL(string: "Highkara://com.ruleoftech/article?url=\(webURLString)")!
 		self.extensionContext?.openURL(url, completionHandler: nil)
-
-		// direct Safari
-		//self.extensionContext?.openURL(webURL!, completionHandler: nil)
 
 		self.trackNewsClick(tableItem)
 	}
@@ -164,21 +178,19 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			self.loadingIndicator.hidesWhenStopped = true
 		}
 	}
-	
+
 	func trackNewsClick(entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
-	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 	
 	func resetContentSize(){
 		self.preferredContentSize = tableView.contentSize
   	}
 	
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+		#if DEBUG
+			print("widgetPerformUpdateWithCompletionHandler")
+		#endif
         // Perform any setup necessary in order to update the view.
 
         // If an error is encountered, use NCUpdateResult.Failed
@@ -186,21 +198,20 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         // If there's an update, use NCUpdateResult.NewData
 
 		dispatch_async(dispatch_get_main_queue(),{
-//            let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.Highkara.Widget")!
-            //self.labelWidget.text = defaults.objectForKey("AAPLvalue") as NSString
-			
-			let result = self.getNews(self.page)
-			if result == .NewData {
-				#if DEBUG
-					print("widgetPerformUpdateWithCompletionHandler, .NewData. results=\(self.entries.count)")
-				#endif
-				self.tableView.reloadData()
-				self.resetContentSize()
-				self.setLoadingState(false)
-			
-				completionHandler(result)
-			}
+			self.getNews(self.page)
+			#if DEBUG
+				print("widgetPerformUpdateWithCompletionHandler, results=\(self.entries.count)")
+			#endif
+			self.tableView.reloadData()
+			self.resetContentSize()
+			self.setLoadingState(false)
+
+			completionHandler(NCUpdateResult.NewData)
         });
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
