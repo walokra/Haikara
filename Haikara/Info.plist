@@ -18,23 +18,23 @@
 	<string>0.9.7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.ruleoftech.highkara</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>Highkara</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.ruleoftech.highkara</string>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>3</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
