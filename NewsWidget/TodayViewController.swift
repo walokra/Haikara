@@ -36,14 +36,14 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	// localization
 	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
-//	override func awakeFromNib() {
-//  	  super.awakeFromNib()
-//  	  resetContentSize()
-//  	}
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		resetContentSize()
+  	}
 	
   	override func viewDidAppear(animated: Bool) {
-  	  super.viewDidAppear(animated)
-  	  resetContentSize()
+		super.viewDidAppear(animated)
+		resetContentSize()
   	}
 	
     override func viewDidLoad() {
@@ -142,7 +142,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			print("didSelectRowAtIndexPath, webURL=\(webURLString)")
 		#endif
 
-		let url: NSURL = NSURL(string: "Highkara://com.ruleoftech/article?url=\(webURLString)")!
+		let url: NSURL = NSURL(string: "Highkara://article?url=\(webURLString)")!
 		self.extensionContext?.openURL(url, completionHandler: nil)
 
 		self.trackNewsClick(tableItem)
@@ -208,6 +208,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
 			completionHandler(NCUpdateResult.NewData)
         });
+		
+		completionHandler(NCUpdateResult.NoData)
     }
 
     override func didReceiveMemoryWarning() {

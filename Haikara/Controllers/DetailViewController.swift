@@ -82,8 +82,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
 	
 	func handleOpenURL(notification:NSNotification){
-    	if let url = notification.object as? String{
-			let webURL = NSURL(string: getQueryStringParameter(url, param: "url")!)
+    	if let url = notification.object as? String {
+			let webURL = NSURL(string: url)
 
 			#if DEBUG
 				print("handleOpenURL. webURL=\(webURL)")
@@ -101,16 +101,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
     	}
 	}
-	
-	func getQueryStringParameter(url: String, param: String) -> String? {
-        
-    	let url = NSURLComponents(string: url)!
-      
-    	return
-      		(url.queryItems! as [NSURLQueryItem])
-      		.filter({ (item) in item.name == param }).first?
-      		.value!
-  	}
 	
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)

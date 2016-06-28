@@ -43,13 +43,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
     	let url = url.standardizedURL
 		let urlString = url!.absoluteString
-    	let openUrlPath = url!.path
+		let host = url!.host
+//    	let query = url!.query
+//    	let openUrlPath = url!.path
+
+		#if DEBUG
+            print("openURL, url=\(url)")
+			print("openURL, urlString=\(urlString)")
+			print("openURL, host=\(host)")
+//			print("openURL, openUrlPath=\(openUrlPath)")
+//			print("openURL, query=\(query)")
+        #endif
 		
-		if openUrlPath!.rangeOfString("article") != nil {
-           	NSNotificationCenter.defaultCenter().postNotificationName("handleOpenURL", object: urlString)
+		if host!.rangeOfString("article") != nil {
+			let webUrl = urlString.stringByReplacingOccurrencesOfString("Highkara://article?url=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+           	NSNotificationCenter.defaultCenter().postNotificationName("handleOpenURL", object: webUrl)
    			self.openUrl = url
    			return true
-    	}
+    	} else {
+			#if DEBUG
+				print("openURL, FAIL!")
+			#endif
+		}
 
 		return false
 	}
