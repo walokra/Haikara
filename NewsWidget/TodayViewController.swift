@@ -36,15 +36,15 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	// localization
 	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		resetContentSize()
-  	}
+//	override func awakeFromNib() {
+//		super.awakeFromNib()
+//		resetContentSize()
+//  	}
 	
-  	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		resetContentSize()
-  	}
+//  	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		resetContentSize()
+//  	}
 	
     override func viewDidLoad() {
 		#if DEBUG

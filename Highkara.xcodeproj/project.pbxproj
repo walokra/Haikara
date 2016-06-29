@@ -10,6 +10,9 @@
 		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */; };
+		361023991D2466B500303C76 /* Pods_NewsWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361023981D2466B500303C76 /* Pods_NewsWidget.framework */; };
+		3610239B1D2466BE00303C76 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3610239A1D2466BE00303C76 /* Pods_highkara.framework */; };
+		3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3610239C1D2466E200303C76 /* NotificationCenter.framework */; };
 		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
 		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
 		361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */; };
@@ -39,7 +42,6 @@
 		36778F851B3760C000F387E0 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F7A1B3760C000F387E0 /* Default@2x~iphone.png */; };
 		36778F881B37651000F387E0 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F861B37651000F387E0 /* iTunesArtwork.png */; };
 		36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F871B37651000F387E0 /* iTunesArtwork@2x.png */; };
-		367BAD201D1874B600F6B949 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367BAD1F1D1874B600F6B949 /* NotificationCenter.framework */; };
 		367BAD231D1874B600F6B949 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367BAD221D1874B600F6B949 /* TodayViewController.swift */; };
 		367BAD261D1874B600F6B949 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 367BAD241D1874B600F6B949 /* MainInterface.storyboard */; };
 		367BAD2A1D1874B600F6B949 /* NewsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367BAD1E1D1874B600F6B949 /* NewsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -115,6 +117,9 @@
 		36065CEC1B92522800AF0102 /* HighFiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighFiApi.swift; sourceTree = "<group>"; };
 		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideCategoryViewController.swift; sourceTree = "<group>"; };
+		361023981D2466B500303C76 /* Pods_NewsWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_NewsWidget.framework; path = "Pods/../build/Debug-iphoneos/Pods_NewsWidget.framework"; sourceTree = "<group>"; };
+		3610239A1D2466BE00303C76 /* Pods_highkara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_highkara.framework; path = "Pods/../build/Debug-iphoneos/Pods_highkara.framework"; sourceTree = "<group>"; };
+		3610239C1D2466E200303C76 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
@@ -146,7 +151,6 @@
 		36778F861B37651000F387E0 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		36778F871B37651000F387E0 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		367BAD1E1D1874B600F6B949 /* NewsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		367BAD1F1D1874B600F6B949 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		367BAD221D1874B600F6B949 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		367BAD251D1874B600F6B949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		367BAD271D1874B600F6B949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,7 +176,6 @@
 		36B3F4411B9B19D70095F85A /* ios-gear-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-gear-outline.png"; sourceTree = "<group>"; };
 		36B3F4431B9B1B0A0095F85A /* ios-funnel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-funnel.png"; sourceTree = "<group>"; };
 		36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-list-outline.png"; sourceTree = "<group>"; };
-		36B5CD311D19DD0E0006EB06 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -187,7 +190,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				367BAD201D1874B600F6B949 /* NotificationCenter.framework in Frameworks */,
+				3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */,
+				361023991D2466B500303C76 /* Pods_NewsWidget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3610239B1D2466BE00303C76 /* Pods_highkara.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,8 +223,9 @@
 		0370D6607F96A7F8D5340885 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				36B5CD311D19DD0E0006EB06 /* Alamofire.framework */,
-				367BAD1F1D1874B600F6B949 /* NotificationCenter.framework */,
+				3610239C1D2466E200303C76 /* NotificationCenter.framework */,
+				3610239A1D2466BE00303C76 /* Pods_highkara.framework */,
+				361023981D2466B500303C76 /* Pods_NewsWidget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -447,7 +453,6 @@
 				367BAD1B1D1874B600F6B949 /* Frameworks */,
 				367BAD1A1D1874B600F6B949 /* Sources */,
 				367BAD1C1D1874B600F6B949 /* Resources */,
-				4AA1DBCF37D3E7BBE00B75E2 /* [CP] Embed Pods Frameworks */,
 				0BA645639772DFDC318B9D9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -651,21 +656,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4AA1DBCF37D3E7BBE00B75E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6A08E5398CF4CE0C49BBE03A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -864,6 +854,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
 					"$(PROJECT_DIR)/build/Release-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -893,6 +884,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
 					"$(PROJECT_DIR)/build/Release-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
 				);
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1039,6 +1031,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
@@ -1066,6 +1059,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
