@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol CategorySelectionDelegate: class {
     func categorySelected(newCategory: Category)
@@ -92,13 +93,41 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         self.tableView!.delegate=self
         self.tableView.dataSource = self
+		
+		// Reset delegates url after we've opened it 
+    	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    	if (delegate?.openUrl) != nil {
+        	delegate?.openUrl = nil
+    	}
     }
+	
+	func handleOpenURL(notification:NSNotification){
+    	if let url = notification.object as? String {
+			let webURL = NSURL(string: url)
+
+			#if DEBUG
+				print("handleOpenURL. webURL=\(webURL)")
+			#endif
+			
+			if #available(iOS 9.0, *) {
+				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+				svc.view.tintColor = Theme.tintColor
+				self.presentViewController(svc, animated: true, completion: nil)
+				
+				// TODO
+//				HighFiApi.trackNewsClick(entry.clickTrackingLink)
+			} else {
+				// Fallback on earlier versions
+			}
+    	}
+	}
 	
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "regionChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: "selectedCategoriesChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
 	}
 	
 	func setTheme() {

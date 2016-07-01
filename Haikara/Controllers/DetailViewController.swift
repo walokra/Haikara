@@ -755,7 +755,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	// stop observing
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-	    NSNotificationCenter.defaultCenter().removeObserver(self, name: "HANDLEOPENURL", object:nil)
     }
 }
 
