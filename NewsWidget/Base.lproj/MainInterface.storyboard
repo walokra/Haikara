@@ -18,7 +18,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X2u-51-6eg" id="6Lw-ck-tsQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxD-z9-k7m">
@@ -29,10 +29,10 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="3Kd-6v-OW4"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="KPY-JI-cAT"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="centerY" secondItem="6Lw-ck-tsQ" secondAttribute="centerY" id="Lpt-lq-sgD"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="rUX-27-nqy"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="V1B-Oa-PCj"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="XFz-aD-Sbx"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="-3" id="dvC-Lr-4Gy"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="jlU-t6-BbV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

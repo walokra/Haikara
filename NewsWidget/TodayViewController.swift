@@ -88,7 +88,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 30.0
+		tableView.estimatedRowHeight = 33.0
 	}
 	
 	func handleError(error: String) {
