@@ -124,7 +124,6 @@
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
 		361E2F841C162C6D00D27F7C /* ios-star-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-star-outline.png"; sourceTree = "<group>"; };
-		361E2F871C1633FF00D27F7C /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		36221F081B3F385F00CB10AB /* app-logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_40x40.png"; sourceTree = "<group>"; };
 		36221F0D1B3F3DF000CB10AB /* app-logo_1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-logo_1024x1024.png"; sourceTree = "<group>"; };
 		3631CA5E1BEA6BF500C5A0BD /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -831,7 +830,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				36A39C131B2E0AE900BE0C77 /* Base */,
-				361E2F871C1633FF00D27F7C /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -8,33 +8,37 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class SettingsViewController: UITableViewController {
 
 	@IBOutlet weak var showDescLabel: UILabel!
 	@IBOutlet weak var showDescDesc: UILabel!
-	@IBOutlet weak var useMobileLabel: UILabel!
-	@IBOutlet weak var useMobileDesc: UILabel!
+	@IBOutlet weak var useMobileUrlLabel: UILabel!
+	@IBOutlet weak var useMobileUrlDesc: UILabel!
+	
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderDesc: UILabel!
 	@IBOutlet weak var useDarkLabel: UILabel!
-	
-	@IBOutlet weak var regionText: TouchableTextView!
 	@IBOutlet weak var regionLabel: UILabel!
-	@IBOutlet weak var regionDesc: UILabel!
 	
+	@IBOutlet weak var showDescSwitch: UISwitch!
+	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
+	@IBOutlet weak var useReaderViewSwitch: UISwitch!
+	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
+	@IBOutlet weak var regionDetailLabel: UILabel!
+
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
+	
+	var regionPickerHidden = false
 	
 	// Close picker when touching somewhere, not necessary to select value
 	@IBAction func viewTapped(sender: AnyObject) {
 		self.view.endEditing(true)
 	}
-	@IBOutlet weak var resetLabel: UILabel!
 
-    @IBOutlet weak var resetButton: UIButton!
-    
-    @IBAction func resetAction(sender: AnyObject) {
-		
+	@IBOutlet weak var resetButton: UIButton!
+	@IBOutlet weak var resetLabel: UILabel!
+	@IBAction func resetAction(sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .Alert)
 		
 		let cancelAction = UIAlertAction(title: cancelText, style: .Default, handler: nil)
@@ -69,7 +73,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     	    )
         
         	self.listLanguages()
-        
+			
         	self.showDescSwitch.on = self.settings.showDesc
         	self.useMobileUrlSwitch.on = self.settings.useMobileUrl
         	self.useReaderViewSwitch.on = self.settings.useReaderView
@@ -87,14 +91,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 
 		}
     }
-    
-    @IBOutlet weak var settingsButton: UIBarButtonItem!
-    @IBOutlet weak var useMobileUrlSwitch: UISwitch!
-    @IBOutlet weak var showDescSwitch: UISwitch!
-    @IBOutlet weak var useReaderViewSwitch: UISwitch!
-	@IBOutlet weak var darkThemeSwitch: UISwitch!
 
-   	var countryPicker: UIPickerView!
+//   	var countryPicker: UIPickerView!
     let settings = Settings.sharedInstance
 
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -110,32 +108,32 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
 	
 	let darkThemeTitle: String = NSLocalizedString("SETTINGS_DARK_THEME", comment: "")
-    
-    @IBAction func useMobileUrl(sender: UISwitch) {
+
+	@IBAction func showDescAction(sender: UISwitch) {
+		settings.showDesc = sender.on
+        defaults.setObject(settings.showDesc, forKey: "showDesc")
+        #if DEBUG
+            print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
+        #endif
+	}
+
+	@IBAction func useMobileUrlAction(sender: UISwitch) {
         settings.useMobileUrl = sender.on
         defaults.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
         #if DEBUG
             print ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
         #endif
-    }
-    
-    @IBAction func showDesc(sender: UISwitch) {
-        settings.showDesc = sender.on
-        defaults.setObject(settings.showDesc, forKey: "showDesc")
-        #if DEBUG
-            print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
-        #endif
-    }
-    
-    @IBAction func useReaderView(sender: UISwitch) {
-        settings.useReaderView = sender.on
+	}
+
+	@IBAction func useReaderViewAction(sender: UISwitch) {
+		settings.useReaderView = sender.on
         defaults.setObject(settings.useReaderView, forKey: "useReaderView")
         #if DEBUG
             print ("useReaderView \(settings.useReaderView), sender.on=\(sender.on)")
         #endif
-    }
-	
-	@IBAction func useDarkTheme(sender: UISwitch) {
+	}
+
+	@IBAction func useDarkThemeAction(sender: UISwitch) {
 		settings.useDarkTheme = sender.on
         defaults.setObject(settings.useDarkTheme, forKey: "useDarkTheme")
 
@@ -143,36 +141,33 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
             print ("useDarkTheme \(settings.useDarkTheme), sender.on=\(sender.on)")
         #endif
 		
-		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)	
+		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 	}
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		countryPicker = UIPickerView()
+//		countryPicker = UIPickerView()
 
 		setObservers()
 		setTheme()
 		setText()
 		
-        self.scrollView.delegate = self
-
-        self.tabBarController!.title = navigationItemTitle
-        self.navigationItem.title = navigationItemTitle
-
-        listLanguages()
+//		self.tabBarController!.title = navigationItemTitle
+//        self.navigationItem.title = navigationItemTitle
+		
+//        listLanguages()
 		
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
-		darkThemeSwitch.on = settings.useDarkTheme
+		useDarkThemeSwitch.on = settings.useDarkTheme
 		
-        countryPicker.dataSource = self
-        countryPicker.delegate = self
-		self.regionText.inputView = countryPicker
+//        countryPicker.dataSource = self
+//        countryPicker.delegate = self
+
+//		self.tableView!.delegate = self
+//        self.tableView.dataSource = self
     }
 	
 	func setObservers() {
@@ -180,7 +175,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	}
 	
 	func setText() {
-		useDarkLabel.text = darkThemeTitle
+//		useDarkLabel.text = darkThemeTitle
 	}
 	
 	func setTheme() {
@@ -189,27 +184,25 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         #endif
 		Theme.loadTheme()
 		
-		view.backgroundColor = Theme.backgroundColor
-		scrollView.backgroundColor = Theme.backgroundColor
-		contentView.backgroundColor = Theme.backgroundColor
+		self.view.backgroundColor = Theme.backgroundColor
 		
 		showDescLabel.textColor = Theme.textColor
 		showDescDesc.textColor = Theme.textColor
-		useMobileLabel.textColor = Theme.textColor
-		useMobileDesc.textColor = Theme.textColor
+		useMobileUrlLabel.textColor = Theme.textColor
+		useMobileUrlDesc.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
 		useReaderDesc.textColor = Theme.textColor
 		useDarkLabel.textColor = Theme.textColor
-		regionLabel.textColor = Theme.textColor
-		regionDesc.textColor = Theme.textColor
-		regionText.textColor = Theme.textColor
-		regionText.backgroundColor = Theme.backgroundColor
 		resetLabel.textColor = Theme.textColor
-		countryPicker.backgroundColor = UIColor.darkGrayColor()
+		resetButton.setTitleColor(Theme.textColor, forState: .Normal)
+//		countryPicker.backgroundColor = UIColor.darkGrayColor()
+		regionLabel.textColor = Theme.textColor
 		
-		self.countryPicker.reloadAllComponents()
-		
-		self.tabBarController?.tabBar.barStyle = Theme.barStyle
+//		self.countryPicker.reloadAllComponents()
+
+//		self.tabBarController?.tabBar.barStyle = Theme.barStyle
+
+		self.tableView.reloadData()
 	}
 
 	func setTheme(notification: NSNotification) {
@@ -218,33 +211,69 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         #endif
 		setTheme()
 	}
-    
-    override func viewDidLayoutSubviews() {
-        // set the frame of the scroll view to be equal to the frame of the container view
-        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+	
+	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+   		// Change the color of all cells
+   		cell.backgroundColor = Theme.backgroundColor
+		cell.textLabel!.textColor = Theme.cellTitleColor
+		
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+		cell.selectionStyle = .None
+	}
 
-        self.scrollView.addSubview(contentView)
+	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 44))
 
-        self.scrollView.contentSize = self.contentView.bounds.size
-//        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width, self.scrollView.frame.height)
+		headerView.tintColor = Theme.sectionColor
+		headerView.backgroundColor = Theme.sectionColor
+		
+		var sectionLabel: UILabel
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 22))
+		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+		sectionLabel.textColor = Theme.sectionTitleColor
+		sectionLabel.font = UIFont.systemFontOfSize(17)
+		headerView.addSubview(sectionLabel)
+		
+    	return headerView
+	}
 
-//        self.automaticallyAdjustsScrollViewInsets = false;
-        
-        // Hack
-        self.scrollView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 52, right: 0)
+//	override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//		
+//		let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//    	header.textLabel!.textColor = Theme.sectionTitleColor
+//    }
 
-        self.scrollView.flashScrollIndicators()
-    }
-
+//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    	if regionPickerHidden && indexPath.section == 0 && indexPath.row == 1 {
+//        	return 0
+//    	}
+//    	else {
+//    	    return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+//    	}
+//	}
+//	
+//	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    	if indexPath.section == 0 && indexPath.row == 4 {
+//        	toggleRegionPicker()
+//    	}
+//	}
+//	
+//	func toggleRegionPicker() {
+//    	regionPickerHidden = !regionPickerHidden
+// 
+//    	tableView.beginUpdates()
+//    	tableView.endUpdates()
+//	}
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 	
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-        return 1
+        return 5
     }
-    
+	
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         return self.languages.count
     }
@@ -258,7 +287,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
 	}
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-		regionText.text = languages[row].country
+//		self.regionDetailLabel.text = languages[row].country
 		
         let selectedRegion = self.languages[row]
         settings.region = selectedRegion.country
@@ -374,7 +403,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
     
     func setSelectedRegion() {
         dispatch_async(dispatch_get_main_queue()) {
-        self.countryPicker.reloadAllComponents()
+//        self.countryPicker.reloadAllComponents()
 
         var defaultRowIndex = 0
         for (index, element) in self.languages.enumerate() {
@@ -386,11 +415,11 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate, UIPickerVi
         #if DEBUG
             print("settingsView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
         #endif
-        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
-	    self.regionText.text = self.languages[defaultRowIndex].country
+//        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
+	    self.regionDetailLabel.text = self.languages[defaultRowIndex].country
         }
     }
-    
+	
     func handleError(error: String) {
         #if DEBUG
             print("handleError, error: \(error)")
