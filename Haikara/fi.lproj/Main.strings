@@ -1,0 +1,144 @@
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "4SW-bs-Kz2"; */
+"4SW-bs-Kz2.text" = "Kuvaus";
+
+/* Class = "UILabel"; text = "Prefer mobile sites"; ObjectID = "4wi-JJ-PjM"; */
+"4wi-JJ-PjM.text" = "Käytä mobiilisivustoja";
+
+/* Class = "UIViewController"; title = "Menu"; ObjectID = "6hf-xG-t83"; */
+"6hf-xG-t83.title" = "Valikko";
+
+/* Class = "UILabel"; text = "Reset all settings to defaults"; ObjectID = "B6G-sH-qTR"; */
+"B6G-sH-qTR.text" = "Alusta asetukset oletusarvoiksi";
+
+/* Class = "UILabel"; text = "Highkara news reader is unofficial client for High.fi news aggregator and provides functionality for reading news from several medias and regions. The app is similar to Ampparit."; ObjectID = "Br1-A7-SMo"; */
+"Br1-A7-SMo.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
+
+/* Class = "UILabel"; text = "Feedback and support"; ObjectID = "Dqu-lY-gQF"; */
+"Dqu-lY-gQF.text" = "Palaute ja tuki";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "EcW-zt-JmI"; */
+"EcW-zt-JmI.title" = " ";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Fmm-ku-sL5"; */
+"Fmm-ku-sL5.text" = "Lisätiedot";
+
+/* Class = "UILabel"; text = "Open Source, MIT licensed"; ObjectID = "HBq-8u-25y"; */
+"HBq-8u-25y.text" = "Avoin lähdekoodi, MIT-lisenssi";
+
+/* Class = "UIButton"; normalTitle = "Reset"; ObjectID = "Jas-hM-GU3"; */
+"Jas-hM-GU3.normalTitle" = "Tyhjennä";
+
+/* Class = "UINavigationItem"; title = "Menu"; ObjectID = "LYT-n3-4EF"; */
+"LYT-n3-4EF.title" = "Valikko";
+
+/* Class = "UITabBarItem"; title = "Filter"; ObjectID = "Og4-py-LgQ"; */
+"Og4-py-LgQ.title" = "Suodata";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "PJl-r6-mPm"; */
+"PJl-r6-mPm.text" = "Otsikko";
+
+/* Class = "UILabel"; text = "Powered by"; ObjectID = "PcG-uA-lGW"; */
+"PcG-uA-lGW.text" = "Powered by";
+
+/* Class = "UIViewController"; title = "Settings"; ObjectID = "PfJ-fU-JDr"; */
+"PfJ-fU-JDr.title" = "Asetukset";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "Q7m-Nu-GvH"; */
+"Q7m-Nu-GvH.headerTitle" = "Asetukset";
+
+/* Class = "UITabBarItem"; title = "Favorites"; ObjectID = "Rwm-VB-qca"; */
+"Rwm-VB-qca.title" = "Suosikit";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "UXB-uv-Inu"; */
+"UXB-uv-Inu.title" = "Asetukset";
+
+/* Class = "UISplitViewController"; title = "Highkara"; ObjectID = "WHp-35-hiD"; */
+"WHp-35-hiD.title" = "Highkara";
+
+/* Class = "UITabBarItem"; title = "Hidden"; ObjectID = "abl-A6-THO"; */
+"abl-A6-THO.title" = "Piilotettu";
+
+/* Class = "UIButton"; normalTitle = "Review on App Store"; ObjectID = "bnT-Gf-Yzk"; */
+"bnT-Gf-Yzk.normalTitle" = "Arvostele App Storessa";
+
+/* Class = "UINavigationItem"; title = "News"; ObjectID = "bx7-Bu-h0n"; */
+"bx7-Bu-h0n.title" = "Uutiset";
+
+/* Class = "UILabel"; text = "Show synopsis of the news story if available."; ObjectID = "d0n-lp-5fT"; */
+"d0n-lp-5fT.text" = "Näytä ote uutisesta, jos saatavilla.";
+
+/* Class = "UILabel"; text = "Use mobile optimized address if available."; ObjectID = "eA7-yO-xei"; */
+"eA7-yO-xei.text" = "Käytä mobiilioptimoituja osoitteita, jos saatavilla.";
+
+/* Class = "UILabel"; text = "Use dark theme"; ObjectID = "eFs-Re-xWj"; */
+"eFs-Re-xWj.text" = "Käytä tummaa teemaa";
+
+/* Class = "UIButton"; normalTitle = "Twitter"; ObjectID = "eN9-81-Chf"; */
+"eN9-81-Chf.normalTitle" = "Twitter";
+
+/* Class = "UILabel"; text = "Use Reader View while reading news if available."; ObjectID = "ebh-f8-Wqp"; */
+"ebh-f8-Wqp.text" = "Käytä lukutilaa uutisia lukiessa, jos mahdollista.";
+
+/* Class = "UIViewController"; title = "DetailView"; ObjectID = "exn-nL-O7c"; */
+"exn-nL-O7c.title" = "DetailView";
+
+/* Class = "UIViewController"; title = "Categories"; ObjectID = "f8J-Dx-PVd"; */
+"f8J-Dx-PVd.title" = "Kategoriat";
+
+/* Class = "UILabel"; text = "author"; ObjectID = "fLp-v4-zcy"; */
+"fLp-v4-zcy.text" = "author";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "gVK-F5-DyW"; */
+"gVK-F5-DyW.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "High.fi"; ObjectID = "hch-WQ-bjL"; */
+"hch-WQ-bjL.normalTitle" = "High.fi";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "i05-GV-4cH"; */
+"i05-GV-4cH.title" = "Tietoa";
+
+/* Class = "UILabel"; text = "Highkara version by Marko Wallin"; ObjectID = "inR-1W-EPg"; */
+"inR-1W-EPg.text" = "Highkara version by Marko Wallin";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "lRR-cs-k1m"; */
+"lRR-cs-k1m.text" = "Otsikko";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "mnb-i8-fMZ"; */
+"mnb-i8-fMZ.headerTitle" = " ";
+
+/* Class = "UILabel"; text = "Select favorite categories"; ObjectID = "mxB-h8-nBo"; */
+"mxB-h8-nBo.text" = "Valitse suosikkikategoriat";
+
+/* Class = "UILabel"; text = "powered by high.fi"; ObjectID = "ocI-7q-PAB"; */
+"ocI-7q-PAB.text" = "voimanlähteenä high.fi";
+
+/* Class = "UILabel"; text = "title"; ObjectID = "qfL-UQ-PDu"; */
+"qfL-UQ-PDu.text" = "title";
+
+/* Class = "UILabel"; text = "Region for categories"; ObjectID = "qpT-YT-jH6"; */
+"qpT-YT-jH6.text" = "Uutissyötteiden alueasetus";
+
+/* Class = "UILabel"; text = "Show description"; ObjectID = "qvj-bp-i9F"; */
+"qvj-bp-i9F.text" = "Näytä tiivistelmä";
+
+/* Class = "UIButton"; normalTitle = "Email"; ObjectID = "rod-Pj-vys"; */
+"rod-Pj-vys.normalTitle" = "Sähköposti";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "s6d-s2-kAz"; */
+"s6d-s2-kAz.title" = " ";
+
+/* Class = "UILabel"; text = "Use Reader View"; ObjectID = "sAe-mY-AEU"; */
+"sAe-mY-AEU.text" = "Käytä lukutilaa";
+
+/* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "stk-fS-f0f"; */
+"stk-fS-f0f.text" = "Valitse piilotettavat uutislähteet";
+
+/* Class = "UIButton"; normalTitle = "About"; ObjectID = "w5e-nU-aju"; */
+"w5e-nU-aju.normalTitle" = "Tietoa";
+
+/* Class = "UIButton"; normalTitle = "Bug reports"; ObjectID = "zrf-Jk-bbP"; */
+"zrf-Jk-bbP.normalTitle" = "Virheraportit";
+
+/* Class = "UITableViewController"; title = "Select region"; ObjectID = "gRJ-o8-N5f"; */
+"gRJ-o8-N5f.title" = "Valitse alue";

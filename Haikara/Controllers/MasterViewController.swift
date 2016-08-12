@@ -91,7 +91,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             getCategories()
         }
 
-        self.tableView!.delegate=self
+        self.tableView!.delegate = self
         self.tableView.dataSource = self
 		
 		// Reset delegates url after we've opened it 

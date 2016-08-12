@@ -53,6 +53,7 @@
 		367BAD451D189E8100F6B949 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA5E1BEA6BF500C5A0BD /* Language.swift */; };
 		367BAD461D189E8300F6B949 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
 		367BAD471D189E8600F6B949 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
+		368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368E20811D5E3837009255B9 /* RegionPickerViewController.swift */; };
 		369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */; };
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
@@ -68,6 +69,7 @@
 		36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* DetailViewController.swift */; };
+		36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */; };
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
@@ -156,6 +158,8 @@
 		367BAD2F1D1874FC00F6B949 /* highkara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = highkara.entitlements; sourceTree = "<group>"; };
 		367BAD301D18750E00F6B949 /* NewsWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewsWidget.entitlements; sourceTree = "<group>"; };
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
+		368E20801D5E3509009255B9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
+		368E20811D5E3837009255B9 /* RegionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionPickerViewController.swift; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
 		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios-list-outline.png"; sourceTree = "<group>"; };
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
+		36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewWrapperController.swift; sourceTree = "<group>"; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -246,13 +251,15 @@
 				36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */,
 				36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */,
 				36C1AFF11B2E32A400D87522 /* DetailViewController.swift */,
-				36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */,
-				36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */,
 				3611412E1B409459001A6BA4 /* InfoController.swift */,
+				36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */,
+				36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */,
 				360B4E301B4C69D70019FA1F /* SettingsViewController.swift */,
 				364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */,
 				360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */,
 				366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */,
+				368E20811D5E3837009255B9 /* RegionPickerViewController.swift */,
+				36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -752,12 +759,14 @@
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
 				36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */,
+				368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
+				36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
 				36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */,
 				360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */,
@@ -830,6 +839,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				36A39C131B2E0AE900BE0C77 /* Base */,
+				368E20801D5E3509009255B9 /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

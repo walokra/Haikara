@@ -28,16 +28,10 @@ class SettingsViewController: UITableViewController {
 
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
-	
-	var regionPickerHidden = false
-	
-	// Close picker when touching somewhere, not necessary to select value
-	@IBAction func viewTapped(sender: AnyObject) {
-		self.view.endEditing(true)
-	}
 
 	@IBOutlet weak var resetButton: UIButton!
 	@IBOutlet weak var resetLabel: UILabel!
+	
 	@IBAction func resetAction(sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .Alert)
 		
@@ -92,14 +86,10 @@ class SettingsViewController: UITableViewController {
 		}
     }
 
-//   	var countryPicker: UIPickerView!
     let settings = Settings.sharedInstance
 
     var defaults = NSUserDefaults.standardUserDefaults()
-    
-    var languages = [Language]()
-    
-    var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
+
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
@@ -107,7 +97,21 @@ class SettingsViewController: UITableViewController {
 	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
 	
-	let darkThemeTitle: String = NSLocalizedString("SETTINGS_DARK_THEME", comment: "")
+	@IBAction func unwindWithSelectedRegion(segue:UIStoryboardSegue) {
+  		if let regionPickerViewController = segue.sourceViewController as? RegionPickerViewController,
+    		selectedLanguage = regionPickerViewController.selectedLanguage {
+      		self.selectedLanguage = selectedLanguage
+  		}
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "SelectLanguage" {
+  			if let regionPickerViewController = segue.destinationViewController as? RegionPickerViewController {
+				regionPickerViewController.languages = languages
+    			regionPickerViewController.selectedLanguage = selectedLanguage
+  			}
+		}
+	}
 
 	@IBAction func showDescAction(sender: UISwitch) {
 		settings.showDesc = sender.on
@@ -147,35 +151,18 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-//		countryPicker = UIPickerView()
-
+		listLanguages()
 		setObservers()
 		setTheme()
-		setText()
-		
-//		self.tabBarController!.title = navigationItemTitle
-//        self.navigationItem.title = navigationItemTitle
-		
-//        listLanguages()
 		
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
-		useDarkThemeSwitch.on = settings.useDarkTheme
-		
-//        countryPicker.dataSource = self
-//        countryPicker.delegate = self
-
-//		self.tableView!.delegate = self
-//        self.tableView.dataSource = self
+		useDarkThemeSwitch.on = settings.useDarkTheme		
     }
 	
 	func setObservers() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-	}
-	
-	func setText() {
-//		useDarkLabel.text = darkThemeTitle
 	}
 	
 	func setTheme() {
@@ -237,104 +224,27 @@ class SettingsViewController: UITableViewController {
     	return headerView
 	}
 
-//	override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//		
-//		let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-//    	header.textLabel!.textColor = Theme.sectionTitleColor
-//    }
-
-//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    	if regionPickerHidden && indexPath.section == 0 && indexPath.row == 1 {
-//        	return 0
-//    	}
-//    	else {
-//    	    return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-//    	}
-//	}
-//	
-//	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    	if indexPath.section == 0 && indexPath.row == 4 {
-//        	toggleRegionPicker()
-//    	}
-//	}
-//	
-//	func toggleRegionPicker() {
-//    	regionPickerHidden = !regionPickerHidden
-// 
-//    	tableView.beginUpdates()
-//    	tableView.endUpdates()
-//	}
-	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 	
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-        return 5
-    }
-	
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return self.languages.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.languages[row].country
-    }
-	
-	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-	    return NSAttributedString(string: self.languages[row].country, attributes: [NSForegroundColorAttributeName:Theme.textColor])
+	var languages = [Language]()
+	var selectedLanguage: Language? {
+		didSet {
+    		regionDetailLabel.text? = selectedLanguage!.country
+		}
 	}
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-//		self.regionDetailLabel.text = languages[row].country
-		
-        let selectedRegion = self.languages[row]
-        settings.region = selectedRegion.country
-        settings.useToRetrieveLists = selectedRegion.useToRetrieveLists
-        settings.mostPopularName = selectedRegion.mostPopularName
-        settings.latestName = selectedRegion.latestName
-        settings.domainToUse = selectedRegion.domainToUse
-        settings.genericNewsURLPart = selectedRegion.genericNewsURLPart
-        #if DEBUG
-            print ("selected region = \(settings.region)")
-        #endif
 
-        defaults.setObject(settings.region, forKey: "region")
-        defaults.setObject(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
-        defaults.setObject(settings.mostPopularName, forKey: "mostPopularName")
-        defaults.setObject(settings.latestName, forKey: "latestName")
-        defaults.setObject(settings.domainToUse, forKey: "domainToUse")
-        defaults.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
-        
-//        #if DEBUG
-//            print ("Settings = \(settings.description)")
-//        #endif
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedRegion]) //userInfo parameter has to be of type [NSObject : AnyObject]?
-
-        self.view.endEditing(true)
-    }
-	
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    // The list of currently supported by the server. 
+	// The list of currently supported by the server. 
     func listLanguages(){
         #if DEBUG
-            print("settingsView, listLanguages: self.settings.languages=\(self.settings.languages)")
+            print("regionPickerView, listLanguages: self.settings.languages=\(self.settings.languages)")
         #endif
         
         if !self.settings.languages.isEmpty {
             #if DEBUG
-                print("settingsView, listLanguages: getting languages from settings")
+                print("regionPickerView, listLanguages: getting languages from settings")
             #endif
             
             if let updated: NSDate = self.settings.languagesUpdated {
@@ -360,7 +270,7 @@ class SettingsViewController: UITableViewController {
         }
         
         #if DEBUG
-            print("settingsView, listLanguages: getting languages from API")
+            print("regionPickerView, listLanguages: getting languages from API")
         #endif
         getLanguagesFromAPI()
     }
@@ -400,27 +310,24 @@ class SettingsViewController: UITableViewController {
             }
         )
     }
-    
-    func setSelectedRegion() {
+	
+	func setSelectedRegion() {
         dispatch_async(dispatch_get_main_queue()) {
-//        self.countryPicker.reloadAllComponents()
-
-        var defaultRowIndex = 0
-        for (index, element) in self.languages.enumerate() {
-            let lang = element as Language
-            if (lang.country == self.settings.region) {
-                defaultRowIndex = index
-            }
-        }
-        #if DEBUG
-            print("settingsView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
-        #endif
-//        self.countryPicker.selectRow(defaultRowIndex, inComponent: 0, animated: false)
-	    self.regionDetailLabel.text = self.languages[defaultRowIndex].country
-        }
+	        var defaultRowIndex = 0
+	        for (index, element) in self.languages.enumerate() {
+	            let lang = element as Language
+	            if (lang.country == self.settings.region) {
+	                defaultRowIndex = index
+	            }
+	        }
+	        #if DEBUG
+	            print("regionPickerView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+        	#endif
+		    self.selectedLanguage = self.languages[defaultRowIndex]
+		}
     }
 	
-    func handleError(error: String) {
+	func handleError(error: String) {
         #if DEBUG
             print("handleError, error: \(error)")
         #endif
@@ -430,6 +337,17 @@ class SettingsViewController: UITableViewController {
         
         self.presentViewController(alertController, animated: true){}
     }
+	
+	
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
 	// stop observing
     deinit {

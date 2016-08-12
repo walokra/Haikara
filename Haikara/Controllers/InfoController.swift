@@ -10,10 +10,6 @@ import UIKit
 
 class InfoController: UIViewController {
 
-	var appStoreButtonText: String = NSLocalizedString("INFO_REVIEW_TITLE", comment: "Review in app store")
-	var bugsButtonText: String = NSLocalizedString("INFO_BUGS_TITLE", comment: "Bug reports")
-	var licenseLabelText: String = NSLocalizedString("INFO_LICENSE_TITLE", comment: "License")
-
 	@IBOutlet weak var aboutLabel: UILabel!
 	@IBOutlet weak var licenseLabel: UILabel!
 
@@ -62,9 +58,6 @@ class InfoController: UIViewController {
         let settings = Settings()
 		
         infoLabel.text = settings.appID + ", Marko Wallin"
-		licenseLabel.text = licenseLabelText;
-		appStoreButton.setTitle(appStoreButtonText, forState: UIControlState.Normal)
-		bugsButton.setTitle(bugsButtonText, forState: UIControlState.Normal)
 	}
 	
 	func setObservers() {
