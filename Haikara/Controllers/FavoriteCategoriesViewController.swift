@@ -17,7 +17,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     }
     
     let settings = Settings.sharedInstance
-    var defaults = NSUserDefaults.standardUserDefaults()
+	var defaults: NSUserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -30,6 +30,8 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.defaults = settings.defaults
 		
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
@@ -134,19 +136,16 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
             #endif
             
             if let index = langFavoriteCats.indexOf(selectedCategory.sectionID) {
-//                print("Removing item at index \(index)")
                 langFavoriteCats.removeAtIndex(index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
             if (!removed) {
-//                print("Adding item to favorite categories, \(selectedCategory.sectionID)")
                 langFavoriteCats.append(selectedCategory.sectionID)
                 self.categories[indexPath.row].selected = true
             }
             settings.categoriesFavorited.updateValue(langFavoriteCats, forKey: settings.region)
         } else {
-//            print("Creating new key for language categories, \(settings.region)")
             settings.categoriesFavorited.updateValue([selectedCategory.sectionID], forKey: settings.region)
         }
         
@@ -154,10 +153,11 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
             print("langFavoriteCats=\(settings.categoriesFavorited[settings.region])")
         #endif
         
-        defaults.setObject(settings.categoriesFavorited, forKey: "categoriesFavorited")
+        defaults!.setObject(settings.categoriesFavorited, forKey: "categoriesFavorited")
+		defaults!.synchronize()
+		
         self.tableView!.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"]) //userInfo parameter has to be of type [NSObject : AnyObject]?
-
+        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"])
     }
     
     // stop observing

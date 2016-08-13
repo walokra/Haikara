@@ -238,9 +238,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func setNews(newsentries: Array<Entry>) {
 		// Top items are not grouped by time
-		#if DEBUG
-			print("highFiSection=\(highFiSection)")
-		#endif
 		if highFiSection == "top" {
 			dispatch_async(dispatch_get_main_queue()) {
 				// Clear old entries
@@ -427,18 +424,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
     // MARK: - Table view data source
 
-	// Change the color of the section bg and font
-//	func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//		
-//		// This changes the header background
-//		view.tintColor = Theme.sectionColor
-//		
-//		// Gets the header view as a UITableViewHeaderFooterView and changes the text colour
-//		let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-//		headerView.textLabel!.textColor = Theme.sectionTitleColor
-//		headerView.textLabel!.font = UIFont.boldSystemFontOfSize(14)
-//	}
-	
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
 		headerView.tintColor = Theme.sectionColor
@@ -611,10 +596,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		return [share, browser, delete]
 	}
-	
-//	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//		return sortedSections[section]
-//	}
 	
 	// Enable swiping for showing action buttons
 	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

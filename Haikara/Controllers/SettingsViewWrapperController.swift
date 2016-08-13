@@ -15,7 +15,32 @@ class SettingsViewWrapperController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 	
+		setObservers()
+		setTheme()	
+    }
+	
+	func setObservers() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewWrapperController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+	}
+	
+	func setTheme() {
+		Theme.loadTheme()
+		
+		self.view.backgroundColor = Theme.backgroundColor
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
+		self.tabBarController?.tabBar.barStyle = Theme.barStyle
+	}
+
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("SettingsViewWrapperController, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
+	
+	// stop observing
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

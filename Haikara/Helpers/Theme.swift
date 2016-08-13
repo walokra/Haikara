@@ -31,8 +31,12 @@ struct Theme {
 	
 	static var poweredLabelColor: UIColor = Light.poweredLabelColor
 	
+	let settings = Settings.sharedInstance
+	
 	static func loadTheme(){
-		if let useDarkTheme: Bool = NSUserDefaults.standardUserDefaults().objectForKey("useDarkTheme")?.boolValue {
+		let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
+	
+		if let useDarkTheme: Bool = defaults.objectForKey("useDarkTheme")?.boolValue {
 			(useDarkTheme) ? themeDark() : themeLight()
 		} else {
 			themeLight()

@@ -21,7 +21,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 	@IBOutlet weak var tableView: UITableView!
 	
     let settings = Settings.sharedInstance
-    var defaults = NSUserDefaults.standardUserDefaults()
+    var defaults: NSUserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TITLE", comment: "")
 	var tableTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TABLE_TITLE", comment: "")
@@ -32,6 +32,8 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.defaults = settings.defaults
+
 		self.tableTitleLabel.text = tableTitle
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
@@ -156,7 +158,9 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
             print("categoriesHidden[region]=\(settings.categoriesHidden[settings.region])")
         #endif
         
-        defaults.setObject(settings.categoriesHidden, forKey: "categoriesHidden")
+        defaults!.setObject(settings.categoriesHidden, forKey: "categoriesHidden")
+		defaults!.synchronize()
+		
         self.tableView!.reloadData()
     }
     

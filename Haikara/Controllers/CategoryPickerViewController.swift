@@ -1,5 +1,5 @@
 //
-//  RegionPickerViewController.swift
+//  CategoryPickerViewController.swift
 //  highkara
 //
 //  Created by Marko Wallin on 12.8.2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegionPickerViewController: UITableViewController {
+class CategoryPickerViewController: UITableViewController {
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
@@ -19,68 +19,60 @@ class RegionPickerViewController: UITableViewController {
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
     let settings = Settings.sharedInstance
-    var defaults: NSUserDefaults?
+	var defaults: NSUserDefaults?
 
-    var languages = [Language]()
-	var selectedLanguage: Language? {
+    var categories = [Category]()
+	var selectedTodayCategory: Category? {
     	didSet {
-			selectedLanguageIndex = languages.indexOf(selectedLanguage!)
+			print("categories=\(categories.count); selectedTodayCategory=\(selectedTodayCategory)")
+			selectedTodayCategoryIndex = categories.indexOf(selectedTodayCategory!)
 		}
   	}
-  	var selectedLanguageIndex: Int?
+  	var selectedTodayCategoryIndex: Int?
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		
+
 		self.defaults = settings.defaults
 		
 		setTheme()
     }
 	
 	func setTheme() {
-		#if DEBUG
-            print("RegionPickerViewController, setTheme()")
-        #endif
 		Theme.loadTheme()
 		
 		self.view.backgroundColor = Theme.backgroundColor
 		self.tableView.backgroundColor = Theme.backgroundColor
 		self.tableView.reloadData()
 	}
-
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-	  if segue.identifier == "SaveSelectedLanguage" {
+	  if segue.identifier == "SaveSelectedCategory" {
     	if let cell = sender as? UITableViewCell {
       		let indexPath = tableView.indexPathForCell(cell)
       		if let index = indexPath?.row {
-        		selectedLanguage = languages[index]
+        		selectedTodayCategory = categories[index]
       		}
     	}
 	  }
 	}
-
+	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
   		return 1
 	}
  
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  		return languages.count
+  		return categories.count
 	}
  
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
   		let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listRegionCell, forIndexPath: indexPath)
 		
-		let lang: Language = self.languages[indexPath.row]
-  		cell.textLabel?.text = lang.country
-		
-//		if indexPath.row == selectedLanguageIndex {
-//    		cell.accessoryType = .Checkmark
-//  		} else {
-//    		cell.accessoryType = .None
-//		}
+		let category: Category = self.categories[indexPath.row]
+  		cell.textLabel?.text = category.title
 
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		if indexPath.row == selectedLanguageIndex {
+		if indexPath.row == selectedTodayCategoryIndex {
 			cell.backgroundColor = Theme.selectedColor
 		} else {
 			if (indexPath.row % 2 == 0) {
@@ -99,41 +91,27 @@ class RegionPickerViewController: UITableViewController {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
  
   		//Other row is selected - need to deselect it
-  		if let index = selectedLanguageIndex {
+  		if let index = selectedTodayCategoryIndex {
     		let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))
-    		cell?.accessoryType = .None
+			if (indexPath.row % 2 == 0) {
+				cell?.backgroundColor = Theme.evenRowColor
+			} else {
+				cell?.backgroundColor = Theme.oddRowColor
+			}
   		}
- 
-  		selectedLanguage = languages[indexPath.row]
-		settings.region = selectedLanguage!.country
-        settings.useToRetrieveLists = selectedLanguage!.useToRetrieveLists
-        settings.mostPopularName = selectedLanguage!.mostPopularName
-        settings.latestName = selectedLanguage!.latestName
-        settings.domainToUse = selectedLanguage!.domainToUse
-        settings.genericNewsURLPart = selectedLanguage!.genericNewsURLPart
-        #if DEBUG
-            print ("selected region = \(settings.region)")
-        #endif
-
-        defaults!.setObject(settings.region, forKey: "region")
-        defaults!.setObject(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
-        defaults!.setObject(settings.mostPopularName, forKey: "mostPopularName")
-        defaults!.setObject(settings.latestName, forKey: "latestName")
-        defaults!.setObject(settings.domainToUse, forKey: "domainToUse")
-        defaults!.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
 		
+		settings.todayCategoryByLang.updateValue(selectedTodayCategory!, forKey: settings.region)
+		selectedTodayCategory = categories[indexPath.row]
+        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(settings.todayCategoryByLang as Dictionary<String, Category>)
+        defaults!.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 		defaults!.synchronize()
 
-        NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedLanguage!])
+        NSNotificationCenter.defaultCenter().postNotificationName("todayCategoryChangedNotification", object: nil, userInfo: ["todayCategory": selectedTodayCategory!])
  
   		//update the checkmark for the current row
   		let cell = tableView.cellForRowAtIndexPath(indexPath)
-  		cell?.accessoryType = .Checkmark
+		cell?.backgroundColor = Theme.selectedColor
 	}
-	
-	// stop observing
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
 
 }
+

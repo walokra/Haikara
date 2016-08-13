@@ -17,12 +17,63 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
 	
-	let settings = Settings.sharedInstance
+	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
+	
+	let defaultValues = Defaults(
+			useToRetrieveLists: "finnish",
+			mostPopularName: "Suosituimmat",
+			latestName: "Uusimmat",
+			domainToUse: "fi.high.fi",
+			genericNewsURLPart: "uutiset",
+			showDesc: false,
+			useMobileUrl: true,
+			useReaderView: false,
+			useDarkTheme: false,
+			region: "Finland"
+		)
+	
+	var region: String? // http://high.fi/api/?act=listLanguages
+	var genericNewsURLPart: String?
+	var useMobileUrl: Bool? // Prefer mobile optimized URLs
+	var todayCategoryByLang = Dictionary<String, Category>()
+	
+    func initSettings() {
+        #if DEBUG
+            print(#function)
+        #endif
+		
+		if let region: String = defaults.objectForKey("region") as? String {
+            self.region = region
+        } else {
+            self.region = defaultValues.region
+        }
+		
+		if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
+            self.genericNewsURLPart = genericNewsURLPart
+        } else {
+            self.genericNewsURLPart = defaultValues.genericNewsURLPart
+        }
+		
+        if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
+            self.useMobileUrl = useMobileUrl
+        } else {
+            self.useMobileUrl = defaultValues.useMobileUrl
+        }
+		
+		// Get Dictionary of today categories from storage
+		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
+		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
+		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
+        if let unarchivedtodayCategoryByLang = defaults.objectForKey("todayCategoryByLang") as? NSData {
+            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+		}
+    }
 	
 	// Variables
 	var entries = [Entry]()
 	let page: Int = 1
 	let maxNewsItems: Int = 5
+	var selectedTodayCategory: Category?
 
 	// Loading indicator
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
@@ -36,22 +87,14 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	// localization
 	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
-//	override func awakeFromNib() {
-//		super.awakeFromNib()
-//		resetContentSize()
-//  	}
-	
-//  	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		resetContentSize()
-//  	}
-	
     override func viewDidLoad() {
 		#if DEBUG
 			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
 		
+		initSettings()
+//		setObservers()
 		setTheme()
 		
 		setLoadingIndicator()
@@ -76,6 +119,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			print("initView()")
 		#endif
 		
+		setTodayCategory()
+		
 		configureTableView()
 		
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -83,6 +128,31 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		
 		if self.entries.isEmpty {
             getNews(self.page)
+		}
+	}
+	
+//	func setObservers() {
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TodayViewController.setTodayCategory(_:)), name: "todayCategoryChangedNotification", object: nil)
+//	}
+//	
+//	func setTodayCategory(notification: NSNotification) {
+//        #if DEBUG
+//            print("TodayViewController, Received todayCategoryChangedNotification")
+//        #endif
+//		setTheme()
+//	}
+	
+	func setTodayCategory() {
+		#if DEBUG
+			print("TodayViewController, setTodayCategory: getting today category for '\(self.region)' from settings")
+		#endif
+		
+		if let category: Category = self.todayCategoryByLang[self.region!] {
+			#if DEBUG
+				print("TodayViewController, setTodayCategory: \(category)")
+			#endif
+			
+			self.selectedTodayCategory = category
 		}
 	}
 	
@@ -105,11 +175,17 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	}
 	
 	func getNews(page: Int) -> NCUpdateResult {
+		var htmlFilename = self.genericNewsURLPart!
+		
 		if (!self.loading) {
 			self.setLoadingState(true)
 			var entries = Array<Entry>()
 			// with trailing closure we get the results that we passed the closure back in async function
-			HighFiApi.getNews(self.page, section: settings.genericNewsURLPart,
+			if self.selectedTodayCategory != nil {
+				htmlFilename = self.selectedTodayCategory!.htmlFilename
+			}
+			
+			HighFiApi.getNews(self.page, section: htmlFilename,
 				completionHandler: { (result) in
 					entries = Array(result[0..<self.maxNewsItems])
 					
@@ -135,7 +211,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		let tableItem = self.entries[row]
 		
 		var webURLString = tableItem.originalURL
-		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
+		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.useMobileUrl!) {
 			webURLString = tableItem.originalMobileUrl!
 		}		
 		#if DEBUG
@@ -216,4 +292,9 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+//	// stop observing
+//    deinit {
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    }
 }

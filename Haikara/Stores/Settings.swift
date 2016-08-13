@@ -40,8 +40,6 @@ class Settings {
 		)
     
     func resetToDefaults() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-
         self.useToRetrieveLists = defaultValues.useToRetrieveLists
         defaults.setObject(self.useToRetrieveLists, forKey: "useToRetrieveLists")
         
@@ -87,6 +85,11 @@ class Settings {
         defaults.setObject(archivedCategoriesByLang, forKey: "categoriesByLang")
         
         self.categories = [Category]()
+
+        self.todayCategoryByLang = Dictionary<String, Category>()
+        defaults.setObject(self.todayCategoryByLang, forKey: "todayCategoryByLang")
+        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(self.todayCategoryByLang as Dictionary<String, Category>)
+        defaults.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 
         self.languages = [Language]()
         let archivedLanguages = NSKeyedArchiver.archivedDataWithRootObject(self.languages as [Language])
@@ -158,7 +161,11 @@ class Settings {
 	var newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
 	var newsSourcesFiltered = Dictionary<String, Array<Int>>()
 	var newsSources = [NewsSources]()
-    
+	
+	var todayCategoryByLang = Dictionary<String, Category>()
+	
+	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
+	
     init() {
         #if DEBUG
             print(#function)
@@ -175,9 +182,12 @@ class Settings {
         self.highFiEndpoint = "json-private"
         self.highFiActCategory = "listCategories"
         self.highFiActUsedLanguage = "usedLanguage"
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
 
+//			NSKeyedArchiver.setClassName("Language", forClass: Language.self)
+		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
+		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
+		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
+		
         if let useToRetrieveLists: String = defaults.objectForKey("useToRetrieveLists") as? String {
             self.useToRetrieveLists = useToRetrieveLists
         } else {
@@ -278,6 +288,11 @@ class Settings {
 		if let newsSourcesUpdatedByLang: Dictionary<String, NSDate> = defaults.objectForKey("newsSourcesUpdatedByLang") as? Dictionary<String, NSDate> {
             self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
         }
+		
+		// Get Dictionary of today categories from storage
+        if let unarchivedtodayCategoryByLang = defaults.objectForKey("todayCategoryByLang") as? NSData {
+            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+		}
 
         // Get Dictionary of news sources from storage
         if let unarchivedNewsSourcesByLang = defaults.objectForKey("newsSourcesByLang") as? NSData {
@@ -292,6 +307,8 @@ class Settings {
             self.newsSourcesFiltered = newsSourcesFiltered
         }
 		
+		self.defaults.synchronize()
+		
         // For development
 //        self.categoriesByLang = Dictionary<String, Array<Category>>()
 //        self.categoriesUpdatedByLang = Dictionary<String, NSDate>()
@@ -302,11 +319,10 @@ class Settings {
 //            println("region: \(self.region)")
             print("\(self.description)")
         #endif
-    
     }
     
     var description: String {
-        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), region=\(self.region)"
+        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region])"
     }
 	
 	func removeSource(sourceID: Int) -> Bool {

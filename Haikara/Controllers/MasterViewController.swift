@@ -22,6 +22,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     let settings = Settings.sharedInstance
+	var defaults: NSUserDefaults?
 
 	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -71,6 +72,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.defaults = settings.defaults
 		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
@@ -203,39 +206,36 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     func getCategories(){
         // Get categories for selected region from settings' store
-//        if self.settings.categoriesByLang[self.settings.region] != nil {
-
-            if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
-                #if DEBUG
-                    print("MasterView, getCategories: getting categories for '\(self.settings.region)' from settings")
-                #endif
+		if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
+			#if DEBUG
+				print("MasterView, getCategories: getting categories for '\(self.settings.region)' from settings")
+			#endif
                 
-                if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
-                    let calendar = NSCalendar.currentCalendar()
-                    let comps = NSDateComponents()
-                    comps.day = 1
-                    let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
-                    let today = NSDate()
+			if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
+				let calendar = NSCalendar.currentCalendar()
+				let comps = NSDateComponents()
+				comps.day = 1
+				let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+				let today = NSDate()
                     
-                    #if DEBUG
-                        print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
-                    #endif
+				#if DEBUG
+					print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
+				#endif
                         
-                    if updatedPlusWeek!.isLessThanDate(today) {
-                        getCategoriesFromAPI()
-                        return
-                    }
-                }
+				if updatedPlusWeek!.isLessThanDate(today) {
+					getCategoriesFromAPI()
+					return
+				}
+			}
                 
-                self.settings.categories = categories
-                self.categories = categories
-                self.setCategories()
+			self.settings.categories = categories
+			self.categories = categories
+			self.setCategories()
                 
-                NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
+			NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
 
-                return
-            }
-//        }
+			return
+		}
         
         #if DEBUG
             print("MasterView, getCategories: getting categories for lang from API")
@@ -252,17 +252,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
                 let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-                
-                let defaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(archivedObject, forKey: "categoriesByLang")
+				self.defaults!.setObject(archivedObject, forKey: "categoriesByLang")
                 
                 self.settings.categoriesUpdatedByLang.updateValue(NSDate(), forKey: self.settings.region)
-                defaults.setObject(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")
+                self.defaults!.setObject(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")
                 #if DEBUG
                     print("categories updated, \(self.settings.categoriesUpdatedByLang[self.settings.region])")
                 #endif
                 
-                defaults.synchronize()
+                self.defaults!.synchronize()
                 
 //                #if DEBUG
 //                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")

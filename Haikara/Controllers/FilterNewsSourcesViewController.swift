@@ -21,7 +21,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	@IBOutlet weak var tableTitleView: UIView!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
-    var defaults = NSUserDefaults.standardUserDefaults()
+	var defaults: NSUserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FILTERED_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -32,6 +32,8 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.defaults = settings.defaults
 	
         self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
@@ -111,9 +113,6 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 
         let array = (newsSources as NSArray).filteredArrayUsingPredicate(searchPredicate)
         filteredTableData = array as! [NewsSources]
-		#if DEBUG
-//			print("search=\(searchController.searchBar.text), filteredTableData.count=\(filteredTableData.count)");
-		#endif
 
         self.tableView.reloadData()
 	}
@@ -175,7 +174,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		let removed = self.settings.removeSource(selectedNewsSource.sourceID)
 		self.newsSources[indexPath.row].selected = removed
         
-        defaults.setObject(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+        defaults!.setObject(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+		defaults!.synchronize()
+		
         self.tableView!.reloadData()
     }
 
@@ -227,17 +228,15 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
                 
                 self.settings.newsSourcesByLang.updateValue(self.settings.newsSources, forKey: self.settings.region)
                 let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-                
-                let defaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(archivedObject, forKey: "newsSourcesByLang")
+				self.defaults!.setObject(archivedObject, forKey: "newsSourcesByLang")
                 
                 self.settings.newsSourcesUpdatedByLang.updateValue(NSDate(), forKey: self.settings.region)
-                defaults.setObject(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
+                self.defaults!.setObject(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
                 #if DEBUG
                     print("news sources updated, \(self.settings.newsSourcesUpdatedByLang[self.settings.region])")
                 #endif
                 
-                defaults.synchronize()
+                self.defaults!.synchronize()
                 
 //                #if DEBUG
 //                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")

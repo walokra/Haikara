@@ -142,3 +142,6 @@
 
 /* Class = "UITableViewController"; title = "Select region"; ObjectID = "gRJ-o8-N5f"; */
 "gRJ-o8-N5f.title" = "Valitse alue";
+
+/* Class = "UILabel"; text = "Today Widget category"; ObjectID = "V4t-tY-j8p"; */
+"V4t-tY-j8p.text" = "Tänään-näkymän uutiset";

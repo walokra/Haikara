@@ -29,6 +29,7 @@
 		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
 		366D94C81C06547B00E84284 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */; };
+		36724BA71D5E647C0022C1E9 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */; };
 		36778F7B1B3760C000F387E0 /* Default-375w-667h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */; };
 		36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */; };
 		36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F721B3760C000F387E0 /* Default-568h@2x~iphone.png */; };
@@ -138,6 +139,7 @@
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		366D94C71C06547B00E84284 /* NewsSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSources.swift; sourceTree = "<group>"; };
 		366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterNewsSourcesViewController.swift; sourceTree = "<group>"; };
+		36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		36778F701B3760C000F387E0 /* Default-375w-667h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-667h@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F711B3760C000F387E0 /* Default-414w-736h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-414w-736h@3x~iphone.png"; sourceTree = "<group>"; };
 		36778F721B3760C000F387E0 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
@@ -158,7 +160,6 @@
 		367BAD2F1D1874FC00F6B949 /* highkara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = highkara.entitlements; sourceTree = "<group>"; };
 		367BAD301D18750E00F6B949 /* NewsWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewsWidget.entitlements; sourceTree = "<group>"; };
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
-		368E20801D5E3509009255B9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		368E20811D5E3837009255B9 /* RegionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionPickerViewController.swift; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
@@ -182,6 +183,7 @@
 		36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		36C1AFF11B2E32A400D87522 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewWrapperController.swift; sourceTree = "<group>"; };
+		36D442C71D5E60380035EC36 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */,
 				368E20811D5E3837009255B9 /* RegionPickerViewController.swift */,
 				36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */,
+				36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36724BA71D5E647C0022C1E9 /* CategoryPickerViewController.swift in Sources */,
 				36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */,
 				364E87301BDFEE5A003F2EE5 /* Shared.swift in Sources */,
 				3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */,
@@ -839,7 +843,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				36A39C131B2E0AE900BE0C77 /* Base */,
-				368E20801D5E3509009255B9 /* fi */,
+				36D442C71D5E60380035EC36 /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -864,13 +868,11 @@
 					"$(PROJECT_DIR)/build/Release-iphoneos",
 					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -897,6 +899,7 @@
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

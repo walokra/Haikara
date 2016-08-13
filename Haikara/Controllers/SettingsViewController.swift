@@ -18,12 +18,14 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderDesc: UILabel!
 	@IBOutlet weak var useDarkLabel: UILabel!
+	@IBOutlet weak var widgetCategoryLabel: UILabel!
 	@IBOutlet weak var regionLabel: UILabel!
 	
 	@IBOutlet weak var showDescSwitch: UISwitch!
 	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
 	@IBOutlet weak var useReaderViewSwitch: UISwitch!
 	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
+	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
 	@IBOutlet weak var regionDetailLabel: UILabel!
 
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
@@ -51,11 +53,9 @@ class SettingsViewController: UITableViewController {
 					
         	        self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
 	                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-                
-    	            let defaults = NSUserDefaults.standardUserDefaults()
-        	        defaults.setObject(archivedObject, forKey: "categoriesByLang")
-            	    defaults.synchronize()
-                
+        	        self.defaults!.setObject(archivedObject, forKey: "categoriesByLang")
+					self.defaults!.synchronize()
+					
                 	// Send notification to inform favorite & hide views to refresh
                 	NSNotificationCenter.defaultCenter().postNotificationName("settingsResetedNotification", object: nil, userInfo: nil)
 
@@ -87,8 +87,7 @@ class SettingsViewController: UITableViewController {
     }
 
     let settings = Settings.sharedInstance
-
-    var defaults = NSUserDefaults.standardUserDefaults()
+	var defaults: NSUserDefaults?
 
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
@@ -97,6 +96,17 @@ class SettingsViewController: UITableViewController {
 	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
 	
+	@IBAction func unwindWithSelectedTodayCategory(segue:UIStoryboardSegue) {
+  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
+    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
+			#if DEBUG
+            	print ("selectedTodayCategory \(selectedTodayCategory)")
+        	#endif
+		
+      		self.selectedTodayCategory = selectedTodayCategory
+  		}
+	}
+
 	@IBAction func unwindWithSelectedRegion(segue:UIStoryboardSegue) {
   		if let regionPickerViewController = segue.sourceViewController as? RegionPickerViewController,
     		selectedLanguage = regionPickerViewController.selectedLanguage {
@@ -105,9 +115,19 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "SelectTodayCategory" {
+  			if let categoryPickerViewController = segue.destinationViewController as? CategoryPickerViewController {
+				#if DEBUG
+            		print ("SelectTodayCategory \(selectedTodayCategory)")
+        		#endif
+				categoryPickerViewController.categories = self.categories
+    			categoryPickerViewController.selectedTodayCategory = selectedTodayCategory
+  			}
+		}
+		
 		if segue.identifier == "SelectLanguage" {
   			if let regionPickerViewController = segue.destinationViewController as? RegionPickerViewController {
-				regionPickerViewController.languages = languages
+				regionPickerViewController.languages = self.languages
     			regionPickerViewController.selectedLanguage = selectedLanguage
   			}
 		}
@@ -115,7 +135,8 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func showDescAction(sender: UISwitch) {
 		settings.showDesc = sender.on
-        defaults.setObject(settings.showDesc, forKey: "showDesc")
+        defaults!.setObject(settings.showDesc, forKey: "showDesc")
+		defaults!.synchronize()
         #if DEBUG
             print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
         #endif
@@ -123,7 +144,8 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func useMobileUrlAction(sender: UISwitch) {
         settings.useMobileUrl = sender.on
-        defaults.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
+        defaults!.setObject(settings.useMobileUrl, forKey: "useMobileUrl")
+		defaults!.synchronize()
         #if DEBUG
             print ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
         #endif
@@ -131,7 +153,8 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func useReaderViewAction(sender: UISwitch) {
 		settings.useReaderView = sender.on
-        defaults.setObject(settings.useReaderView, forKey: "useReaderView")
+        defaults!.setObject(settings.useReaderView, forKey: "useReaderView")
+		defaults!.synchronize()
         #if DEBUG
             print ("useReaderView \(settings.useReaderView), sender.on=\(sender.on)")
         #endif
@@ -139,8 +162,8 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func useDarkThemeAction(sender: UISwitch) {
 		settings.useDarkTheme = sender.on
-        defaults.setObject(settings.useDarkTheme, forKey: "useDarkTheme")
-
+        defaults!.setObject(settings.useDarkTheme, forKey: "useDarkTheme")
+		defaults!.synchronize()
         #if DEBUG
             print ("useDarkTheme \(settings.useDarkTheme), sender.on=\(sender.on)")
         #endif
@@ -151,7 +174,11 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.defaults = settings.defaults
+		
 		listLanguages()
+		self.categories = settings.categories
+		setSelectedTodayCategory()
 		setObservers()
 		setTheme()
 		
@@ -163,6 +190,8 @@ class SettingsViewController: UITableViewController {
 	
 	func setObservers() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+				
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTodayCategories(_:)), name: "categoriesRefreshedNotification", object: nil)
 	}
 	
 	func setTheme() {
@@ -180,15 +209,11 @@ class SettingsViewController: UITableViewController {
 		useReaderLabel.textColor = Theme.textColor
 		useReaderDesc.textColor = Theme.textColor
 		useDarkLabel.textColor = Theme.textColor
+		widgetCategoryLabel.textColor = Theme.textColor
 		resetLabel.textColor = Theme.textColor
 		resetButton.setTitleColor(Theme.textColor, forState: .Normal)
-//		countryPicker.backgroundColor = UIColor.darkGrayColor()
 		regionLabel.textColor = Theme.textColor
 		
-//		self.countryPicker.reloadAllComponents()
-
-//		self.tabBarController?.tabBar.barStyle = Theme.barStyle
-
 		self.tableView.reloadData()
 	}
 
@@ -199,6 +224,13 @@ class SettingsViewController: UITableViewController {
 		setTheme()
 	}
 	
+	func setTodayCategories(notification: NSNotification) {
+        #if DEBUG
+            print("SettingsViewController, Received regionChangedNotification")
+        #endif
+		setSelectedTodayCategory()
+	}
+
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
@@ -229,6 +261,36 @@ class SettingsViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 	
+	var categories = [Category]()
+	var selectedTodayCategory: Category? {
+		didSet {
+    		widgetCategoryDetailLabel.text? = selectedTodayCategory!.title
+		}
+	}
+	func setSelectedTodayCategory() {
+        dispatch_async(dispatch_get_main_queue()) {
+			if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
+				#if DEBUG
+					print("SettingsViewController, setting categories for '\(self.settings.region)' from settings")
+				#endif
+			
+				self.categories = categories
+			}
+
+	        var defaultRowIndex = 0
+	        for (index, element) in self.categories.enumerate() {
+	            let cat = element as Category
+	            if (cat.sectionID == self.settings.todayCategoryByLang[self.settings.region]?.sectionID) {
+	                defaultRowIndex = index
+	            }
+	        }
+	        #if DEBUG
+	            print("SettingsViewController, setTodayCategory=\(self.settings.todayCategoryByLang[self.settings.region]?.title), defaultRowIndex=\(defaultRowIndex)")
+        	#endif
+		    self.selectedTodayCategory = self.categories[defaultRowIndex]
+		}
+    }
+	
 	var languages = [Language]()
 	var selectedLanguage: Language? {
 		didSet {
@@ -238,13 +300,13 @@ class SettingsViewController: UITableViewController {
 
 	// The list of currently supported by the server. 
     func listLanguages(){
-        #if DEBUG
-            print("regionPickerView, listLanguages: self.settings.languages=\(self.settings.languages)")
-        #endif
-        
+//        #if DEBUG
+//            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
+//        #endif
+		
         if !self.settings.languages.isEmpty {
             #if DEBUG
-                print("regionPickerView, listLanguages: getting languages from settings")
+                print("SettingsViewController, listLanguages: getting languages from settings")
             #endif
             
             if let updated: NSDate = self.settings.languagesUpdated {
@@ -270,7 +332,7 @@ class SettingsViewController: UITableViewController {
         }
         
         #if DEBUG
-            print("regionPickerView, listLanguages: getting languages from API")
+            print("SettingsViewController, listLanguages: getting languages from API")
         #endif
         getLanguagesFromAPI()
     }
@@ -289,16 +351,15 @@ class SettingsViewController: UITableViewController {
                     
                     let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.languages as Array<Language>)
                     
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(archivedObject, forKey: "languages")
+                    self.defaults!.setObject(archivedObject, forKey: "languages")
                     
                     self.settings.languagesUpdated = NSDate()
-                    defaults.setObject(self.settings.languagesUpdated, forKey: "languagesUpdated")
+                    self.defaults!.setObject(self.settings.languagesUpdated, forKey: "languagesUpdated")
                     #if DEBUG
                         print("languages update, \(self.settings.languagesUpdated)")
                     #endif
                     
-                    defaults.synchronize()
+                    self.defaults!.synchronize()
                     
                     self.setSelectedRegion()
                     
@@ -321,7 +382,7 @@ class SettingsViewController: UITableViewController {
 	            }
 	        }
 	        #if DEBUG
-	            print("regionPickerView, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+	            print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
         	#endif
 		    self.selectedLanguage = self.languages[defaultRowIndex]
 		}
@@ -337,17 +398,6 @@ class SettingsViewController: UITableViewController {
         
         self.presentViewController(alertController, animated: true){}
     }
-	
-	
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 	// stop observing
     deinit {
