@@ -97,28 +97,27 @@ class SettingsViewController: UITableViewController {
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
 	
 	@IBAction func unwindWithSelectedTodayCategory(segue:UIStoryboardSegue) {
-  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
-    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
-			#if DEBUG
-            	print ("selectedTodayCategory \(selectedTodayCategory)")
-        	#endif
-		
-      		self.selectedTodayCategory = selectedTodayCategory
-  		}
+//  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
+//    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
+//				#if DEBUG
+//            		print ("selectedTodayCategory \(selectedTodayCategory)")
+//        		#endif
+//      		self.selectedTodayCategory = selectedTodayCategory
+//  		}
 	}
 
 	@IBAction func unwindWithSelectedRegion(segue:UIStoryboardSegue) {
-  		if let regionPickerViewController = segue.sourceViewController as? RegionPickerViewController,
-    		selectedLanguage = regionPickerViewController.selectedLanguage {
-      		self.selectedLanguage = selectedLanguage
-  		}
+//  		if let regionPickerViewController = segue.sourceViewController as? RegionPickerViewController,
+//    		selectedLanguage = regionPickerViewController.selectedLanguage {
+//      		self.selectedLanguage = selectedLanguage
+//  		}
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "SelectTodayCategory" {
   			if let categoryPickerViewController = segue.destinationViewController as? CategoryPickerViewController {
 				#if DEBUG
-            		print ("SelectTodayCategory \(selectedTodayCategory)")
+            		print ("prepareForSegue: SelectTodayCategory \(selectedTodayCategory)")
         		#endif
 				categoryPickerViewController.categories = self.categories
     			categoryPickerViewController.selectedTodayCategory = selectedTodayCategory
@@ -190,8 +189,9 @@ class SettingsViewController: UITableViewController {
 	
 	func setObservers() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-				
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setSelectedRegion(_:)), name: "regionChangedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTodayCategories(_:)), name: "categoriesRefreshedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTodayCategory(_:)), name: "todayCategoryChangedNotification", object: nil)
 	}
 	
 	func setTheme() {
@@ -224,12 +224,27 @@ class SettingsViewController: UITableViewController {
 		setTheme()
 	}
 	
-	func setTodayCategories(notification: NSNotification) {
+	func setSelectedRegion(notification: NSNotification) {
         #if DEBUG
             print("SettingsViewController, Received regionChangedNotification")
         #endif
-		setSelectedTodayCategory()
+		setSelectedRegion()
 	}
+	
+	func setTodayCategories(notification: NSNotification) {
+        #if DEBUG
+            print("SettingsViewController, Received categoriesRefreshedNotification")
+        #endif
+		setSelectedRegion() //setSelectedTodayCategory()
+	}
+	
+	func setTodayCategory(notification: NSNotification) {
+        #if DEBUG
+            print("SettingsViewController, Received todayCategoryChangedNotification")
+        #endif
+		self.selectedTodayCategory = self.settings.todayCategoryByLang[self.settings.region]
+	}
+
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
    		// Change the color of all cells
@@ -277,28 +292,30 @@ class SettingsViewController: UITableViewController {
 				self.categories = categories
 			}
 
-	        var defaultRowIndex = 0
-	        for (index, element) in self.categories.enumerate() {
-	            let cat = element as Category
-	            if (cat.sectionID == self.settings.todayCategoryByLang[self.settings.region]?.sectionID) {
-	                defaultRowIndex = index
-	            }
-	        }
+			var defaultRowIndex = 0
+			if (self.settings.todayCategoryByLang[self.settings.region] != nil) {
+				for (index, element) in self.categories.enumerate() {
+	            	let cat = element as Category
+	            	if (cat.sectionID == self.settings.todayCategoryByLang[self.settings.region]?.sectionID) {
+	            	    defaultRowIndex = index
+	            	}
+	        	}
+			}
+			
 	        #if DEBUG
 	            print("SettingsViewController, setTodayCategory=\(self.settings.todayCategoryByLang[self.settings.region]?.title), defaultRowIndex=\(defaultRowIndex)")
         	#endif
 		    self.selectedTodayCategory = self.categories[defaultRowIndex]
+			
+			self.settings.todayCategoryByLang.updateValue(self.selectedTodayCategory!, forKey: self.settings.region)
+        	let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(self.settings.todayCategoryByLang as Dictionary<String, Category>)
+        	self.defaults!.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+			self.defaults!.synchronize()
 		}
     }
 	
 	var languages = [Language]()
-	var selectedLanguage: Language? {
-		didSet {
-    		regionDetailLabel.text? = selectedLanguage!.country
-		}
-	}
-
-	// The list of currently supported by the server. 
+	// The list of currently supported by the server.
     func listLanguages(){
 //        #if DEBUG
 //            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
@@ -372,6 +389,11 @@ class SettingsViewController: UITableViewController {
         )
     }
 	
+	var selectedLanguage: Language? {
+		didSet {
+    		regionDetailLabel.text? = selectedLanguage!.country
+		}
+	}
 	func setSelectedRegion() {
         dispatch_async(dispatch_get_main_queue()) {
 	        var defaultRowIndex = 0
@@ -385,6 +407,7 @@ class SettingsViewController: UITableViewController {
 	            print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
         	#endif
 		    self.selectedLanguage = self.languages[defaultRowIndex]
+			self.setSelectedTodayCategory()
 		}
     }
 	

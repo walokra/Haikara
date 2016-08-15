@@ -158,7 +158,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		// self.tableFooter.hidden = true
 	
 		self.page = 1
-		getNews(self.page)
+		getNews(self.page, forceRefresh: true)
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
@@ -181,7 +181,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		self.presentViewController(alertController, animated: true){}
 	}
 	
-	func getNews(page: Int) {
+	func getNews(page: Int, forceRefresh: Bool) {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
             	#if DEBUG
@@ -199,7 +199,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
             	        print("DetailViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(updatedPlusMinute)")
             	    #endif
                 
-            	    if updatedPlusMinute!.isGreaterThanDate(today) {
+            	    if !forceRefresh && updatedPlusMinute!.isGreaterThanDate(today) {
 						#if DEBUG
             	        	print("DetailViewController, getNews: No need for updating entries")
             	    	#endif
@@ -378,7 +378,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		if (self.highFiSection == "favorites") {
 			getFavorites()
 		} else {
-			getNews(self.page)
+			getNews(self.page, forceRefresh: false)
 		}
 	}
 	
@@ -653,7 +653,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		if (maximumOffset - currentOffset) <= -80 {
 			if (!self.loading && self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
 				self.page += 1
-				self.getNews(page)
+				self.getNews(page, forceRefresh: true)
 			}
 		}
 		
@@ -779,7 +779,7 @@ extension DetailViewController: CategorySelectionDelegate {
 		if newCategory.htmlFilename == "favorites" {
 			getFavorites()
 		} else {
-			getNews(self.page)
+			getNews(self.page, forceRefresh: true)
 		}
 	}
 }

@@ -48,12 +48,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             self.region = defaultValues.region
         }
 		
-		if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
-            self.genericNewsURLPart = genericNewsURLPart
-        } else {
-            self.genericNewsURLPart = defaultValues.genericNewsURLPart
-        }
-		
         if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
             self.useMobileUrl = useMobileUrl
         } else {
@@ -66,6 +60,13 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
         if let unarchivedtodayCategoryByLang = defaults.objectForKey("todayCategoryByLang") as? NSData {
             self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+			self.selectedTodayCategoryName = self.todayCategoryByLang[self.region!]!.htmlFilename
+		} else {
+			if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
+            	self.selectedTodayCategoryName = genericNewsURLPart
+        	} else {
+            	self.selectedTodayCategoryName = defaultValues.genericNewsURLPart
+        	}
 		}
     }
 	
@@ -74,7 +75,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
 	let page: Int = 1
 	let maxNewsItems: Int = 5
-	var selectedTodayCategory: Category?
+	var selectedTodayCategoryName: String?
 
 	// Loading indicator
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
@@ -153,7 +154,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 				print("TodayViewController, setTodayCategory: \(category)")
 			#endif
 			
-			self.selectedTodayCategory = category
+			self.selectedTodayCategoryName = category.htmlFilename
 		}
 	}
 	
@@ -176,8 +177,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	}
 	
 	func getNews(page: Int) -> NCUpdateResult {
-		var htmlFilename = self.genericNewsURLPart!
-		
 		if (!self.loading) {
 			if !self.entries.isEmpty {
             	#if DEBUG
@@ -203,18 +202,12 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             	    }
             	}
         	}
-			self.setLoadingState(true)
-			var entries = Array<Entry>()
-			// with trailing closure we get the results that we passed the closure back in async function
-			if self.selectedTodayCategory != nil {
-				htmlFilename = self.selectedTodayCategory!.htmlFilename
-			}
 			
-			HighFiApi.getNews(self.page, section: htmlFilename,
+			self.setLoadingState(true)
+			// with trailing closure we get the results that we passed the closure back in async function
+			HighFiApi.getNews(self.page, section: self.selectedTodayCategoryName!,
 				completionHandler: { (result) in
-					entries = Array(result[0..<self.maxNewsItems])
-					
-					self.entries = entries
+					self.entries = Array(result[0..<self.maxNewsItems])
 		
 					self.tableView.reloadData()
 					self.resetContentSize()
