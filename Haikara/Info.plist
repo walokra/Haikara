@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.7</string>
+	<string>0.9.8</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>2</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -39,7 +39,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>nyheder2.dk</key>
+			<key>high.fi</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -53,7 +53,7 @@
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>high.fi</key>
+			<key>nyheder2.dk</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>

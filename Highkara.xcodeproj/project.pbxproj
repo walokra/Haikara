@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360619A71D60707600DAAA29 /* Pods_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360619A61D60707600DAAA29 /* Pods_Today.framework */; };
 		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */; };
-		361023991D2466B500303C76 /* Pods_NewsWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361023981D2466B500303C76 /* Pods_NewsWidget.framework */; };
-		3610239B1D2466BE00303C76 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3610239A1D2466BE00303C76 /* Pods_highkara.framework */; };
 		3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3610239C1D2466E200303C76 /* NotificationCenter.framework */; };
 		3611412A1B408A85001A6BA4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
 		3611412F1B409459001A6BA4 /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3611412E1B409459001A6BA4 /* InfoController.swift */; };
@@ -45,7 +44,6 @@
 		36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36778F871B37651000F387E0 /* iTunesArtwork@2x.png */; };
 		367BAD231D1874B600F6B949 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367BAD221D1874B600F6B949 /* TodayViewController.swift */; };
 		367BAD261D1874B600F6B949 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 367BAD241D1874B600F6B949 /* MainInterface.storyboard */; };
-		367BAD2A1D1874B600F6B949 /* NewsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367BAD1E1D1874B600F6B949 /* NewsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		367BAD371D18813200F6B949 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		367BAD381D18814900F6B949 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA621BEA6C1D00C5A0BD /* Entry.swift */; };
 		367BAD391D18815500F6B949 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
@@ -70,20 +68,15 @@
 		36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* DetailViewController.swift */; };
+		36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367BAD1E1D1874B600F6B949 /* Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */; };
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
+		C5672164EF67D5535E136A7F /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D26280F908A6CA38E502A4 /* Pods_highkara.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		367BAD281D1874B600F6B949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 367BAD1D1D1874B600F6B949;
-			remoteInfo = NewsWidget;
-		};
 		369AAEE81BF29DE10038EDA2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
@@ -98,16 +91,23 @@
 			remoteGlobalIDString = 36A39C081B2E0AE900BE0C77;
 			remoteInfo = Haikara;
 		};
+		36C3D6E01D60604B00CDF9E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 367BAD1D1D1874B600F6B949;
+			remoteInfo = Today;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		367BAD2E1D1874B600F6B949 /* Embed App Extensions */ = {
+		36C3D6E21D60604C00CDF9E9 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				367BAD2A1D1874B600F6B949 /* NewsWidget.appex in Embed App Extensions */,
+				36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,13 +115,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		236FD6AAB46AA84A42763FBC /* Pods-NewsWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget.release.xcconfig"; sourceTree = "<group>"; };
-		2EA55E4EAD6640FE96741861 /* Pods-highkara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.release.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.release.xcconfig"; sourceTree = "<group>"; };
+		2A90377F84F73A8CE32CA810 /* Pods-Today.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.debug.xcconfig"; sourceTree = "<group>"; };
+		360619A61D60707600DAAA29 /* Pods_Today.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Today.framework; path = "Pods/../build/Release-iphoneos/Pods_Today.framework"; sourceTree = "<group>"; };
 		36065CEC1B92522800AF0102 /* HighFiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighFiApi.swift; sourceTree = "<group>"; };
 		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideCategoryViewController.swift; sourceTree = "<group>"; };
-		361023981D2466B500303C76 /* Pods_NewsWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_NewsWidget.framework; path = "Pods/../build/Debug-iphoneos/Pods_NewsWidget.framework"; sourceTree = "<group>"; };
-		3610239A1D2466BE00303C76 /* Pods_highkara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_highkara.framework; path = "Pods/../build/Debug-iphoneos/Pods_highkara.framework"; sourceTree = "<group>"; };
 		3610239C1D2466E200303C76 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		361141291B408A85001A6BA4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3611412E1B409459001A6BA4 /* InfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
@@ -153,12 +151,12 @@
 		36778F7A1B3760C000F387E0 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		36778F861B37651000F387E0 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		36778F871B37651000F387E0 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		367BAD1E1D1874B600F6B949 /* NewsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		367BAD1E1D1874B600F6B949 /* Today.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Today.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		367BAD221D1874B600F6B949 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		367BAD251D1874B600F6B949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		367BAD271D1874B600F6B949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		367BAD2F1D1874FC00F6B949 /* highkara.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = highkara.entitlements; sourceTree = "<group>"; };
-		367BAD301D18750E00F6B949 /* NewsWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewsWidget.entitlements; sourceTree = "<group>"; };
+		367BAD301D18750E00F6B949 /* Today.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Today.entitlements; sourceTree = "<group>"; };
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
 		368E20811D5E3837009255B9 /* RegionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionPickerViewController.swift; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,8 +185,10 @@
 		36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		7C91AA5A334CFB74F38E0900 /* Pods-highkara.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.debug.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.debug.xcconfig"; sourceTree = "<group>"; };
-		FCFFAC4DE5F5D484183A55D5 /* Pods-NewsWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		3894E8CA1AD0A5C962C550EB /* Pods-highkara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.release.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.release.xcconfig"; sourceTree = "<group>"; };
+		89D26280F908A6CA38E502A4 /* Pods_highkara.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_highkara.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D509FF72088BC2A0C27D11CF /* Pods-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.release.xcconfig"; sourceTree = "<group>"; };
+		ED89E1F2F27FE701166B494F /* Pods-highkara.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.debug.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */,
-				361023991D2466B500303C76 /* Pods_NewsWidget.framework in Frameworks */,
+				360619A71D60707600DAAA29 /* Pods_Today.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3610239B1D2466BE00303C76 /* Pods_highkara.framework in Frameworks */,
+				C5672164EF67D5535E136A7F /* Pods_highkara.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,9 +229,9 @@
 		0370D6607F96A7F8D5340885 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				360619A61D60707600DAAA29 /* Pods_Today.framework */,
 				3610239C1D2466E200303C76 /* NotificationCenter.framework */,
-				3610239A1D2466BE00303C76 /* Pods_highkara.framework */,
-				361023981D2466B500303C76 /* Pods_NewsWidget.framework */,
+				89D26280F908A6CA38E502A4 /* Pods_highkara.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -339,15 +339,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		367BAD211D1874B600F6B949 /* NewsWidget */ = {
+		367BAD211D1874B600F6B949 /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				367BAD301D18750E00F6B949 /* NewsWidget.entitlements */,
+				367BAD301D18750E00F6B949 /* Today.entitlements */,
 				367BAD221D1874B600F6B949 /* TodayViewController.swift */,
 				367BAD241D1874B600F6B949 /* MainInterface.storyboard */,
 				367BAD271D1874B600F6B949 /* Info.plist */,
 				367BAD421D188B6300F6B949 /* TodayEntryCell.swift */,
 			);
+			name = Today;
 			path = NewsWidget;
 			sourceTree = "<group>";
 		};
@@ -367,7 +368,7 @@
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
 				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
 				369AAEE41BF29DE10038EDA2 /* HighkaraUITests */,
-				367BAD211D1874B600F6B949 /* NewsWidget */,
+				367BAD211D1874B600F6B949 /* Today */,
 				36A39C0A1B2E0AE900BE0C77 /* Products */,
 				0370D6607F96A7F8D5340885 /* Frameworks */,
 				F9B8CC90AA190563613F79C6 /* Pods */,
@@ -380,7 +381,7 @@
 				36A39C091B2E0AE900BE0C77 /* highkara.app */,
 				36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */,
 				369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */,
-				367BAD1E1D1874B600F6B949 /* NewsWidget.appex */,
+				367BAD1E1D1874B600F6B949 /* Today.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -443,10 +444,10 @@
 		F9B8CC90AA190563613F79C6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7C91AA5A334CFB74F38E0900 /* Pods-highkara.debug.xcconfig */,
-				2EA55E4EAD6640FE96741861 /* Pods-highkara.release.xcconfig */,
-				FCFFAC4DE5F5D484183A55D5 /* Pods-NewsWidget.debug.xcconfig */,
-				236FD6AAB46AA84A42763FBC /* Pods-NewsWidget.release.xcconfig */,
+				2A90377F84F73A8CE32CA810 /* Pods-Today.debug.xcconfig */,
+				D509FF72088BC2A0C27D11CF /* Pods-Today.release.xcconfig */,
+				ED89E1F2F27FE701166B494F /* Pods-highkara.debug.xcconfig */,
+				3894E8CA1AD0A5C962C550EB /* Pods-highkara.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -454,23 +455,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		367BAD1D1D1874B600F6B949 /* NewsWidget */ = {
+		367BAD1D1D1874B600F6B949 /* Today */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "NewsWidget" */;
+			buildConfigurationList = 367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "Today" */;
 			buildPhases = (
-				B3E6060956C727285AA78676 /* [CP] Check Pods Manifest.lock */,
+				1831E24A1222ECA213C9B913 /* [CP] Check Pods Manifest.lock */,
 				367BAD1B1D1874B600F6B949 /* Frameworks */,
 				367BAD1A1D1874B600F6B949 /* Sources */,
 				367BAD1C1D1874B600F6B949 /* Resources */,
-				0BA645639772DFDC318B9D9E /* [CP] Copy Pods Resources */,
+				7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */,
+				360619A31D6065CF00DAAA29 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewsWidget;
+			name = Today;
 			productName = NewsWidget;
-			productReference = 367BAD1E1D1874B600F6B949 /* NewsWidget.appex */;
+			productReference = 367BAD1E1D1874B600F6B949 /* Today.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		369AAEE21BF29DE10038EDA2 /* HighkaraUITests */ = {
@@ -495,18 +497,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36A39C281B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkara" */;
 			buildPhases = (
-				6A08E5398CF4CE0C49BBE03A /* [CP] Check Pods Manifest.lock */,
+				69B684C108F2EF749EFFCE0C /* [CP] Check Pods Manifest.lock */,
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C071B2E0AE900BE0C77 /* Resources */,
-				367BAD2E1D1874B600F6B949 /* Embed App Extensions */,
-				6FB2B074D3C8EA44D6179BF4 /* [CP] Embed Pods Frameworks */,
-				6F83F46AB88BF209BFA28A06 /* [CP] Copy Pods Resources */,
+				36C3D6E21D60604C00CDF9E9 /* Embed App Extensions */,
+				A05F0E712116715D6C7D586E /* [CP] Embed Pods Frameworks */,
+				8E90AB979042954A0B639816 /* [CP] Copy Pods Resources */,
+				360619A81D60724400DAAA29 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				367BAD291D1874B600F6B949 /* PBXTargetDependency */,
+				36C3D6E11D60604B00CDF9E9 /* PBXTargetDependency */,
 			);
 			name = highkara;
 			productName = Haikara;
@@ -588,7 +591,7 @@
 				36A39C081B2E0AE900BE0C77 /* highkara */,
 				36A39C1D1B2E0AE900BE0C77 /* highkaraTests */,
 				369AAEE21BF29DE10038EDA2 /* HighkaraUITests */,
-				367BAD1D1D1874B600F6B949 /* NewsWidget */,
+				367BAD1D1D1874B600F6B949 /* Today */,
 			);
 		};
 /* End PBXProject section */
@@ -650,22 +653,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BA645639772DFDC318B9D9E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NewsWidget/Pods-NewsWidget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6A08E5398CF4CE0C49BBE03A /* [CP] Check Pods Manifest.lock */ = {
+		1831E24A1222ECA213C9B913 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -680,7 +668,63 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6F83F46AB88BF209BFA28A06 /* [CP] Copy Pods Resources */ = {
+		360619A31D6065CF00DAAA29 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then \n    rm -fr Frameworks\nfi";
+		};
+		360619A81D60724400DAAA29 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/Today.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\n    rm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+		};
+		69B684C108F2EF749EFFCE0C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Today/Pods-Today-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E90AB979042954A0B639816 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -695,7 +739,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6FB2B074D3C8EA44D6179BF4 /* [CP] Embed Pods Frameworks */ = {
+		A05F0E712116715D6C7D586E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -708,21 +752,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B3E6060956C727285AA78676 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -797,11 +826,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		367BAD291D1874B600F6B949 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 367BAD1D1D1874B600F6B949 /* NewsWidget */;
-			targetProxy = 367BAD281D1874B600F6B949 /* PBXContainerItemProxy */;
-		};
 		369AAEE91BF29DE10038EDA2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
@@ -811,6 +835,11 @@
 			isa = PBXTargetDependency;
 			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
 			targetProxy = 36A39C1F1B2E0AE900BE0C77 /* PBXContainerItemProxy */;
+		};
+		36C3D6E11D60604B00CDF9E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 367BAD1D1D1874B600F6B949 /* Today */;
+			targetProxy = 36C3D6E01D60604B00CDF9E9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -853,10 +882,10 @@
 /* Begin XCBuildConfiguration section */
 		367BAD2B1D1874B600F6B949 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCFFAC4DE5F5D484183A55D5 /* Pods-NewsWidget.debug.xcconfig */;
+			baseConfigurationReference = 2A90377F84F73A8CE32CA810 /* Pods-Today.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = NewsWidget/NewsWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewsWidget/Today.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -882,12 +911,12 @@
 		};
 		367BAD2C1D1874B600F6B949 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 236FD6AAB46AA84A42763FBC /* Pods-NewsWidget.release.xcconfig */;
+			baseConfigurationReference = D509FF72088BC2A0C27D11CF /* Pods-Today.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = NewsWidget/NewsWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = NewsWidget/Today.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -979,7 +1008,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				PROVISIONING_PROFILE = "0bbb58c3-43d8-44c1-91b7-c424c2e07373";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1022,7 +1051,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
+				PROVISIONING_PROFILE = "0bbb58c3-43d8-44c1-91b7-c424c2e07373";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1031,13 +1060,12 @@
 		};
 		36A39C291B2E0AE900BE0C77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C91AA5A334CFB74F38E0900 /* Pods-highkara.debug.xcconfig */;
+			baseConfigurationReference = ED89E1F2F27FE701166B494F /* Pods-highkara.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
@@ -1050,7 +1078,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1059,13 +1087,12 @@
 		};
 		36A39C2A1B2E0AE900BE0C77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EA55E4EAD6640FE96741861 /* Pods-highkara.release.xcconfig */;
+			baseConfigurationReference = 3894E8CA1AD0A5C962C550EB /* Pods-highkara.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
@@ -1078,7 +1105,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1124,7 +1151,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "NewsWidget" */ = {
+		367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				367BAD2B1D1874B600F6B949 /* Debug */,

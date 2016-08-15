@@ -11,6 +11,6 @@ target 'highkara' do
 	#pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 end
 
-target 'NewsWidget' do
+target 'Today' do
 	shared_pods
 end
