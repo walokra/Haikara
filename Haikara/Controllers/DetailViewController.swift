@@ -15,6 +15,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
+	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
 	let settings = Settings.sharedInstance
 	let maxHeadlines: Int = 70
 	var page: Int = 1
@@ -182,10 +183,41 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func getNews(page: Int) {
 		if (!self.loading) {
+			if !self.entries.isEmpty {
+            	#if DEBUG
+            	    print("DetailViewController, getNews: checking if entries need refreshing")
+            	#endif
+            
+            	if let updated: NSDate = self.newsEntriesUpdatedByLang[self.settings.region] {
+            	    let calendar = NSCalendar.currentCalendar()
+            	    let comps = NSDateComponents()
+            	    comps.minute = 1
+            	    let updatedPlusMinute = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+            	    let today = NSDate()
+                
+            	    #if DEBUG
+            	        print("DetailViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(updatedPlusMinute)")
+            	    #endif
+                
+            	    if updatedPlusMinute!.isGreaterThanDate(today) {
+						#if DEBUG
+            	        	print("DetailViewController, getNews: No need for updating entries")
+            	    	#endif
+						self.refreshControl?.endRefreshing()
+						self.setLoadingState(false)
+            	        return
+            	    }
+            	}
+        	}
+		
 			self.setLoadingState(true)
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
+					self.newsEntriesUpdatedByLang[self.settings.region] = NSDate()
+                	#if DEBUG
+                    	print("newsEntries updated, \(self.newsEntriesUpdatedByLang[self.settings.region])")
+                	#endif
 					self.setNews(result)
 				}
 				, failureHandler: {(error)in

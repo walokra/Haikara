@@ -71,6 +71,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	// Variables
 	var entries = [Entry]()
+	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
 	let page: Int = 1
 	let maxNewsItems: Int = 5
 	var selectedTodayCategory: Category?
@@ -178,6 +179,30 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		var htmlFilename = self.genericNewsURLPart!
 		
 		if (!self.loading) {
+			if !self.entries.isEmpty {
+            	#if DEBUG
+            	    print("TodayViewController, getNews: checking if entries need refreshing")
+            	#endif
+            
+            	if let updated: NSDate = self.newsEntriesUpdatedByLang[self.region!] {
+            	    let calendar = NSCalendar.currentCalendar()
+            	    let comps = NSDateComponents()
+            	    comps.minute = 1
+            	    let updatedPlusMinute = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+            	    let today = NSDate()
+                
+            	    #if DEBUG
+            	        print("TodayViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(updatedPlusMinute)")
+            	    #endif
+                
+            	    if updatedPlusMinute!.isGreaterThanDate(today) {
+						#if DEBUG
+            	        	print("TodayViewController, getNews: No need for updating entries")
+            	    	#endif
+            	        return .NoData
+            	    }
+            	}
+        	}
 			self.setLoadingState(true)
 			var entries = Array<Entry>()
 			// with trailing closure we get the results that we passed the closure back in async function
