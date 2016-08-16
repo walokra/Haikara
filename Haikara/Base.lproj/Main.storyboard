@@ -253,14 +253,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-CT-x4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="A0k-0X-esF">
-                    <connections>
-                        <outlet property="delegate" destination="ZlS-SQ-8sA" id="2nw-Rq-6wi"/>
-                        <outlet property="searchContentsController" destination="ZlS-SQ-8sA" id="lk9-vY-DO3"/>
-                        <outlet property="searchResultsDataSource" destination="ZlS-SQ-8sA" id="JXb-RC-UO6"/>
-                        <outlet property="searchResultsDelegate" destination="ZlS-SQ-8sA" id="ugF-fh-JSq"/>
-                    </connections>
-                </searchDisplayController>
                 <searchDisplayController id="6oO-ze-egU">
                     <connections>
                         <outlet property="delegate" destination="ZlS-SQ-8sA" id="mS9-ll-uIs"/>
