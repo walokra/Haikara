@@ -140,11 +140,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.tableView.backgroundColor = Theme.backgroundColor
 		
 		createSettingsIconButton(Theme.tintColor)
-		if settings.categoriesFavorited[settings.region] != nil {
-            self.favoritesSelected = true
+		if settings.categoriesFavorited[settings.region] != nil && self.favoritesSelected {
 			createfavoritesIconButton(Theme.starColor)
         } else {
-            self.favoritesSelected = false
             createfavoritesIconButton(Theme.tintColor)
         }
 		self.tableView!.reloadData()
