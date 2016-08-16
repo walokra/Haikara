@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
@@ -29,7 +29,26 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	
     var newsSources = [NewsSources]()
 	var filteredTableData = [NewsSources]()
-
+	var searchText: String? = ""
+	
+	override func viewWillDisappear(animated: Bool) {
+    	super.viewWillDisappear(animated)
+		searchText = searchController.searchBar.text
+//    	searchController?.dismissViewControllerAnimated(false, completion: nil)
+		searchController.active = false
+//		searchController.searchBar.hidden = true
+  	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		if !(searchText?.isEmpty)! {
+			searchController.searchBar.text = searchText
+			searchController.active = true
+//			searchController.searchBar.hidden = false
+		}
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -52,7 +71,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         self.tableView!.delegate=self
         self.tableView.dataSource = self
 		
-		self.searchController = ({
+		searchController = ({
 			let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
 			controller.hidesNavigationBarDuringPresentation = false
@@ -62,11 +81,12 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             controller.searchBar.barTintColor = Theme.searchBarTintColor
             controller.searchBar.backgroundColor = Theme.backgroundColor
 			controller.searchBar.placeholder = searchPlaceholderText
-//            self.tableView.tableHeaderView = controller.searchBar
 			self.tableTitleView.addSubview(controller.searchBar)
             return controller
         })()
-
+		
+//		Hides searchController but leads to blank screen when view dismissed and coming up
+//		self.definesPresentationContext = true
     }
 	
 	func setObservers() {
@@ -107,6 +127,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     }
 	
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
+//		#if DEBUG
+//            print("updateSearchResultsForSearchController")
+//        #endif
 		filteredTableData.removeAll(keepCapacity: false)
 		
         let searchPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchController.searchBar.text! + "*")
