@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let splitViewController = self.window!.rootViewController as! UISplitViewController
 
+		let minimumWidth: CGFloat = min(CGRectGetWidth(splitViewController.view.bounds),CGRectGetHeight(splitViewController.view.bounds));
+		splitViewController.minimumPrimaryColumnWidth = minimumWidth / 2;
+		splitViewController.maximumPrimaryColumnWidth = minimumWidth;
+
         let leftNavController = splitViewController.viewControllers.first as! UINavigationController
         let masterViewController = leftNavController.topViewController as! MasterViewController
         

@@ -39,7 +39,7 @@
 "PJl-r6-mPm.text" = "Otsikko";
 
 /* Class = "UILabel"; text = "Powered by"; ObjectID = "PcG-uA-lGW"; */
-"PcG-uA-lGW.text" = "Powered by";
+"PcG-uA-lGW.text" = "Voimanlähteenä";
 
 /* Class = "UIViewController"; title = "Settings"; ObjectID = "PfJ-fU-JDr"; */
 "PfJ-fU-JDr.title" = "Asetukset";
