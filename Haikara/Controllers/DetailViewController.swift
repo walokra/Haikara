@@ -370,7 +370,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 75.0
+		tableView.estimatedRowHeight = 110.0
 	}
 	
 	func refresh(sender:AnyObject) {
@@ -528,8 +528,33 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		cell.entryDescription.textColor = Theme.cellDescriptionColor
 		
+		if settings.showNewsPicture {
+			if tableItem.picture != nil {
+				cell.entryImageWidthConstraint.constant = 100
+        		cell.entryTitleLeadingConstraint.constant = 10
+				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
+				let downloadURL = NSURL(string: tableItem.picture!)!
+				cell.entryImage!.af_setImageWithURL(
+					downloadURL,
+					placeholderImage: nil,
+					filter: nil,
+					imageTransition: .None)
+			} else {
+				cell.entryImage!.image = nil
+				cell.entryImage.frame = CGRectZero
+				cell.entryImageWidthConstraint.constant = 0
+        		cell.entryTitleLeadingConstraint.constant = 0
+			}
+		} else {
+			cell.entryImage!.image = nil
+			cell.entryImage.frame = CGRectZero
+			cell.entryImageWidthConstraint.constant = 0
+        	cell.entryTitleLeadingConstraint.constant = 0
+		}
+		
 		if tableItem.highlight == true {
-			cell.highlighted = true
+			cell.entryTitle.highlighted = true
+			cell.entryTitle.highlightedTextColor = Theme.tintColor
 		}
 		
 		cell.selectedBackgroundView = Theme.selectedCellBackground
@@ -539,7 +564,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		} else {
 			cell.backgroundColor = Theme.oddRowColor
 		}
-				
+		
+		cell.contentView.setNeedsLayout()
+    	cell.contentView.layoutIfNeeded()
+	
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 
         return cell

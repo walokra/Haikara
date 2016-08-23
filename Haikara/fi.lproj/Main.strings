@@ -145,3 +145,10 @@
 
 /* Class = "UILabel"; text = "Today Widget category"; ObjectID = "V4t-tY-j8p"; */
 "V4t-tY-j8p.text" = "Tänään-näkymän uutiset";
+
+/* Class = "UILabel"; text = "Show news pictures"; ObjectID = "2vp-lS-ROu"; */
+"2vp-lS-ROu.text" = "Näytä uutiskuvat";
+
+/* Class = "UILabel"; text = "Show thumbnail of the news picture"; ObjectID = "CxI-2K-WcY"; */
+"CxI-2K-WcY.text" = "Näytä uutiseen liittyvä kuva";
+

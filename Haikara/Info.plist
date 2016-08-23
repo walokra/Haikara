@@ -39,6 +39,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>auriro.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>high.fi</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>

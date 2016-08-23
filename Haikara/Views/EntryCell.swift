@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class EntryCell: UITableViewCell {
 
@@ -14,7 +15,10 @@ class EntryCell: UITableViewCell {
     @IBOutlet weak var entryTitle: UILabel!
     @IBOutlet weak var entryAuthor: UILabel!
     @IBOutlet weak var entryDescription: UILabel!
+	@IBOutlet weak var entryImage: UIImageView!
+	@IBOutlet weak var entryImageWidthConstraint: NSLayoutConstraint!
     
+	@IBOutlet weak var entryTitleLeadingConstraint: NSLayoutConstraint!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

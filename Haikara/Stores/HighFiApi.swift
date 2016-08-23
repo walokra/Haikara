@@ -74,18 +74,19 @@ public class HighFiApi {
                         clickTrackingLink: $0["clickTrackingLink"] as! String,
                         author: $0["author"] as! String,
                         publishedDateJS: $0["publishedDateJS"] as! String,
+                        picture: $0["picture"] as? String,
+                        originalPicture: $0["originalPicture"] as? String,
                         shortDescription: $0["shortDescription"] as? String,
                         originalURL: $0["originalURL"] as! String,
                         mobileLink: $0["mobileLink"] as? String,
                         originalMobileUrl: $0["originalMobileUrl"] as?	String,
                         shareURL: $0["shareURL"] as! String,
                         mobileShareURL: $0["mobileShareURL"] as? String,
-                        //	let picture: String?
-                        //	let originalPicture: String?
                         articleID: $0["articleID"] as! Int,
                         sectionID: $0["sectionID"] as! Int,
                         sourceID: $0["sourceID"] as! Int,
                         highlight: $0["highlight"] as! Bool,
+						highlightType: $0["highlightType"] as! String,
                         timeSince: "Juuri nyt",
 						orderNro: 0
                         )
