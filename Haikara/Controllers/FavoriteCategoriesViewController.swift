@@ -27,14 +27,18 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var tableView: UITableView!
     
     var categories = [Category]()
-    
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.defaults = settings.defaults
-		
-        self.tabBarController!.title = navigationItemTitle
-        self.navigationItem.title = navigationItemTitle
 		
 		setObservers()
 		setTheme()
@@ -68,6 +72,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
             print("FavoriteCategoriesView, Received themeChangedNotification")
         #endif
 		setTheme()
+		self.tableView.reloadData()
 	}
 	
     func setRegionCategory(notification: NSNotification) {

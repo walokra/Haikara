@@ -12,6 +12,13 @@ class SettingsViewWrapperController: UIViewController {
 
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+	}
+	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 	
@@ -27,8 +34,6 @@ class SettingsViewWrapperController: UIViewController {
 		Theme.loadTheme()
 		
 		self.view.backgroundColor = Theme.backgroundColor
-		self.tabBarController!.title = navigationItemTitle
-        self.navigationItem.title = navigationItemTitle
 		self.tabBarController?.tabBar.barStyle = Theme.barStyle
 	}
 

@@ -42,6 +42,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
+        self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+		
 		if !(searchText?.isEmpty)! {
 			searchController.searchBar.text = searchText
 			searchController.active = true
@@ -54,9 +57,6 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		
 		self.defaults = settings.defaults
 	
-        self.tabBarController!.title = navigationItemTitle
-        self.navigationItem.title = navigationItemTitle
-		
 		setObservers()
 		setTheme()
 		
@@ -107,6 +107,12 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             print("FilterNewsSourcesViewController, Received themeChangedNotification")
         #endif
 		setTheme()
+		
+		searchController.searchBar.barStyle = Theme.barStyle
+        searchController.searchBar.barTintColor = Theme.searchBarTintColor
+		searchController.searchBar.backgroundColor = Theme.backgroundColor
+		
+		self.tableView.reloadData()
 	}
     
     func setRegionNewsSources(notification: NSNotification) {

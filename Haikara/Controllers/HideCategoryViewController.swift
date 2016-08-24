@@ -16,9 +16,9 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
 	
-	@IBOutlet weak var titleView: UILabel!
+	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var tableTitleLabel: UILabel!
-	@IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
 	
     let settings = Settings.sharedInstance
     var defaults: NSUserDefaults?
@@ -28,15 +28,18 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
     var categories = [Category]()
-    
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		self.tabBarController!.title = navigationItemTitle
+        self.navigationItem.title = navigationItemTitle
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.defaults = settings.defaults
-
-		self.tableTitleLabel.text = tableTitle
-        self.tabBarController!.title = navigationItemTitle
-        self.navigationItem.title = navigationItemTitle
 				
 		setObservers()
 		setTheme()
@@ -70,6 +73,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
             print("HideCategoriesView, Received themeChangedNotification")
         #endif
 		setTheme()
+		self.tableView.reloadData()
 	}
     
     func setRegionCategory(notification: NSNotification) {
