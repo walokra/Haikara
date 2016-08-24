@@ -928,19 +928,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="copyright" text="Highkara version by Marko Wallin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inR-1W-EPg">
                                                     <rect key="frame" x="5" y="4" width="311" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Open Source, MIT licensed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBq-8u-25y">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Source, MIT licensed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBq-8u-25y">
                                                     <rect key="frame" x="5" y="20" width="311" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="inR-1W-EPg" firstAttribute="centerX" secondItem="FtT-4t-dkk" secondAttribute="centerX" id="UgC-0o-XH7"/>
+                                                <constraint firstItem="HBq-8u-25y" firstAttribute="top" secondItem="inR-1W-EPg" secondAttribute="bottom" constant="1" id="XyB-LB-yaQ"/>
+                                                <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="FtT-4t-dkk" secondAttribute="leadingMargin" constant="-3" id="fux-zj-o8u"/>
+                                                <constraint firstItem="inR-1W-EPg" firstAttribute="top" secondItem="FtT-4t-dkk" secondAttribute="topMargin" constant="-4" id="jTG-Lg-d8B"/>
+                                                <constraint firstItem="inR-1W-EPg" firstAttribute="trailing" secondItem="HBq-8u-25y" secondAttribute="trailing" id="peP-zH-dB4"/>
+                                                <constraint firstItem="inR-1W-EPg" firstAttribute="leading" secondItem="HBq-8u-25y" secondAttribute="leading" id="qgs-lA-0A1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="8Vu-Rv-AlN">
