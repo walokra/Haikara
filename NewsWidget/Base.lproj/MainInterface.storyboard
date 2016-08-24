@@ -8,31 +8,31 @@
         <!--TodayWidget-->
         <scene sceneID="6eZ-R8-ekF">
             <objects>
-                <tableViewController storyboardIdentifier="TodayViewController" title="TodayWidget" id="bif-Jq-892" customClass="TodayViewController" customModule="NewsWidget" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" id="NJ6-SD-fGY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                <tableViewController storyboardIdentifier="TodayViewController" title="TodayWidget" id="bif-Jq-892" customClass="TodayViewController" customModule="Today" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="33" sectionHeaderHeight="28" sectionFooterHeight="28" id="NJ6-SD-fGY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="30" id="X2u-51-6eg" customClass="TodayEntryCell" customModule="NewsWidget" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="30"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="33" id="X2u-51-6eg" customClass="TodayEntryCell" customModule="Today" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X2u-51-6eg" id="6Lw-ck-tsQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxD-z9-k7m">
-                                            <rect key="frame" x="8" y="4" width="304" height="21"/>
+                                            <rect key="frame" x="8" y="0.0" width="304" height="25"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="V1B-Oa-PCj"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="topMargin" constant="-4" id="XFz-aD-Sbx"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="-3" id="dvC-Lr-4Gy"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="jlU-t6-BbV"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="gLe-NR-sZl"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="hKD-H1-pKa"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="top" id="kRK-Vc-bnP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="-0.5" id="xdb-AV-UAa"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -46,7 +46,7 @@
                         </connections>
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="150"/>
+                    <size key="freeformSize" width="320" height="180"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2U-fH-XIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
