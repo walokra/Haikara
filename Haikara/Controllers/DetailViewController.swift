@@ -93,12 +93,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			if #available(iOS 9.0, *) {
 				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 				svc.view.tintColor = Theme.tintColor
-				self.presentViewController(svc, animated: true, completion: nil)
-				
-				// TODO
-//				HighFiApi.trackNewsClick(entry.clickTrackingLink)
+				self.presentViewController(svc, animated: true, completion: nil)				
 			} else {
-				// Fallback on earlier versions
+				#if DEBUG
+					print("Fallback on earlier versions")
+				#endif
+				let vc = NewsItemViewController()
+				vc.loadWebView(webURL!)
+				self.navigationController?.pushViewController(vc, animated: true)
 			}
     	}
 	}
