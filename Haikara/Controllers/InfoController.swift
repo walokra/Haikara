@@ -73,7 +73,7 @@ class InfoController: UIViewController {
 		self.view.backgroundColor = Theme.backgroundColor
 		
 		aboutLabel.textColor = Theme.textColor
-		licenseLabel.textColor = Theme.textColor
+		licenseLabel.textColor = Theme.Dark.textColor
 		appStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		poweredByLabel.textColor = Theme.textColor
 		poweredByButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
@@ -82,7 +82,7 @@ class InfoController: UIViewController {
 		openTwitterButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		openEmailButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 
-		infoLabel.textColor = Theme.textColor
+		infoLabel.textColor = Theme.Dark.textColor
     }
 
     override func didReceiveMemoryWarning() {
