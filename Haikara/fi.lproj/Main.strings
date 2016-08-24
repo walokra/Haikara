@@ -14,9 +14,6 @@
 /* Class = "UILabel"; text = "Highkara news reader is unofficial client for High.fi news aggregator and provides functionality for reading news from several medias and regions. The app is similar to Ampparit."; ObjectID = "Br1-A7-SMo"; */
 "Br1-A7-SMo.text" = "Highkara uutislukija on sovellus uutisten seuraamiseen. Sovellus hakee uutiset High.fi -uutisportaalista ja sisältää mahdollisuuden aihealueittain järjestettyjen uutisotsikoiden ja kuvausten lukemiseen sekä kotimaisista että ulkomaisista uutislähteistä. Idealtaan sovellus on vastaava kuin Ampparit.";
 
-/* Class = "UILabel"; text = "Feedback and support"; ObjectID = "Dqu-lY-gQF"; */
-"Dqu-lY-gQF.text" = "Palaute ja tuki";
-
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "EcW-zt-JmI"; */
 "EcW-zt-JmI.title" = " ";
 
@@ -37,9 +34,6 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "PJl-r6-mPm"; */
 "PJl-r6-mPm.text" = "Otsikko";
-
-/* Class = "UILabel"; text = "Powered by"; ObjectID = "PcG-uA-lGW"; */
-"PcG-uA-lGW.text" = "Voimanlähteenä";
 
 /* Class = "UIViewController"; title = "Settings"; ObjectID = "PfJ-fU-JDr"; */
 "PfJ-fU-JDr.title" = "Asetukset";
@@ -95,9 +89,6 @@
 /* Class = "UIButton"; normalTitle = "High.fi"; ObjectID = "hch-WQ-bjL"; */
 "hch-WQ-bjL.normalTitle" = "High.fi";
 
-/* Class = "UINavigationItem"; title = "About"; ObjectID = "i05-GV-4cH"; */
-"i05-GV-4cH.title" = "Tietoa";
-
 /* Class = "UILabel"; text = "Highkara version by Marko Wallin"; ObjectID = "inR-1W-EPg"; */
 "inR-1W-EPg.text" = "Highkara version by Marko Wallin";
 
@@ -149,6 +140,16 @@
 /* Class = "UILabel"; text = "Show news pictures"; ObjectID = "2vp-lS-ROu"; */
 "2vp-lS-ROu.text" = "Näytä uutiskuvat";
 
+/* Class = "UITableViewController"; title = "About"; ObjectID = "7Ip-RJ-ZQI"; */
+"7Ip-RJ-ZQI.title" = "Tietoa";
+
 /* Class = "UILabel"; text = "Show thumbnail of the news picture"; ObjectID = "CxI-2K-WcY"; */
 "CxI-2K-WcY.text" = "Näytä uutiseen liittyvä kuva";
+
+/* Class = "UITableViewSection"; headerTitle = "Feedback and support"; ObjectID = "jTw-dJ-MSF"; */
+"jTw-dJ-MSF.headerTitle" = "Palaute ja tuki";
+
+/* Class = "UITableViewSection"; headerTitle = "Powered by"; ObjectID = "X7T-MZ-AVO"; */
+"X7T-MZ-AVO.headerTitle" = "Voimanlähteenä";
+
 

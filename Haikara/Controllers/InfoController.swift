@@ -8,50 +8,47 @@
 
 import UIKit
 
-class InfoController: UIViewController {
+class InfoController: UITableViewController {
 
-	@IBOutlet weak var aboutLabel: UILabel!
+	@IBOutlet weak var infoLabel: UILabel!
 	@IBOutlet weak var licenseLabel: UILabel!
+	@IBOutlet weak var aboutLabel: UILabel!
 
-	@IBOutlet weak var openAppStoreCell: UICollectionViewCell!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBAction func openHighFi(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
-    }
+	@IBOutlet weak var openHighFiButton: UIButton!
+	@IBAction func openHighFi(sender: AnyObject) {
+		UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
+	}
 
-	@IBOutlet weak var appStoreButton: UIButton!
-	@IBAction func openAppStore(sender: UIButton) {
+	@IBOutlet weak var openAppStoreButton: UIButton!
+	@IBAction func openAppStore(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
-	
+
 	@IBOutlet weak var openTwitterButton: UIButton!
 	@IBAction func openTwitter(sender: AnyObject) {
-		let url = NSURL(string: "twitter://user?screen_name=walokra")
+	let url = NSURL(string: "twitter://user?screen_name=walokra")
 		if UIApplication.sharedApplication().canOpenURL(url!) {
 			UIApplication.sharedApplication().openURL(url!)
 		} else {
 	        UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/walokra")!)
 		}
 	}
-	
+
 	@IBOutlet weak var bugsButton: UIButton!
-	@IBAction func bugsButtonAction(sender: AnyObject) {
+	@IBAction func openBugs(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "https://github.com/walokra/haikara/issues")!)
 	}
-	
+
 	@IBOutlet weak var openEmailButton: UIButton!
 	@IBAction func openEmail(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "mailto:marko.wallin@iki.fi")!)
 	}
-	
-	@IBOutlet weak var poweredByLabel: UILabel!
-	@IBOutlet weak var poweredByButton: UIButton!
-	@IBOutlet weak var feedbackLabel: UILabel!
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
 		setObservers()
+		configureTableView()
 		
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 		
@@ -73,32 +70,49 @@ class InfoController: UIViewController {
 		self.view.backgroundColor = Theme.backgroundColor
 		
 		aboutLabel.textColor = Theme.textColor
-		licenseLabel.textColor = Theme.Dark.textColor
-		appStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		poweredByLabel.textColor = Theme.textColor
-		poweredByButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		feedbackLabel.textColor = Theme.textColor
+		licenseLabel.textColor = Theme.textColor
+		openAppStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		openHighFiButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		bugsButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		openTwitterButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		openEmailButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 
-		infoLabel.textColor = Theme.Dark.textColor
+		infoLabel.textColor = Theme.textColor
     }
 
+	func configureTableView() {
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = 75.0
+	}
+	
+	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+   		// Change the color of all cells
+   		cell.backgroundColor = Theme.backgroundColor
+		cell.textLabel!.textColor = Theme.cellTitleColor
+		
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+		cell.selectionStyle = .None
+	}
+
+	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 44))
+
+		headerView.tintColor = Theme.sectionColor
+		headerView.backgroundColor = Theme.sectionColor
+		
+		var sectionLabel: UILabel
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 22))
+		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+		sectionLabel.textColor = Theme.sectionTitleColor
+		sectionLabel.font = UIFont.systemFontOfSize(17)
+		headerView.addSubview(sectionLabel)
+		
+    	return headerView
+	}
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
