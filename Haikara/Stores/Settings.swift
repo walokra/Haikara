@@ -21,7 +21,6 @@ struct Defaults {
 	let useMobileUrl: Bool
 	let useReaderView: Bool
 	let useDarkTheme: Bool
-	let showNewsPicture: Bool
 	let region: String
 }
 
@@ -37,7 +36,6 @@ class Settings {
 			useMobileUrl: true,
 			useReaderView: false,
 			useDarkTheme: false,
-			showNewsPicture: false,
 			region: "Finland"
 		)
     
@@ -71,10 +69,7 @@ class Settings {
 
         self.useDarkTheme = defaultValues.useDarkTheme
         defaults.setObject(self.useDarkTheme, forKey: "useDarkTheme")
-		
-		self.showNewsPicture = defaultValues.showNewsPicture
-        defaults.setObject(self.showNewsPicture, forKey: "showNewsPicture")
-		
+        
         self.region = defaultValues.region
         defaults.setObject(self.region, forKey: "region")
         
@@ -151,7 +146,6 @@ class Settings {
     var useMobileUrl: Bool // Prefer mobile optimized URLs
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
 	var useDarkTheme: Bool // Use Dark Theme
-	var showNewsPicture: Bool // Show News Picture
     var region: String // http://high.fi/api/?act=listLanguages
 
     var languagesUpdated = NSDate()
@@ -254,12 +248,6 @@ class Settings {
         } else {
             self.useDarkTheme = defaultValues.useDarkTheme
         }
-		
-		if let showNewsPicture: Bool = defaults.objectForKey("showNewsPicture") as? Bool {
-            self.showNewsPicture = showNewsPicture
-        } else {
-            self.showNewsPicture = defaultValues.showNewsPicture
-        }
         
         if let region: String = defaults.objectForKey("region") as? String {
             self.region = region
@@ -334,7 +322,7 @@ class Settings {
     }
     
     var description: String {
-        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region])"
+        return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region])"
     }
 	
 	func removeSource(sourceID: Int) -> Bool {

@@ -4,7 +4,6 @@ use_frameworks!
 
 def shared_pods
 	pod 'Alamofire', '~> 2.0'
-	pod 'AlamofireImage', '~> 1.1'
 end
 
 target 'highkara' do

@@ -29,7 +29,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			useMobileUrl: true,
 			useReaderView: false,
 			useDarkTheme: false,
-			showNewsPicture: false,
 			region: "Finland"
 		)
 	
