@@ -44,19 +44,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+	// iOS 8
+	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+		return parseAndOpenUrl(url)
+	}
+	
+	// iOS 9
 	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-    	let url = url.standardizedURL
+		return parseAndOpenUrl(url)
+	}
+	
+	func parseAndOpenUrl(url: NSURL) -> Bool {
+		let url = url.standardizedURL
 		let urlString = url!.absoluteString
 		let host = url!.host
-//    	let query = url!.query
-//    	let openUrlPath = url!.path
 
 		#if DEBUG
             print("openURL, url=\(url)")
 			print("openURL, urlString=\(urlString)")
 			print("openURL, host=\(host)")
-//			print("openURL, openUrlPath=\(openUrlPath)")
-//			print("openURL, query=\(query)")
         #endif
 		
 		if host!.rangeOfString("article") != nil {
@@ -71,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		return false
+
 	}
 
 	func setObservers() {
