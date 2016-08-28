@@ -18,13 +18,19 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderDesc: UILabel!
 	@IBOutlet weak var useDarkLabel: UILabel!
+	@IBOutlet weak var showNewsPictureLabel: UILabel!
+	
+	@IBOutlet weak var showNewsPictureDesc: UILabel!
+
 	@IBOutlet weak var widgetCategoryLabel: UILabel!
 	@IBOutlet weak var regionLabel: UILabel!
-	
+
 	@IBOutlet weak var showDescSwitch: UISwitch!
 	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
 	@IBOutlet weak var useReaderViewSwitch: UISwitch!
 	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
+	@IBOutlet weak var showNewsPictureSwitch: UISwitch!
+
 	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
 	@IBOutlet weak var regionDetailLabel: UILabel!
 
@@ -170,6 +176,17 @@ class SettingsViewController: UITableViewController {
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 	}
 
+	@IBAction func showNewsPictureAction(sender: UISwitch) {
+		settings.showNewsPicture = sender.on
+        defaults!.setObject(settings.showNewsPicture, forKey: "showNewsPicture")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("showNewsPicture \(settings.showNewsPicture), sender.on=\(sender.on)")
+        #endif
+		
+		NSNotificationCenter.defaultCenter().postNotificationName("showNewsPictureChangedNotification", object: nil, userInfo: nil)
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -184,7 +201,8 @@ class SettingsViewController: UITableViewController {
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
-		useDarkThemeSwitch.on = settings.useDarkTheme		
+		useDarkThemeSwitch.on = settings.useDarkTheme
+		showNewsPictureSwitch.on = settings.showNewsPicture
     }
 	
 	func setObservers() {
@@ -209,6 +227,9 @@ class SettingsViewController: UITableViewController {
 		useReaderLabel.textColor = Theme.textColor
 		useReaderDesc.textColor = Theme.textColor
 		useDarkLabel.textColor = Theme.textColor
+		showNewsPictureLabel.textColor = Theme.textColor
+		showNewsPictureDesc.textColor = Theme.textColor
+
 		widgetCategoryLabel.textColor = Theme.textColor
 		resetLabel.textColor = Theme.textColor
 		resetButton.setTitleColor(Theme.textColor, forState: .Normal)

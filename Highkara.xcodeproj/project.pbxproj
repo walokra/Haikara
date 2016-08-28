@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C8B597B6687BAE39951C27F /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC72317FAA600B0AAAB12800 /* Pods_highkara.framework */; };
+		01E39FBD668EAFE41EF8DAA8 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C65D998B675CC69B6350E9 /* Pods_highkara.framework */; };
+		352939527509FB4E50463479 /* Pods_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5B6E2F5756DA5FA7474D9E /* Pods_Today.framework */; };
 		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */; };
@@ -73,7 +74,6 @@
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
-		EA8EC9AEBC3FD73A49875907 /* Pods_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80242110799E0E72A666B43A /* Pods_Today.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,8 +185,8 @@
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3894E8CA1AD0A5C962C550EB /* Pods-highkara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.release.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.release.xcconfig"; sourceTree = "<group>"; };
-		80242110799E0E72A666B43A /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC72317FAA600B0AAAB12800 /* Pods_highkara.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_highkara.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B5B6E2F5756DA5FA7474D9E /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C65D998B675CC69B6350E9 /* Pods_highkara.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_highkara.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D509FF72088BC2A0C27D11CF /* Pods-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.release.xcconfig"; sourceTree = "<group>"; };
 		ED89E1F2F27FE701166B494F /* Pods-highkara.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.debug.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,7 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */,
-				EA8EC9AEBC3FD73A49875907 /* Pods_Today.framework in Frameworks */,
+				352939527509FB4E50463479 /* Pods_Today.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C8B597B6687BAE39951C27F /* Pods_highkara.framework in Frameworks */,
+				01E39FBD668EAFE41EF8DAA8 /* Pods_highkara.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,8 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				3610239C1D2466E200303C76 /* NotificationCenter.framework */,
-				80242110799E0E72A666B43A /* Pods_Today.framework */,
-				BC72317FAA600B0AAAB12800 /* Pods_highkara.framework */,
+				6B5B6E2F5756DA5FA7474D9E /* Pods_Today.framework */,
+				75C65D998B675CC69B6350E9 /* Pods_highkara.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -465,6 +465,7 @@
 				367BAD1C1D1874B600F6B949 /* Resources */,
 				7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */,
 				360619A31D6065CF00DAAA29 /* ShellScript */,
+				C6543354B49E0609C5160B74 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -752,6 +753,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6543354B49E0609C5160B74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Today/Pods-Today-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
