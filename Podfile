@@ -5,6 +5,7 @@ use_frameworks!
 def shared_pods
 	pod 'Alamofire', '~> 3.4'
 	pod 'AlamofireImage', '~> 2.0'
+	pod 'Google/Analytics'
 end
 
 target 'highkara' do

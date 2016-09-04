@@ -30,7 +30,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			useReaderView: false,
 			useDarkTheme: false,
 			showNewsPicture: false,
-			region: "Finland"
+			region: "Finland",
+			optOutAnalytics: false
 		)
 	
 	var region: String? // http://high.fi/api/?act=listLanguages
@@ -97,7 +98,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         super.viewDidLoad()
 		
 		initSettings()
-//		setObservers()
 		setTheme()
 		
 		setLoadingIndicator()
@@ -134,17 +134,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		}
 	}
 	
-//	func setObservers() {
-//		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TodayViewController.setTodayCategory(_:)), name: "todayCategoryChangedNotification", object: nil)
-//	}
-//	
-//	func setTodayCategory(notification: NSNotification) {
-//        #if DEBUG
-//            print("TodayViewController, Received todayCategoryChangedNotification")
-//        #endif
-//		setTheme()
-//	}
-	
 	func setTodayCategory() {
 		#if DEBUG
 			print("TodayViewController, setTodayCategory: getting today category for '\(self.region)' from settings")
@@ -166,7 +155,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	func handleError(error: String) {
 		#if DEBUG
-			print("handleError, error: \(error)")
+			print("TodayViewController, handleError, error: \(error)")
 		#endif
 		
 		self.setLoadingState(false)

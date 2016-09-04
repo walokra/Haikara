@@ -12,6 +12,8 @@ import SafariServices
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
 
     let animator = SCModalPushPopAnimator()
+	
+	let viewName = "MainView"
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
@@ -52,6 +54,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// MARK: Lifecycle
 	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		sendScreenView(viewName)
+//	}
+	
     override func viewDidLoad() {
 		#if DEBUG
 			print("viewDidLoad()")
@@ -68,6 +75,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		setObservers()
 		setTheme()
 		setLoadingIndicator()
+		sendScreenView(viewName)
 		
 		if navigationItemTitle.isEmpty {
 			self.navigationItemTitle = settings.latestName
@@ -75,7 +83,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		initView()
 		
-		// Reset delegates url after we've opened it 
+		// Reset delegates url after we've opened it
     	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
     	if (delegate?.openUrl) != nil {
         	delegate?.openUrl = nil
@@ -91,6 +99,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#endif
 			
 			if #available(iOS 9.0, *) {
+				self.trackEvent("handleOpenURL", category: "ui_Event", action: "handleOpenURL", label: "main", value: 9)
+			
 				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 				svc.view.tintColor = Theme.tintColor
 				self.presentViewController(svc, animated: true, completion: nil)				
@@ -98,6 +108,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				#if DEBUG
 					print("Fallback on earlier versions")
 				#endif
+				self.trackEvent("handleOpenURL", category: "ui_Event", action: "handleOpenURL", label: "main", value: 8)
+				
 				let vc = NewsItemViewController()
 				vc.loadWebView(webURL!)
 				self.navigationController?.pushViewController(vc, animated: true)
@@ -170,7 +182,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func handleError(error: String) {
 		#if DEBUG
-			print("handleError, error: \(error)")
+			print("DetailViewController, handleError, error: \(error)")
 		#endif
 		
 		self.refreshControl?.endRefreshing()
@@ -406,6 +418,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("iOS 9.0, *")
 			#endif
+			self.trackEvent("openURL", category: "ui_Event", action: "openURL", label: "main", value: 9)
+		
 			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
 			svc.view.tintColor = Theme.tintColor
 			self.presentViewController(svc, animated: true, completion: nil)
@@ -413,6 +427,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("Fallback on earlier versions")
 			#endif
+			self.trackEvent("openURL", category: "ui_Event", action: "openURL", label: "main", value: 8)
+			
 			let vc = NewsItemViewController()
 			vc.title = tableItem.title
 			vc.loadWebView(webURL!)
@@ -597,6 +613,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(tableItem.mobileShareURL)")
 			#endif
 			
+			self.trackEvent("shareAction", category: "ui_Event", action: "shareAction", label: "main", value: 1)
+			
 			let objectsToShare = [tableItem.title, webURL!]
 			let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 			
@@ -619,7 +637,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				#if DEBUG
 					print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
 				#endif
+				
+				self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "main", value: tableItem.sourceID)
+
 				self.settings.removeSource(tableItem.sourceID)
+				
 				tableView.editing = false
 				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
 			}))
@@ -648,6 +670,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				print("browser, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
 				print("browser, webURL=\(webURL)")
 			#endif
+			
+			self.trackEvent("externalBrowser", category: "ui_Event", action: "externalBrowser", label: "main", value: 1)
 			
 			// Open news item in external browser, like Safari
 			UIApplication.sharedApplication().openURL(webURL!)

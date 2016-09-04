@@ -11,6 +11,8 @@ import WebKit
 
 class NewsItemViewController: UIViewController {
 
+	let viewName = "NewsItemView"
+
     @IBOutlet var containerView: UIView? = nil
     var webView: WKWebView?
 

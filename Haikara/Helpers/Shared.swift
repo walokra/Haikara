@@ -21,6 +21,28 @@ extension NSDate
 
 }
 
+extension UIViewController {
+    func sendScreenView(viewName: String) {
+		let gai = GAI.sharedInstance()
+		if !gai.optOut {
+    	    let tracker = gai.defaultTracker
+    	    tracker.set(kGAIScreenName, value: viewName)
+    	    let builder = GAIDictionaryBuilder.createScreenView()
+    	    tracker.send(builder.build() as [NSObject : AnyObject])
+		}
+    }
+
+    func trackEvent(event: String, category: String, action: String, label: String, value: NSNumber?) {
+		let gai = GAI.sharedInstance()
+		if !gai.optOut {
+			let tracker = gai.defaultTracker
+			tracker.set(kGAIEvent, value: event)
+        	let trackDictionary = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value)
+        	tracker.send(trackDictionary.build() as [NSObject : AnyObject])
+		}
+    }
+}
+
 class Shared: NSObject {
 
 	static func hideWhiteSpaceBeforeCell(tableView: UITableView, cell: UITableViewCell) {
@@ -38,5 +60,4 @@ class Shared: NSObject {
 			cell.preservesSuperviewLayoutMargins = false
 		}
 	}
-
 }

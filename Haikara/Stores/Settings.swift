@@ -23,6 +23,7 @@ struct Defaults {
 	let useDarkTheme: Bool
 	let showNewsPicture: Bool
 	let region: String
+	let optOutAnalytics: Bool
 }
 
 var instance: Settings?
@@ -38,7 +39,8 @@ class Settings {
 			useReaderView: false,
 			useDarkTheme: false,
 			showNewsPicture: false,
-			region: "Finland"
+			region: "Finland",
+			optOutAnalytics: false
 		)
     
     func resetToDefaults() {
@@ -110,6 +112,9 @@ class Settings {
 
         self.newsSources = [NewsSources]()
 		
+		self.optOutAnalytics = defaultValues.optOutAnalytics
+        defaults.setObject(self.optOutAnalytics, forKey: "optOutAnalytics")
+		
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
         #endif
@@ -169,6 +174,8 @@ class Settings {
 	var newsSources = [NewsSources]()
 	
 	var todayCategoryByLang = Dictionary<String, Category>()
+	
+	var optOutAnalytics: Bool
 	
 	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
@@ -319,6 +326,12 @@ class Settings {
             self.newsSourcesFiltered = newsSourcesFiltered
         }
 		
+		if let optOutAnalytics: Bool = defaults.objectForKey("optOutAnalytics") as? Bool {
+            self.optOutAnalytics = optOutAnalytics
+        } else {
+            self.optOutAnalytics = defaultValues.optOutAnalytics
+        }
+		
 		self.defaults.synchronize()
 		
         // For development
@@ -334,7 +347,7 @@ class Settings {
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region])"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics)"
     }
 	
 	func removeSource(sourceID: Int) -> Bool {

@@ -10,6 +10,8 @@ import UIKit
 
 class InfoController: UITableViewController {
 
+	let viewName = "InfoView"
+
 	@IBOutlet weak var infoLabel: UILabel!
 	@IBOutlet weak var licenseLabel: UILabel!
 	@IBOutlet weak var aboutLabel: UILabel!
@@ -49,6 +51,7 @@ class InfoController: UITableViewController {
 
 		setObservers()
 		configureTableView()
+		sendScreenView(viewName)
 		
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 		

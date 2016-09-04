@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,13 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var openUrl: NSURL? // used to save state when App is not running before the url triggered
 
     static let settings = Settings()
-    
+	
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 		
 		setObservers()
 		
         setCache()
+		
+		setAnalytics()
         
         let splitViewController = self.window!.rootViewController as! UISplitViewController
 
@@ -82,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.optOutAnalytics(_:)), name: "optOutAnalyticsChangedNotification", object: nil)
 	}
 	
 	func setTheme() {
@@ -110,25 +112,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setTheme()
 	}
 	
+	func optOutAnalytics(notification: NSNotification) {
+        #if DEBUG
+            print("AppDelegate, Received optOutAnalyticsChangedNotification")
+        #endif
+		setAnalytics()
+	}
+	
     // http://nshipster.com/nsurlcache/
     func setCache() {
-        let cacheSizeMemory = 4 * 1024 * 1024
-        let cacheSizeDisk = 20 * 1024 * 1024
-        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: nil)
-//        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "shared_cache")
+        let cacheSizeMemory = 8 * 1024 * 1024
+        let cacheSizeDisk = 40 * 1024 * 1024
+        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "HighkaraCache")
         NSURLCache.setSharedURLCache(cache)
-        
-//        // Create a custom configuration
-//        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-//        var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-//        configuration.HTTPAdditionalHeaders = defaultHeaders
-//        configuration.requestCachePolicy = .UseProtocolCachePolicy // this is the default
-//        configuration.URLCache = cache
-//        
-//        // Create your own manager instance that uses your custom configuration
-//        Manager(configuration: configuration)
     }
 
+	func setAnalytics() {
+		let settings = Settings.sharedInstance
+	
+		// Configure tracker from GoogleService-Info.plist.
+		var configureError:NSError?
+		GGLContext.sharedInstance().configureWithError(&configureError)
+		assert(configureError == nil, "Error configuring Google services: \(configureError)")
+
+		// Optional: configure GAI options.
+		let gai = GAI.sharedInstance()
+		gai.optOut = settings.optOutAnalytics
+		gai.trackUncaughtExceptions = true  // report uncaught exceptions
+//		#if DEBUG
+//			gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+//		#endif
+	}
+	
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

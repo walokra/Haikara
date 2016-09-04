@@ -95,9 +95,6 @@
 /* Class = "UILabel"; text = "Title"; ObjectID = "lRR-cs-k1m"; */
 "lRR-cs-k1m.text" = "Otsikko";
 
-/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "mnb-i8-fMZ"; */
-"mnb-i8-fMZ.headerTitle" = " ";
-
 /* Class = "UILabel"; text = "Select favorite categories"; ObjectID = "mxB-h8-nBo"; */
 "mxB-h8-nBo.text" = "Valitse suosikkikategoriat";
 
@@ -152,4 +149,14 @@
 /* Class = "UITableViewSection"; headerTitle = "Powered by"; ObjectID = "X7T-MZ-AVO"; */
 "X7T-MZ-AVO.headerTitle" = "Voimanlähteenä";
 
+/* Class = "UILabel"; text = "Analytics is used for making better app"; ObjectID = "AAm-cp-SyJ"; */
+"AAm-cp-SyJ.text" = "Kävijäseurantaa käytetään paremman sovelluksen tueksi";
 
+/* Class = "UILabel"; text = "Opt-out of Analytics"; ObjectID = "rfW-yr-dga"; */
+"rfW-yr-dga.text" = "Estä kävijäseuranta";
+
+/* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "mnb-i8-fMZ"; */
+"mnb-i8-fMZ.headerTitle" = "Yleiset";
+
+/* Class = "UITableViewSection"; headerTitle = "Highkara newsreader"; ObjectID = "Q7m-Nu-GvH"; */
+"Q7m-Nu-GvH.headerTitle" = "Highkara uutislukija";

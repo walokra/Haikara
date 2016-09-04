@@ -10,6 +10,8 @@ import UIKit
 
 class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
+	let viewName = "Settings_FilterNewsSourcesView"
+
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCategoryCell = "tableCell"
@@ -50,6 +52,8 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 			searchController.active = true
 //			searchController.searchBar.hidden = false
 		}
+
+//		sendScreenView(viewName)
 	}
 	
     override func viewDidLoad() {
@@ -59,6 +63,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	
 		setObservers()
 		setTheme()
+		sendScreenView(viewName)
 		
 		if self.newsSources.isEmpty {
             getNewsSources()
@@ -199,7 +204,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         #if DEBUG
             print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
         #endif
-        
+		
+		self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "settings", value: selectedNewsSource.sourceID)
+		
 		let removed = self.settings.removeSource(selectedNewsSource.sourceID)
 		self.newsSources[indexPath.row].selected = removed
         
@@ -283,7 +290,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     
     func handleError(error: String) {
         #if DEBUG
-            print("handleError, error: \(error)")
+            print("FilterNewsSourcesViewController, handleError, error: \(error)")
         #endif
         let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)

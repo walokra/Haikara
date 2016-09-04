@@ -10,6 +10,8 @@ import UIKit
 
 class RegionPickerViewController: UITableViewController {
 
+	let viewName = "Settings_RegionPickerView"
+
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listRegionCell = "tableCell"
@@ -29,12 +31,18 @@ class RegionPickerViewController: UITableViewController {
   	}
   	var selectedLanguageIndex: Int?
 	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		sendScreenView(viewName)
+//	}
+
 	override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.defaults = settings.defaults
 		
 		setTheme()
+		sendScreenView(viewName)
     }
 	
 	func setTheme() {
@@ -123,6 +131,8 @@ class RegionPickerViewController: UITableViewController {
         defaults!.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
 		
 		defaults!.synchronize()
+
+		self.trackEvent("setRegion", category: "ui_Event", action: "setRegion", label: "settings", value: 1)
 
         NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedLanguage!])
  

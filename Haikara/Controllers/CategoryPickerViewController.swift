@@ -10,6 +10,8 @@ import UIKit
 
 class CategoryPickerViewController: UITableViewController {
 
+	let viewName = "Settings_TodayCategoryPickerView"
+
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listRegionCell = "tableCell"
@@ -30,12 +32,18 @@ class CategoryPickerViewController: UITableViewController {
   	}
   	var selectedTodayCategoryIndex: Int?
 	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		sendScreenView(viewName)
+//	}
+
 	override func viewDidLoad() {
         super.viewDidLoad()
 
 		self.defaults = settings.defaults
 		
 		setTheme()
+		sendScreenView(viewName)
     }
 	
 	func setTheme() {
@@ -105,6 +113,8 @@ class CategoryPickerViewController: UITableViewController {
         let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(settings.todayCategoryByLang as Dictionary<String, Category>)
         defaults!.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 		defaults!.synchronize()
+
+		self.trackEvent("setTodayCategory", category: "ui_Event", action: "setTodayCategory", label: "settings", value: 1)
 
         NSNotificationCenter.defaultCenter().postNotificationName("todayCategoryChangedNotification", object: nil, userInfo: ["todayCategory": selectedTodayCategory!])
  

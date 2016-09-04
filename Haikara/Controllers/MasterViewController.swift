@@ -20,7 +20,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             static let listCategoryCell = "tableCell"
         }
     }
-    
+	
+	let viewName = "CategoryView"
+	
     let settings = Settings.sharedInstance
 	var defaults: NSUserDefaults?
 
@@ -41,6 +43,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         	    self.favoritesSelected = false
         	    createfavoritesIconButton(Theme.tintColor)
         	}
+			
+			self.trackEvent("favoritesButtonAction", category: "ui_Event", action: "favoritesButtonAction", label: "main", value: (favoritesSelected) ? 1 : 0)
+			
         	getCategories()
 		} else {
 			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .Alert)
@@ -69,7 +74,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     var currentLanguage: String = "Finland"
 	
     weak var delegate: CategorySelectionDelegate?
-    
+	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		sendScreenView(viewName)
+//	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -84,7 +94,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		setObservers()
 		setTheme()
-        
+		sendScreenView(viewName)
+		
         let logo = UIImage(named: "app-logo_40x40.png")
         self.navigationItem.titleView = UIImageView(image: logo)
 		
@@ -102,6 +113,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     	if (delegate?.openUrl) != nil {
         	delegate?.openUrl = nil
     	}
+		
+		let tracker = GAI.sharedInstance().defaultTracker
+		tracker.set(kGAIScreenName, value: viewName)
+		let builder = GAIDictionaryBuilder.createScreenView()
+		tracker.send(builder.build() as [NSObject : AnyObject])
     }
 	
 	func handleOpenURL(notification:NSNotification){
@@ -278,7 +294,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func handleError(error: String) {
         #if DEBUG
-            print("handleError, error: \(error)")
+            print("MasterViewController, handleError, error: \(error)")
         #endif
         let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)

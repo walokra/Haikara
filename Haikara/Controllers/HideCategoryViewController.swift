@@ -10,6 +10,8 @@ import UIKit
 
 class HideCategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
+	let viewName = "Settings_HideCategoriesView"
+
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCategoryCell = "tableCell"
@@ -34,8 +36,10 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
+		
+//		sendScreenView(viewName)
 	}
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -43,7 +47,8 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 				
 		setObservers()
 		setTheme()
-        
+		sendScreenView(viewName)
+		
         self.categories = settings.categories
         
         #if DEBUG

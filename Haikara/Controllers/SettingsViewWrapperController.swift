@@ -23,7 +23,7 @@ class SettingsViewWrapperController: UIViewController {
 		super.viewWillAppear(animated)
 	
 		setObservers()
-		setTheme()	
+		setTheme()
     }
 	
 	func setObservers() {

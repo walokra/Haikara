@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+	let viewName = "SettingsView"
+
 	@IBOutlet weak var showDescLabel: UILabel!
 	@IBOutlet weak var showDescDesc: UILabel!
 	@IBOutlet weak var useMobileUrlLabel: UILabel!
@@ -19,9 +21,12 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useReaderDesc: UILabel!
 	@IBOutlet weak var useDarkLabel: UILabel!
 	@IBOutlet weak var showNewsPictureLabel: UILabel!
-	
 	@IBOutlet weak var showNewsPictureDesc: UILabel!
 
+	@IBOutlet weak var optOutAnalyticsLabel: UILabel!
+	@IBOutlet weak var optOutAnalyticsDesc: UILabel!
+	@IBOutlet weak var optOutAnalyticsSwitch: UISwitch!
+	
 	@IBOutlet weak var widgetCategoryLabel: UILabel!
 	@IBOutlet weak var regionLabel: UILabel!
 
@@ -145,6 +150,8 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
         #endif
+		
+		self.trackEvent("showDesc", category: "ui_Event", action: "showDesc", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
 	@IBAction func useMobileUrlAction(sender: UISwitch) {
@@ -154,6 +161,8 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
         #endif
+		
+		self.trackEvent("useMobileUrl", category: "ui_Event", action: "useMobileUrl", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
 	@IBAction func useReaderViewAction(sender: UISwitch) {
@@ -163,6 +172,8 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print ("useReaderView \(settings.useReaderView), sender.on=\(sender.on)")
         #endif
+		
+		self.trackEvent("useReaderView", category: "ui_Event", action: "useReaderView", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
 	@IBAction func useDarkThemeAction(sender: UISwitch) {
@@ -173,6 +184,8 @@ class SettingsViewController: UITableViewController {
             print ("useDarkTheme \(settings.useDarkTheme), sender.on=\(sender.on)")
         #endif
 		
+		self.trackEvent("useDarkTheme", category: "ui_Event", action: "useDarkTheme", label: "settings", value: (sender.on) ? 1 : 0)
+
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
 	}
 
@@ -184,9 +197,29 @@ class SettingsViewController: UITableViewController {
             print ("showNewsPicture \(settings.showNewsPicture), sender.on=\(sender.on)")
         #endif
 		
+		self.trackEvent("showNewsPicture", category: "ui_Event", action: "showNewsPicture", label: "settings", value: (sender.on) ? 1 : 0)
+		
 		NSNotificationCenter.defaultCenter().postNotificationName("showNewsPictureChangedNotification", object: nil, userInfo: nil)
 	}
 
+	@IBAction func optOutAnalyticsAction(sender: UISwitch) {
+		settings.optOutAnalytics = sender.on
+        defaults!.setObject(settings.optOutAnalytics, forKey: "optOutAnalytics")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("optOutAnalyticsAction \(settings.optOutAnalytics), sender.on=\(sender.on)")
+        #endif
+		
+		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (sender.on) ? 1 : 0)
+		
+		NSNotificationCenter.defaultCenter().postNotificationName("optOutAnalyticsChangedNotification", object: nil, userInfo: nil)
+	}
+
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		sendScreenView(viewName)
+//	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -197,12 +230,14 @@ class SettingsViewController: UITableViewController {
 		setSelectedTodayCategory()
 		setObservers()
 		setTheme()
+		sendScreenView(viewName)
 		
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
 		useDarkThemeSwitch.on = settings.useDarkTheme
 		showNewsPictureSwitch.on = settings.showNewsPicture
+		optOutAnalyticsSwitch.on = settings.optOutAnalytics
     }
 	
 	func setObservers() {
@@ -229,6 +264,8 @@ class SettingsViewController: UITableViewController {
 		useDarkLabel.textColor = Theme.textColor
 		showNewsPictureLabel.textColor = Theme.textColor
 		showNewsPictureDesc.textColor = Theme.textColor
+		optOutAnalyticsLabel.textColor = Theme.textColor
+		optOutAnalyticsDesc.textColor = Theme.textColor
 
 		widgetCategoryLabel.textColor = Theme.textColor
 		resetLabel.textColor = Theme.textColor
@@ -434,7 +471,7 @@ class SettingsViewController: UITableViewController {
 	
 	func handleError(error: String) {
         #if DEBUG
-            print("handleError, error: \(error)")
+            print("SettingsViewController, handleError, error: \(error)")
         #endif
         let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)

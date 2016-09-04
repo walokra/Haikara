@@ -9,7 +9,9 @@
 import UIKit
 
 class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-    
+	
+	let viewName = "Settings_FavoriteCategoriesView"
+	
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
             static let listCategoryCell = "tableCell"
@@ -33,6 +35,8 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
+		
+//		sendScreenView(viewName)
 	}
 	
     override func viewDidLoad() {
@@ -42,7 +46,8 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		
 		setObservers()
 		setTheme()
-        
+		sendScreenView(viewName)
+		
         self.categories = settings.categories
         
         #if DEBUG

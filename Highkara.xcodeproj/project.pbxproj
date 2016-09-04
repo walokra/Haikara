@@ -59,6 +59,8 @@
 		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
 		36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA1A781C66900C008268B3 /* TouchableTextView.swift */; };
 		36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */; };
+		36AE3B871D74D9280043C01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36AE3B861D74D9280043C01E /* GoogleService-Info.plist */; };
+		36AE3B881D74D9280043C01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36AE3B861D74D9280043C01E /* GoogleService-Info.plist */; };
 		36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */; };
 		36B3F4391B9B0BBC0095F85A /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4381B9B0BBC0095F85A /* ionicons.ttf */; };
 		36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */; };
@@ -161,6 +163,7 @@
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
 		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		369C42141D74E900006FE35E /* Today-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Today-Bridging-Header.h"; sourceTree = "<group>"; };
 		36A39C091B2E0AE900BE0C77 /* highkara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highkara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
 		36AA1A781C66900C008268B3 /* TouchableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableTextView.swift; sourceTree = "<group>"; };
 		36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MasterViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
+		36AE3B861D74D9280043C01E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		36AE3B891D74DA7A0043C01E /* Haikara-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Haikara-Bridging-Header.h"; path = "Haikara/Haikara-Bridging-Header.h"; sourceTree = "<group>"; };
 		36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
 		36B3F4381B9B0BBC0095F85A /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Iconfonts-ionicons.swift"; sourceTree = "<group>"; };
@@ -347,6 +352,7 @@
 				367BAD241D1874B600F6B949 /* MainInterface.storyboard */,
 				367BAD271D1874B600F6B949 /* Info.plist */,
 				367BAD421D188B6300F6B949 /* TodayEntryCell.swift */,
+				369C42141D74E900006FE35E /* Today-Bridging-Header.h */,
 			);
 			name = Today;
 			path = NewsWidget;
@@ -366,6 +372,7 @@
 			children = (
 				367BAD2F1D1874FC00F6B949 /* highkara.entitlements */,
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
+				36AE3B891D74DA7A0043C01E /* Haikara-Bridging-Header.h */,
 				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
 				369AAEE41BF29DE10038EDA2 /* HighkaraUITests */,
 				367BAD211D1874B600F6B949 /* Today */,
@@ -406,6 +413,7 @@
 		36A39C0C1B2E0AE900BE0C77 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				36AE3B861D74D9280043C01E /* GoogleService-Info.plist */,
 				3650D77F1B9312B000A4D528 /* en.lproj */,
 				3650D7821B9312B000A4D528 /* fi.lproj */,
 				36A39C0D1B2E0AE900BE0C77 /* Info.plist */,
@@ -603,6 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367BAD261D1874B600F6B949 /* MainInterface.storyboard in Resources */,
+				36AE3B881D74D9280043C01E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +628,7 @@
 			files = (
 				36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */,
 				36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */,
+				36AE3B871D74D9280043C01E /* GoogleService-Info.plist in Resources */,
 				36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */,
 				36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */,
 				36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */,
@@ -922,6 +932,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -949,6 +960,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1097,6 +1109,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1124,6 +1137,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
