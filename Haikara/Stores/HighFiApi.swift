@@ -11,7 +11,26 @@ import UIKit
 import Alamofire
 
 public class HighFiApi {
-    
+	
+	class func setupManager(appID: String, maxAge: Int) {
+//	    // Create a custom configuration
+//        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+//		var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+//		defaultHeaders!["User-Agent"] = appID
+//		defaultHeaders!["Cache-Control"] = "private, must-revalidate, max-age=\(maxAge)"
+//        config.HTTPAdditionalHeaders = defaultHeaders
+//		config.requestCachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
+//		config.URLCache = NSURLCache.sharedURLCache()
+//		let manager = Alamofire.Manager(configuration: config)
+//		
+//		return manager
+		
+        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+            "User-Agent": appID,
+            "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
+        ]
+	}
+
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
 	// e.g. http://high.fi/uutiset/json-private
     class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
@@ -21,11 +40,7 @@ public class HighFiApi {
         #endif
         
         let settings = Settings.sharedInstance
-        
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=60"
-        ]
+		setupManager(settings.appID, maxAge: 60)
 
         var feed = "http://" + settings.domainToUse + "/" + section + "/"
         if (page != 1) {
@@ -50,13 +65,13 @@ public class HighFiApi {
         let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
-            request.responseJSON{(request, response, result) in
-            switch result {
+            request.responseJSON{ response in
+            switch response.result {
             case .Success(let data):
                 #if DEBUG
-                    print("HighFiApi, request: \(request)")
-//                    print("response: \(response)")
-//                    print("json: \(data)")
+                    print("HighFiApi, request: \(response.request)")
+//                    print("HighFiApi, response: \(response.response)")
+//                    print("HighFiApi, data: \(response.data)")
                 #endif
 				
 				var newsSourcesFiltered = [Int]()
@@ -95,13 +110,11 @@ public class HighFiApi {
                 
                 return completionHandler(entries)
 
-            case .Failure(let data, let error):
+            case .Failure(let error):
                 #if DEBUG
-                    print("Error: \(#function)\n", data, error)
+                    print("Error: \(#function)\n", error)
                 #endif
-                if let error = result.error as? NSError {
-                    failureHandler(error.localizedDescription)
-                }
+				failureHandler(error.localizedDescription)
             }
         }
     }
@@ -115,11 +128,11 @@ public class HighFiApi {
 		
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
         	Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
-	            .response { (request, response, data, error) in
+	            .response { request, response, data, error in
     	            #if DEBUG
-        	            print(request)
-            	        // println(response)
-                	    // println(error)
+        	            print("trackNewsClick, request: \(request)")
+            	        // print("trackNewsClick, response: \(response)")
+                	    // print("trackNewsClick, error: \(error)")
                 	#endif
 	        }
 		}
@@ -132,23 +145,19 @@ public class HighFiApi {
         #endif
         
         let settings = Settings.sharedInstance
-        
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=84600"
-        ]
+        setupManager(settings.appID, maxAge: 84600)
 
         let url = "http://" + settings.domainToUse + "/api/"
         
         let request = Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
         request.validate()
-        request.responseJSON {request, response, result in
-            switch result {
+        request.responseJSON { response in
+            switch response.result {
             case .Success(let data):
                 #if DEBUG
-                    print("HighFiApi, request: \(request)")
-//                    println("response: \(response)")
-//                    print("json: \(data)")
+                    print("HighFiApi, request: \(response.request)")
+//                    print("HighFiApi, response: \(response.response)")
+//                    print("HighFiApi, data: \(response.data)")
                 #endif
 
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
@@ -170,13 +179,11 @@ public class HighFiApi {
                     }
                 
                 return completionHandler(cat + categories)
-            case .Failure(let data, let error):
+            case .Failure(let error):
                 #if DEBUG
-                    print("Error: \(#function)\n", data, error)
+                    print("Error: \(#function)\n", error)
                 #endif
-                if let error = result.error as? NSError {
-                    failureHandler(error.localizedDescription)
-                }
+				failureHandler(error.localizedDescription)
         }
         }
     }
@@ -189,24 +196,20 @@ public class HighFiApi {
         #endif
     
         let settings = Settings.sharedInstance
-    
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=84600"
-        ]
-        
+    	setupManager(settings.appID, maxAge: 84600)
+	
         let url = "http://" + settings.domainToUse + "/api"
         
         let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY])
         request.validate()
-        request.responseJSON {request, response, result in
-            switch result {
+        request.responseJSON { response in
+            switch response.result {
             case .Success(let data):
 
                 #if DEBUG
-                    print("HighFiApi, request: \(request)")
-                    // println("response: \(response)")
-                    // println("json: \(theJSON)")
+                    print("HighFiApi, request: \(response.request)")
+                    // print("HighFiApi, response: \(response.response)")
+                    // print("HighFiApi, data: \(response.data)")
                 #endif
             
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
@@ -229,13 +232,11 @@ public class HighFiApi {
                 
                 return completionHandler(languages)
                 
-            case .Failure(let data, let error):
+            case .Failure(let error):
                 #if DEBUG
-                    print("Error: \(#function)\n", data, error)
+                    print("Error: \(#function)\n", error)
                 #endif
-                if let error = result.error as? NSError {
-                    failureHandler(error.localizedDescription)
-                }
+				failureHandler(error.localizedDescription)
             }
         }
     }
@@ -247,24 +248,20 @@ public class HighFiApi {
         #endif
     
         let settings = Settings.sharedInstance
-    
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": settings.appID,
-            "Cache-Control": "private, must-revalidate, max-age=84600"
-        ]
+    	setupManager(settings.appID, maxAge: 84600)
         
         let url = "http://" + settings.domainToUse + "/api"
         
         let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY])
         request.validate()
-        request.responseJSON {request, response, result in
-            switch result {
+        request.responseJSON { response in
+            switch response.result {
             case .Success(let data):
 
                 #if DEBUG
-                    print("HighFiApi, request: \(request)")
-                    // println("response: \(response)")
-                    // println("json: \(theJSON)")
+                    print("HighFiApi, request: \(response.request)")
+                    // print("HighFiApi, response: \(response.response)")
+                    // print("HighFiApi, data: \(response.theJSON)")
                 #endif
             
                 let responseData = (data.valueForKey("responseData") as! NSDictionary)
@@ -281,13 +278,11 @@ public class HighFiApi {
                 
                 return completionHandler(newsSources)
                 
-            case .Failure(let data, let error):
+            case .Failure(let error):
                 #if DEBUG
-                    print("Error: \(#function)\n", data, error)
+                    print("Error: \(#function)\n", error)
                 #endif
-                if let error = result.error as? NSError {
-                    failureHandler(error.localizedDescription)
-                }
+				failureHandler(error.localizedDescription)
             }
         }
     }
