@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -39,6 +39,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>auriro.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>high.fi</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -54,13 +61,6 @@
 				<true/>
 			</dict>
 			<key>nyheder2.dk</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-			<key>auriro.net</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
