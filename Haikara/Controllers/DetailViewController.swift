@@ -17,6 +17,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
+	var entriesReturned = 0
 	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
 	let settings = Settings.sharedInstance
 	let maxHeadlines: Int = 70
@@ -228,6 +229,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
+					self.entriesReturned = result.count
 					self.newsEntriesUpdatedByLang[self.settings.region] = NSDate()
                 	#if DEBUG
                     	print("newsEntries updated, \(self.newsEntriesUpdatedByLang[self.settings.region])")
@@ -705,7 +707,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
 //		print("scrollViewDidScroll, currentOffset=\(currentOffset), maximumOffset=\(maximumOffset), diff=\(maximumOffset - currentOffset)")
 		if (maximumOffset - currentOffset) <= -80 {
-			if (!self.loading && self.entries.count == self.maxHeadlines && self.highFiSection != "top") {
+			if (!self.loading && self.entriesReturned == self.maxHeadlines && self.highFiSection != "top") {
 				self.page += 1
 				self.getNews(page, forceRefresh: true)
 			}
