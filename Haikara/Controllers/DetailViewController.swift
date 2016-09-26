@@ -574,7 +574,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 		if tableItem.highlight == true {
 			cell.entryTitle.highlighted = true
-			cell.entryTitle.highlightedTextColor = Theme.tintColor
+//			cell.entryTitle.highlightedTextColor = Theme.tintColor
 		}
 		
 		cell.contentView.setNeedsLayout()
