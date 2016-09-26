@@ -3,8 +3,8 @@ platform :ios, '8.0'
 use_frameworks!
 
 def shared_pods
-	pod 'Alamofire', '~> 3.4'
-	pod 'AlamofireImage', '~> 2.0'
+	pod 'Alamofire', '~> 3.5'
+	pod 'AlamofireImage', '~> 2.5'
 	pod 'Google/Analytics'
 end
 

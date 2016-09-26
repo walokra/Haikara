@@ -31,8 +31,8 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
             bottomView = navVC.topViewController?.view
         }
         
-        transitionContext.containerView()?.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
-        if dismissing { transitionContext.containerView()?.insertSubview(toViewController.view, belowSubview: fromViewController.view) }
+        transitionContext.containerView().insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+        if dismissing { transitionContext.containerView().insertSubview(toViewController.view, belowSubview: fromViewController.view) }
         
         topView.frame = fromViewController.view.frame
         topView.transform = dismissing ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(offset, 0)

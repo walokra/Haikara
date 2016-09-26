@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
 		
 		if host!.rangeOfString("article") != nil {
-			let webUrl = urlString.stringByReplacingOccurrencesOfString("Highkara://article?url=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+			let webUrl = urlString!.stringByReplacingOccurrencesOfString("Highkara://article?url=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
            	NSNotificationCenter.defaultCenter().postNotificationName("handleOpenURL", object: webUrl)
    			self.openUrl = url
    			return true

@@ -15,7 +15,7 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         // Obtain the index path and the cell that was pressed.
         guard let indexPath = tableView.indexPathForRowAtPoint(location),
-                  cell = tableView.cellForRowAtIndexPath(indexPath) else { return nil }
+                  let cell = tableView.cellForRowAtIndexPath(indexPath) else { return nil }
 		
         // Create a detail view controller and set its properties.
         guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else { return nil }
