@@ -84,7 +84,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	var loading = false
 	
 	// Theme colors
-	let textColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
+	let textColorLight = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
+	let textColorDark = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1)
 	var selectedCellBackground = UIView()
 	let tintColor = UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0)
 	
@@ -243,7 +244,15 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
         let tableItem: Entry = entries[indexPath.row] as Entry
         cell.entryTitle.text = tableItem.title
-		cell.entryTitle.textColor = textColor
+		// In iOS 19 widget background is light grey
+		if #available(iOS 10.0, *) {
+			#if DEBUG
+				print("iOS 10.0, *")
+			#endif
+			cell.entryTitle.textColor = textColorDark
+		} else {
+			cell.entryTitle.textColor = textColorLight
+		}
 		
 		cell.selectedBackgroundView = selectedCellBackground
 		
