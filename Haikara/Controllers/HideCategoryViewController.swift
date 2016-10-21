@@ -47,6 +47,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 				
 		setObservers()
 		setTheme()
+		setContentSize()
 		sendScreenView(viewName)
 		
         self.categories = settings.categories
@@ -63,6 +64,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.resetHidden(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -80,7 +82,18 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		setTheme()
 		self.tableView.reloadData()
 	}
-    
+	
+	func setContentSize() {
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
+	}
+	
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
             print("Received categoriesRefreshedNotification")
@@ -113,6 +126,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
 		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor

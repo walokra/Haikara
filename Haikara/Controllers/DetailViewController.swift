@@ -65,7 +65,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
-
+		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
             if traitCollection.forceTouchCapability == .Available {
@@ -75,6 +75,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 		setObservers()
 		setTheme()
+		setContentSize()
 		setLoadingIndicator()
 		sendScreenView(viewName)
 		
@@ -118,9 +119,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     	}
 	}
 	
+	func setContentSize() {
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
+	}
+	
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -489,7 +502,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		sectionLabel.text = sortedSections[section]
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.systemFontOfSize(14)
+		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
 
 		clockLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
 		createClockIcon(Theme.textColor)
@@ -534,6 +547,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		} else {
 			date = formatTime(tableItem.publishedDateJS)
 		}
+		
+		cell.entryTitle.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.entryAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
+		cell.entryDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
 		
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor

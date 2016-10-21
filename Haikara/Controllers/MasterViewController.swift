@@ -94,6 +94,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		setObservers()
 		setTheme()
+		setContentSize()
 		sendScreenView(viewName)
 		
         let logo = UIImage(named: "app-logo_40x40.png")
@@ -147,6 +148,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -170,6 +172,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         #endif
 		setTheme()
     }
+	
+	func setContentSize() {
+		self.tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+	}
 	
     func setRegionCategory(notification: NSNotification) {
         #if DEBUG
@@ -311,11 +323,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) 
-
+		
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth - 1
 		cell.textLabel!.textColor = Theme.textColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
 		
 		cell.selectedBackgroundView = Theme.selectedCellBackground
 		

@@ -1,5 +1,30 @@
-0.9.7 (2016-06-27)
-* Add Today Widget
+0.9.12 ()
+* Refactor labels to use system text size 
+
+0.9.11 (2016-09-26)
+* Fix Today widget color in iOS 10
+* Remove news title hilighting for now
+* Update libraries and project to Swift 2.3 and Xcode 8
+
+0.9.10 (2016-09-14)
+* Added option to show news picture with news
+* Added hilighting the news title
+* Fixed news pagination
+* Added Google Analytics for helping to develop the app
+* Updated to Alamorefire 3 and AlamofireImage 2
+
+0.9.9 (2016-08-26)
+* Added support of Today Widget also in iOS 8
+* Refactored About screen to use tableview
+* Fix theme refreshed event in Settings
+
+0.9.8 (2016-08-22)
+* Added Today widget for easier following of news, possibility to change its category from Settings screen. 
+* Reworked Settings screen to use tableview.
+* Added Netherlands and Denmark to exception domains.
+
+0.9.7
+* Skipped
 
 0.9.6 (2016-06-15)
 * Add new category for showing combined favorites in one list

@@ -80,6 +80,8 @@ class CategoryPickerViewController: UITableViewController {
   		cell.textLabel?.text = category.title
 
 		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		
 		if indexPath.row == selectedTodayCategoryIndex {
 			cell.backgroundColor = Theme.selectedColor
 		} else {

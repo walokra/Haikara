@@ -46,6 +46,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		
 		setObservers()
 		setTheme()
+		setContentSize()
 		sendScreenView(viewName)
 		
         self.categories = settings.categories
@@ -62,6 +63,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.resetFavorited(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -78,6 +80,17 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         #endif
 		setTheme()
 		self.tableView.reloadData()
+	}
+	
+	func setContentSize() {
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
 	}
 	
     func setRegionCategory(notification: NSNotification) {
@@ -112,6 +125,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
 		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         if (settings.categoriesFavorited[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor

@@ -63,6 +63,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	
 		setObservers()
 		setTheme()
+		setContentSize()
 		sendScreenView(viewName)
 		
 		if self.newsSources.isEmpty {
@@ -98,6 +99,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setRegionNewsSources(_:)), name: "regionChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.resetNewsSourcesFiltered(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -119,7 +121,18 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		
 		self.tableView.reloadData()
 	}
-    
+	
+	func setContentSize() {
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
+	}
+	
     func setRegionNewsSources(notification: NSNotification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, regionChangedNotification")
@@ -172,6 +185,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 			
 		cell.textLabel!.text = tableItem.sourceName
 		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
 		if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
 			cell.backgroundColor = Theme.selectedColor

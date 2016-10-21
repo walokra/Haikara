@@ -12,6 +12,8 @@ class InfoController: UITableViewController {
 
 	let viewName = "InfoView"
 
+	let settings = Settings.sharedInstance
+
 	@IBOutlet weak var infoLabel: UILabel!
 	@IBOutlet weak var licenseLabel: UILabel!
 	@IBOutlet weak var aboutLabel: UILabel!
@@ -50,24 +52,21 @@ class InfoController: UITableViewController {
         super.viewDidLoad()
 
 		setObservers()
+		setContentSize()
+		setTheme()
 		configureTableView()
+		
 		sendScreenView(viewName)
-		
-		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
-		
-        let settings = Settings()
 		
         infoLabel.text = settings.appID + ", Marko Wallin"
 	}
 	
 	func setObservers() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InfoController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InfoController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
-	func setTheme(notification: NSNotification) {
-        #if DEBUG
-            print("Received themeChangedNotification")
-        #endif
+	func setTheme() {
 		Theme.loadTheme()
 		
 		self.view.backgroundColor = Theme.backgroundColor
@@ -79,8 +78,35 @@ class InfoController: UITableViewController {
 		bugsButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		openTwitterButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
 		openEmailButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-
+		
 		infoLabel.textColor = Theme.textColor
+	}
+	
+	func setTheme(notification: NSNotification) {
+		#if DEBUG
+            print("Received themeChangedNotification")
+        #endif
+		setTheme()
+    }
+	
+	func setContentSize() {
+		infoLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		aboutLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		licenseLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		openAppStoreButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		openHighFiButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		bugsButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		openTwitterButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		openEmailButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
     }
 
 	func configureTableView() {
@@ -98,16 +124,17 @@ class InfoController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 44))
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
 
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 		
 		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 22))
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.systemFontOfSize(17)
+		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		
 		headerView.addSubview(sectionLabel)
 		
     	return headerView

@@ -230,6 +230,7 @@ class SettingsViewController: UITableViewController {
 		setSelectedTodayCategory()
 		setObservers()
 		setTheme()
+		setContentSize()
 		sendScreenView(viewName)
 		
         showDescSwitch.on = settings.showDesc
@@ -245,6 +246,7 @@ class SettingsViewController: UITableViewController {
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setSelectedRegion(_:)), name: "regionChangedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTodayCategories(_:)), name: "categoriesRefreshedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setTodayCategory(_:)), name: "todayCategoryChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -282,6 +284,35 @@ class SettingsViewController: UITableViewController {
 		setTheme()
 	}
 	
+	func setContentSize() {
+		tableView.reloadData()
+		
+		showDescLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		showDescDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		useMobileUrlLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		useMobileUrlDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		useReaderLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		useReaderDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		useDarkLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		showNewsPictureLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		showNewsPictureDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		optOutAnalyticsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		optOutAnalyticsDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+
+		widgetCategoryLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		regionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		
+		resetLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		resetButton.titleLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
+	}
+	
 	func setSelectedRegion(notification: NSNotification) {
         #if DEBUG
             print("SettingsViewController, Received regionChangedNotification")
@@ -308,22 +339,24 @@ class SettingsViewController: UITableViewController {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
 		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 		cell.selectionStyle = .None
 	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 44))
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
 
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 		
 		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 22))
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.systemFontOfSize(17)
+		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		
 		headerView.addSubview(sectionLabel)
 		
     	return headerView

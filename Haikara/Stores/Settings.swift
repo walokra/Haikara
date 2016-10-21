@@ -24,6 +24,9 @@ struct Defaults {
 	let showNewsPicture: Bool
 	let region: String
 	let optOutAnalytics: Bool
+	
+	let fontName: String
+	let useSystemSizeText: Bool
 }
 
 var instance: Settings?
@@ -40,7 +43,9 @@ class Settings {
 			useDarkTheme: false,
 			showNewsPicture: false,
 			region: "Finland",
-			optOutAnalytics: false
+			optOutAnalytics: false,
+			fontName: "Avenir-Light",
+			useSystemSizeText: true
 		)
     
     func resetToDefaults() {
@@ -115,6 +120,11 @@ class Settings {
 		self.optOutAnalytics = defaultValues.optOutAnalytics
         defaults.setObject(self.optOutAnalytics, forKey: "optOutAnalytics")
 		
+		self.fontName = defaultValues.fontName
+		defaults.setObject(self.fontName, forKey: "fontName")
+		self.useSystemSizeText = defaultValues.useSystemSizeText
+		defaults.setObject(self.useSystemSizeText, forKey: "useSystemSizeText")
+		
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
         #endif
@@ -176,6 +186,9 @@ class Settings {
 	var todayCategoryByLang = Dictionary<String, Category>()
 	
 	var optOutAnalytics: Bool
+	
+	var fontName: String
+	var useSystemSizeText: Bool
 	
 	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
@@ -332,6 +345,17 @@ class Settings {
             self.optOutAnalytics = defaultValues.optOutAnalytics
         }
 		
+		if let fontName: String = defaults.objectForKey("fontName") as? String {
+            self.fontName = fontName
+        } else {
+            self.fontName = defaultValues.fontName
+        }
+		if let useSystemSizeText: Bool = defaults.objectForKey("useSystemSizeText") as? Bool {
+            self.useSystemSizeText = useSystemSizeText
+        } else {
+            self.useSystemSizeText = defaultValues.useSystemSizeText
+        }
+		
 		self.defaults.synchronize()
 		
         // For development
@@ -347,7 +371,7 @@ class Settings {
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics)"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSizeText=\(self.useSystemSizeText)"
     }
 	
 	func removeSource(sourceID: Int) -> Bool {
