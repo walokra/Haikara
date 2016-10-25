@@ -100,22 +100,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				print("handleOpenURL. webURL=\(webURL)")
 			#endif
 			
-			if #available(iOS 9.0, *) {
-				self.trackEvent("handleOpenURL", category: "ui_Event", action: "handleOpenURL", label: "main", value: 9)
-			
-				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
-				svc.view.tintColor = Theme.tintColor
-				self.presentViewController(svc, animated: true, completion: nil)				
-			} else {
-				#if DEBUG
-					print("Fallback on earlier versions")
-				#endif
-				self.trackEvent("handleOpenURL", category: "ui_Event", action: "handleOpenURL", label: "main", value: 8)
-				
-				let vc = NewsItemViewController()
-				vc.loadWebView(webURL!)
-				self.navigationController?.pushViewController(vc, animated: true)
-			}
+			handleOpenBrowser(webURL!, event: "handleOpenURL")
     	}
 	}
 	
@@ -429,28 +414,38 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			print("didSelectRowAtIndexPath, webURL=\(webURL)")
 		#endif
 		
-		if #available(iOS 9.0, *) {
-			#if DEBUG
-				print("iOS 9.0, *")
-			#endif
-			self.trackEvent("openURL", category: "ui_Event", action: "openURL", label: "main", value: 9)
-		
-			let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
-			svc.view.tintColor = Theme.tintColor
-			self.presentViewController(svc, animated: true, completion: nil)
-		} else {
-			#if DEBUG
-				print("Fallback on earlier versions")
-			#endif
-			self.trackEvent("openURL", category: "ui_Event", action: "openURL", label: "main", value: 8)
-			
-			let vc = NewsItemViewController()
-			vc.title = tableItem.title
-			vc.loadWebView(webURL!)
-			self.navigationController?.pushViewController(vc, animated: true)
-		}
+		handleOpenBrowser(webURL!, title: tableItem.title, event: "openURL")
 		
 		self.trackNewsClick(tableItem)
+	}
+	
+	func handleOpenBrowser(webURL: NSURL, title: String = "", event: String) {
+		self.trackEvent(event, category: "ui_Event", action: event, label: "main", value: 9)
+	
+		if (OpenInChromeController.sharedInstance.isChromeInstalled() && settings.useChrome) {
+			#if DEBUG
+				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
+			#endif
+			OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: NSURL(string: "Highkara"))
+		} else {
+			if #available(iOS 9.0, *) {
+				#if DEBUG
+					print("iOS 9.0, *")
+				#endif
+				let svc = SFSafariViewController(URL: webURL, entersReaderIfAvailable: settings.useReaderView)
+				svc.view.tintColor = Theme.tintColor
+				self.presentViewController(svc, animated: true, completion: nil)
+			} else {
+				#if DEBUG
+					print("Fallback on earlier versions")
+				#endif
+
+				let vc = NewsItemViewController()
+				if (!title.isEmpty) {vc.title = title}
+				vc.loadWebView(webURL)
+				self.navigationController?.pushViewController(vc, animated: true)
+			}
+		}
 	}
 	
 	func handleGesture(recognizer:UIScreenEdgePanGestureRecognizer) {
@@ -549,8 +544,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		
 		cell.entryTitle.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		cell.entryAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
-		cell.entryDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		cell.entryAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		cell.entryDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor

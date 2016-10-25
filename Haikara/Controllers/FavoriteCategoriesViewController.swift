@@ -125,7 +125,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         if (settings.categoriesFavorited[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor

@@ -53,6 +53,7 @@
 		367BAD461D189E8300F6B949 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
 		367BAD471D189E8600F6B949 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368E20811D5E3837009255B9 /* RegionPickerViewController.swift */; };
+		3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */; };
 		369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */; };
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
@@ -160,6 +161,7 @@
 		367BAD301D18750E00F6B949 /* Today.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Today.entitlements; sourceTree = "<group>"; };
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
 		368E20811D5E3837009255B9 /* RegionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionPickerViewController.swift; sourceTree = "<group>"; };
+		3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInChromeController.swift; sourceTree = "<group>"; };
 		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
 		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */,
 				36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */,
 				36F0E84E1C03B7880081F10B /* Theme.swift */,
+				3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
+				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
 				36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
 				36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */,

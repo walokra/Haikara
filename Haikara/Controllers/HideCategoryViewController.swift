@@ -126,7 +126,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = tableItem.depth
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor

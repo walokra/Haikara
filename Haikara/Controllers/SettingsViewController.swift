@@ -22,6 +22,8 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useDarkLabel: UILabel!
 	@IBOutlet weak var showNewsPictureLabel: UILabel!
 	@IBOutlet weak var showNewsPictureDesc: UILabel!
+	@IBOutlet weak var useChromeLabel: UILabel!
+	@IBOutlet weak var useChromeDesc: UILabel!
 
 	@IBOutlet weak var optOutAnalyticsLabel: UILabel!
 	@IBOutlet weak var optOutAnalyticsDesc: UILabel!
@@ -35,7 +37,9 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useReaderViewSwitch: UISwitch!
 	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
 	@IBOutlet weak var showNewsPictureSwitch: UISwitch!
-
+	@IBOutlet weak var useChromeSwitch: UISwitch!
+	@IBOutlet weak var useChromeCell: UITableViewCell!
+	
 	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
 	@IBOutlet weak var regionDetailLabel: UILabel!
 
@@ -202,6 +206,18 @@ class SettingsViewController: UITableViewController {
 		NSNotificationCenter.defaultCenter().postNotificationName("showNewsPictureChangedNotification", object: nil, userInfo: nil)
 	}
 
+	@IBAction func useChromeAction(sender: UISwitch) {
+		settings.useChrome = sender.on
+        defaults!.setObject(settings.useChrome, forKey: "useChrome")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("useChrome \(settings.useChrome), sender.on=\(sender.on)")
+        #endif
+		
+		self.trackEvent("useChrome", category: "ui_Event", action: "useChrome", label: "settings", value: (sender.on) ? 1 : 0)
+	}
+
+
 	@IBAction func optOutAnalyticsAction(sender: UISwitch) {
 		settings.optOutAnalytics = sender.on
         defaults!.setObject(settings.optOutAnalytics, forKey: "optOutAnalytics")
@@ -233,11 +249,16 @@ class SettingsViewController: UITableViewController {
 		setContentSize()
 		sendScreenView(viewName)
 		
+		if !OpenInChromeController.sharedInstance.isChromeInstalled() {
+			useChromeCell.hidden = true
+		}
+		
         showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
 		useDarkThemeSwitch.on = settings.useDarkTheme
 		showNewsPictureSwitch.on = settings.showNewsPicture
+		useChromeSwitch.on = settings.useChrome
 		optOutAnalyticsSwitch.on = settings.optOutAnalytics
     }
 	
@@ -266,6 +287,8 @@ class SettingsViewController: UITableViewController {
 		useDarkLabel.textColor = Theme.textColor
 		showNewsPictureLabel.textColor = Theme.textColor
 		showNewsPictureDesc.textColor = Theme.textColor
+		useChromeLabel.textColor = Theme.textColor
+		useChromeDesc.textColor = Theme.textColor
 		optOutAnalyticsLabel.textColor = Theme.textColor
 		optOutAnalyticsDesc.textColor = Theme.textColor
 
@@ -288,22 +311,22 @@ class SettingsViewController: UITableViewController {
 		tableView.reloadData()
 		
 		showDescLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showDescDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		showDescDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useMobileUrlLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		useMobileUrlDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		useMobileUrlDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useReaderLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		useReaderDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		useReaderDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useDarkLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		showNewsPictureLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showNewsPictureDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		showNewsPictureDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		optOutAnalyticsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		optOutAnalyticsDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		optOutAnalyticsDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 
 		widgetCategoryLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		regionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		
-		resetLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-		resetButton.titleLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		resetLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		resetButton.titleLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 	}
 	
 	func setContentSize(notification: NSNotification) {
@@ -334,7 +357,6 @@ class SettingsViewController: UITableViewController {
 		self.selectedTodayCategory = self.settings.todayCategoryByLang[self.settings.region]
 	}
 
-
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
@@ -343,6 +365,18 @@ class SettingsViewController: UITableViewController {
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 		cell.selectionStyle = .None
+	}
+	
+	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+    	if cell == self.useChromeCell {
+			#if DEBUG
+            	print("SettingsViewController, useChromeView HIDDEN")
+			#endif
+			return 0
+		}
+		
+		return super.tableView(tableView, heightForRowAtIndexPath:indexPath)
 	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

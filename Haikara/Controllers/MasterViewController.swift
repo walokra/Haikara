@@ -328,7 +328,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         cell.textLabel!.text = tableItem.title
         cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth - 1
 		cell.textLabel!.textColor = Theme.textColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		
 		cell.selectedBackgroundView = Theme.selectedCellBackground
 		

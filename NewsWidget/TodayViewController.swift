@@ -30,6 +30,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			useReaderView: false,
 			useDarkTheme: false,
 			showNewsPicture: false,
+			useChrome: false,
 			region: "Finland",
 			optOutAnalytics: false,
 			fontName: "Avenir-Light",
