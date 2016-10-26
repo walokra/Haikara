@@ -92,62 +92,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     	}
     }
 	
-	func handleOpenURL(notification:NSNotification){
-    	if let url = notification.object as? String {
-			let webURL = NSURL(string: url)
-
-			#if DEBUG
-				print("handleOpenURL. webURL=\(webURL)")
-			#endif
-			
-			handleOpenBrowser(webURL!, event: "handleOpenURL")
-    	}
-	}
-	
-	func setContentSize() {
-		tableView.reloadData()
-	}
-	
-	func setContentSize(notification: NSNotification) {
-		#if DEBUG
-            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
-        #endif
-		setContentSize()
-	}
-	
-	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
-	}
-	
-	func setTheme() {
-		Theme.loadTheme()
-		
-		view.backgroundColor = Theme.backgroundColor
-		tableView.backgroundColor = Theme.backgroundColor
-		poweredLabel.textColor = Theme.poweredLabelColor
-		
-		// TODO: How to update the bar after changing
-		// FIXME: Crashes with 3D Touch
-		// self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
-	}
-	
-	func setTheme(notification: NSNotification) {
-        #if DEBUG
-            print("DetailViewController, Received themeChangedNotification")
-        #endif
-		setTheme()
-	}
-	
-	func setLoadingIndicator() {
-		loadingIndicator.color = Theme.tintColor
-   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
-   		loadingIndicator.center = self.view.center
-   		self.view.addSubview(loadingIndicator)
-   		loadingIndicator.bringSubviewToFront(self.view)
-	}
-	
 	func initView() {
 		#if DEBUG
 			print("initView()")
@@ -178,6 +122,66 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl)
 	}
+	
+	// MARK: - Observers
+	
+	func setObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+	}
+
+	func handleOpenURL(notification:NSNotification){
+    	if let url = notification.object as? String {
+			let webURL = NSURL(string: url)
+
+			#if DEBUG
+				print("handleOpenURL. webURL=\(webURL)")
+			#endif
+			
+			handleOpenBrowser(webURL!, event: "handleOpenURL")
+    	}
+	}
+	
+	func setContentSize() {
+		tableView.reloadData()
+	}
+	
+	func setContentSize(notification: NSNotification) {
+		#if DEBUG
+            print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
+        #endif
+		setContentSize()
+	}
+	
+	func setTheme() {
+		Theme.loadTheme()
+		
+		view.backgroundColor = Theme.backgroundColor
+		tableView.backgroundColor = Theme.backgroundColor
+		poweredLabel.textColor = Theme.poweredLabelColor
+		
+		// TODO: How to update the bar after changing
+		// FIXME: Crashes with 3D Touch
+		// self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
+	}
+	
+	func setTheme(notification: NSNotification) {
+        #if DEBUG
+            print("DetailViewController, Received themeChangedNotification")
+        #endif
+		setTheme()
+	}
+	
+	func setLoadingIndicator() {
+		loadingIndicator.color = Theme.tintColor
+   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+   		loadingIndicator.center = self.view.center
+   		self.view.addSubview(loadingIndicator)
+   		loadingIndicator.bringSubviewToFront(self.view)
+	}
+	
+	// MARK: - API
 	
 	func handleError(error: String) {
 		#if DEBUG
@@ -396,28 +400,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	// MARK: - Navigation
-
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let path = self.tableView!.indexPathForSelectedRow!
-		let row = path.row
-		
-		let tableSection = sections[sortedSections[path.section]]
-		let tableItem = tableSection![row]
-		
-		var webURL = NSURL(string: tableItem.originalURL)
-		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
-			webURL = NSURL(string: tableItem.originalMobileUrl!)
-		}		
-		#if DEBUG
-			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
-			print("didSelectRowAtIndexPath, webURL=\(webURL)")
-		#endif
-		
-		handleOpenBrowser(webURL!, title: tableItem.title, event: "openURL")
-		
-		self.trackNewsClick(tableItem)
-	}
+	// MARK: - Functions
 	
 	func handleOpenBrowser(webURL: NSURL, title: String = "", event: String) {
 		self.trackEvent(event, category: "ui_Event", action: event, label: "main", value: 9)
@@ -461,6 +444,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         default: ()
         }
     }
+	
+	// MARK: - SafariView
 	
 	// Dismiss the view controller and return to app.
 	@available(iOS 9.0, *)
@@ -510,6 +495,29 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     	return headerView
 	}
 
+	// MARK: - TableView
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let path = self.tableView!.indexPathForSelectedRow!
+		let row = path.row
+		
+		let tableSection = sections[sortedSections[path.section]]
+		let tableItem = tableSection![row]
+		
+		var webURL = NSURL(string: tableItem.originalURL)
+		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
+			webURL = NSURL(string: tableItem.originalMobileUrl!)
+		}		
+		#if DEBUG
+			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
+			print("didSelectRowAtIndexPath, webURL=\(webURL)")
+		#endif
+		
+		handleOpenBrowser(webURL!, title: tableItem.title, event: "openURL")
+		
+		self.trackNewsClick(tableItem)
+	}
+	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
 		return self.sections.count
@@ -519,15 +527,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         // Return the number of rows in the section.
 		return self.sections[sortedSections[section]]!.count
     }
-	
-	func formatTime(dateString: String) -> String {
-		let date = dateFormatter.dateFromString(dateString)
-		return publishedTimeFormatter.stringFromDate(date!)
-	}
-	func formatDate(dateString: String) -> String {
-		let date = dateFormatter.dateFromString(dateString)
-		return publishedFormatter.stringFromDate(date!)
-	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
@@ -706,6 +705,17 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 	}
 	
+	// MARK: - Helpers
+	
+	func formatTime(dateString: String) -> String {
+		let date = dateFormatter.dateFromString(dateString)
+		return publishedTimeFormatter.stringFromDate(date!)
+	}
+	func formatDate(dateString: String) -> String {
+		let date = dateFormatter.dateFromString(dateString)
+		return publishedFormatter.stringFromDate(date!)
+	}
+
 	func scrollToTop() {
 		if (self.numberOfSectionsInTableView(self.tableView) > 0 ) {
 			let top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
@@ -817,6 +827,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	func trackNewsClick(entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
+	
+	// MARK: - Icons
 	
 	func createClockIcon(color: UIColor) {
 		let string = String.ionIconString("ion-ios-clock-outline")

@@ -12,16 +12,17 @@ class SettingsViewController: UITableViewController {
 
 	let viewName = "SettingsView"
 
-	@IBOutlet weak var showDescLabel: UILabel!
-	@IBOutlet weak var showDescDesc: UILabel!
+	@IBOutlet weak var displayLabel: UILabel!
+	
+	@IBOutlet weak var useDarkLabel: UILabel!
+	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
+	
 	@IBOutlet weak var useMobileUrlLabel: UILabel!
 	@IBOutlet weak var useMobileUrlDesc: UILabel!
 	
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderDesc: UILabel!
-	@IBOutlet weak var useDarkLabel: UILabel!
-	@IBOutlet weak var showNewsPictureLabel: UILabel!
-	@IBOutlet weak var showNewsPictureDesc: UILabel!
+	
 	@IBOutlet weak var useChromeLabel: UILabel!
 	@IBOutlet weak var useChromeDesc: UILabel!
 
@@ -32,11 +33,9 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var widgetCategoryLabel: UILabel!
 	@IBOutlet weak var regionLabel: UILabel!
 
-	@IBOutlet weak var showDescSwitch: UISwitch!
 	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
 	@IBOutlet weak var useReaderViewSwitch: UISwitch!
-	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
-	@IBOutlet weak var showNewsPictureSwitch: UISwitch!
+
 	@IBOutlet weak var useChromeSwitch: UISwitch!
 	@IBOutlet weak var useChromeCell: UITableViewCell!
 	
@@ -83,7 +82,6 @@ class SettingsViewController: UITableViewController {
         
         	self.listLanguages()
 			
-        	self.showDescSwitch.on = self.settings.showDesc
         	self.useMobileUrlSwitch.on = self.settings.useMobileUrl
         	self.useReaderViewSwitch.on = self.settings.useReaderView
 		
@@ -129,6 +127,14 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "SelectDisplaySettings" {
+//  			if let displaySettingsViewController = segue.destinationViewController as? DisplaySettingsViewController {
+				#if DEBUG
+            		print ("prepareForSegue: SelectDisplaySettings")
+        		#endif
+//  			}
+		}
+		
 		if segue.identifier == "SelectTodayCategory" {
   			if let categoryPickerViewController = segue.destinationViewController as? CategoryPickerViewController {
 				#if DEBUG
@@ -145,17 +151,6 @@ class SettingsViewController: UITableViewController {
     			regionPickerViewController.selectedLanguage = selectedLanguage
   			}
 		}
-	}
-
-	@IBAction func showDescAction(sender: UISwitch) {
-		settings.showDesc = sender.on
-        defaults!.setObject(settings.showDesc, forKey: "showDesc")
-		defaults!.synchronize()
-        #if DEBUG
-            print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
-        #endif
-		
-		self.trackEvent("showDesc", category: "ui_Event", action: "showDesc", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
 	@IBAction func useMobileUrlAction(sender: UISwitch) {
@@ -191,19 +186,6 @@ class SettingsViewController: UITableViewController {
 		self.trackEvent("useDarkTheme", category: "ui_Event", action: "useDarkTheme", label: "settings", value: (sender.on) ? 1 : 0)
 
 		NSNotificationCenter.defaultCenter().postNotificationName("themeChangedNotification", object: nil, userInfo: nil)
-	}
-
-	@IBAction func showNewsPictureAction(sender: UISwitch) {
-		settings.showNewsPicture = sender.on
-        defaults!.setObject(settings.showNewsPicture, forKey: "showNewsPicture")
-		defaults!.synchronize()
-        #if DEBUG
-            print ("showNewsPicture \(settings.showNewsPicture), sender.on=\(sender.on)")
-        #endif
-		
-		self.trackEvent("showNewsPicture", category: "ui_Event", action: "showNewsPicture", label: "settings", value: (sender.on) ? 1 : 0)
-		
-		NSNotificationCenter.defaultCenter().postNotificationName("showNewsPictureChangedNotification", object: nil, userInfo: nil)
 	}
 
 	@IBAction func useChromeAction(sender: UISwitch) {
@@ -253,11 +235,9 @@ class SettingsViewController: UITableViewController {
 			useChromeCell.hidden = true
 		}
 		
-        showDescSwitch.on = settings.showDesc
         useMobileUrlSwitch.on = settings.useMobileUrl
         useReaderViewSwitch.on = settings.useReaderView
 		useDarkThemeSwitch.on = settings.useDarkTheme
-		showNewsPictureSwitch.on = settings.showNewsPicture
 		useChromeSwitch.on = settings.useChrome
 		optOutAnalyticsSwitch.on = settings.optOutAnalytics
     }
@@ -278,15 +258,12 @@ class SettingsViewController: UITableViewController {
 		
 		self.view.backgroundColor = Theme.backgroundColor
 		
-		showDescLabel.textColor = Theme.textColor
-		showDescDesc.textColor = Theme.textColor
+		displayLabel.textColor = Theme.textColor
 		useMobileUrlLabel.textColor = Theme.textColor
 		useMobileUrlDesc.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
 		useReaderDesc.textColor = Theme.textColor
 		useDarkLabel.textColor = Theme.textColor
-		showNewsPictureLabel.textColor = Theme.textColor
-		showNewsPictureDesc.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
 		useChromeDesc.textColor = Theme.textColor
 		optOutAnalyticsLabel.textColor = Theme.textColor
@@ -310,15 +287,11 @@ class SettingsViewController: UITableViewController {
 	func setContentSize() {
 		tableView.reloadData()
 		
-		showDescLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showDescDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useMobileUrlLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		useMobileUrlDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useReaderLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		useReaderDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		useDarkLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showNewsPictureLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showNewsPictureDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 		optOutAnalyticsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 		optOutAnalyticsDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
 
@@ -380,13 +353,12 @@ class SettingsViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
-
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 		
 		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 25))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
 		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)

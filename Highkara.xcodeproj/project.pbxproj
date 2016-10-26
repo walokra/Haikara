@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		325FC41396A9158AD8948853 /* Pods_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C89DC1073AB6AEA86465BD /* Pods_Today.framework */; };
 		36065CED1B92522800AF0102 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
+		3607D8631DC109DF005FED68 /* DisplaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3607D8621DC109DF005FED68 /* DisplaySettingsViewController.swift */; };
 		360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B4E301B4C69D70019FA1F /* SettingsViewController.swift */; };
 		360F97D81BD6D77C00D9EB38 /* HideCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */; };
 		3610239D1D2466E200303C76 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3610239C1D2466E200303C76 /* NotificationCenter.framework */; };
@@ -120,6 +121,7 @@
 /* Begin PBXFileReference section */
 		00420E044BF4749D356A6EEA /* Pods-Today.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.debug.xcconfig"; sourceTree = "<group>"; };
 		36065CEC1B92522800AF0102 /* HighFiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighFiApi.swift; sourceTree = "<group>"; };
+		3607D8621DC109DF005FED68 /* DisplaySettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplaySettingsViewController.swift; sourceTree = "<group>"; };
 		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideCategoryViewController.swift; sourceTree = "<group>"; };
 		3610239C1D2466E200303C76 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -270,6 +272,7 @@
 				368E20811D5E3837009255B9 /* RegionPickerViewController.swift */,
 				36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */,
 				36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */,
+				3607D8621DC109DF005FED68 /* DisplaySettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
+				3607D8631DC109DF005FED68 /* DisplaySettingsViewController.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
 				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
