@@ -136,7 +136,7 @@ class Settings {
         
         defaults.synchronize()
     }
-    
+	
     // Singleton
     class var sharedInstance: Settings {
         struct Static {
@@ -195,6 +195,11 @@ class Settings {
 	
 	var fontName: String
 	var useSystemSize: Bool
+	var fontSizeBase: CGFloat
+	var fontSizeXLarge: UIFont
+	var fontSizeLarge: UIFont
+	var fontSizeMedium: UIFont
+	var fontSizeSmall: UIFont
 	
 	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
@@ -371,6 +376,12 @@ class Settings {
 		
 		self.defaults.synchronize()
 		
+		self.fontSizeBase = 10.0
+		self.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		self.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		self.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		self.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+
         // For development
 //        self.categoriesByLang = Dictionary<String, Array<Category>>()
 //        self.categoriesUpdatedByLang = Dictionary<String, NSDate>()

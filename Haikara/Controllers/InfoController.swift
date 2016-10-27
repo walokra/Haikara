@@ -90,14 +90,14 @@ class InfoController: UITableViewController {
     }
 	
 	func setContentSize() {
-		infoLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-		aboutLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		licenseLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-		openAppStoreButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		openHighFiButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		bugsButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		openTwitterButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		openEmailButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		infoLabel.font = settings.fontSizeSmall
+		aboutLabel.font = settings.fontSizeLarge
+		licenseLabel.font = settings.fontSizeSmall
+		openAppStoreButton.titleLabel?.font = settings.fontSizeLarge
+		openHighFiButton.titleLabel?.font = settings.fontSizeLarge
+		bugsButton.titleLabel?.font = settings.fontSizeLarge
+		openTwitterButton.titleLabel?.font = settings.fontSizeLarge
+		openEmailButton.titleLabel?.font = settings.fontSizeLarge
 		
 		tableView.reloadData()
 	}
@@ -133,7 +133,7 @@ class InfoController: UITableViewController {
 		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		sectionLabel.font = settings.fontSizeLarge
 		
 		headerView.addSubview(sectionLabel)
 		

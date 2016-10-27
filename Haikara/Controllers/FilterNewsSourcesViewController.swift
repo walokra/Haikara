@@ -185,7 +185,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 			
 		cell.textLabel!.text = tableItem.sourceName
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		cell.textLabel!.font = settings.fontSizeXLarge
         
 		if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
 			cell.backgroundColor = Theme.selectedColor

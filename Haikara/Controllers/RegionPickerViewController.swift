@@ -88,7 +88,7 @@ class RegionPickerViewController: UITableViewController {
 //		}
 
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		cell.textLabel!.font = settings.fontSizeXLarge
 		
 		if indexPath.row == selectedLanguageIndex {
 			cell.backgroundColor = Theme.selectedColor

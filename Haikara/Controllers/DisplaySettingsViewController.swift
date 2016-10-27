@@ -25,6 +25,7 @@ class DisplaySettingsViewController: UITableViewController {
 	@IBOutlet weak var previewImageWidthConstraint: NSLayoutConstraint!
 	@IBOutlet weak var previewTitleLeadingConstraint: NSLayoutConstraint!
 	
+	@IBOutlet weak var selectFontSizeSlider: UISlider!
 	@IBOutlet weak var showDescLabel: UILabel!
 	@IBOutlet weak var showDescDesc: UILabel!
 	@IBOutlet weak var showDescSwitch: UISwitch!
@@ -69,8 +70,27 @@ class DisplaySettingsViewController: UITableViewController {
         #endif
 		
 		self.trackEvent("useSystemSize", category: "ui_Event", action: "useSystemSize", label: "settings", value: (sender.on) ? 1 : 0)
+
+		Theme.setFonts()
 		
-		renderPreview()
+		NSNotificationCenter.defaultCenter().postNotificationName(UIContentSizeCategoryDidChangeNotification, object: nil, userInfo: nil)
+	}
+	
+	@IBAction func selectBaseFontSizeAction(sender: UISlider) {
+		settings.fontSizeBase = CGFloat(Int(sender.value))
+		selectFontSizeSlider.value = round(selectFontSizeSlider.value)
+		
+		defaults!.setObject(settings.fontSizeBase, forKey: "fontSizeBase")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("fontSizeBase \(settings.useSystemSize), sender.value=\(sender.value)")
+        #endif
+		
+		self.trackEvent("selectBaseFontSize", category: "ui_Event", action: "selectBaseFontSize", label: "settings", value: sender.value)
+
+		Theme.setFonts()
+		
+		NSNotificationCenter.defaultCenter().postNotificationName(UIContentSizeCategoryDidChangeNotification, object: nil, userInfo: nil)
 	}
 	
 	override func viewDidLoad() {
@@ -88,6 +108,8 @@ class DisplaySettingsViewController: UITableViewController {
 
         showDescSwitch.on = settings.showDesc
 		showNewsPictureSwitch.on = settings.showNewsPicture
+		useSystemSizeSwitch.on = settings.useSystemSize
+//		settings.fontSizeBase
     }
 	
 	func configureTableView() {
@@ -109,6 +131,7 @@ class DisplaySettingsViewController: UITableViewController {
         #endif
 		self.showDescSwitch.on = settings.showDesc
 		self.showNewsPictureSwitch.on = settings.showNewsPicture
+		self.useSystemSizeSwitch.on = settings.useSystemSize
 	}
 	
 	func setTheme() {
@@ -136,12 +159,17 @@ class DisplaySettingsViewController: UITableViewController {
 	}
 	
 	func setContentSize() {
-		showDescLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showDescDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-		showNewsPictureLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		showNewsPictureDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		#if DEBUG
+            print("DisplaySettingsViewController, setContentSize")
+        #endif
+
+		showDescLabel.font = settings.fontSizeLarge
+		showDescDesc.font = settings.fontSizeMedium
+		showNewsPictureLabel.font = settings.fontSizeLarge
+		showNewsPictureDesc.font = settings.fontSizeMedium
+		useSystemSizeLabel.font = settings.fontSizeLarge
 		
-		tableView.reloadData()
+		renderPreview()
 	}
 	
 	func setContentSize(notification: NSNotification) {
@@ -152,9 +180,9 @@ class DisplaySettingsViewController: UITableViewController {
 	}
 
 	func renderPreview() {
-		previewTitle.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		previewAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-		previewDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		previewTitle.font = settings.fontSizeLarge
+		previewAuthor.font = settings.fontSizeSmall
+		previewDescription.font = settings.fontSizeMedium
 		
 		previewTitle.textColor = Theme.cellTitleColor
 		previewAuthor.textColor = Theme.cellAuthorColor
@@ -177,23 +205,13 @@ class DisplaySettingsViewController: UITableViewController {
 		
 		previewContent.setNeedsLayout()
     	previewContent.layoutIfNeeded()
-		self.tableView.reloadData()
 	}
-
-//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//		let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-//    	if cell == self.previewCell {
-//			return UITableViewAutomaticDimension
-//		}
-//		
-//		return super.tableView(tableView, heightForRowAtIndexPath:indexPath)
-//	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.textLabel!.font = settings.fontSizeLarge
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 		cell.selectionStyle = .None
@@ -209,7 +227,7 @@ class DisplaySettingsViewController: UITableViewController {
 		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 25))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		sectionLabel.font = settings.fontSizeLarge
 		
 		headerView.addSubview(sectionLabel)
 		

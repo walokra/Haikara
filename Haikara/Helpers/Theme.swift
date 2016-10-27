@@ -31,17 +31,31 @@ struct Theme {
 	
 	static var poweredLabelColor: UIColor = Light.poweredLabelColor
 	
-	let settings = Settings.sharedInstance
-	
 	static func loadTheme(){
 		let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
+		setFonts()
+		
 		if let useDarkTheme: Bool = defaults.objectForKey("useDarkTheme")?.boolValue {
 			(useDarkTheme) ? themeDark() : themeLight()
 		} else {
 			themeLight()
 		}
     }
+	
+	static func setFonts() {
+		if Settings.sharedInstance.useSystemSize {
+			Settings.sharedInstance.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+			Settings.sharedInstance.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+			Settings.sharedInstance.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+			Settings.sharedInstance.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		} else {
+			Settings.sharedInstance.fontSizeXLarge = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 6.0)
+			Settings.sharedInstance.fontSizeLarge = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 5.0)
+			Settings.sharedInstance.fontSizeSmall = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 2.0)
+			Settings.sharedInstance.fontSizeMedium = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 3.0)
+		}
+	}
 	
 	// MARK: Light Theme Schemes
 	static func themeLight(){

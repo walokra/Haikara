@@ -482,7 +482,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		sectionLabel.text = sortedSections[section]
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		sectionLabel.font = settings.fontSizeLarge
 
 		clockLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
 		createClockIcon(Theme.textColor)
@@ -542,9 +542,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			date = formatTime(tableItem.publishedDateJS)
 		}
 		
-		cell.entryTitle.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		cell.entryAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-		cell.entryDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		cell.entryTitle.font = settings.fontSizeLarge
+		cell.entryAuthor.font = settings.fontSizeSmall
+		cell.entryDescription.font = settings.fontSizeMedium
 		
 		cell.entryTitle.text = tableItem.title
 		cell.entryTitle.textColor = Theme.cellTitleColor

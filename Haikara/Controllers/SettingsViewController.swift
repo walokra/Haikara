@@ -287,19 +287,20 @@ class SettingsViewController: UITableViewController {
 	func setContentSize() {
 		tableView.reloadData()
 		
-		useMobileUrlLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		useMobileUrlDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-		useReaderLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		useReaderDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-		useDarkLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		optOutAnalyticsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		optOutAnalyticsDesc.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		displayLabel.font = settings.fontSizeLarge
+		useMobileUrlLabel.font = settings.fontSizeLarge
+		useMobileUrlDesc.font = settings.fontSizeMedium
+		useReaderLabel.font = settings.fontSizeLarge
+		useReaderDesc.font = settings.fontSizeMedium
+		useDarkLabel.font = settings.fontSizeLarge
+		optOutAnalyticsLabel.font = settings.fontSizeLarge
+		optOutAnalyticsDesc.font = settings.fontSizeMedium
 
-		widgetCategoryLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		regionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+		widgetCategoryLabel.font = settings.fontSizeLarge
+		regionLabel.font = settings.fontSizeLarge
 		
-		resetLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-		resetButton.titleLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		resetLabel.font = settings.fontSizeMedium
+		resetButton.titleLabel!.font = settings.fontSizeMedium
 	}
 	
 	func setContentSize(notification: NSNotification) {
@@ -334,7 +335,7 @@ class SettingsViewController: UITableViewController {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
 		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		cell.textLabel!.font = settings.fontSizeLarge
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 		cell.selectionStyle = .None
@@ -361,7 +362,7 @@ class SettingsViewController: UITableViewController {
 		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 25))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		sectionLabel.font = settings.fontSizeLarge
 		
 		headerView.addSubview(sectionLabel)
 		
