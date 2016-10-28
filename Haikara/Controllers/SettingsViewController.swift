@@ -13,31 +13,26 @@ class SettingsViewController: UITableViewController {
 	let viewName = "SettingsView"
 
 	@IBOutlet weak var displayLabel: UILabel!
+	@IBOutlet weak var aboutLabel: UILabel!
 	
 	@IBOutlet weak var useDarkLabel: UILabel!
 	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
 	
 	@IBOutlet weak var useMobileUrlLabel: UILabel!
-	@IBOutlet weak var useMobileUrlDesc: UILabel!
-	
+	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
+
 	@IBOutlet weak var useReaderLabel: UILabel!
-	@IBOutlet weak var useReaderDesc: UILabel!
-	
+	@IBOutlet weak var useReaderViewSwitch: UISwitch!
+
 	@IBOutlet weak var useChromeLabel: UILabel!
-	@IBOutlet weak var useChromeDesc: UILabel!
+	@IBOutlet weak var useChromeSwitch: UISwitch!
+	@IBOutlet weak var useChromeCell: UITableViewCell!
 
 	@IBOutlet weak var optOutAnalyticsLabel: UILabel!
-	@IBOutlet weak var optOutAnalyticsDesc: UILabel!
 	@IBOutlet weak var optOutAnalyticsSwitch: UISwitch!
 	
 	@IBOutlet weak var widgetCategoryLabel: UILabel!
 	@IBOutlet weak var regionLabel: UILabel!
-
-	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
-	@IBOutlet weak var useReaderViewSwitch: UISwitch!
-
-	@IBOutlet weak var useChromeSwitch: UISwitch!
-	@IBOutlet weak var useChromeCell: UITableViewCell!
 	
 	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
 	@IBOutlet weak var regionDetailLabel: UILabel!
@@ -260,19 +255,19 @@ class SettingsViewController: UITableViewController {
 		
 		displayLabel.textColor = Theme.textColor
 		useMobileUrlLabel.textColor = Theme.textColor
-		useMobileUrlDesc.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
-		useReaderDesc.textColor = Theme.textColor
 		useDarkLabel.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
-		useChromeDesc.textColor = Theme.textColor
-		optOutAnalyticsLabel.textColor = Theme.textColor
-		optOutAnalyticsDesc.textColor = Theme.textColor
 
 		widgetCategoryLabel.textColor = Theme.textColor
+		regionLabel.textColor = Theme.textColor
+
+		optOutAnalyticsLabel.textColor = Theme.textColor
+
 		resetLabel.textColor = Theme.textColor
 		resetButton.setTitleColor(Theme.textColor, forState: .Normal)
-		regionLabel.textColor = Theme.textColor
+		
+		aboutLabel.textColor = Theme.textColor
 		
 		self.tableView.reloadData()
 	}
@@ -289,18 +284,17 @@ class SettingsViewController: UITableViewController {
 		
 		displayLabel.font = settings.fontSizeLarge
 		useMobileUrlLabel.font = settings.fontSizeLarge
-		useMobileUrlDesc.font = settings.fontSizeMedium
 		useReaderLabel.font = settings.fontSizeLarge
-		useReaderDesc.font = settings.fontSizeMedium
 		useDarkLabel.font = settings.fontSizeLarge
 		optOutAnalyticsLabel.font = settings.fontSizeLarge
-		optOutAnalyticsDesc.font = settings.fontSizeMedium
 
 		widgetCategoryLabel.font = settings.fontSizeLarge
 		regionLabel.font = settings.fontSizeLarge
 		
 		resetLabel.font = settings.fontSizeMedium
 		resetButton.titleLabel!.font = settings.fontSizeMedium
+		
+		aboutLabel.font = settings.fontSizeLarge
 	}
 	
 	func setContentSize(notification: NSNotification) {

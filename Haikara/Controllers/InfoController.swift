@@ -18,6 +18,9 @@ class InfoController: UITableViewController {
 	@IBOutlet weak var licenseLabel: UILabel!
 	@IBOutlet weak var aboutLabel: UILabel!
 
+	@IBOutlet weak var infoCell: UITableViewCell!
+	@IBOutlet weak var logoCell: UITableViewCell!
+	
 	@IBOutlet weak var openHighFiButton: UIButton!
 	@IBAction func openHighFi(sender: AnyObject) {
 		UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
@@ -115,8 +118,9 @@ class InfoController: UITableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-   		// Change the color of all cells
-   		cell.backgroundColor = Theme.backgroundColor
+		// Change the color of all cells
+		cell.backgroundColor = (cell == logoCell) ? UIColor.darkGrayColor() : Theme.backgroundColor
+		
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
@@ -124,13 +128,13 @@ class InfoController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
+	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
 
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 		
 		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 25))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
 		sectionLabel.font = settings.fontSizeLarge
@@ -139,6 +143,15 @@ class InfoController: UITableViewController {
 		
     	return headerView
 	}
+	
+//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+//    	if cell == self.infoCell {
+//		   return cell.bounds.size.height
+//		}
+//		
+//		return super.tableView(tableView, heightForRowAtIndexPath:indexPath)
+//	}
 	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

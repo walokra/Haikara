@@ -34,7 +34,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			region: "Finland",
 			optOutAnalytics: false,
 			fontName: "Avenir-Light",
-			useSystemSize: true
+			useSystemSize: true,
+			fontSizeBase: 10.0
 		)
 	
 	var region: String? // http://high.fi/api/?act=listLanguages

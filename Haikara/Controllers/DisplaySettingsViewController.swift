@@ -23,17 +23,18 @@ class DisplaySettingsViewController: UITableViewController {
 	@IBOutlet weak var previewCell: UITableViewCell!
 	@IBOutlet weak var previewContent: UIView!
 	@IBOutlet weak var previewImageWidthConstraint: NSLayoutConstraint!
-	@IBOutlet weak var previewTitleLeadingConstraint: NSLayoutConstraint!
 	
 	@IBOutlet weak var selectFontSizeSlider: UISlider!
 	@IBOutlet weak var showDescLabel: UILabel!
-	@IBOutlet weak var showDescDesc: UILabel!
 	@IBOutlet weak var showDescSwitch: UISwitch!
 	@IBOutlet weak var showNewsPictureLabel: UILabel!
-	@IBOutlet weak var showNewsPictureDesc: UILabel!
 	@IBOutlet weak var showNewsPictureSwitch: UISwitch!
 	@IBOutlet weak var useSystemSizeLabel: UILabel!
 	@IBOutlet weak var useSystemSizeSwitch: UISwitch!
+	
+	@IBOutlet weak var fontsizeSmallLabel: UILabel!
+	@IBOutlet weak var fontsizeMediumLabel: UILabel!
+	@IBOutlet weak var fontsizeLargeLabel: UILabel!
 	
 	@IBAction func showDescAction(sender: UISwitch) {
 		settings.showDesc = sender.on
@@ -73,6 +74,8 @@ class DisplaySettingsViewController: UITableViewController {
 
 		Theme.setFonts()
 		
+		selectFontSizeSlider.enabled = !settings.useSystemSize
+		
 		NSNotificationCenter.defaultCenter().postNotificationName(UIContentSizeCategoryDidChangeNotification, object: nil, userInfo: nil)
 	}
 	
@@ -109,12 +112,14 @@ class DisplaySettingsViewController: UITableViewController {
         showDescSwitch.on = settings.showDesc
 		showNewsPictureSwitch.on = settings.showNewsPicture
 		useSystemSizeSwitch.on = settings.useSystemSize
-//		settings.fontSizeBase
+		
+		selectFontSizeSlider.value = Float(settings.fontSizeBase)
+		selectFontSizeSlider.enabled = !settings.useSystemSize
     }
 	
 	func configureTableView() {
 		self.tableView.rowHeight = UITableViewAutomaticDimension
-		self.tableView.estimatedRowHeight = 110.0
+		self.tableView.estimatedRowHeight = 55.0
 	}
 	
 	func setObservers() {
@@ -143,10 +148,11 @@ class DisplaySettingsViewController: UITableViewController {
 		self.view.backgroundColor = Theme.backgroundColor
 		
 		showDescLabel.textColor = Theme.textColor
-		showDescDesc.textColor = Theme.textColor
 		showNewsPictureLabel.textColor = Theme.textColor
-		showNewsPictureDesc.textColor = Theme.textColor
 		useSystemSizeLabel.textColor = Theme.textColor
+		fontsizeSmallLabel.textColor = Theme.textColor
+		fontsizeMediumLabel.textColor = Theme.textColor
+		fontsizeLargeLabel.textColor = Theme.textColor
 
 		self.tableView.reloadData()
 	}
@@ -164,9 +170,7 @@ class DisplaySettingsViewController: UITableViewController {
         #endif
 
 		showDescLabel.font = settings.fontSizeLarge
-		showDescDesc.font = settings.fontSizeMedium
 		showNewsPictureLabel.font = settings.fontSizeLarge
-		showNewsPictureDesc.font = settings.fontSizeMedium
 		useSystemSizeLabel.font = settings.fontSizeLarge
 		
 		renderPreview()
@@ -194,17 +198,19 @@ class DisplaySettingsViewController: UITableViewController {
 		previewDescription.textColor = Theme.cellDescriptionColor
 		
 		if settings.showNewsPicture {
-			previewImageWidthConstraint.constant = 100
-       		previewTitleLeadingConstraint.constant = 10
 			previewImage.frame = CGRect(x: previewImage.frame.origin.x, y: previewImage.frame.origin.y, width: 100,height: 100)
+			previewImageWidthConstraint.constant = 100
+//			previewImage.image = UIImage(named:"iTunesArtwork.png")!
 		} else {
+//			previewImage.image = nil
 			previewImage.frame = CGRectZero
 			previewImageWidthConstraint.constant = 0
-        	previewTitleLeadingConstraint.constant = 0
 		}
+
+		previewCell.setNeedsLayout()
+    	previewCell.layoutIfNeeded()
 		
-		previewContent.setNeedsLayout()
-    	previewContent.layoutIfNeeded()
+		self.tableView.reloadData()
 	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -233,6 +239,15 @@ class DisplaySettingsViewController: UITableViewController {
 		
     	return headerView
 	}
+	
+//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+//    	if cell == self.previewCell {
+//		   return cell.bounds.size.height
+//		}
+//		
+//		return super.tableView(tableView, heightForRowAtIndexPath:indexPath)
+//	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

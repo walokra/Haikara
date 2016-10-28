@@ -28,6 +28,7 @@ struct Defaults {
 	
 	let fontName: String
 	let useSystemSize: Bool
+	let fontSizeBase: CGFloat
 }
 
 var instance: Settings?
@@ -47,7 +48,8 @@ class Settings {
 			region: "Finland",
 			optOutAnalytics: false,
 			fontName: "Avenir-Light",
-			useSystemSize: true
+			useSystemSize: true,
+			fontSizeBase: 10.0
 		)
     
     func resetToDefaults() {
@@ -129,6 +131,8 @@ class Settings {
 		defaults.setObject(self.fontName, forKey: "fontName")
 		self.useSystemSize = defaultValues.useSystemSize
 		defaults.setObject(self.useSystemSize, forKey: "useSystemSize")
+		self.fontSizeBase = defaultValues.fontSizeBase
+		defaults.setObject(self.fontSizeBase, forKey: "fontSizeBase")
 		
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
@@ -374,28 +378,37 @@ class Settings {
             self.useSystemSize = defaultValues.useSystemSize
         }
 		
+		if let fontSizeBase: CGFloat = defaults.objectForKey("fontSizeBase") as? CGFloat {
+            self.fontSizeBase = fontSizeBase
+        } else {
+            self.fontSizeBase = defaultValues.fontSizeBase
+        }
+
+		if self.useSystemSize {
+			self.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+			self.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+			self.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+			self.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+		} else {
+			self.fontSizeXLarge = UIFont.systemFontOfSize(self.fontSizeBase + 6.0)
+			self.fontSizeLarge = UIFont.systemFontOfSize(self.fontSizeBase + 5.0)
+			self.fontSizeSmall = UIFont.systemFontOfSize(self.fontSizeBase + 2.0)
+			self.fontSizeMedium = UIFont.systemFontOfSize(self.fontSizeBase + 3.0)
+		}
+
 		self.defaults.synchronize()
-		
-		self.fontSizeBase = 10.0
-		self.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-		self.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-		self.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-		self.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
 
         // For development
 //        self.categoriesByLang = Dictionary<String, Array<Category>>()
 //        self.categoriesUpdatedByLang = Dictionary<String, NSDate>()
         
         #if DEBUG
-//            println("showDesc: \(self.showDesc)")
-//            println("useMobileUrl: \(self.useMobileUrl)")
-//            println("region: \(self.region)")
             print("\(self.description)")
         #endif
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize)"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
     }
 	
 	func removeSource(sourceID: Int) -> Bool {
