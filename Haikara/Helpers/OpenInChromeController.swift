@@ -28,7 +28,6 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 import UIKit
 
 private let googleChromeHTTPScheme: String = "googlechrome:"
@@ -43,14 +42,14 @@ public class OpenInChromeController {
     public static let sharedInstance = OpenInChromeController()
     
     public func isChromeInstalled() -> Bool {
-        let simpleURL = NSURL(string: (googleChromeHTTPScheme))!
-        let callbackURL = NSURL(string: (googleChromeCallbackScheme))!
+        let simpleURL = NSURL(string: googleChromeHTTPScheme)!
+        let callbackURL = NSURL(string: googleChromeCallbackScheme)!
         return UIApplication.sharedApplication().canOpenURL(simpleURL) || UIApplication.sharedApplication().canOpenURL(callbackURL);
     }
     
     public func openInChrome(url: NSURL, callbackURL: NSURL? = nil, createNewTab: Bool = false) -> Bool {
-        let chromeSimpleURL = NSURL(string: (googleChromeHTTPScheme))!
-        let chromeCallbackURL = NSURL(string: (googleChromeCallbackScheme))!
+        let chromeSimpleURL = NSURL(string: googleChromeHTTPScheme)!
+        let chromeCallbackURL = NSURL(string: googleChromeCallbackScheme)!
         if UIApplication.sharedApplication().canOpenURL(chromeCallbackURL) {
             var appName = NSBundle.mainBundle().infoDictionary?["CFBundleDisplayName"] as? String
             // CFBundleDisplayName is an optional key, so we will use CFBundleName if it does not exist
@@ -59,7 +58,7 @@ public class OpenInChromeController {
             }
             let scheme = url.scheme!.lowercaseString
             if scheme == "http" || scheme == "https" {
-                var chromeURLString = String(format: "%@//x-callback-url/open/?x-source=%@&url=%@", googleChromeCallbackScheme + ":", encodeByAddingPercentEscapes(appName), encodeByAddingPercentEscapes(url.absoluteString))
+                var chromeURLString = String(format: "%@//x-callback-url/open/?x-source=%@&url=%@", googleChromeCallbackScheme, encodeByAddingPercentEscapes(appName), encodeByAddingPercentEscapes(url.absoluteString))
                 if callbackURL != nil {
                     chromeURLString += String(format: "&x-success=%@", encodeByAddingPercentEscapes(callbackURL!.absoluteString))
                 }
@@ -78,7 +77,7 @@ public class OpenInChromeController {
             }
             if let chromeScheme = chromeScheme {
                 let absoluteURLString = url.absoluteString
-				let chromeURLString = chromeScheme + absoluteURLString!.substringFromIndex(absoluteURLString!.rangeOfString(":")!.startIndex)
+                let chromeURLString = chromeScheme + absoluteURLString!.substringFromIndex(absoluteURLString!.rangeOfString(":")!.startIndex)
                 return UIApplication.sharedApplication().openURL(NSURL(string: chromeURLString)!)
             }
         }

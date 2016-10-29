@@ -337,7 +337,7 @@ class SettingsViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-    	if cell == self.useChromeCell {
+    	if cell == self.useChromeCell && useChromeCell.hidden {
 			#if DEBUG
             	print("SettingsViewController, useChromeView HIDDEN")
 			#endif
