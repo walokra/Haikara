@@ -1,5 +1,7 @@
 0.9.12 ()
-* Refactor labels to use system text size 
+* Refactor texts to use system text size
+* Add option to use Chrome for opening news
+* Add option to select used text size
 
 0.9.11 (2016-09-26)
 * Fix Today widget color in iOS 10
