@@ -555,7 +555,7 @@
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
 					367BAD1D1D1874B600F6B949 = {
@@ -918,6 +918,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00420E044BF4749D356A6EEA /* Pods-Today.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = NewsWidget/Today.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -951,6 +952,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6FB4050DF578DF5D89F7BFA /* Pods-Today.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = NewsWidget/Today.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -1015,6 +1017,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1024,8 +1027,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1062,6 +1067,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1071,8 +1077,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1096,6 +1104,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1106,6 +1115,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7DF258B82BC868AA8338CE1F /* Pods-highkara.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -1137,6 +1147,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49057798B8E0F09649ABCC5F /* Pods-highkara.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
 				CODE_SIGN_IDENTITY = "";
