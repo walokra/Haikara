@@ -392,7 +392,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
 			#endif
-			OpenInChromeController.sharedInstance.openInChrome(webURL, createNewTab: true, callbackURL: NSURL(string: "Highkara"))
+			OpenInChromeController.sharedInstance.openInChrome(webURL, createNewTab: false, callbackURL: NSURL(string: "Highkara"))
 		} else {
 			if #available(iOS 9.0, *) {
 				#if DEBUG
