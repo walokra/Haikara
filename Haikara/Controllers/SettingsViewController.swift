@@ -12,7 +12,6 @@ class SettingsViewController: UITableViewController {
 
 	let viewName = "SettingsView"
 
-	@IBOutlet weak var displayLabel: UILabel!
 	@IBOutlet weak var aboutLabel: UILabel!
 	
 	@IBOutlet weak var useDarkLabel: UILabel!
@@ -36,6 +35,29 @@ class SettingsViewController: UITableViewController {
 	
 	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
 	@IBOutlet weak var regionDetailLabel: UILabel!
+
+	// Mark: Outlets
+	// Preview
+	@IBOutlet weak var previewImage: UIImageView!
+	@IBOutlet weak var previewTitle: UILabel!
+	@IBOutlet weak var previewAuthor: UILabel!
+	@IBOutlet weak var previewDescription: UILabel!
+	@IBOutlet weak var previewCell: UITableViewCell!
+	@IBOutlet weak var previewImageWidthConstraint: NSLayoutConstraint!
+	
+	// Theme
+	@IBOutlet weak var showDescLabel: UILabel!
+	@IBOutlet weak var showDescSwitch: UISwitch!
+	@IBOutlet weak var showNewsPictureLabel: UILabel!
+	@IBOutlet weak var showNewsPictureSwitch: UISwitch!
+	
+	// Text size
+	@IBOutlet weak var useSystemSizeLabel: UILabel!
+	@IBOutlet weak var useSystemSizeSwitch: UISwitch!
+	@IBOutlet weak var selectFontSizeSlider: UISlider!
+	@IBOutlet weak var fontsizeSmallLabel: UILabel!
+	@IBOutlet weak var fontsizeMediumLabel: UILabel!
+	@IBOutlet weak var fontsizeLargeLabel: UILabel!
 
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
@@ -208,10 +230,65 @@ class SettingsViewController: UITableViewController {
 		NSNotificationCenter.defaultCenter().postNotificationName("optOutAnalyticsChangedNotification", object: nil, userInfo: nil)
 	}
 
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		sendScreenView(viewName)
-//	}
+	@IBAction func showDescAction(sender: UISwitch) {
+		settings.showDesc = sender.on
+        defaults!.setObject(settings.showDesc, forKey: "showDesc")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("showDesc \(settings.showDesc), sender.on=\(sender.on)")
+        #endif
+		
+		self.trackEvent("showDesc", category: "ui_Event", action: "showDesc", label: "settings", value: (sender.on) ? 1 : 0)
+		
+		renderPreview()
+	}
+
+	@IBAction func showNewsPictureAction(sender: UISwitch) {
+		settings.showNewsPicture = sender.on
+        defaults!.setObject(settings.showNewsPicture, forKey: "showNewsPicture")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("showNewsPicture \(settings.showNewsPicture), sender.on=\(sender.on)")
+        #endif
+		
+		self.trackEvent("showNewsPicture", category: "ui_Event", action: "showNewsPicture", label: "settings", value: (sender.on) ? 1 : 0)
+		
+		renderPreview()
+	}
+	
+	@IBAction func useSystemSizeAction(sender: UISwitch) {
+		settings.useSystemSize = sender.on
+        defaults!.setObject(settings.useSystemSize, forKey: "useSystemSize")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("useSystemSize \(settings.useSystemSize), sender.on=\(sender.on)")
+        #endif
+		
+		self.trackEvent("useSystemSize", category: "ui_Event", action: "useSystemSize", label: "settings", value: (sender.on) ? 1 : 0)
+
+		Theme.setFonts()
+		
+		selectFontSizeSlider.enabled = !settings.useSystemSize
+		
+		NSNotificationCenter.defaultCenter().postNotificationName(UIContentSizeCategoryDidChangeNotification, object: nil, userInfo: nil)
+	}
+	
+	@IBAction func selectBaseFontSizeAction(sender: UISlider) {
+		settings.fontSizeBase = CGFloat(Int(sender.value))
+		selectFontSizeSlider.value = round(selectFontSizeSlider.value)
+		
+		defaults!.setObject(settings.fontSizeBase, forKey: "fontSizeBase")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("fontSizeBase \(settings.useSystemSize), sender.value=\(sender.value)")
+        #endif
+		
+		self.trackEvent("selectBaseFontSize", category: "ui_Event", action: "selectBaseFontSize", label: "settings", value: sender.value)
+
+		Theme.setFonts()
+		
+		NSNotificationCenter.defaultCenter().postNotificationName(UIContentSizeCategoryDidChangeNotification, object: nil, userInfo: nil)
+	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -226,6 +303,9 @@ class SettingsViewController: UITableViewController {
 		setContentSize()
 		sendScreenView(viewName)
 		
+		renderPreview()
+
+		
 		if !OpenInChromeController.sharedInstance.isChromeInstalled() {
 			useChromeCell.hidden = true
 		}
@@ -235,6 +315,13 @@ class SettingsViewController: UITableViewController {
 		useDarkThemeSwitch.on = settings.useDarkTheme
 		useChromeSwitch.on = settings.useChrome
 		optOutAnalyticsSwitch.on = settings.optOutAnalytics
+		
+		showDescSwitch.on = settings.showDesc
+		showNewsPictureSwitch.on = settings.showNewsPicture
+		useSystemSizeSwitch.on = settings.useSystemSize
+		
+		selectFontSizeSlider.value = Float(settings.fontSizeBase)
+		selectFontSizeSlider.enabled = !settings.useSystemSize
     }
 	
 	func setObservers() {
@@ -253,10 +340,8 @@ class SettingsViewController: UITableViewController {
 		
 		self.view.backgroundColor = Theme.backgroundColor
 		
-		displayLabel.textColor = Theme.textColor
 		useMobileUrlLabel.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
-		useDarkLabel.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
 
 		widgetCategoryLabel.textColor = Theme.textColor
@@ -268,6 +353,17 @@ class SettingsViewController: UITableViewController {
 		resetButton.setTitleColor(Theme.textColor, forState: .Normal)
 		
 		aboutLabel.textColor = Theme.textColor
+
+		// Theme
+		useDarkLabel.textColor = Theme.textColor
+		showDescLabel.textColor = Theme.textColor
+		showNewsPictureLabel.textColor = Theme.textColor
+		useSystemSizeLabel.textColor = Theme.textColor
+		fontsizeSmallLabel.textColor = Theme.textColor
+		fontsizeMediumLabel.textColor = Theme.textColor
+		fontsizeLargeLabel.textColor = Theme.textColor
+		
+		renderPreview()
 		
 		self.tableView.reloadData()
 	}
@@ -282,7 +378,6 @@ class SettingsViewController: UITableViewController {
 	func setContentSize() {
 		tableView.reloadData()
 		
-		displayLabel.font = settings.fontSizeLarge
 		useMobileUrlLabel.font = settings.fontSizeLarge
 		useReaderLabel.font = settings.fontSizeLarge
 		useDarkLabel.font = settings.fontSizeLarge
@@ -295,6 +390,12 @@ class SettingsViewController: UITableViewController {
 		resetButton.titleLabel!.font = settings.fontSizeMedium
 		
 		aboutLabel.font = settings.fontSizeLarge
+		
+		showDescLabel.font = settings.fontSizeLarge
+		showNewsPictureLabel.font = settings.fontSizeLarge
+		useSystemSizeLabel.font = settings.fontSizeLarge
+		
+		renderPreview()
 	}
 	
 	func setContentSize(notification: NSNotification) {
@@ -325,6 +426,36 @@ class SettingsViewController: UITableViewController {
 		self.selectedTodayCategory = self.settings.todayCategoryByLang[self.settings.region]
 	}
 
+	func renderPreview() {
+		previewTitle.font = settings.fontSizeLarge
+		previewAuthor.font = settings.fontSizeSmall
+		previewDescription.font = settings.fontSizeMedium
+		
+		previewTitle.textColor = Theme.cellTitleColor
+		previewAuthor.textColor = Theme.cellAuthorColor
+		if (settings.showDesc) {
+			previewDescription.hidden = false
+		} else {
+			previewDescription.hidden = true
+		}
+		previewDescription.textColor = Theme.cellDescriptionColor
+		
+		if settings.showNewsPicture {
+			previewImage.frame = CGRect(x: previewImage.frame.origin.x, y: previewImage.frame.origin.y, width: 100,height: 100)
+			previewImageWidthConstraint.constant = 100
+//			previewImage.image = UIImage(named:"iTunesArtwork.png")!
+		} else {
+//			previewImage.image = nil
+			previewImage.frame = CGRectZero
+			previewImageWidthConstraint.constant = 0
+		}
+
+		previewCell.setNeedsLayout()
+    	previewCell.layoutIfNeeded()
+		
+		self.tableView.reloadData()
+	}
+	
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
    		// Change the color of all cells
    		cell.backgroundColor = Theme.backgroundColor
@@ -338,9 +469,6 @@ class SettingsViewController: UITableViewController {
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
     	if cell == self.useChromeCell && useChromeCell.hidden {
-			#if DEBUG
-            	print("SettingsViewController, useChromeView HIDDEN")
-			#endif
 			return 0
 		}
 		
