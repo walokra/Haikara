@@ -17,10 +17,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
-	var entriesReturned = 0
 	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
 	let settings = Settings.sharedInstance
-	let maxHeadlines: Int = 70
 	var page: Int = 1
 	
 	var sections = OrderedDictionary<String, Array<Entry>>()
@@ -178,7 +176,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// MARK: - API
 	
-	func getNews(page: Int, forceRefresh: Bool) {
+	func getNews(page: Int, forceRefresh: Bool, toTop: Bool = true) {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
             	#if DEBUG
@@ -211,12 +209,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
-					self.entriesReturned = result.count
 					self.newsEntriesUpdatedByLang[self.settings.region] = NSDate()
                 	#if DEBUG
                     	print("newsEntries updated, \(self.newsEntriesUpdatedByLang[self.settings.region])")
                 	#endif
-					self.setNews(result)
+					self.setNews(result, toTop: toTop)
 				}
 				, failureHandler: {(error)in
 					self.refreshControl?.endRefreshing()
@@ -261,7 +258,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			
 				// called once all code blocks entered into group have left
     			dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
-					self.setNews(Array(news.values))
+					self.setNews(Array(news.values), toTop: true)
 					news.removeAll(keepCapacity: true)
 				}
 			} else {
@@ -270,7 +267,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func setNews(newsentries: Array<Entry>) {
+	func setNews(newsentries: Array<Entry>, toTop: Bool = true) {
 		// Top items are not grouped by time
 		if highFiSection == "top" {
 			dispatch_async(dispatch_get_main_queue()) {
@@ -317,7 +314,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.tableView!.reloadData()
 				self.refreshControl?.endRefreshing()
 				self.setLoadingState(false)
-				self.scrollToTop()
+				if toTop {
+					self.scrollToTop()
+				}
 				
 				return
 			}
@@ -361,7 +360,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.tableView!.reloadData()
 				self.refreshControl?.endRefreshing()
 				self.setLoadingState(false)
-				if self.page == 1 {
+				if self.page == 1 && toTop {
 					self.scrollToTop()
 				}
 				
@@ -639,7 +638,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 				self.settings.removeSource(tableItem.sourceID)
 				
-				self.getNews(self.page, forceRefresh: true)
+//				self.getNews(self.page, forceRefresh: true, toTop: false)
 				
 				self.tableView.editing = false
 				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
@@ -715,7 +714,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
 //		print("scrollViewDidScroll, currentOffset=\(currentOffset), maximumOffset=\(maximumOffset), diff=\(maximumOffset - currentOffset)")
 		if (maximumOffset - currentOffset) <= -80 {
-			if (!self.loading && self.entriesReturned == self.maxHeadlines && self.highFiSection != "top") {
+			if (!self.loading && self.highFiSection != "top") {
 				self.page += 1
 				self.getNews(page, forceRefresh: true)
 			}
