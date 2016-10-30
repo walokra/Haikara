@@ -144,15 +144,6 @@ class InfoController: UITableViewController {
     	return headerView
 	}
 	
-//	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-//    	if cell == self.infoCell {
-//		   return cell.bounds.size.height
-//		}
-//		
-//		return super.tableView(tableView, heightForRowAtIndexPath:indexPath)
-//	}
-	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

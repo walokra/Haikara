@@ -36,8 +36,6 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
-		
-//		sendScreenView(viewName)
 	}
 
     override func viewDidLoad() {

@@ -75,11 +75,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
     weak var delegate: CategorySelectionDelegate?
 	
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		sendScreenView(viewName)
-//	}
-	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -108,46 +103,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         self.tableView!.delegate = self
         self.tableView.dataSource = self
-		
-		// Reset delegates url after we've opened it 
-    	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-    	if (delegate?.openUrl) != nil {
-        	delegate?.openUrl = nil
-    	}
-		
-		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: viewName)
-		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
     }
-	
-	func handleOpenURL(notification:NSNotification){
-    	if let url = notification.object as? String {
-			let webURL = NSURL(string: url)
 
-			#if DEBUG
-				print("handleOpenURL. webURL=\(webURL)")
-			#endif
-			
-			if #available(iOS 9.0, *) {
-				let svc = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
-				svc.view.tintColor = Theme.tintColor
-				self.presentViewController(svc, animated: true, completion: nil)
-				
-				// TODO
-//				HighFiApi.trackNewsClick(entry.clickTrackingLink)
-			} else {
-				// Fallback on earlier versions
-			}
-    	}
-	}
-	
 	func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "regionChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: "selectedCategoriesChangedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "settingsResetedNotification", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
 	}
 	
@@ -209,8 +171,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 				#if DEBUG
                 	print("showing selected categories=\(categoriesFavorited)")
            	 	#endif
-//					cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
-//	        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
    	            var filteredCategories = [Category]()
 					
    	            self.settings.categories.forEach({ (category: Category) -> () in
@@ -299,22 +259,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
             , failureHandler: {(error)in
-                self.handleError(error)
+                self.handleError(error, title: self.errorTitle)
             }
         )
     }
-    
-    func handleError(error: String) {
-        #if DEBUG
-            print("MasterViewController, handleError, error: \(error)")
-        #endif
-        let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alertController.addAction(OKAction)
         
-        self.presentViewController(alertController, animated: true){}
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.categories.count

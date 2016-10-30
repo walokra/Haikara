@@ -93,7 +93,7 @@ class SettingsViewController: UITableViewController {
                 	return
             	}
             	, failureHandler: {(error)in
-	                self.handleError(error)
+	                self.handleError(error, title: self.errorTitle)
     	        }
     	    )
         
@@ -125,7 +125,7 @@ class SettingsViewController: UITableViewController {
     let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
 	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
-	
+
 	@IBAction func unwindWithSelectedTodayCategory(segue:UIStoryboardSegue) {
 //  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
 //    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
@@ -142,7 +142,7 @@ class SettingsViewController: UITableViewController {
 //      		self.selectedLanguage = selectedLanguage
 //  		}
 	}
-	
+
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "SelectDisplaySettings" {
 //  			if let displaySettingsViewController = segue.destinationViewController as? DisplaySettingsViewController {
@@ -604,7 +604,7 @@ class SettingsViewController: UITableViewController {
                 }
             }
             , failureHandler: {(error)in
-                self.handleError(error)
+                self.handleError(error, title: self.errorTitle)
             }
         )
     }
@@ -629,17 +629,6 @@ class SettingsViewController: UITableViewController {
 		    self.selectedLanguage = self.languages[defaultRowIndex]
 			self.setSelectedTodayCategory()
 		}
-    }
-	
-	func handleError(error: String) {
-        #if DEBUG
-            print("SettingsViewController, handleError, error: \(error)")
-        #endif
-        let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alertController.addAction(OKAction)
-        
-        self.presentViewController(alertController, animated: true){}
     }
 
 	// stop observing

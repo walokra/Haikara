@@ -54,12 +54,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	var clockLabel: UILabel!
 	
 	// MARK: Lifecycle
-	
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		sendScreenView(viewName)
-//	}
-	
+
     override func viewDidLoad() {
 		#if DEBUG
 			print("viewDidLoad()")
@@ -183,21 +178,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// MARK: - API
 	
-	func handleError(error: String) {
-		#if DEBUG
-			print("DetailViewController, handleError, error: \(error)")
-		#endif
-		
-		self.refreshControl?.endRefreshing()
-		self.setLoadingState(false)
-		
-		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-		alertController.addAction(OKAction)
-		
-		self.presentViewController(alertController, animated: true){}
-	}
-	
 	func getNews(page: Int, forceRefresh: Bool) {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
@@ -239,7 +219,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					self.setNews(result)
 				}
 				, failureHandler: {(error)in
-					self.handleError(error)
+					self.refreshControl?.endRefreshing()
+					self.setLoadingState(false)
+					self.handleError(error, title: self.errorTitle)
 				}
 			)
 		}
@@ -269,7 +251,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 							dispatch_group_leave(getNewsGroup)
 						}
 						, failureHandler: {(error)in
-							self.handleError(error)
+							self.refreshControl?.endRefreshing()
+							self.setLoadingState(false)
+							self.handleError(error, title: self.errorTitle)
 							dispatch_group_leave(getNewsGroup)
 						}
 					)
@@ -403,9 +387,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	// MARK: - Functions
 	
 	func handleOpenBrowser(webURL: NSURL, title: String = "", event: String) {
-		self.trackEvent(event, category: "ui_Event", action: event, label: "main", value: 9)
+		self.trackEvent(event, category: "ui_Event", action: event, label: "main", value: 1)
 	
-		if (OpenInChromeController.sharedInstance.isChromeInstalled() && settings.useChrome) {
+		if (settings.useChrome && OpenInChromeController.sharedInstance.isChromeInstalled()) {
 			#if DEBUG
 				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
 			#endif
@@ -655,7 +639,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 				self.settings.removeSource(tableItem.sourceID)
 				
-				tableView.editing = false
+				self.getNews(self.page, forceRefresh: true)
+				
+				self.tableView.editing = false
 				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
 			}))
 
@@ -734,13 +720,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.getNews(page, forceRefresh: true)
 			}
 		}
-		
-//		// Top, get previous page (if page > 1)
-//		if (currentOffset >= -100 && self.page > 1) {
-//			print("#### self.page=\(self.page)")
-//			self.page -= 1
-//			self.getNews(page)
-//		}
 	}
 	
 	func setLoadingState(loading: Bool) {

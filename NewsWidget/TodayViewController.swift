@@ -158,19 +158,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		tableView.estimatedRowHeight = 33.0
 	}
 	
-	func handleError(error: String) {
-		#if DEBUG
-			print("TodayViewController, handleError, error: \(error)")
-		#endif
-		
-		self.setLoadingState(false)
-		let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-		let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-		alertController.addAction(OKAction)
-		
-		self.presentViewController(alertController, animated: true){}
-	}
-	
 	func getNews(page: Int) -> NCUpdateResult {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
@@ -209,7 +196,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 					self.setLoadingState(false)
 				}
 				, failureHandler: {(error)in
-					self.handleError(error)
+					self.handleError(error, title: self.errorTitle)
 				}
 			)
 		}

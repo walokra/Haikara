@@ -31,11 +31,6 @@ class CategoryPickerViewController: UITableViewController {
 		}
   	}
   	var selectedTodayCategoryIndex: Int?
-	
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		sendScreenView(viewName)
-//	}
 
 	override func viewDidLoad() {
         super.viewDidLoad()

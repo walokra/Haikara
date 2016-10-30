@@ -14,7 +14,6 @@ extension NSDate
         return self.compare(dateToCompare) == NSComparisonResult.OrderedDescending
     }
     
-    
     func isLessThanDate(dateToCompare : NSDate) -> Bool {
         return self.compare(dateToCompare) == NSComparisonResult.OrderedAscending
     }
@@ -40,6 +39,19 @@ extension UIViewController {
         	let trackDictionary = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value)
         	tracker.send(trackDictionary.build() as [NSObject : AnyObject])
 		}
+    }
+	
+    func handleError(error: String, title: String) {
+        #if DEBUG
+            print("handleError, error: \(error)")
+        #endif
+		self.trackEvent("handleError", category: "ui_Event", action: "handleError", label: "error", value: 1)
+		
+        let alertController = UIAlertController(title: title, message: error, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true){}
     }
 }
 

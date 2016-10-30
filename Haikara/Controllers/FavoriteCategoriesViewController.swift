@@ -35,8 +35,6 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
-		
-//		sendScreenView(viewName)
 	}
 	
     override func viewDidLoad() {

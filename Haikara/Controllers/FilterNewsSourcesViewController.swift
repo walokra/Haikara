@@ -36,9 +36,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	override func viewWillDisappear(animated: Bool) {
     	super.viewWillDisappear(animated)
 		searchText = searchController.searchBar.text
-//    	searchController?.dismissViewControllerAnimated(false, completion: nil)
 		searchController.active = false
-//		searchController.searchBar.hidden = true
   	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -50,10 +48,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		if !(searchText?.isEmpty)! {
 			searchController.searchBar.text = searchText
 			searchController.active = true
-//			searchController.searchBar.hidden = false
 		}
-
-//		sendScreenView(viewName)
 	}
 	
     override func viewDidLoad() {
@@ -297,20 +292,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
                 return
             }
             , failureHandler: {(error)in
-                self.handleError(error)
+                self.handleError(error, title: self.errorTitle)
             }
         )
-    }
-    
-    func handleError(error: String) {
-        #if DEBUG
-            print("FilterNewsSourcesViewController, handleError, error: \(error)")
-        #endif
-        let alertController = UIAlertController(title: errorTitle, message: error, preferredStyle: .Alert)
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alertController.addAction(OKAction)
-        
-        self.presentViewController(alertController, animated: true){}
     }
     
     // stop observing
