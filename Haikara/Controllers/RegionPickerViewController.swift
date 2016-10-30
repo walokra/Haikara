@@ -134,8 +134,9 @@ class RegionPickerViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedLanguage!])
  
   		//update the checkmark for the current row
-  		let cell = tableView.cellForRowAtIndexPath(indexPath)
-  		cell?.accessoryType = .Checkmark
+		let cell = tableView.cellForRowAtIndexPath(indexPath)
+		cell?.backgroundColor = Theme.selectedColor
+//  		cell?.accessoryType = .Checkmark
 	}
 	
 	// stop observing
