@@ -143,6 +143,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		#if DEBUG
             print("Received UIContentSizeCategoryDidChangeNotification")
         #endif
+		setContentSize()
 	}
 	
     func setRegionCategory(notification: NSNotification) {

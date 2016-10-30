@@ -18,7 +18,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
 	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
+	
 	let settings = Settings.sharedInstance
+	var defaults: NSUserDefaults?
+	
 	var page: Int = 1
 	
 	var sections = OrderedDictionary<String, Array<Entry>>()
@@ -58,6 +61,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
+		
+		self.defaults = settings.defaults
 		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
@@ -637,6 +642,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "main", value: tableItem.sourceID)
 
 				self.settings.removeSource(tableItem.sourceID)
+				
+		        self.defaults!.setObject(self.settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+				self.defaults!.synchronize()
 				
 //				self.getNews(self.page, forceRefresh: true, toTop: false)
 				
