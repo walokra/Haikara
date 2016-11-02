@@ -1,4 +1,9 @@
-0.9.12 ()
+0.9.13 ()
+* Fix layout issues in Settings view
+* Move browser related settings to own section
+* Add option to open links in new tab if Chrome used
+
+0.9.12 (2016-10-02)
 * Refactor texts to use system text size
 * Add option to use Chrome for opening news
 * Add option to select used text size
