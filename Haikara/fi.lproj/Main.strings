@@ -110,8 +110,8 @@
 /* Class = "UILabel"; text = "Use Reader View"; ObjectID = "sAe-mY-AEU"; */
 "sAe-mY-AEU.text" = "Käytä lukutilaa";
 
-/* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "stk-fS-f0f"; */
-"stk-fS-f0f.text" = "Valitse piilotettavat uutislähteet";
+/* Class = "UILabel"; text = "Hide categories shown in news"; ObjectID = "eAV-Wr-Rb5"; */
+"eAV-Wr-Rb5.text" = "Valitse piilotettavat uutislähteet";
 
 /* Class = "UIButton"; normalTitle = "About"; ObjectID = "w5e-nU-aju"; */
 "w5e-nU-aju.normalTitle" = "Tietoa";
@@ -184,4 +184,10 @@
 
 /* Class = "UILabel"; text = "Display"; ObjectID = "mkt-0b-6aL"; */
 "mkt-0b-6aL.text" = "Esitystapa";
+
+/* Class = "UITableViewSection"; headerTitle = " Browser"; ObjectID = "5sD-WM-vXY"; */
+"5sD-WM-vXY.headerTitle" = " Selain";
+
+/* Class = "UILabel"; text = "Create new tab"; ObjectID = "CIN-r2-Z9U"; */
+"CIN-r2-Z9U.text" = "Avaa uuteen välilehteen";
 

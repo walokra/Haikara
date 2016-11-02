@@ -23,6 +23,7 @@ struct Defaults {
 	let useDarkTheme: Bool
 	let showNewsPicture: Bool
 	let useChrome: Bool
+	let createNewTab: Bool
 	let region: String
 	let optOutAnalytics: Bool
 	
@@ -45,6 +46,7 @@ class Settings {
 			useDarkTheme: false,
 			showNewsPicture: false,
 			useChrome: false,
+			createNewTab: false,
 			region: "Finland",
 			optOutAnalytics: false,
 			fontName: "Avenir-Light",
@@ -88,6 +90,8 @@ class Settings {
 
 		self.useChrome = defaultValues.useChrome
         defaults.setObject(self.useChrome, forKey: "useChrome")
+		self.createNewTab = defaultValues.createNewTab
+        defaults.setObject(self.createNewTab, forKey: "createNewTab")
 
         self.region = defaultValues.region
         defaults.setObject(self.region, forKey: "region")
@@ -177,6 +181,8 @@ class Settings {
 	var useDarkTheme: Bool // Use Dark Theme
 	var showNewsPicture: Bool // Show News Picture
 	var useChrome: Bool
+	var createNewTab: Bool
+	
     var region: String // http://high.fi/api/?act=listLanguages
 
     var languagesUpdated = NSDate()
@@ -301,7 +307,11 @@ class Settings {
         } else {
             self.useChrome = defaultValues.useChrome
         }
-
+		if let createNewTab: Bool = defaults.objectForKey("createNewTab") as? Bool {
+            self.createNewTab = createNewTab
+        } else {
+            self.createNewTab = defaultValues.createNewTab
+        }
 
         if let region: String = defaults.objectForKey("region") as? String {
             self.region = region

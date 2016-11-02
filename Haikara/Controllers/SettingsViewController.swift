@@ -26,7 +26,10 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useChromeLabel: UILabel!
 	@IBOutlet weak var useChromeSwitch: UISwitch!
 	@IBOutlet weak var useChromeCell: UITableViewCell!
+	@IBOutlet weak var useChromeNewTabSwitch: UISwitch!
+	@IBOutlet weak var useChromeNewTabLabel: UILabel!
 
+	@IBOutlet weak var useChromeNewTabCell: UITableViewCell!
 	@IBOutlet weak var optOutAnalyticsLabel: UILabel!
 	@IBOutlet weak var optOutAnalyticsSwitch: UISwitch!
 	
@@ -216,7 +219,15 @@ class SettingsViewController: UITableViewController {
 		self.trackEvent("useChrome", category: "ui_Event", action: "useChrome", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
-
+	@IBAction func useChromeNewTabAction(sender: UISwitch) {
+		settings.createNewTab = sender.on
+        defaults!.setObject(settings.createNewTab, forKey: "createNewTab")
+		defaults!.synchronize()
+        #if DEBUG
+            print ("createNewTab \(settings.createNewTab), sender.on=\(sender.on)")
+        #endif
+	}
+	
 	@IBAction func optOutAnalyticsAction(sender: UISwitch) {
 		settings.optOutAnalytics = sender.on
         defaults!.setObject(settings.optOutAnalytics, forKey: "optOutAnalytics")
@@ -314,6 +325,7 @@ class SettingsViewController: UITableViewController {
         useReaderViewSwitch.on = settings.useReaderView
 		useDarkThemeSwitch.on = settings.useDarkTheme
 		useChromeSwitch.on = settings.useChrome
+		useChromeNewTabSwitch.on = settings.createNewTab
 		optOutAnalyticsSwitch.on = settings.optOutAnalytics
 		
 		showDescSwitch.on = settings.showDesc
@@ -343,6 +355,7 @@ class SettingsViewController: UITableViewController {
 		useMobileUrlLabel.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
+		useChromeNewTabLabel.textColor = Theme.textColor
 
 		widgetCategoryLabel.textColor = Theme.textColor
 		regionLabel.textColor = Theme.textColor
@@ -382,6 +395,7 @@ class SettingsViewController: UITableViewController {
 		useReaderLabel.font = settings.fontSizeLarge
 		useDarkLabel.font = settings.fontSizeLarge
 		useChromeLabel.font = settings.fontSizeLarge
+		useChromeNewTabLabel.font = settings.fontSizeLarge
 		optOutAnalyticsLabel.font = settings.fontSizeLarge
 
 		widgetCategoryLabel.font = settings.fontSizeLarge
@@ -470,6 +484,9 @@ class SettingsViewController: UITableViewController {
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     	let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
     	if cell == self.useChromeCell && useChromeCell.hidden {
+			return 0
+		}
+		if cell == self.useChromeNewTabCell && useChromeCell.hidden {
 			return 0
 		}
 		
