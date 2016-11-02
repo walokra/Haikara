@@ -181,7 +181,7 @@ class SettingsViewController: UITableViewController {
             print ("useMobileUrl \(settings.useMobileUrl), sender.on=\(sender.on)")
         #endif
 		
-		self.trackEvent("useMobileUrl", category: "ui_Event", action: "useMobileUrl", label: "settings", value: (sender.on) ? 1 : 0)
+		self.trackEvent("useMobileUrl", category: "ui_Event", action: "useMobileUrl", label: "settings", value: (!sender.on) ? 1 : 0)
 	}
 
 	@IBAction func useReaderViewAction(sender: UISwitch) {
@@ -216,6 +216,8 @@ class SettingsViewController: UITableViewController {
             print ("useChrome \(settings.useChrome), sender.on=\(sender.on)")
         #endif
 		
+		self.tableView.reloadData()
+		
 		self.trackEvent("useChrome", category: "ui_Event", action: "useChrome", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 
@@ -226,6 +228,8 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print ("createNewTab \(settings.createNewTab), sender.on=\(sender.on)")
         #endif
+		
+		self.trackEvent("createNewTab", category: "ui_Event", action: "createNewTab", label: "settings", value: (sender.on) ? 1 : 0)
 	}
 	
 	@IBAction func optOutAnalyticsAction(sender: UISwitch) {
@@ -236,7 +240,7 @@ class SettingsViewController: UITableViewController {
             print ("optOutAnalyticsAction \(settings.optOutAnalytics), sender.on=\(sender.on)")
         #endif
 		
-		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (sender.on) ? 1 : 0)
+		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (!sender.on) ? 1 : 0)
 		
 		NSNotificationCenter.defaultCenter().postNotificationName("optOutAnalyticsChangedNotification", object: nil, userInfo: nil)
 	}
