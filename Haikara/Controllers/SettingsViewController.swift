@@ -381,6 +381,7 @@ class SettingsViewController: UITableViewController {
 		useMobileUrlLabel.font = settings.fontSizeLarge
 		useReaderLabel.font = settings.fontSizeLarge
 		useDarkLabel.font = settings.fontSizeLarge
+		useChromeLabel.font = settings.fontSizeLarge
 		optOutAnalyticsLabel.font = settings.fontSizeLarge
 
 		widgetCategoryLabel.font = settings.fontSizeLarge
