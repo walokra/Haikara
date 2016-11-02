@@ -486,7 +486,7 @@ class SettingsViewController: UITableViewController {
     	if cell == self.useChromeCell && useChromeCell.hidden {
 			return 0
 		}
-		if cell == self.useChromeNewTabCell && useChromeCell.hidden {
+		if cell == self.useChromeNewTabCell && (useChromeCell.hidden || !settings.useChrome){
 			return 0
 		}
 		
