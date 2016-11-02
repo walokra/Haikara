@@ -233,14 +233,14 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	@IBAction func optOutAnalyticsAction(sender: UISwitch) {
+		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (sender.on) ? 1 : 0)
+		
 		settings.optOutAnalytics = sender.on
         defaults!.setObject(settings.optOutAnalytics, forKey: "optOutAnalytics")
 		defaults!.synchronize()
         #if DEBUG
             print ("optOutAnalyticsAction \(settings.optOutAnalytics), sender.on=\(sender.on)")
         #endif
-		
-		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (!sender.on) ? 1 : 0)
 		
 		NSNotificationCenter.defaultCenter().postNotificationName("optOutAnalyticsChangedNotification", object: nil, userInfo: nil)
 	}
