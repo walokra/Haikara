@@ -27,9 +27,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-Y4-qwf">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="557"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="Cmf-gd-RZq">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BIz-aF-YZN">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </searchBar>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="110" id="Aft-jA-JIp" customClass="EntryCell" customModule="highkara" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="110"/>
+                                        <rect key="frame" x="0.0" y="66" width="320" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aft-jA-JIp" id="phV-Ch-zbh">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
@@ -88,7 +100,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by high.fi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocI-7q-PAB">
-                                <rect key="frame" x="115.5" y="557" width="82" height="11"/>
+                                <rect key="frame" x="115" y="557" width="82" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -107,12 +119,13 @@
                     <navigationItem key="navigationItem" title="News" id="bx7-Bu-h0n"/>
                     <connections>
                         <outlet property="poweredLabel" destination="ocI-7q-PAB" id="mSY-xI-Bxx"/>
+                        <outlet property="searchBar" destination="BIz-aF-YZN" id="4al-OQ-1yY"/>
                         <outlet property="tableView" destination="3hl-Y4-qwf" id="svM-WY-G7k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KkM-kP-aYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2207" y="-1638"/>
+            <point key="canvasLocation" x="2206.875" y="-1638.3802816901409"/>
         </scene>
         <!--News Item View Controller-->
         <scene sceneID="cF1-oy-bt1">
@@ -143,7 +156,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1366" y="-875"/>
+            <point key="canvasLocation" x="546" y="-1154"/>
         </scene>
         <!--Categories-->
         <scene sceneID="9HQ-Uu-h9g">
@@ -1618,7 +1631,7 @@
         <scene sceneID="KTr-eN-C9D">
             <objects>
                 <navigationController storyboardIdentifier="masterViewNavigationController" id="2eb-RL-0np" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="szI-i5-3be">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="szI-i5-3be">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1649,7 +1662,7 @@
                 <navigationController storyboardIdentifier="detailViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="kTd-Wf-Puh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ot9-mI-Ogt"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="4xH-dW-3Lp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xH-dW-3Lp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

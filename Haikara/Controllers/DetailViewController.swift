@@ -9,11 +9,18 @@
 import UIKit
 import SafariServices
 
-class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
+class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UISearchBarDelegate {
 
     let animator = SCModalPushPopAnimator()
 	
 	let viewName = "MainView"
+
+	@IBOutlet weak var searchBar: UISearchBar!
+	var searchActive : Bool = false
+	
+//	var filtered:[Entry] = []
+//	var filteredSections = OrderedDictionary<String, Array<Entry>>()
+//	var filteredSectionsSorted = [String]()
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
@@ -37,6 +44,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	var browserButtonText: String = NSLocalizedString("BROWSER_BUTTON", comment: "Text for browser button")
 	var deleteAlertText: String = NSLocalizedString("DELETE_ACTION_DESC", comment: "Text for delete action description button")
 	var cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
+	var searchTitle: String = NSLocalizedString("SEARCH_TITLE", comment: "Title for search")
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var poweredLabel: UILabel!
@@ -53,7 +61,33 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// Icons
 	var clockLabel: UILabel!
-	
+
+	// MARK: Search
+	func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true
+    }
+
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false
+    }
+
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false
+		self.title = self.navigationItemTitle
+		getNews(1, forceRefresh: true)
+    }
+
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false
+		self.search(searchBar.text!)
+    }
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+		searchActive = true
+//		self.title = searchText
+		self.title = searchTitle
+    }
+
 	// MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -70,6 +104,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
                 registerForPreviewingWithDelegate(self, sourceView: tableView)
             }
         }
+
+		searchBar.showsCancelButton = true		
+		searchBar.delegate = self
 
 		setObservers()
 		setTheme()
@@ -158,6 +195,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
 		poweredLabel.textColor = Theme.poweredLabelColor
+		searchBar.backgroundColor = Theme.backgroundColor
+		searchBar.barStyle = Theme.barStyle
 		
 		// TODO: How to update the bar after changing
 		// FIXME: Crashes with 3D Touch
@@ -219,6 +258,22 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
                     	print("newsEntries updated, \(self.newsEntriesUpdatedByLang[self.settings.region])")
                 	#endif
 					self.setNews(result, toTop: toTop)
+				}
+				, failureHandler: {(error)in
+					self.refreshControl?.endRefreshing()
+					self.setLoadingState(false)
+					self.handleError(error, title: self.errorTitle)
+				}
+			)
+		}
+	}
+	
+	func search(searchNews: String) {
+		if (!self.loading) {
+			self.setLoadingState(true)
+			// with trailing closure we get the results that we passed the closure back in async function
+			HighFiApi.search(searchNews, completionHandler:{ (result) in
+					self.setSearchResults(result)
 				}
 				, failureHandler: {(error)in
 					self.refreshControl?.endRefreshing()
@@ -374,6 +429,46 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
+	func setSearchResults(newsentries: Array<Entry>) {
+		for item in newsentries {
+			item.timeSince = self.getTimeSince(item.publishedDateJS)
+			item.orderNro = self.getOrder(item.publishedDateJS)
+		}
+			
+		dispatch_async(dispatch_get_main_queue()) {
+			let fetchedEntries = newsentries.sort { $0.orderNro < $1.orderNro }
+				
+			// Clear old entries
+			self.entries = [Entry]()
+			self.sections = OrderedDictionary<String, Array<Entry>>()
+			self.sortedSections = [String]()
+			self.entries = fetchedEntries
+			
+			// Put each item in a section
+			for item in fetchedEntries {
+				// If we don't have section for particular time, create new one,
+				// Otherwise just add item to existing section
+				//	println("section=\(entry.section), title=\(entry.title)")
+				if self.sections[item.timeSince] == nil {
+					self.sections[item.timeSince] = [item]
+				} else {
+					self.sections[item.timeSince]!.append(item)
+				}
+				
+				self.sortedSections = self.sections.keys
+			}
+			print("filteredSections=\(self.sections.count)")
+			//self.sortedSections.sortInPlace{ $0 < $1 }
+
+			self.tableView!.reloadData()
+			self.refreshControl?.endRefreshing()
+			self.setLoadingState(false)
+			self.scrollToTop()
+		
+			return
+		}
+	}
+	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 110.0
@@ -507,21 +602,31 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	}
 	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//		if(searchActive) {
+//            return filteredSections.count
+//        }
         // Return the number of sections.
 		return self.sections.count
     }
 
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
+//		if(searchActive){
+//			return self.filteredSections[filteredSectionsSorted[section]]!.count
+//		}
 		return self.sections[sortedSections[section]]!.count
     }
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
 		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
-
+		
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
+//		if(searchActive){
+//			tableSection = filteredSections[filteredSectionsSorted[indexPath.section]]
+//			tableItem = tableSection![indexPath.row]
+//		}
 		
 		var date = ""
 		if tableItem.orderNro >= 1440 {
@@ -840,7 +945,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 extension DetailViewController: CategorySelectionDelegate {
 	func categorySelected(newCategory: Category) {
 		self.page = 1
-		self.navigationItem.title = newCategory.title
+		self.navigationItemTitle = newCategory.title
+		self.navigationItem.title = self.navigationItemTitle
 		self.highFiSection = newCategory.htmlFilename
 		if newCategory.htmlFilename == "favorites" {
 			getFavorites()

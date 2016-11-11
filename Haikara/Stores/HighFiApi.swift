@@ -30,6 +30,67 @@ public class HighFiApi {
             "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
         ]
 	}
+	
+	class func search(searchText: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
+		#if DEBUG
+            print("HighFiApi.search: \(searchText)")
+        #endif
+    	// http://high.fi/search.cfm?q=formula&x=0&y=0&outputtype=json-private
+    	let settings = Settings.sharedInstance
+		setupManager(settings.appID, maxAge: 60)
+
+        let feed = "http://" + settings.domainToUse + "/search.cfm"
+		
+		let request = Manager.sharedInstance.request(.GET, feed, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
+
+            request.validate()
+            request.responseJSON{ response in
+            switch response.result {
+            case .Success(let data):
+                #if DEBUG
+                    print("HighFiApi, request: \(response.request)")
+//                    print("HighFiApi, response: \(response.response)")
+//                    print("HighFiApi, data: \(response.data)")
+                #endif
+				
+                let responseData = (data.valueForKey("responseData") as! NSDictionary)
+                let feed = (responseData.valueForKey("feed") as! NSDictionary)
+                let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
+                    .map { Entry(
+                        title: $0["title"] as! String,
+                        link: $0["link"] as! String,
+                        clickTrackingLink: $0["clickTrackingLink"] as! String,
+                        author: $0["author"] as! String,
+                        publishedDateJS: $0["publishedDateJS"] as! String,
+						picture: $0["picture"] as? String,
+                        originalPicture: $0["originalPicture"] as? String,
+                        shortDescription: $0["shortDescription"] as? String,
+                        originalURL: $0["originalURL"] as! String,
+                        mobileLink: $0["mobileLink"] as? String,
+                        originalMobileUrl: $0["originalMobileUrl"] as?	String,
+                        shareURL: $0["shareURL"] as! String,
+                        mobileShareURL: $0["mobileShareURL"] as? String,
+                        articleID: $0["articleID"] as! Int,
+                        sectionID: $0["sectionID"] as! Int,
+                        sourceID: $0["sourceID"] as! Int,
+                        highlight: $0["highlight"] as! Bool,
+						highlightType: $0["highlightType"] as! String,
+                        timeSince: "Juuri nyt",
+						orderNro: 0
+                        )
+                }
+//				print("entries: \(entries.count)")
+				
+                return completionHandler(entries)
+
+            case .Failure(let error):
+                #if DEBUG
+                    print("Error: \(#function)\n", error)
+                #endif
+				failureHandler(error.localizedDescription)
+            }
+        }
+	}
 
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
 	// e.g. http://high.fi/uutiset/json-private
