@@ -200,5 +200,7 @@
 /* Class = "UIViewController"; title = "Filter categories"; ObjectID = "ZlS-SQ-8sA"; */
 "ZlS-SQ-8sA.title" = "Suodata kategorioita";
 
+/* Class = "UISearchBar"; placeholder = "Search news"; ObjectID = "BIz-aF-YZN"; */
+"BIz-aF-YZN.placeholder" = "Hae uutisia";
 
 

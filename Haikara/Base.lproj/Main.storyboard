@@ -29,7 +29,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BIz-aF-YZN">
+                                        <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Search news" translatesAutoresizingMaskIntoConstraints="NO" id="BIz-aF-YZN">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -1387,7 +1387,7 @@
         <scene sceneID="KTr-eN-C9D">
             <objects>
                 <navigationController storyboardIdentifier="masterViewNavigationController" id="2eb-RL-0np" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="szI-i5-3be">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="szI-i5-3be">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1418,7 +1418,7 @@
                 <navigationController storyboardIdentifier="detailViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="kTd-Wf-Puh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ot9-mI-Ogt"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="4xH-dW-3Lp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xH-dW-3Lp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

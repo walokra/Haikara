@@ -78,13 +78,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchActive = false
-		self.search(searchBar.text!)
+		if searchBar.text?.characters.count > 2 {
+        	searchActive = false
+			self.search(searchBar.text!)
+		}
     }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
 		searchActive = true
-//		self.title = searchText
 		self.title = searchTitle
     }
 
