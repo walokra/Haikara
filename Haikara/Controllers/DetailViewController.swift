@@ -71,6 +71,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         searchActive = false
+        dismissKeyboard()
     }
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -79,6 +80,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		getNews(1, forceRefresh: self.didSearch)
 		self.didSearch = false
 		self.scrollToTop()
+		dismissKeyboard()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -89,6 +91,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         	searchActive = false
 			didSearch = true
 			self.search(searchBar.text!)
+			dismissKeyboard()
 		}
     }
 
@@ -96,6 +99,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		searchActive = true
 		self.title = searchTitle
     }
+	
+	func dismissKeyboard(){
+    	self.searchBar.endEditing(true)
+	}
 
 	// MARK: Lifecycle
 
@@ -116,6 +123,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 		searchBar.showsCancelButton = true		
 		searchBar.delegate = self
+		
+		let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.dismissKeyboard))
+    	self.view.addGestureRecognizer(tap)
 
 		setObservers()
 		setTheme()
