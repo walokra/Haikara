@@ -1,4 +1,8 @@
-0.9.13 ()
+0.9.14 (2016-11-11)
+* Add Search functionality
+* Fix layout issues with iPad in Settings view
+
+0.9.13 (2016-11-03)
 * Fix layout issues in Settings view
 * Move browser related settings to own section
 * Add option to open links in new tab if Chrome used
