@@ -59,6 +59,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
 	var loading = false
 	
+	var didSearch: Bool = false
+	
 	// Icons
 	var clockLabel: UILabel!
 
@@ -74,12 +76,18 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchActive = false
 		self.title = self.navigationItemTitle
-		getNews(1, forceRefresh: true)
+		getNews(1, forceRefresh: self.didSearch)
+		self.didSearch = false
+		self.scrollToTop()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		if searchBar.text?.characters.count > 2 {
+		let searchText = searchBar.text?.stringByTrimmingCharactersInSet(
+    		NSCharacterSet.whitespaceAndNewlineCharacterSet()
+		)
+		if searchText?.characters.count > 2 {
         	searchActive = false
+			didSearch = true
 			self.search(searchBar.text!)
 		}
     }
