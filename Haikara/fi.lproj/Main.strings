@@ -68,8 +68,8 @@
 /* Class = "UIViewController"; title = "DetailView"; ObjectID = "exn-nL-O7c"; */
 "exn-nL-O7c.title" = "DetailView";
 
-/* Class = "UIViewController"; title = "Categories"; ObjectID = "f8J-Dx-PVd"; */
-"f8J-Dx-PVd.title" = "Kategoriat";
+/* Class = "UIViewController"; title = "Favorite categories"; ObjectID = "f8J-Dx-PVd"; */
+"f8J-Dx-PVd.title" = "Suosikkikategoriat";
 
 /* Class = "UILabel"; text = "author"; ObjectID = "fLp-v4-zcy"; */
 "fLp-v4-zcy.text" = "author";
@@ -190,4 +190,15 @@
 
 /* Class = "UILabel"; text = "Create new tab"; ObjectID = "CIN-r2-Z9U"; */
 "CIN-r2-Z9U.text" = "Avaa uuteen välilehteen";
+
+/* Class = "UIViewController"; title = "Hide categories"; ObjectID = "SML-fV-mRv"; */
+"SML-fV-mRv.title" = "Piilota kategorioita";
+
+/* Class = "UITableViewController"; title = "Select category"; ObjectID = "ekh-co-tC8"; */
+"ekh-co-tC8.title" = "Valitse kategoria";
+
+/* Class = "UIViewController"; title = "Filter categories"; ObjectID = "ZlS-SQ-8sA"; */
+"ZlS-SQ-8sA.title" = "Suodata kategorioita";
+
+
 
