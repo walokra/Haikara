@@ -123,9 +123,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 		searchBar.showsCancelButton = true		
 		searchBar.delegate = self
-		
-		let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.dismissKeyboard))
-    	self.view.addGestureRecognizer(tap)
 
 		setObservers()
 		setTheme()
