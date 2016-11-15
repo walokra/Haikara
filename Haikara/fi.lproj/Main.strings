@@ -203,4 +203,8 @@
 /* Class = "UISearchBar"; placeholder = "Search news"; ObjectID = "BIz-aF-YZN"; */
 "BIz-aF-YZN.placeholder" = "Hae uutisia";
 
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "Krv-fG-RGx"; */
+"Krv-fG-RGx.title" = "Asetukset";
 
+/* Class = "UIBarButtonItem"; title = "Favorites"; ObjectID = "SD7-bb-pdC"; */
+"SD7-bb-pdC.title" = "Suosikit";

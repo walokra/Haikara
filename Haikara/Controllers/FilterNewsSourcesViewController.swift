@@ -184,6 +184,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         
 		if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
 			cell.backgroundColor = Theme.selectedColor
+			cell.accessibilityTraits = UIAccessibilityTraitSelected
 		} else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor

@@ -64,6 +64,10 @@ class SettingsViewController: UITableViewController {
 
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
+	
+	let fontsizeSmallAccLabel: String = NSLocalizedString("FONT_SMALL_ACC_LABEL", comment: "Accessibility label for small font label")
+	let fontsizeMediumAccLabel: String = NSLocalizedString("FONT_MEDIUM_ACC_LABEL", comment: "Accessibility label for medium font label")
+	let fontsizeLargeAccLabel: String = NSLocalizedString("FONT_LARGE_ACC_LABEL", comment: "Accessibility label for large font label")
 
 	@IBOutlet weak var resetButton: UIButton!
 	@IBOutlet weak var resetLabel: UILabel!
@@ -309,6 +313,10 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
 		
 		self.defaults = settings.defaults
+		
+		fontsizeSmallLabel.accessibilityLabel = fontsizeSmallAccLabel
+		fontsizeMediumLabel.accessibilityLabel = fontsizeMediumAccLabel
+		fontsizeLargeLabel.accessibilityLabel = fontsizeLargeAccLabel
 		
 		listLanguages()
 		self.categories = settings.categories

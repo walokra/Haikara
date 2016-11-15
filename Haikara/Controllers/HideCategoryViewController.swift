@@ -128,6 +128,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         
         if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
+			cell.accessibilityTraits = UIAccessibilityTraitSelected
         } else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor

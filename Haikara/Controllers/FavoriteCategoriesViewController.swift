@@ -127,6 +127,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         
         if (settings.categoriesFavorited[settings.region]?.indexOf(tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
+			cell.accessibilityTraits = UIAccessibilityTraitSelected
         } else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor
@@ -134,7 +135,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 				cell.backgroundColor = Theme.oddRowColor
 			}
         }
-        
+		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 
         return cell

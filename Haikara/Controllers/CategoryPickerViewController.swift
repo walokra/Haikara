@@ -79,6 +79,7 @@ class CategoryPickerViewController: UITableViewController {
 		
 		if indexPath.row == selectedTodayCategoryIndex {
 			cell.backgroundColor = Theme.selectedColor
+			cell.accessibilityTraits = UIAccessibilityTraitSelected
 		} else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor

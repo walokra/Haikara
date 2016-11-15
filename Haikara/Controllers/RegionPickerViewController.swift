@@ -87,6 +87,7 @@ class RegionPickerViewController: UITableViewController {
 		
 		if indexPath.row == selectedLanguageIndex {
 			cell.backgroundColor = Theme.selectedColor
+			cell.accessibilityTraits = UIAccessibilityTraitSelected
 		} else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor
