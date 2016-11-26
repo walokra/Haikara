@@ -674,11 +674,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
         		cell.entryTitleLeadingConstraint.constant = 10
 				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
 				let downloadURL = NSURL(string: tableItem.picture!)!
-				cell.entryImage!.af_setImageWithURL(
-					downloadURL,
-					placeholderImage: nil,
-					filter: nil,
-					imageTransition: .None)
+				cell.configure(downloadURL)
 			} else {
 				cell.entryImage!.image = nil
 				cell.entryImage.frame = CGRectZero

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import AlamofireImage
 
 class EntryCell: UITableViewCell {
@@ -19,6 +20,26 @@ class EntryCell: UITableViewCell {
 	@IBOutlet weak var entryImageWidthConstraint: NSLayoutConstraint!
 	@IBOutlet weak var entryTitleLeadingConstraint: NSLayoutConstraint!
 
+	var request: Request?
+
+	func configure(downloadURL: NSURL) {
+        reset()
+		populateCell(downloadURL)
+    }
+
+	func reset() {
+        entryImage.image = nil
+        request?.cancel()
+    }
+
+    func populateCell(downloadURL: NSURL) {
+		entryImage!.af_setImageWithURL(
+					downloadURL,
+					placeholderImage: UIImage(named: "PlaceholderImage"),
+					filter: nil,
+					imageTransition: .None)
+    }
+	
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
