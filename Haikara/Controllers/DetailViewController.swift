@@ -841,7 +841,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		if (maximumOffset - currentOffset) <= -80 {
 			if (!self.loading && self.highFiSection != "top") {
 				self.page += 1
-				self.getNews(page, forceRefresh: true)
+				if (didSearch) {
+					self.search(searchBar.text!)
+				} else {
+					self.getNews(page, forceRefresh: true)
+				}
 			}
 		}
 	}
