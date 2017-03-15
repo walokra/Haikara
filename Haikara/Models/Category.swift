@@ -16,13 +16,15 @@ class Category: NSObject, NSCoding {
     let sectionID: Int
     let depth: Int
     let htmlFilename: String
+	let highlight: Bool
     var selected: Bool
     
-    required init(title: String, sectionID: Int, depth: Int, htmlFilename: String, selected: Bool) {
+    required init(title: String, sectionID: Int, depth: Int, htmlFilename: String, highlight: Bool, selected: Bool) {
         self.title = title
         self.sectionID = sectionID
         self.depth = depth
         self.htmlFilename = htmlFilename
+		self.highlight = highlight
         self.selected = selected
         super.init()
     }
@@ -32,6 +34,7 @@ class Category: NSObject, NSCoding {
         sectionID = aDecoder.decodeObjectForKey("sectionID") as! Int
         depth = aDecoder.decodeObjectForKey("depth") as! Int
         htmlFilename = aDecoder.decodeObjectForKey("htmlFilename") as! String
+		highlight = aDecoder.decodeObjectForKey("highlight") as! Bool
         selected = aDecoder.decodeObjectForKey("selected") as! Bool
     }
     
@@ -40,10 +43,11 @@ class Category: NSObject, NSCoding {
         aCoder.encodeObject(sectionID, forKey: "sectionID")
         aCoder.encodeObject(depth, forKey: "depth")
         aCoder.encodeObject(htmlFilename, forKey: "htmlFilename")
+		aCoder.encodeObject(highlight, forKey: "highlight")
         aCoder.encodeObject(selected, forKey: "selected")
     }
     
     override var description: String {
-        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename), selected=\(self.selected)"
+        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename), highlight=\(self.highlight), selected=\(self.selected)"
     }
 }

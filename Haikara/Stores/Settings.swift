@@ -260,17 +260,19 @@ class Settings {
         } else {
             self.genericNewsURLPart = defaultValues.genericNewsURLPart
         }
-        
-        if let deviceID = defaults.stringForKey("deviceID") {
-            self.deviceID = deviceID
-        } else {
-            defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
-            self.deviceID = defaults.stringForKey("deviceID")!
-            #if DEBUG
-                print("Setting new deviceID value: \(self.deviceID)")
-            #endif
-        }
-        
+		
+		self.deviceID = NSUUID().UUIDString
+		
+//        if let deviceID = defaults.stringForKey("deviceID") {
+//            self.deviceID = deviceID
+//        } else {
+//            defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
+//            self.deviceID = defaults.stringForKey("deviceID")!
+//            #if DEBUG
+//                print("Setting new deviceID value: \(self.deviceID)")
+//            #endif
+//        }
+		
         // SettingsView
         if let showDesc: Bool = defaults.objectForKey("showDesc") as? Bool {
             self.showDesc = showDesc

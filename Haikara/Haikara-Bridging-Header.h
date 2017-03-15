@@ -21,4 +21,6 @@
 //#import "GAITrackedViewController.h"
 //#import "GAITracker.h"
 
+#import <CommonCrypto/CommonHMAC.h>
+
 #endif /* Haikara_Bridging_Header_h */

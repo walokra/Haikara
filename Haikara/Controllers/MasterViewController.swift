@@ -80,6 +80,20 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		self.defaults = settings.defaults
 		
+		let uuid = NSUUID().UUIDString
+		let hmacResult: String = uuid.hmac(HMACAlgorithm.SHA256, key: uuid)
+		print("hmacResult=\(hmacResult)")
+		
+		if let deviceID = defaults!.stringForKey("deviceID") {
+			settings.deviceID = deviceID
+        } else {
+            defaults!.setObject(hmacResult, forKey: "deviceID")
+            settings.deviceID = defaults!.stringForKey("deviceID")!
+            #if DEBUG
+                print("Setting new deviceID value: \(settings.deviceID)")
+            #endif
+        }
+		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
             if traitCollection.forceTouchCapability == .Available {
@@ -167,7 +181,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         // Adding always present categories: generic and top
         var cat = [Category]()
 		if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
-			cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", selected: true))
+			cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", highlight: false, selected: true))
 			if favoritesSelected {
 				#if DEBUG
                 	print("showing selected categories=\(categoriesFavorited)")
@@ -201,15 +215,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
 				let calendar = NSCalendar.currentCalendar()
 				let comps = NSDateComponents()
-				comps.day = 1
-				let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
+				comps.minute = 30
+				let updatedPlusThirty = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
 				let today = NSDate()
                     
 				#if DEBUG
-					print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
+					print("today=\(today), updated=\(updated), updatedPlusThirty=\(updatedPlusThirty)")
 				#endif
                         
-				if updatedPlusWeek!.isLessThanDate(today) {
+				if updatedPlusThirty!.isLessThanDate(today) {
 					getCategoriesFromAPI()
 					return
 				}
@@ -279,13 +293,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth - 1
 		cell.textLabel!.textColor = Theme.textColor
 		cell.textLabel!.font = settings.fontSizeXLarge
-		
-		cell.selectedBackgroundView = Theme.selectedCellBackground
-		
+
 		if (indexPath.row % 2 == 0) {
-			cell.backgroundColor = Theme.evenRowColor
+			cell.backgroundColor = (tableItem.highlight) ? Theme.tintColor : Theme.evenRowColor
 		} else {
-			cell.backgroundColor = Theme.oddRowColor
+			cell.backgroundColor = (tableItem.highlight) ? Theme.tintColor : Theme.oddRowColor
 		}
 
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)

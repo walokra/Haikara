@@ -14,17 +14,17 @@ public class HighFiApi {
 	
 	class func setupManager(appID: String, maxAge: Int) {
 //	    // Create a custom configuration
-//        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+//      let config = NSURLSessionConfiguration.defaultSessionConfiguration()
 //		var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
 //		defaultHeaders!["User-Agent"] = appID
 //		defaultHeaders!["Cache-Control"] = "private, must-revalidate, max-age=\(maxAge)"
-//        config.HTTPAdditionalHeaders = defaultHeaders
+//      config.HTTPAdditionalHeaders = defaultHeaders
 //		config.requestCachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
 //		config.URLCache = NSURLCache.sharedURLCache()
 //		let manager = Alamofire.Manager(configuration: config)
 //		
 //		return manager
-		
+
         Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": appID,
             "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
@@ -41,7 +41,7 @@ public class HighFiApi {
 
         let feed = "http://" + settings.domainToUse + "/search.cfm"
 		
-		let request = Manager.sharedInstance.request(.GET, feed, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
+		let request = Alamofire.request(.GET, feed, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
 
             request.validate()
             request.responseJSON{ response in
@@ -122,8 +122,8 @@ public class HighFiApi {
             })
         }
 //        print("categoriesHidden=\(categoriesHidden)")
-        
-        let request = Manager.sharedInstance.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "jsonHideSections": categoriesHiddenParam])
+		
+        let request = Alamofire.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
             request.responseJSON{ response in
@@ -210,7 +210,7 @@ public class HighFiApi {
 
         let url = "http://" + settings.domainToUse + "/api/"
         
-        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY])
+        let request = Alamofire.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
             switch response.result {
@@ -225,8 +225,8 @@ public class HighFiApi {
 				
 				// Add always found categories to the list
 				var cat = [Category]()
-				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, selected: true))
-        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", selected: true))
+				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
+        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
 				
                 let categories = (responseData.valueForKey("categories") as! [NSDictionary])
 //                    .filter({ ($0["depth"] as! Int) == 1 })
@@ -235,6 +235,7 @@ public class HighFiApi {
                         sectionID: $0["sectionID"] as! Int,
                         depth: $0["depth"] as! Int,
                         htmlFilename: $0["htmlFilename"] as! String,
+						highlight: $0["highlight"] as! Bool,
                         selected: false
                         )
                     }
@@ -261,7 +262,7 @@ public class HighFiApi {
 	
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY])
+        let request = Alamofire.request(.GET, url, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
             switch response.result {
@@ -313,7 +314,7 @@ public class HighFiApi {
         
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Manager.sharedInstance.request(.GET, url, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY])
+        let request = Alamofire.request(.GET, url, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
             switch response.result {

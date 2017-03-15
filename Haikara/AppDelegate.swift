@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setCache()
 		
 		setAnalytics()
-        
+
         let splitViewController = self.window!.rootViewController as! UISplitViewController
 
 		let minimumWidth: CGFloat = min(CGRectGetWidth(splitViewController.view.bounds),CGRectGetHeight(splitViewController.view.bounds));
@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func setAnalytics() {
 		let settings = Settings.sharedInstance
-	
+
 		// Configure tracker from GoogleService-Info.plist.
 		var configureError:NSError?
 		GGLContext.sharedInstance().configureWithError(&configureError)

@@ -26,6 +26,7 @@
 		3650D7871B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7801B9312B000A4D528 /* Localizable.strings */; };
 		3650D7881B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7831B9312B000A4D528 /* Localizable.strings */; };
 		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
+		3662C1101E77483E00AF55A0 /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */; };
 		366D94C81C06547B00E84284 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */; };
 		36724BA71D5E647C0022C1E9 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */; };
@@ -137,6 +138,7 @@
 		3650D7811B9312B000A4D528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		3650D7841B9312B000A4D528 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localizable.strings; sourceTree = "<group>"; };
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
+		3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
 		366D94C71C06547B00E84284 /* NewsSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSources.swift; sourceTree = "<group>"; };
 		366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterNewsSourcesViewController.swift; sourceTree = "<group>"; };
 		36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */,
 				36F0E84E1C03B7880081F10B /* Theme.swift */,
 				3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */,
+				3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -476,7 +479,6 @@
 				367BAD1C1D1874B600F6B949 /* Resources */,
 				7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */,
 				360619A31D6065CF00DAAA29 /* ShellScript */,
-				219B0D82A850D1EEA411B5CB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -683,22 +685,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		219B0D82A850D1EEA411B5CB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Today/Pods-Today-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		360619A31D6065CF00DAAA29 /* ShellScript */ = {
@@ -739,7 +726,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */ = {
@@ -825,6 +812,7 @@
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
 				36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */,
+				3662C1101E77483E00AF55A0 /* HMACAlgorithm.swift in Sources */,
 				368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
@@ -1115,7 +1103,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7DF258B82BC868AA8338CE1F /* Pods-highkara.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -1147,7 +1135,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49057798B8E0F09649ABCC5F /* Pods-highkara.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = highkara.entitlements;
 				CODE_SIGN_IDENTITY = "";
