@@ -188,7 +188,7 @@ public class HighFiApi {
         let settings = Settings.sharedInstance
 		
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        	Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        	Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "appID": settings.appID])
 	            .response { request, response, data, error in
     	            #if DEBUG
         	            print("trackNewsClick, request: \(request)")
