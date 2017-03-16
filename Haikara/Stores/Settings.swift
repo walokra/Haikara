@@ -211,7 +211,7 @@ class Settings {
 	var fontSizeMedium: UIFont
 	var fontSizeSmall: UIFont
 	
-	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
+	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
 	
     init() {
         #if DEBUG
