@@ -10,9 +10,9 @@ import UIKit
 
 import Alamofire
 
-public class HighFiApi {
+open class HighFiApi {
 	
-	class func setupManager(appID: String, maxAge: Int) {
+	class func setupManager(_ appID: String, maxAge: Int) {
 //	    // Create a custom configuration
 //      let config = NSURLSessionConfiguration.defaultSessionConfiguration()
 //		var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
@@ -25,13 +25,13 @@ public class HighFiApi {
 //		
 //		return manager
 
-        Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [
+        SessionManager.default.session.configuration.httpAdditionalHeaders = [
             "User-Agent": appID,
             "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
         ]
 	}
 	
-	class func search(searchText: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
+	class func search(_ searchText: String, completionHandler: @escaping ([Entry]) -> Void, failureHandler: @escaping (String) -> Void) {
 		#if DEBUG
             print("HighFiApi.search: \(searchText)")
         #endif
@@ -41,22 +41,49 @@ public class HighFiApi {
 
         let feed = "http://" + settings.domainToUse + "/search.cfm"
 		
-		let request = Alamofire.request(.GET, feed, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
+		let request = Alamofire.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
 
             request.validate()
             request.responseJSON{ response in
-            switch response.result {
-            case .Success(let data):
-                #if DEBUG
-                    print("HighFiApi, request: \(response.request)")
+			
+			#if DEBUG
+				debugPrint(response)
+//                    print("HighFiApi, request: \(String(describing: response.request))")
 //                    print("HighFiApi, response: \(response.response)")
 //                    print("HighFiApi, data: \(response.data)")
-                #endif
+			#endif
 				
-                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-                let feed = (responseData.valueForKey("feed") as! NSDictionary)
-                let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
-                    .map { Entry(
+			// check if responseJSON already has an error
+			// e.g., no network connection
+  			guard response.result.error == nil else {
+				#if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
+				failureHandler(response.result.error! as! String)
+    			return
+  			}
+			
+			// make sure we got JSON and it's an array of dictionaries
+			guard let json = response.result.value as? [String: AnyObject] else {
+                #if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
+
+        		failureHandler("Did not get JSON array in response")
+        		return
+      		}
+			
+			let responseData = json["responseData"] as! NSDictionary
+			let feed = (responseData.value(forKey: "feed") as! NSDictionary)
+
+//      		var entries: [Entry] = []
+//      		for element in json {
+//        		if let entryResult = Entry(json: element) {
+//          			entries.append(entryResult)
+//        		}
+//      		}
+			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
+				.map { Entry(
                         title: $0["title"] as! String,
                         link: $0["link"] as! String,
                         clickTrackingLink: $0["clickTrackingLink"] as! String,
@@ -79,22 +106,20 @@ public class HighFiApi {
 						orderNro: 0
                         )
                 }
-//				print("entries: \(entries.count)")
-				
-                return completionHandler(entries)
-
-            case .Failure(let error):
-                #if DEBUG
-                    print("Error: \(#function)\n", error)
-                #endif
-				failureHandler(error.localizedDescription)
-            }
+			print("entries: \(entries.count)")
+			
+			return completionHandler(entries)
+	  
+//			let responseData = (data.value(forKey: "responseData") as! NSDictionary)
+//            let feed = (responseData.value(forKey: "feed") as! NSDictionary)
+//			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
+  
         }
 	}
 
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
 	// e.g. http://high.fi/uutiset/json-private
-    class func getNews(page: Int, section: String, completionHandler: ([Entry]) -> Void, failureHandler: (String) -> Void) {
+    class func getNews(_ page: Int, section: String, completionHandler: @escaping ([Entry]) -> Void, failureHandler: @escaping (String) -> Void) {
         
         #if DEBUG
             print("HighFiApi.getNews: \(page), \(section)")
@@ -123,28 +148,59 @@ public class HighFiApi {
         }
 //        print("categoriesHidden=\(categoriesHidden)")
 		
-        let request = Alamofire.request(.GET, feed, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
+        let request = Alamofire.request(feed, method: .get, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
             request.responseJSON{ response in
-            switch response.result {
-            case .Success(let data):
-                #if DEBUG
-                    print("HighFiApi, request: \(response.request)")
-//                    print("HighFiApi, response: \(response.response)")
-//                    print("HighFiApi, data: \(response.data)")
+				
+			#if DEBUG
+				debugPrint(response)
+//              print("HighFiApi, request: \(String(describing: response.request))")
+//              print("HighFiApi, response: \(response.response)")
+//              print("HighFiApi, data: \(response.data)")
+			#endif
+				
+			// check if responseJSON already has an error
+			// e.g., no network connection
+  			guard response.result.error == nil else {
+				#if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
                 #endif
+				failureHandler(response.result.error! as! String)
+    			return
+  			}
+			
+//			let responseData = (data.valueForKey("responseData") as! NSDictionary)
+//            let feed = (responseData.valueForKey("feed") as! NSDictionary)
+//			let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
+			guard let json = response.result.value as? [String: AnyObject] else {
+                #if DEBUG
+                    print("Error: \(#function)\n", "Did not get JSON dictionary in response")
+                #endif
+
+        		failureHandler("Did not get JSON dictionary in response")
+        		return
+      		}
+
+			let responseData = json["responseData"] as! NSDictionary
+            let feed = responseData.value(forKey: "feed") as! NSDictionary
+			
+			var newsSourcesFiltered = [Int]()
+			if settings.newsSourcesFiltered[settings.region] != nil {
+				newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
+			}
 				
-				var newsSourcesFiltered = [Int]()
-				if settings.newsSourcesFiltered[settings.region] != nil {
-					newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
-				}
-				
-                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-                let feed = (responseData.valueForKey("feed") as! NSDictionary)
-                let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
-                    .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
-                    .map { Entry(
+//      		var entries: [Entry] = []
+//      		for element in json {
+//        		if let entryResult = Entry(json: element) {
+//					if !newsSourcesFiltered.contains(entryResult.sourceID) {
+//          				entries.append(entryResult)
+//					}
+//        		}
+//      		}
+			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
+			    .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
+				.map { Entry(
                         title: $0["title"] as! String,
                         link: $0["link"] as! String,
                         clickTrackingLink: $0["clickTrackingLink"] as! String,
@@ -167,31 +223,25 @@ public class HighFiApi {
 						orderNro: 0
                         )
                 }
-                // println("entries: \(entries.count)")
-                
-                return completionHandler(entries)
 
-            case .Failure(let error):
-                #if DEBUG
-                    print("Error: \(#function)\n", error)
-                #endif
-				failureHandler(error.localizedDescription)
-            }
+			print("entries: \(entries.count)")
+			
+			return completionHandler(entries)
         }
     }
 	
 	// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
-    class func trackNewsClick(link: String) {
+    class func trackNewsClick(_ link: String) {
         #if DEBUG
             print("HighFiApi.trackNewsClick(\(link))")
         #endif
         let settings = Settings.sharedInstance
 		
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        	Alamofire.request(.GET, link, parameters: ["APIKEY": settings.APIKEY, "appID": settings.appID])
-	            .response { request, response, data, error in
+		DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+			Alamofire.request(link, parameters: ["APIKEY": settings.APIKEY, "appID": settings.appID])
+	            .response { response in
     	            #if DEBUG
-        	            print("trackNewsClick, request: \(request)")
+        	            print("trackNewsClick, request: \(String(describing: response.request))")
             	        // print("trackNewsClick, response: \(response)")
                 	    // print("trackNewsClick, error: \(error)")
                 	#endif
@@ -200,7 +250,7 @@ public class HighFiApi {
     }
 	
 	// e.g. http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
-    class func getCategories(completionHandler: (Array<Category>) -> Void, failureHandler: (String) -> Void) {
+    class func getCategories(_ completionHandler: @escaping (Array<Category>) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")
         #endif
@@ -210,49 +260,75 @@ public class HighFiApi {
 
         let url = "http://" + settings.domainToUse + "/api/"
         
-        let request = Alamofire.request(.GET, url, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = Alamofire.request(url, method: .get, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
-            switch response.result {
-            case .Success(let data):
+			
+			#if DEBUG
+				debugPrint(response)
+//              print("HighFiApi, request: \(String(describing: response.request))")
+//              print("HighFiApi, response: \(response.response)")
+//              print("HighFiApi, data: \(response.data)")
+			#endif
+				
+			// check if responseJSON already has an error
+			// e.g., no network connection
+  			guard response.result.error == nil else {
+				#if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
+				failureHandler(response.result.error! as! String)
+    			return
+  			}
+			
+			// make sure we got JSON and it's an array of dictionaries
+//			guard let json = response.result.value as? [String: AnyObject] else {
+//                #if DEBUG
+//                    print("Error: \(#function)\n", response.result.error!)
+//                #endif
+//
+//        		failureHandler("Did not get JSON array in response")
+//        		return
+//      		}
+
+			guard let json = response.result.value as? [String: AnyObject] else {
                 #if DEBUG
-                    print("HighFiApi, request: \(response.request)")
-//                    print("HighFiApi, response: \(response.response)")
-//                    print("HighFiApi, data: \(response.data)")
+                    print("Error: \(#function)\n", "Did not get JSON array in response")
                 #endif
 
-                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-				
-				// Add always found categories to the list
-				var cat = [Category]()
-				cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
-        		cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
-				
-                let categories = (responseData.valueForKey("categories") as! [NSDictionary])
-//                    .filter({ ($0["depth"] as! Int) == 1 })
-                    .map { Category(
-                        title: $0["title"] as! String,
-                        sectionID: $0["sectionID"] as! Int,
-                        depth: $0["depth"] as! Int,
-                        htmlFilename: $0["htmlFilename"] as! String,
-						highlight: $0["highlight"] as! Bool,
-                        selected: false
-                        )
-                    }
-                
-                return completionHandler(cat + categories)
-            case .Failure(let error):
-                #if DEBUG
-                    print("Error: \(#function)\n", error)
-                #endif
-				failureHandler(error.localizedDescription)
-        }
+        		failureHandler("Did not get JSON array in response")
+        		return
+      		}
+			
+			let responseData = json["responseData"] as! NSDictionary
+			
+			// Add always found categories to the list
+			var cat = [Category]()
+			cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
+			cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
+			
+//			let categories: [Category] = json.flatMap { Category(json: $0) }
+			let categories: [Category] = (responseData.value(forKey: "categories") as! [NSDictionary])
+          	    .filter({ ($0["depth"] as! Int) == 1 })
+				.map { Category(
+					title: $0["title"] as! String,
+					sectionID: $0["sectionID"] as! Int,
+					depth: $0["depth"] as! Int,
+					htmlFilename: $0["htmlFilename"] as! String,
+					highlight: $0["highlight"] as! Bool,
+					selected: false
+					)
+			}
+
+			print("categories: \(categories.count)")
+			
+			return completionHandler(cat + categories)
         }
     }
 
     // You should cache this method's return value for min 24h
     // http://high.fi/api/?act=listLanguages&APIKEY=123
-    class func listLanguages(completionHandler: ([Language]) -> Void, failureHandler: (String) -> Void) {
+    class func listLanguages(_ completionHandler: @escaping ([Language]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.listLanguages()")
         #endif
@@ -262,49 +338,68 @@ public class HighFiApi {
 	
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(.GET, url, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = Alamofire.request(url, method: .get, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
-            switch response.result {
-            case .Success(let data):
+		
+			#if DEBUG
+				debugPrint(response)
+//              print("HighFiApi, request: \(String(describing: response.request))")
+//              print("HighFiApi, response: \(response.response)")
+//              print("HighFiApi, data: \(response.data)")
+			#endif
+				
+			// check if responseJSON already has an error
+			// e.g., no network connection
+  			guard response.result.error == nil else {
+				#if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
+				failureHandler(response.result.error! as! String)
+    			return
+  			}
 
+			guard let json = response.result.value as? [String: AnyObject] else {
                 #if DEBUG
-                    print("HighFiApi, request: \(response.request)")
-                    // print("HighFiApi, response: \(response.response)")
-                    // print("HighFiApi, data: \(response.data)")
+                    print("Error: \(#function)\n", "Did not get JSON array in response")
                 #endif
-            
-                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-                let languages = (responseData.valueForKey("supportedLanguages") as! [NSDictionary])
-                    .map { Language(
-                        language: $0["language"] as! String,
-                        country: $0["country"] as! String,
-                        domainToUse: $0["domainToUse"] as! String,
-                        languageCode: $0["languageCode"] as! String,
-                        mostPopularName: $0["mostPopularName"] as! String,
-                        latestName: $0["latestName"] as! String,
-                        useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
-                        genericNewsURLPart: $0["genericNewsURLPart"] as! String
-                        )
-                    }
-                    #if DEBUG
-                        print("HighFiApi, languages: \(languages.count)")
-                        //println("languages: \(languages)")
-                    #endif
-                
-                return completionHandler(languages)
-                
-            case .Failure(let error):
-                #if DEBUG
-                    print("Error: \(#function)\n", error)
-                #endif
-				failureHandler(error.localizedDescription)
-            }
+
+        		failureHandler("Did not get JSON array in response")
+        		return
+      		}
+			
+			let responseData = json["responseData"] as! NSDictionary
+			
+//      		var languages: [Language] = []
+//      		for element in json {
+//        		if let categoryResult = Language(json: element) {
+//					languages.append(categoryResult)
+//        		}
+//      		}
+			let languages: [Language] = (responseData.value(forKey: "supportedLanguages") as! [NSDictionary])
+				.map { Language(
+					language: $0["language"] as! String,
+					country: $0["country"] as! String,
+					domainToUse: $0["domainToUse"] as! String,
+					languageCode: $0["languageCode"] as! String,
+					mostPopularName: $0["mostPopularName"] as! String,
+					latestName: $0["latestName"] as! String,
+					useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
+					genericNewsURLPart: $0["genericNewsURLPart"] as! String
+					)
+				}
+
+			#if DEBUG
+				print("HighFiApi, languages: \(languages.count)")
+				//println("languages: \(languages)")
+			#endif
+			
+			return completionHandler(languages)
         }
     }
 	
     // http://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
-    class func listSources(completionHandler: ([NewsSources]) -> Void, failureHandler: (String) -> Void) {
+    class func listSources(_ completionHandler: @escaping ([NewsSources]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("listSources()")
         #endif
@@ -314,38 +409,50 @@ public class HighFiApi {
         
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(.GET, url, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = Alamofire.request(url, method: .get, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
-            switch response.result {
-            case .Success(let data):
+			#if DEBUG
+				debugPrint(response)
+//              print("HighFiApi, request: \(String(describing: response.request))")
+//              print("HighFiApi, response: \(response.response)")
+//              print("HighFiApi, data: \(response.data)")
+			#endif
+				
+			// check if responseJSON already has an error
+			// e.g., no network connection
+  			guard response.result.error == nil else {
+				#if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
+				failureHandler(response.result.error! as! String)
+    			return
+  			}
+			
+			// make sure we got JSON and it's an array of dictionaries
+			guard let json = response.result.value as? [String: AnyObject] else {
+                #if DEBUG
+                    print("Error: \(#function)\n", response.result.error!)
+                #endif
 
-                #if DEBUG
-                    print("HighFiApi, request: \(response.request)")
-                    // print("HighFiApi, response: \(response.response)")
-                    // print("HighFiApi, data: \(response.theJSON)")
-                #endif
-            
-                let responseData = (data.valueForKey("responseData") as! NSDictionary)
-                let newsSources = (responseData.valueForKey("newsSources") as! [NSDictionary])
-                    .map { NewsSources(
-                        sourceName: $0["sourceName"] as! String,
-                        sourceID: $0["sourceID"] as! Int,
-						selected: false
-                        )
-                    }
-                    #if DEBUG
-                        print("HighFiApi, newsSources: \(newsSources.count)")
-                    #endif
-                
-                return completionHandler(newsSources)
-                
-            case .Failure(let error):
-                #if DEBUG
-                    print("Error: \(#function)\n", error)
-                #endif
-				failureHandler(error.localizedDescription)
-            }
+        		failureHandler("Did not get JSON array in response")
+        		return
+      		}
+			
+			let responseData = json["responseData"] as! NSDictionary
+			let newsSources: [NewsSources] = (responseData.value(forKey: "newsSources") as! [NSDictionary])
+				.map { NewsSources(
+					sourceName: $0["sourceName"] as! String,
+					sourceID: $0["sourceID"] as! Int,
+					selected: false
+					)
+				}
+
+			#if DEBUG
+				print("HighFiApi, newsSources: \(newsSources.count)")
+			#endif
+			
+			return completionHandler(newsSources)
         }
     }
 }

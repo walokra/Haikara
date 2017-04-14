@@ -1,10 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-	pod 'Alamofire', '~> 3.5'
-	pod 'AlamofireImage', '~> 2.5'
+	pod 'Alamofire', '~> 4.4'
+	pod 'AlamofireImage', '~> 3.1'
 	pod 'Google/Analytics'
 end
 

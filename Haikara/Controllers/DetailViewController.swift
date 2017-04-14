@@ -8,6 +8,30 @@
 
 import UIKit
 import SafariServices
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UISearchBarDelegate {
 
@@ -24,10 +48,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
-	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
+	var newsEntriesUpdatedByLang = Dictionary<String, Date>()
 	
 	let settings = Settings.sharedInstance
-	var defaults: NSUserDefaults?
+	var defaults: UserDefaults?
 	
 	var page: Int = 1
 	
@@ -51,12 +75,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	var refreshControl: UIRefreshControl!
 
-	let calendar = NSCalendar.autoupdatingCurrentCalendar()
-	let dateFormatter = NSDateFormatter()
-	let publishedFormatter = NSDateFormatter()
-	let publishedTimeFormatter = NSDateFormatter()
+	let calendar = Calendar.autoupdatingCurrent
+	let dateFormatter = DateFormatter()
+	let publishedFormatter = DateFormatter()
+	let publishedTimeFormatter = DateFormatter()
 	
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
 	var loading = false
 	
 	var didSearch: Bool = false
@@ -65,16 +89,16 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	var clockLabel: UILabel!
 
 	// MARK: Search
-	func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true
     }
 
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchActive = false
         dismissKeyboard()
     }
 
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false
 		self.title = self.navigationItemTitle
 		getNews(1, forceRefresh: self.didSearch)
@@ -83,9 +107,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		dismissKeyboard()
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		let searchText = searchBar.text?.stringByTrimmingCharactersInSet(
-    		NSCharacterSet.whitespaceAndNewlineCharacterSet()
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		let searchText = searchBar.text?.trimmingCharacters(
+    		in: CharacterSet.whitespacesAndNewlines
 		)
 		if searchText?.characters.count > 2 {
         	searchActive = false
@@ -95,7 +119,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		searchActive = true
 		self.title = searchTitle
     }
@@ -116,8 +140,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
-            if traitCollection.forceTouchCapability == .Available {
-                registerForPreviewingWithDelegate(self, sourceView: tableView)
+            if traitCollection.forceTouchCapability == .available {
+                registerForPreviewing(with: self, sourceView: tableView)
             }
         }
 
@@ -137,7 +161,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		initView()
 		
 		// Reset delegates url after we've opened it
-    	let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    	let delegate = UIApplication.shared.delegate as? AppDelegate
     	if (delegate?.openUrl) != nil {
         	delegate?.openUrl = nil
     	}
@@ -154,13 +178,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		configureTableView()
 		
-		var localTimeZone: String { return NSTimeZone.localTimeZone().abbreviation ?? "" }
+		var localTimeZone: String { return NSTimeZone.local.abbreviation() ?? "" }
 
-		dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000'Z'"
-		publishedFormatter.timeZone = NSTimeZone(abbreviation: localTimeZone)
+		publishedFormatter.timeZone = TimeZone(abbreviation: localTimeZone)
 		publishedFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
-		publishedTimeFormatter.timeZone = NSTimeZone(abbreviation: localTimeZone)
+		publishedTimeFormatter.timeZone = TimeZone(abbreviation: localTimeZone)
 		publishedTimeFormatter.dateFormat = "HH:mm"
 		
 		// self.tableFooter.hidden = true
@@ -170,24 +194,24 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
-		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl)
 	}
 	
 	// MARK: - Observers
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name:"handleOpenURL", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name: .handleOpenURL, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 
-	func handleOpenURL(notification:NSNotification){
+	func handleOpenURL(_ notification:Notification){
     	if let url = notification.object as? String {
-			let webURL = NSURL(string: url)
+			let webURL = URL(string: url)
 
 			#if DEBUG
-				print("handleOpenURL. webURL=\(webURL)")
+				print("handleOpenURL. webURL=\(String(describing: webURL))")
 			#endif
 			
 			handleOpenBrowser(webURL!, event: "handleOpenURL")
@@ -198,7 +222,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
@@ -219,7 +243,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		// self.navigationController!.navigationBar.backgroundColor = Theme.backgroundColor;
 	}
 	
-	func setTheme(notification: NSNotification) {
+//	override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return Theme.statusBarStyle
+//    }
+	
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("DetailViewController, Received themeChangedNotification")
         #endif
@@ -228,30 +256,30 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func setLoadingIndicator() {
 		loadingIndicator.color = Theme.tintColor
-   		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+   		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
    		loadingIndicator.center = self.view.center
    		self.view.addSubview(loadingIndicator)
-   		loadingIndicator.bringSubviewToFront(self.view)
+   		loadingIndicator.bringSubview(toFront: self.view)
 	}
 	
 	// MARK: - API
 	
-	func getNews(page: Int, forceRefresh: Bool, toTop: Bool = true) {
+	func getNews(_ page: Int, forceRefresh: Bool, toTop: Bool = true) {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
             	#if DEBUG
             	    print("DetailViewController, getNews: checking if entries need refreshing")
             	#endif
             
-            	if let updated: NSDate = self.newsEntriesUpdatedByLang[self.settings.region] {
-            	    let calendar = NSCalendar.currentCalendar()
-            	    let comps = NSDateComponents()
+            	if let updated: Date = self.newsEntriesUpdatedByLang[self.settings.region] {
+            	    let calendar = Calendar.current
+            	    var comps = DateComponents()
             	    comps.minute = 1
-            	    let updatedPlusMinute = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
-            	    let today = NSDate()
+            	    let updatedPlusMinute = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
+            	    let today = Date()
                 
             	    #if DEBUG
-            	        print("DetailViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(updatedPlusMinute)")
+            	        print("DetailViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(String(describing: updatedPlusMinute))")
             	    #endif
                 
             	    if !forceRefresh && updatedPlusMinute!.isGreaterThanDate(today) {
@@ -269,9 +297,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			// with trailing closure we get the results that we passed the closure back in async function
 			HighFiApi.getNews(self.page, section: highFiSection,
 				completionHandler:{ (result) in
-					self.newsEntriesUpdatedByLang[self.settings.region] = NSDate()
+					self.newsEntriesUpdatedByLang[self.settings.region] = Date()
                 	#if DEBUG
-                    	print("newsEntries updated, \(self.newsEntriesUpdatedByLang[self.settings.region])")
+                    	print("newsEntries updated, \(String(describing: self.newsEntriesUpdatedByLang[self.settings.region]))")
                 	#endif
 					self.setNews(result, toTop: toTop)
 				}
@@ -284,7 +312,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func search(searchNews: String) {
+	func search(_ searchNews: String) {
 		if (!self.loading) {
 			self.setLoadingState(true)
 			// with trailing closure we get the results that we passed the closure back in async function
@@ -311,31 +339,31 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					}
 				})
 				
-				let getNewsGroup = dispatch_group_create()
+				let getNewsGroup = DispatchGroup()
 				var news = Dictionary<Int, Entry>()
 				filteredCategories.forEach({(category: Category) -> () in
-					dispatch_group_enter(getNewsGroup)
+					getNewsGroup.enter()
 				
 					HighFiApi.getNews(1, section: category.htmlFilename,
 						completionHandler: {(result) in
 							result.forEach({(entry: Entry) -> () in
 								news.updateValue(entry, forKey: entry.articleID)
 							})
-							dispatch_group_leave(getNewsGroup)
+							getNewsGroup.leave()
 						}
 						, failureHandler: {(error)in
 							self.refreshControl?.endRefreshing()
 							self.setLoadingState(false)
 							self.handleError(error, title: self.errorTitle)
-							dispatch_group_leave(getNewsGroup)
+							getNewsGroup.leave()
 						}
 					)
 				})
 			
 				// called once all code blocks entered into group have left
-    			dispatch_group_notify(getNewsGroup, dispatch_get_main_queue()) {
+    			getNewsGroup.notify(queue: DispatchQueue.main) {
 					self.setNews(Array(news.values), toTop: true)
-					news.removeAll(keepCapacity: true)
+					news.removeAll(keepingCapacity: true)
 				}
 			} else {
 				// TODO: do something?
@@ -343,10 +371,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func setNews(newsentries: Array<Entry>, toTop: Bool = true) {
+	func setNews(_ newsentries: Array<Entry>, toTop: Bool = true) {
 		// Top items are not grouped by time
 		if highFiSection == "top" {
-			dispatch_async(dispatch_get_main_queue()) {
+			DispatchQueue.main.async {
 				// Clear old entries
 				self.entries = [Entry]()
 				self.sections = OrderedDictionary<String, Array<Entry>>()
@@ -403,8 +431,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				item.orderNro = self.getOrder(item.publishedDateJS)
 			}
 			
-			dispatch_async(dispatch_get_main_queue()) {
-				let fetchedEntries = newsentries.sort { $0.orderNro < $1.orderNro }
+			DispatchQueue.main.async {
+				let fetchedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
 				
 				if self.page == 1 {
 					// Clear old entries
@@ -445,14 +473,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func setSearchResults(newsentries: Array<Entry>) {
+	func setSearchResults(_ newsentries: Array<Entry>) {
 		for item in newsentries {
 			item.timeSince = self.getTimeSince(item.publishedDateJS)
 			item.orderNro = self.getOrder(item.publishedDateJS)
 		}
 			
-		dispatch_async(dispatch_get_main_queue()) {
-			let fetchedEntries = newsentries.sort { $0.orderNro < $1.orderNro }
+		DispatchQueue.main.async {
+			let fetchedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
 				
 			// Clear old entries
 			self.entries = [Entry]()
@@ -490,7 +518,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		tableView.estimatedRowHeight = 110.0
 	}
 	
-	func refresh(sender:AnyObject) {
+	func refresh(_ sender:AnyObject) {
 		self.page = 1
 		if (self.highFiSection == "favorites") {
 			getFavorites()
@@ -501,22 +529,22 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// MARK: - Functions
 	
-	func handleOpenBrowser(webURL: NSURL, title: String = "", event: String) {
+	func handleOpenBrowser(_ webURL: URL, title: String = "", event: String) {
 		self.trackEvent(event, category: "ui_Event", action: event, label: "main", value: 1)
 	
 		if (settings.useChrome && OpenInChromeController.sharedInstance.isChromeInstalled()) {
 			#if DEBUG
 				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
 			#endif
-			OpenInChromeController.sharedInstance.openInChrome(webURL, createNewTab: settings.createNewTab, callbackURL: NSURL(string: "Highkara"))
+			_ = OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
 		} else {
 			if #available(iOS 9.0, *) {
 				#if DEBUG
 					print("iOS 9.0, *")
 				#endif
-				let svc = SFSafariViewController(URL: webURL, entersReaderIfAvailable: settings.useReaderView)
+				let svc = SFSafariViewController(url: webURL, entersReaderIfAvailable: settings.useReaderView)
 				svc.view.tintColor = Theme.tintColor
-				self.presentViewController(svc, animated: true, completion: nil)
+				self.present(svc, animated: true, completion: nil)
 			} else {
 				#if DEBUG
 					print("Fallback on earlier versions")
@@ -530,15 +558,15 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func handleGesture(recognizer:UIScreenEdgePanGestureRecognizer) {
+	func handleGesture(_ recognizer:UIScreenEdgePanGestureRecognizer) {
         self.animator.percentageDriven = true
-		let percentComplete = recognizer.locationInView(view).x / view.bounds.size.width
+		let percentComplete = recognizer.location(in: view).x / view.bounds.size.width
 		
         switch recognizer.state {
-        case .Began: dismissViewControllerAnimated(true, completion: nil)
-        case .Changed: animator.updateInteractiveTransition(percentComplete > 0.99 ? 0.99 : percentComplete)
-        case .Ended, .Cancelled:
-            (recognizer.velocityInView(view).x < 0) ? animator.cancelInteractiveTransition() : animator.finishInteractiveTransition()
+        case .began: dismiss(animated: true, completion: nil)
+        case .changed: animator.update(percentComplete > 0.99 ? 0.99 : percentComplete)
+        case .ended, .cancelled:
+            (recognizer.velocity(in: view).x < 0) ? animator.cancel() : animator.finish()
             self.animator.percentageDriven = false
         default: ()
         }
@@ -548,42 +576,42 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// Dismiss the view controller and return to app.
 	@available(iOS 9.0, *)
-	func safariViewControllerDidFinish(controller: SFSafariViewController) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+	func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+		self.dismiss(animated: true, completion: nil)
 	}
 	
-	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.dismissing = false
         return animator
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.dismissing = true
         return animator
     }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return self.animator.percentageDriven ? self.animator : nil
     }
 	
     // MARK: - Table view data source
 
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 40))
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 
 		var sectionLabel: UILabel
 		if highFiSection != "top" {
-			sectionLabel = UILabel(frame: CGRectMake(25, 0, tableView.frame.size.width/2, 20))
+			sectionLabel = UILabel(frame: CGRect(x: 25, y: 0, width: tableView.frame.size.width/2, height: 20))
 		} else {
-			sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+			sectionLabel = UILabel(frame: CGRect(x: 8, y: 0, width: tableView.frame.size.width/2, height: 20))
 		}
 		sectionLabel.text = sortedSections[section]
 		sectionLabel.textColor = Theme.sectionTitleColor
 		sectionLabel.font = settings.fontSizeLarge
 
-		clockLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 20))
+		clockLabel = UILabel(frame: CGRect(x: 8, y: 0, width: tableView.frame.size.width/2, height: 20))
 		createClockIcon(Theme.textColor)
 
 		if highFiSection != "top" {
@@ -596,20 +624,20 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	// MARK: - TableView
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let path = self.tableView!.indexPathForSelectedRow!
 		let row = path.row
 		
 		let tableSection = sections[sortedSections[path.section]]
 		let tableItem = tableSection![row]
 		
-		var webURL = NSURL(string: tableItem.originalURL)
+		var webURL = URL(string: tableItem.originalURL)
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
-			webURL = NSURL(string: tableItem.originalMobileUrl!)
+			webURL = URL(string: tableItem.originalMobileUrl!)
 		}		
 		#if DEBUG
 			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
-			print("didSelectRowAtIndexPath, webURL=\(webURL)")
+			print("didSelectRowAtIndexPath, webURL=\(String(describing: webURL))")
 		#endif
 		
 		handleOpenBrowser(webURL!, title: tableItem.title, event: "openURL")
@@ -617,7 +645,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		self.trackNewsClick(tableItem)
 	}
 	
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 //		if(searchActive) {
 //            return filteredSections.count
 //        }
@@ -625,7 +653,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return self.sections.count
     }
 
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
 //		if(searchActive){
 //			return self.filteredSections[filteredSectionsSorted[section]]!.count
@@ -633,9 +661,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return self.sections[sortedSections[section]]!.count
     }
 	
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// Configure the cell for this indexPath
-		let cell: EntryCell! = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as? EntryCell
+		let cell: EntryCell! = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) as? EntryCell
 		
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
@@ -661,10 +689,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		cell.entryAuthor.textColor = Theme.cellAuthorColor
 		if (tableItem.shortDescription != "" && settings.showDesc) {
 			cell.entryDescription.text = tableItem.shortDescription
-			cell.entryDescription.hidden = false
+			cell.entryDescription.isHidden = false
 		} else {
 			cell.entryDescription.text = ""
-			cell.entryDescription.hidden = true
+			cell.entryDescription.isHidden = true
 		}
 		cell.entryDescription.textColor = Theme.cellDescriptionColor
 		
@@ -673,23 +701,23 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				cell.entryImageWidthConstraint.constant = 100
         		cell.entryTitleLeadingConstraint.constant = 10
 				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
-				let downloadURL = NSURL(string: tableItem.picture!)!
+				let downloadURL = URL(string: tableItem.picture!)!
 				cell.configure(downloadURL)
 			} else {
 				cell.entryImage!.image = nil
-				cell.entryImage.frame = CGRectZero
+				cell.entryImage.frame = CGRect.zero
 				cell.entryImageWidthConstraint.constant = 0
         		cell.entryTitleLeadingConstraint.constant = 0
 			}
 		} else {
 			cell.entryImage!.image = nil
-			cell.entryImage.frame = CGRectZero
+			cell.entryImage.frame = CGRect.zero
 			cell.entryImageWidthConstraint.constant = 0
         	cell.entryTitleLeadingConstraint.constant = 0
 		}
 
 		if tableItem.highlight == true {
-			cell.entryTitle.highlighted = true
+			cell.entryTitle.isHighlighted = true
 //			cell.entryTitle.highlightedTextColor = Theme.tintColor
 		}
 		
@@ -712,42 +740,42 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 //	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 //	}
 	
-	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 	
-		let share = UITableViewRowAction(style: .Default, title: shareButtonText) {
-			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.None, forRowAtIndexPath: indexPath)
+		let share = UITableViewRowAction(style: .default, title: shareButtonText) {
+			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+			self.tableView(tableView, commit: UITableViewCellEditingStyle.none, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
 			
-			var webURL = NSURL(string: tableItem.shareURL)
+			var webURL = URL(string: tableItem.shareURL)
 			if ((tableItem.mobileShareURL != nil && !tableItem.mobileShareURL!.isEmpty) && self.settings.useMobileUrl) {
-				webURL = NSURL(string: tableItem.mobileShareURL!)
+				webURL = URL(string: tableItem.mobileShareURL!)
 			}
 			
 			#if DEBUG
-				print("shareAction, title=\(tableItem.title), webURL=\(webURL)")
-				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(tableItem.mobileShareURL)")
+				print("shareAction, title=\(tableItem.title), webURL=\(String(describing: webURL))")
+				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(String(describing: tableItem.mobileShareURL))")
 			#endif
 			
 			self.trackEvent("shareAction", category: "ui_Event", action: "shareAction", label: "main", value: 1)
 			
-			let objectsToShare = [tableItem.title, webURL!]
+			let objectsToShare = [tableItem.title, webURL!] as [Any]
 			let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 			
-			activityViewController.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
+			activityViewController.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
 			
-			self.presentViewController(activityViewController, animated: true, completion: nil)
+			self.present(activityViewController, animated: true, completion: nil)
 		}
 		share.backgroundColor = UIColor(red: 0.0/255, green: 171.0/255, blue: 132.0/255, alpha: 1)
 		
-		let delete = UITableViewRowAction(style: .Default, title: deleteButtonText) {
-			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertControllerStyle.Alert)
+		let delete = UITableViewRowAction(style: .default, title: deleteButtonText) {
+			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertControllerStyle.alert)
 
-			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .Destructive, handler: { (action: UIAlertAction!) in
-				self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .destructive, handler: { (action: UIAlertAction!) in
+				self.tableView(tableView, commit: UITableViewCellEditingStyle.delete, forRowAt: indexPath)
 			
 				let tableSection = self.sections[self.sortedSections[indexPath.section]]
 				let tableItem = tableSection![indexPath.row]
@@ -756,84 +784,84 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					print("filter, author=\(tableItem.author), sourceId=\(tableItem.sourceID)")
 				#endif
 				
-				self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "main", value: tableItem.sourceID)
+				self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "main", value: tableItem.sourceID as NSNumber)
 
-				self.settings.removeSource(tableItem.sourceID)
+				_ = self.settings.removeSource(tableItem.sourceID)
 				
-		        self.defaults!.setObject(self.settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+		        self.defaults!.set(self.settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
 				self.defaults!.synchronize()
 				
 //				self.getNews(self.page, forceRefresh: true, toTop: false)
 				
-				self.tableView.editing = false
-				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
+				self.tableView.isEditing = false
+				deleteAlert.dismiss(animated: true, completion: nil)
 			}))
 
-			deleteAlert.addAction(UIAlertAction(title: self.cancelText, style: .Cancel, handler: { (action: UIAlertAction!) in
-				tableView.editing = false
-				deleteAlert.dismissViewControllerAnimated(true, completion: nil)
+			deleteAlert.addAction(UIAlertAction(title: self.cancelText, style: .cancel, handler: { (action: UIAlertAction!) in
+				tableView.isEditing = false
+				deleteAlert.dismiss(animated: true, completion: nil)
 			}))
 			
-			self.presentViewController(deleteAlert, animated: true, completion: nil)
+			self.present(deleteAlert, animated: true, completion: nil)
 		}
 		delete.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
 		
-		let browser = UITableViewRowAction(style: .Default, title: browserButtonText) {
-			(action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-			self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Insert, forRowAtIndexPath: indexPath)
+		let browser = UITableViewRowAction(style: .default, title: browserButtonText) {
+			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+			self.tableView(tableView, commit: UITableViewCellEditingStyle.insert, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
 			
-			var webURL = NSURL(string: tableItem.originalURL)
+			var webURL = URL(string: tableItem.originalURL)
 			if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
-				webURL = NSURL(string: tableItem.originalMobileUrl!)
+				webURL = URL(string: tableItem.originalMobileUrl!)
 			}
 			#if DEBUG
 				print("browser, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
-				print("browser, webURL=\(webURL)")
+				print("browser, webURL=\(String(describing: webURL))")
 			#endif
 			
 			self.trackEvent("externalBrowser", category: "ui_Event", action: "externalBrowser", label: "main", value: 1)
 			
 			// Open news item in external browser, like Safari
-			UIApplication.sharedApplication().openURL(webURL!)
+			UIApplication.shared.openURL(webURL!)
 			
 			self.trackNewsClick(tableItem)
 		}
-		browser.backgroundColor = UIColor.orangeColor()
+		browser.backgroundColor = UIColor.orange
 		
 		return [share, browser, delete]
 	}
 	
 	// Enable swiping for showing action buttons
-	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}
 	
 	// We need empty implementation to get editActionsForRowAtIndexPath to work.
-	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 	}
 	
 	// MARK: - Helpers
 	
-	func formatTime(dateString: String) -> String {
-		let date = dateFormatter.dateFromString(dateString)
-		return publishedTimeFormatter.stringFromDate(date!)
+	func formatTime(_ dateString: String) -> String {
+		let date = dateFormatter.date(from: dateString)
+		return publishedTimeFormatter.string(from: date!)
 	}
-	func formatDate(dateString: String) -> String {
-		let date = dateFormatter.dateFromString(dateString)
-		return publishedFormatter.stringFromDate(date!)
+	func formatDate(_ dateString: String) -> String {
+		let date = dateFormatter.date(from: dateString)
+		return publishedFormatter.string(from: date!)
 	}
 
 	func scrollToTop() {
-		if (self.numberOfSectionsInTableView(self.tableView) > 0 ) {
-			let top = NSIndexPath(forRow: Foundation.NSNotFound, inSection: 0);
-			self.tableView.scrollToRowAtIndexPath(top, atScrollPosition: UITableViewScrollPosition.Top, animated: true);
+		if (self.numberOfSections(in: self.tableView) > 0 ) {
+			let top = IndexPath(row: Foundation.NSNotFound, section: 0);
+			self.tableView.scrollToRow(at: top, at: UITableViewScrollPosition.top, animated: true);
 		}
 	}
 	
-	func scrollViewDidScroll(scrollView: UIScrollView) {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		// Bottom, get next page
 		let currentOffset = scrollView.contentOffset.y
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -850,9 +878,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func setLoadingState(loading: Bool) {
+	func setLoadingState(_ loading: Bool) {
 		self.loading = loading
-		self.loadingIndicator.hidden = !loading
+		self.loadingIndicator.isHidden = !loading
 		if (loading) {
 			self.loadingIndicator.startAnimating()
 		} else {
@@ -861,12 +889,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 	}
 	
-	func getTimeSince(item: String) -> String {
+	func getTimeSince(_ item: String) -> String {
 		//println("getTimeSince: \(item)")
-		if let startDate = dateFormatter.dateFromString(item) {
-			let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute], fromDate: startDate, toDate: NSDate(), options: [])
-			let days = components.day
-			let hours = components.hour
+		if let startDate = dateFormatter.date(from: item) {
+			let components = (calendar as NSCalendar).components([NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute], from: startDate, to: Date(), options: [])
+			let days = components.day!
+			let hours = components.hour!
 			let minutes = components.minute
 //			println("\(days) days, \(hours) hours, \(minutes) minutes")
 			
@@ -897,11 +925,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return NSLocalizedString("LONG_TIME", comment: "")
 	}
 	
-	func getOrder(item: String) -> Int {
-		if let startDate = dateFormatter.dateFromString(item) {
-			let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute], fromDate: startDate, toDate: NSDate(), options: [])
-			let days = components.day
-			let hours = components.hour
+	func getOrder(_ item: String) -> Int {
+		if let startDate = dateFormatter.date(from: item) {
+			let components = (calendar as NSCalendar).components([NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute], from: startDate, to: Date(), options: [])
+			let days = components.day!
+			let hours = components.hour!
 			let minutes = components.minute
 			
 			if days == 0 {
@@ -931,13 +959,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		return 99999
 	}
 	
-	func trackNewsClick(entry: Entry) {
+	func trackNewsClick(_ entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
 	
 	// MARK: - Icons
 	
-	func createClockIcon(color: UIColor) {
+	func createClockIcon(_ color: UIColor) {
 		let string = String.ionIconString("ion-ios-clock-outline")
         let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
         stringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
@@ -954,12 +982,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	// stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 extension DetailViewController: CategorySelectionDelegate {
-	func categorySelected(newCategory: Category) {
+	func categorySelected(_ newCategory: Category) {
 		self.page = 1
 		self.navigationItemTitle = newCategory.title
 		self.navigationItem.title = self.navigationItemTitle

@@ -13,18 +13,18 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
     // MARK: UIViewControllerPreviewingDelegate
     
     /// Create a previewing view controller to be shown at "Peek".
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         // Obtain the index path and the cell that was pressed.
-        guard let indexPath = tableView.indexPathForRowAtPoint(location),
-                  let cell = tableView.cellForRowAtIndexPath(indexPath) else { return nil }
+        guard let indexPath = tableView.indexPathForRow(at: location),
+                  let cell = tableView.cellForRow(at: indexPath) else { return nil }
 		
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
-		let webURL = NSURL(string: tableItem.originalURL)
+		let webURL = URL(string: tableItem.originalURL)
 		
         // Create a detail view controller and set its properties.
         if #available(iOS 9.0, *) {
-            let destinationViewController = SFSafariViewController(URL: webURL!, entersReaderIfAvailable: settings.useReaderView)
+            let destinationViewController = SFSafariViewController(url: webURL!, entersReaderIfAvailable: settings.useReaderView)
 
     	    destinationViewController.preferredContentSize = view.frame.size //CGSize(width: 0.0, height: 0.0)
         
@@ -37,8 +37,8 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
     }
     
     /// Present the view controller for the "Pop" action.
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         // Reuse the "Peek" view controller for presentation.
-        showViewController(viewControllerToCommit, sender: self)
+        show(viewControllerToCommit, sender: self)
     }
 }

@@ -21,12 +21,12 @@ class RegionPickerViewController: UITableViewController {
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
     let settings = Settings.sharedInstance
-    var defaults: NSUserDefaults?
+    var defaults: UserDefaults?
 
     var languages = [Language]()
 	var selectedLanguage: Language? {
     	didSet {
-			selectedLanguageIndex = languages.indexOf(selectedLanguage!)
+			selectedLanguageIndex = languages.index(of: selectedLanguage!)
 		}
   	}
   	var selectedLanguageIndex: Int?
@@ -51,10 +51,10 @@ class RegionPickerViewController: UITableViewController {
 		self.tableView.reloadData()
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 	  if segue.identifier == "SaveSelectedLanguage" {
     	if let cell = sender as? UITableViewCell {
-      		let indexPath = tableView.indexPathForCell(cell)
+      		let indexPath = tableView.indexPath(for: cell)
       		if let index = indexPath?.row {
         		selectedLanguage = languages[index]
       		}
@@ -62,16 +62,16 @@ class RegionPickerViewController: UITableViewController {
 	  }
 	}
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
   		return 1
 	}
  
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   		return languages.count
 	}
  
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-  		let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listRegionCell, forIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  		let cell = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listRegionCell, for: indexPath)
 		
 		let lang: Language = self.languages[indexPath.row]
   		cell.textLabel?.text = lang.country
@@ -101,13 +101,13 @@ class RegionPickerViewController: UITableViewController {
   		return cell
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
  
   		//Other row is selected - need to deselect it
   		if let index = selectedLanguageIndex {
-    		let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))
-    		cell?.accessoryType = .None
+    		let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0))
+    		cell?.accessoryType = .none
   		}
  
   		selectedLanguage = languages[indexPath.row]
@@ -121,28 +121,34 @@ class RegionPickerViewController: UITableViewController {
             print ("selected region = \(settings.region)")
         #endif
 
-        defaults!.setObject(settings.region, forKey: "region")
-        defaults!.setObject(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
-        defaults!.setObject(settings.mostPopularName, forKey: "mostPopularName")
-        defaults!.setObject(settings.latestName, forKey: "latestName")
-        defaults!.setObject(settings.domainToUse, forKey: "domainToUse")
-        defaults!.setObject(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
+        defaults!.set(settings.region, forKey: "region")
+        defaults!.set(settings.useToRetrieveLists, forKey: "useToRetrieveLists")
+        defaults!.set(settings.mostPopularName, forKey: "mostPopularName")
+        defaults!.set(settings.latestName, forKey: "latestName")
+        defaults!.set(settings.domainToUse, forKey: "domainToUse")
+        defaults!.set(settings.genericNewsURLPart, forKey: "genericNewsURLPart")
 		
 		defaults!.synchronize()
 
 		self.trackEvent("setRegion", category: "ui_Event", action: "setRegion", label: "settings", value: 1)
 
-        NSNotificationCenter.defaultCenter().postNotificationName("regionChangedNotification", object: nil, userInfo: ["region": selectedLanguage!])
+        NotificationCenter.default.post(name: .regionChangedNotification, object: nil, userInfo: ["region": selectedLanguage!])
  
   		//update the checkmark for the current row
-		let cell = tableView.cellForRowAtIndexPath(indexPath)
+		let cell = tableView.cellForRow(at: indexPath)
 		cell?.backgroundColor = Theme.selectedColor
 //  		cell?.accessoryType = .Checkmark
 	}
 	
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+	
 	// stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

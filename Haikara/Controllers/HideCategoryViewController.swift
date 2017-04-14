@@ -23,7 +23,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var tableView: UITableView!
 	
     let settings = Settings.sharedInstance
-    var defaults: NSUserDefaults?
+    var defaults: UserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TITLE", comment: "")
 	var tableTitle: String = NSLocalizedString("SETTINGS_HIDDEN_TABLE_TITLE", comment: "")
@@ -31,7 +31,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     
     var categories = [Category]()
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		self.tabBarController!.title = navigationItemTitle
@@ -51,7 +51,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         self.categories = settings.categories
         
         #if DEBUG
-            print("categories hidden=\(settings.categoriesHidden[settings.region])")
+            print("categories hidden=\(String(describing: settings.categoriesHidden[settings.region]))")
         #endif
             
         self.tableView!.delegate=self
@@ -59,10 +59,10 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.resetHidden(_:)), name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HideCategoryViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setRegionCategory(_:)), name: .categoriesRefreshedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.resetHidden(_:)), name: .settingsResetedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	func setTheme() {
@@ -73,7 +73,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("HideCategoriesView, Received themeChangedNotification")
         #endif
@@ -85,14 +85,14 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(notification: NSNotification) {
+    func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("Received categoriesRefreshedNotification")
         #endif
@@ -101,7 +101,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         self.tableView!.reloadData()
     }
     
-    func resetHidden(notification: NSNotification) {
+    func resetHidden(_ notification: Notification) {
         #if DEBUG
             print("Received settingsResetedNotification")
         #endif
@@ -110,14 +110,14 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         self.tableView!.reloadData()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.categories.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath)
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
         
         let tableItem: Category = categories[indexPath.row] as Category
         
@@ -126,7 +126,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
-        if (settings.categoriesHidden[settings.region]?.indexOf(tableItem.sectionID) != nil) {
+        if (settings.categoriesHidden[settings.region]?.index(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
 			cell.accessibilityTraits = UIAccessibilityTraitSelected
         } else {
@@ -147,7 +147,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCategory = self.categories[indexPath.row]
         #if DEBUG
             print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
@@ -159,9 +159,9 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
                 print("catHiddenForLang=\(catHiddenForLang)")
             #endif
             
-            if let index = catHiddenForLang.indexOf(selectedCategory.sectionID) {
+            if let index = catHiddenForLang.index(of: selectedCategory.sectionID) {
 //                print("Removing item at index \(index)")
-                catHiddenForLang.removeAtIndex(index)
+                catHiddenForLang.remove(at: index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
@@ -177,18 +177,24 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         #if DEBUG
-            print("categoriesHidden[region]=\(settings.categoriesHidden[settings.region])")
+            print("categoriesHidden[region]=\(String(describing: settings.categoriesHidden[settings.region]))")
         #endif
         
-        defaults!.setObject(settings.categoriesHidden, forKey: "categoriesHidden")
+        defaults!.set(settings.categoriesHidden, forKey: "categoriesHidden")
 		defaults!.synchronize()
 		
         self.tableView!.reloadData()
     }
-    
+	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+	
     // stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

@@ -22,33 +22,33 @@ class InfoController: UITableViewController {
 	@IBOutlet weak var logoCell: UITableViewCell!
 	
 	@IBOutlet weak var openHighFiButton: UIButton!
-	@IBAction func openHighFi(sender: AnyObject) {
-		UIApplication.sharedApplication().openURL(NSURL(string: "http://high.fi/")!)
+	@IBAction func openHighFi(_ sender: AnyObject) {
+		UIApplication.shared.openURL(URL(string: "http://high.fi/")!)
 	}
 
 	@IBOutlet weak var openAppStoreButton: UIButton!
-	@IBAction func openAppStore(sender: AnyObject) {
-		UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
+	@IBAction func openAppStore(_ sender: AnyObject) {
+		UIApplication.shared.openURL(URL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
 
 	@IBOutlet weak var openTwitterButton: UIButton!
-	@IBAction func openTwitter(sender: AnyObject) {
-	let url = NSURL(string: "twitter://user?screen_name=walokra")
-		if UIApplication.sharedApplication().canOpenURL(url!) {
-			UIApplication.sharedApplication().openURL(url!)
+	@IBAction func openTwitter(_ sender: AnyObject) {
+	let url = URL(string: "twitter://user?screen_name=walokra")
+		if UIApplication.shared.canOpenURL(url!) {
+			UIApplication.shared.openURL(url!)
 		} else {
-	        UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/walokra")!)
+	        UIApplication.shared.openURL(URL(string: "https://twitter.com/walokra")!)
 		}
 	}
 
 	@IBOutlet weak var bugsButton: UIButton!
-	@IBAction func openBugs(sender: AnyObject) {
-		UIApplication.sharedApplication().openURL(NSURL(string: "https://github.com/walokra/haikara/issues")!)
+	@IBAction func openBugs(_ sender: AnyObject) {
+		UIApplication.shared.openURL(URL(string: "https://github.com/walokra/haikara/issues")!)
 	}
 
 	@IBOutlet weak var openEmailButton: UIButton!
-	@IBAction func openEmail(sender: AnyObject) {
-		UIApplication.sharedApplication().openURL(NSURL(string: "mailto:marko.wallin@iki.fi")!)
+	@IBAction func openEmail(_ sender: AnyObject) {
+		UIApplication.shared.openURL(URL(string: "mailto:marko.wallin@iki.fi")!)
 	}
 
     override func viewDidLoad() {
@@ -65,8 +65,8 @@ class InfoController: UITableViewController {
 	}
 	
 	func setObservers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InfoController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InfoController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(InfoController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(InfoController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	func setTheme() {
@@ -76,16 +76,16 @@ class InfoController: UITableViewController {
 		
 		aboutLabel.textColor = Theme.textColor
 		licenseLabel.textColor = Theme.textColor
-		openAppStoreButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		openHighFiButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		bugsButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		openTwitterButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
-		openEmailButton.setTitleColor(Theme.buttonColor, forState: UIControlState.Normal)
+		openAppStoreButton.setTitleColor(Theme.buttonColor, for: UIControlState())
+		openHighFiButton.setTitleColor(Theme.buttonColor, for: UIControlState())
+		bugsButton.setTitleColor(Theme.buttonColor, for: UIControlState())
+		openTwitterButton.setTitleColor(Theme.buttonColor, for: UIControlState())
+		openEmailButton.setTitleColor(Theme.buttonColor, for: UIControlState())
 		
 		infoLabel.textColor = Theme.textColor
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
 		#if DEBUG
             print("Received themeChangedNotification")
         #endif
@@ -105,7 +105,7 @@ class InfoController: UITableViewController {
 		tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("Received UIContentSizeCategoryDidChangeNotification")
         #endif
@@ -117,24 +117,24 @@ class InfoController: UITableViewController {
 		tableView.estimatedRowHeight = 75.0
 	}
 	
-	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		// Change the color of all cells
-		cell.backgroundColor = (cell == logoCell) ? UIColor.darkGrayColor() : Theme.backgroundColor
+		cell.backgroundColor = (cell == logoCell) ? UIColor.darkGray : Theme.backgroundColor
 		
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
-		cell.selectionStyle = .None
+		cell.selectionStyle = .none
 	}
-
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
+	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
 
 		headerView.tintColor = Theme.sectionColor
 		headerView.backgroundColor = Theme.sectionColor
 		
 		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRectMake(8, 0, tableView.frame.size.width/2, 25))
+		sectionLabel = UILabel(frame: CGRect(x: 8, y: 0, width: tableView.frame.size.width/2, height: 25))
 		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
 		sectionLabel.textColor = Theme.sectionTitleColor
 		sectionLabel.font = settings.fontSizeLarge

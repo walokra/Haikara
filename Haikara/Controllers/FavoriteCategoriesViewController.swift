@@ -19,7 +19,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     }
     
     let settings = Settings.sharedInstance
-	var defaults: NSUserDefaults?
+	var defaults: UserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -30,7 +30,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     
     var categories = [Category]()
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		self.tabBarController!.title = navigationItemTitle
@@ -50,7 +50,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         self.categories = settings.categories
         
         #if DEBUG
-            print("selected categories=\(settings.categoriesFavorited[settings.region])")
+            print("selected categories=\(String(describing: settings.categoriesFavorited[settings.region]))")
         #endif
         
         self.tableView!.delegate=self
@@ -58,10 +58,10 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
     }
 	
 	func setObservers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setRegionCategory(_:)), name: "categoriesRefreshedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.resetFavorited(_:)), name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoriteCategoriesViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setRegionCategory(_:)), name: .categoriesRefreshedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.resetFavorited(_:)), name: .settingsResetedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	func setTheme() {
@@ -72,7 +72,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("FavoriteCategoriesView, Received themeChangedNotification")
         #endif
@@ -84,14 +84,14 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(notification: NSNotification) {
+    func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("Received categoriesRefreshedNotification")
         #endif
@@ -100,7 +100,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         self.tableView!.reloadData()
     }
     
-    func resetFavorited(notification: NSNotification) {
+    func resetFavorited(_ notification: Notification) {
         #if DEBUG
             print("Received settingsResetedNotification")
         #endif
@@ -109,14 +109,14 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         self.tableView!.reloadData()
     }
         
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.categories.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath)
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
         
         let tableItem: Category = categories[indexPath.row] as Category
         
@@ -125,7 +125,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
-        if (settings.categoriesFavorited[settings.region]?.indexOf(tableItem.sectionID) != nil) {
+        if (settings.categoriesFavorited[settings.region]?.index(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
 			cell.accessibilityTraits = UIAccessibilityTraitSelected
         } else {
@@ -146,7 +146,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCategory = self.categories[indexPath.row]
         #if DEBUG
             print("didSelectRowAtIndexPath, selectedCategory=\(selectedCategory.title), \(selectedCategory.sectionID)")
@@ -158,8 +158,8 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
                 print("langFavoriteCats=\(langFavoriteCats)")
             #endif
             
-            if let index = langFavoriteCats.indexOf(selectedCategory.sectionID) {
-                langFavoriteCats.removeAtIndex(index)
+            if let index = langFavoriteCats.index(of: selectedCategory.sectionID) {
+                langFavoriteCats.remove(at: index)
                 removed = true
                 self.categories[indexPath.row].selected = false
             }
@@ -173,19 +173,25 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         }
         
         #if DEBUG
-            print("langFavoriteCats=\(settings.categoriesFavorited[settings.region])")
+            print("langFavoriteCats=\(String(describing: settings.categoriesFavorited[settings.region]))")
         #endif
         
-        defaults!.setObject(settings.categoriesFavorited, forKey: "categoriesFavorited")
+        defaults!.set(settings.categoriesFavorited, forKey: "categoriesFavorited")
 		defaults!.synchronize()
 		
         self.tableView!.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("selectedCategoriesChangedNotification", object: nil, userInfo: ["categories": "much categories"])
+        NotificationCenter.default.post(name: .selectedCategoriesChangedNotification, object: nil, userInfo: ["categories": "much categories"])
     }
-    
+	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+	
     // stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

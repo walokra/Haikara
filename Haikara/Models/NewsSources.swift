@@ -21,21 +21,21 @@ class NewsSources: NSObject, NSCoding {
 		self.selected = selected
 		super.init()
     }
-	
+
 	required init(coder aDecoder: NSCoder) {
-        sourceName = aDecoder.decodeObjectForKey("sourceName") as! String
-        sourceID = aDecoder.decodeObjectForKey("sourceID") as! Int
-		selected = aDecoder.decodeObjectForKey("selected") as! Bool
+        sourceName = aDecoder.decodeObject(of: NSString.self, forKey: "sourceName")! as String
+        sourceID = aDecoder.decodeInteger(forKey: "sourceID")
+		selected = aDecoder.decodeBool(forKey: "selected")
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(sourceName, forKey: "sourceName")
-        aCoder.encodeObject(sourceID, forKey: "sourceID")
-        aCoder.encodeObject(selected, forKey: "selected")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(sourceName, forKey: "sourceName")
+        aCoder.encode(sourceID, forKey: "sourceID")
+        aCoder.encode(selected, forKey: "selected")
     }
 	
-    override var description: String {
-        return "Language: sourceName=\(self.sourceName), sourceID=\(self.sourceID), selected=\(self.selected)"
-    }
+//    override var description: String {
+//        return "Language: sourceName=\(self.sourceName), sourceID=\(self.sourceID), selected=\(self.selected)"
+//    }
 
 }

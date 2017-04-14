@@ -10,12 +10,12 @@ import UIKit
 
 class TouchableTextView : UITextField {
 	
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         self.resignFirstResponder()
         return false
     }
 
-    override func shouldChangeTextInRange(range: UITextRange, replacementText text: String) -> Bool {
+    override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
         self.resignFirstResponder()
         return false
     }

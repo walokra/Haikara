@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 protocol CategorySelectionDelegate: class {
-    func categorySelected(newCategory: Category)
+    func categorySelected(_ newCategory: Category)
 }
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
@@ -24,7 +24,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	let viewName = "CategoryView"
 	
     let settings = Settings.sharedInstance
-	var defaults: NSUserDefaults?
+	var defaults: UserDefaults?
 
 	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -34,7 +34,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
     var favoritesSelected: Bool = false
     @IBOutlet weak var favoritesButton: UIButton!
-    @IBAction func favoritesButtonAction(sender: AnyObject) {
+    @IBAction func favoritesButtonAction(_ sender: AnyObject) {
 		if settings.categoriesFavorited[settings.region] != nil {
 			if (favoritesSelected == false) {
         	    self.favoritesSelected = true
@@ -48,26 +48,30 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			
         	getCategories()
 		} else {
-			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .Alert)
+			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .alert)
 		
-			let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+			let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
 			alertController.addAction(okAction)
 
-			let gotoSettingsAction = UIAlertAction(title: settingsText, style: .Default) { (action) in
-				if let settingsTabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsTabBarController") as? UITabBarController {
+			let gotoSettingsAction = UIAlertAction(title: settingsText, style: .default) { (action) in
+				if let settingsTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsTabBarController") as? UITabBarController {
 					settingsTabBarController.selectedIndex = 1
 					self.navigationController!.pushViewController(settingsTabBarController, animated: true)
 				}
 			}
 			alertController.addAction(gotoSettingsAction)
 
-			self.presentViewController(alertController, animated: true){}
+			self.present(alertController, animated: true){}
 		}
     }
-    
+	
+//	override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return Theme.statusBarStyle
+//    }
+	
 	@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBAction func settingsButtonAction(sender: AnyObject) {
+    @IBAction func settingsButtonAction(_ sender: AnyObject) {
     }
 	
     var categories = [Category]()
@@ -80,15 +84,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		self.defaults = settings.defaults
 		
-		let uuid = NSUUID().UUIDString
-		let hmacResult: String = uuid.hmac(HMACAlgorithm.SHA256, key: uuid)
+		let uuid = UUID().uuidString
+		let hmacResult: String = uuid.hmac(HMACAlgorithm.sha256, key: uuid)
 		print("hmacResult=\(hmacResult)")
 		
-		if let deviceID = defaults!.stringForKey("deviceID") {
+		if let deviceID = defaults!.string(forKey: "deviceID") {
 			settings.deviceID = deviceID
         } else {
-            defaults!.setObject(hmacResult, forKey: "deviceID")
-            settings.deviceID = defaults!.stringForKey("deviceID")!
+            defaults!.set(hmacResult, forKey: "deviceID")
+            settings.deviceID = defaults!.string(forKey: "deviceID")!
             #if DEBUG
                 print("Setting new deviceID value: \(settings.deviceID)")
             #endif
@@ -96,8 +100,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		// Check for force touch feature, and add force touch/previewing capability.
         if #available(iOS 9.0, *) {
-            if traitCollection.forceTouchCapability == .Available {
-                registerForPreviewingWithDelegate(self, sourceView: tableView)
+            if traitCollection.forceTouchCapability == .available {
+                registerForPreviewing(with: self, sourceView: tableView)
             }
         }
 		
@@ -120,11 +124,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "regionChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: "selectedCategoriesChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: .regionChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: .selectedCategoriesChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: .settingsResetedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	func setTheme() {
@@ -142,7 +146,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.tableView!.reloadData()
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("MasterViewController, Received themeChangedNotification")
         #endif
@@ -153,26 +157,26 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(notification: NSNotification) {
+    func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("MasterView, Received regionChangedNotification")
-            print(notification.userInfo)
+            print(notification.userInfo as Any)
         #endif
         
         getCategories()
     }
     
-    func updateSelectedCategories(notification: NSNotification) {
+    func updateSelectedCategories(_ notification: Notification) {
         #if DEBUG
             print("MasterView, Received selectedCategoriesChangedNotification")
-            print(notification.userInfo)
+            print(notification.userInfo as Any)
         #endif
         setCategories()
     }
@@ -212,15 +216,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 				print("MasterView, getCategories: getting categories for '\(self.settings.region)' from settings")
 			#endif
                 
-			if let updated: NSDate = self.settings.categoriesUpdatedByLang[self.settings.region] {
-				let calendar = NSCalendar.currentCalendar()
-				let comps = NSDateComponents()
+			if let updated: Date = self.settings.categoriesUpdatedByLang[self.settings.region] {
+				let calendar = Calendar.current
+				var comps = DateComponents()
 				comps.minute = 30
-				let updatedPlusThirty = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
-				let today = NSDate()
+				let updatedPlusThirty = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
+				let today = Date()
                     
 				#if DEBUG
-					print("today=\(today), updated=\(updated), updatedPlusThirty=\(updatedPlusThirty)")
+					print("today=\(today), updated=\(updated), updatedPlusThirty=\(String(describing: updatedPlusThirty))")
 				#endif
                         
 				if updatedPlusThirty!.isLessThanDate(today) {
@@ -233,7 +237,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			self.categories = categories
 			self.setCategories()
                 
-			NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
+			NotificationCenter.default.post(name: .categoriesRefreshedNotification, object: nil, userInfo: nil)
 
 			return
 		}
@@ -252,13 +256,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 self.categories = result
                 
                 self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
-                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-				self.defaults!.setObject(archivedObject, forKey: "categoriesByLang")
+                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
+				self.defaults!.set(archivedObject, forKey: "categoriesByLang")
                 
-                self.settings.categoriesUpdatedByLang.updateValue(NSDate(), forKey: self.settings.region)
-                self.defaults!.setObject(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")
+                self.settings.categoriesUpdatedByLang.updateValue(Date(), forKey: self.settings.region)
+                self.defaults!.set(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")
                 #if DEBUG
-                    print("categories updated, \(self.settings.categoriesUpdatedByLang[self.settings.region])")
+                    print("categories updated, \(String(describing: self.settings.categoriesUpdatedByLang[self.settings.region]))")
                 #endif
                 
                 self.defaults!.synchronize()
@@ -269,7 +273,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 self.setCategories()
                 
-                NSNotificationCenter.defaultCenter().postNotificationName("categoriesRefreshedNotification", object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: .categoriesRefreshedNotification, object: nil, userInfo: nil)
                 
                 return
             }
@@ -279,14 +283,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         )
     }
         
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.categories.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath) 
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath) 
 		
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
@@ -305,7 +309,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCategory = self.categories[indexPath.row]
         
         if let detailViewController = self.delegate as? DetailViewController {
@@ -313,11 +323,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
 
-        splitViewController?.preferredDisplayMode = .PrimaryHidden
-        splitViewController?.preferredDisplayMode = .Automatic
+        splitViewController?.preferredDisplayMode = .primaryHidden
+        splitViewController?.preferredDisplayMode = .automatic
     }
 	
-	func createfavoritesIconButton(color: UIColor) {
+	func createfavoritesIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-star-outline")
         let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
@@ -325,12 +335,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
         )
         
-        favoritesButton.titleLabel?.textAlignment = .Center
+        favoritesButton.titleLabel?.textAlignment = .center
         favoritesButton.titleLabel?.numberOfLines = 1
-        favoritesButton.setAttributedTitle(buttonStringAttributed, forState: .Normal)
+        favoritesButton.setAttributedTitle(buttonStringAttributed, for: UIControlState())
     }
 	
-	func createSettingsIconButton(color: UIColor) {
+	func createSettingsIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-gear-outline")
         let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
         buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
@@ -340,9 +350,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             range: NSRange(location: 0,length: 1)
         )
         
-        settingsButton.titleLabel?.textAlignment = .Center
+        settingsButton.titleLabel?.textAlignment = .center
         settingsButton.titleLabel?.numberOfLines = 1
-        settingsButton.setAttributedTitle(buttonStringAttributed, forState: .Normal)
+        settingsButton.setAttributedTitle(buttonStringAttributed, for: UIControlState())
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -352,7 +362,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
     // stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

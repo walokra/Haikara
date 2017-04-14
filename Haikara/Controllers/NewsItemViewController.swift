@@ -28,11 +28,11 @@ class NewsItemViewController: UIViewController {
 		self.webView?.backgroundColor = Theme.backgroundColor
     }
     
-    func loadWebView(url: NSURL) {
+    func loadWebView(_ url: URL) {
         self.webView = WKWebView()
         self.view = self.webView
         
-        webView!.loadRequest(NSURLRequest(URL: url))
+        webView!.load(URLRequest(url: url))
     }
 
     override func didReceiveMemoryWarning() {

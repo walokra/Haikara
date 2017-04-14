@@ -19,8 +19,8 @@ struct Theme {
 	static var cellAuthorColor: UIColor = Light.authorColor
 	static var cellDescriptionColor: UIColor = Light.descriptionColor
 	static var selectedCellBackground = UIView()
-	static var barStyle: UIBarStyle = UIBarStyle.Default
-	static var statusBarStyle: UIStatusBarStyle = UIStatusBarStyle.Default
+	static var barStyle: UIBarStyle = UIBarStyle.default
+	static var statusBarStyle: UIStatusBarStyle = UIStatusBarStyle.default
 	static var searchBarTintColor: UIColor = Light.backgroundColor
 	
 	static var buttonColor: UIColor = Light.buttonColor
@@ -32,11 +32,12 @@ struct Theme {
 	static var poweredLabelColor: UIColor = Light.poweredLabelColor
 	
 	static func loadTheme(){
-		let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
+		let defaults: UserDefaults = UserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
 	
 		setFonts()
 		
-		if let useDarkTheme: Bool = defaults.objectForKey("useDarkTheme")?.boolValue {
+		if let useDarkTheme: Bool = (defaults.object(forKey: "useDarkTheme") as AnyObject).boolValue {
+			print("useDarkTheme=\(useDarkTheme)")
 			(useDarkTheme) ? themeDark() : themeLight()
 		} else {
 			themeLight()
@@ -45,15 +46,15 @@ struct Theme {
 	
 	static func setFonts() {
 		if Settings.sharedInstance.useSystemSize {
-			Settings.sharedInstance.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-			Settings.sharedInstance.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-			Settings.sharedInstance.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-			Settings.sharedInstance.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+			Settings.sharedInstance.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+			Settings.sharedInstance.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+			Settings.sharedInstance.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+			Settings.sharedInstance.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
 		} else {
-			Settings.sharedInstance.fontSizeXLarge = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 6.0)
-			Settings.sharedInstance.fontSizeLarge = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 5.0)
-			Settings.sharedInstance.fontSizeSmall = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 2.0)
-			Settings.sharedInstance.fontSizeMedium = UIFont.systemFontOfSize(Settings.sharedInstance.fontSizeBase + 3.0)
+			Settings.sharedInstance.fontSizeXLarge = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 6.0)
+			Settings.sharedInstance.fontSizeLarge = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 5.0)
+			Settings.sharedInstance.fontSizeSmall = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 2.0)
+			Settings.sharedInstance.fontSizeMedium = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 3.0)
 		}
 	}
 	
@@ -74,18 +75,18 @@ struct Theme {
 		
 		tintColor = Light.tintColor
 		searchBarTintColor = Light.backgroundColor
-		barStyle = UIBarStyle.Default
-		statusBarStyle = UIStatusBarStyle.Default
+		barStyle = UIBarStyle.default
+		statusBarStyle = UIStatusBarStyle.default
 
-		UIApplication.sharedApplication().delegate?.window??.tintColor = tintColor
+		UIApplication.shared.delegate?.window??.tintColor = tintColor
 		UINavigationBar.appearance().barStyle = barStyle
-		UIApplication.sharedApplication().setStatusBarStyle(statusBarStyle, animated: true)
+		UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
 		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Light.buttonColor
 		selectedColor = Light.selectedColor
 		
-		UISwitch.appearance().onTintColor = tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().onTintColor = tintColor.withAlphaComponent(0.3)
 		UISwitch.appearance().thumbTintColor = tintColor
 		
 		starColor = Light.starColor
@@ -109,18 +110,18 @@ struct Theme {
 		
 		tintColor = Dark.tintColor
 		searchBarTintColor = Dark.backgroundColor
-		barStyle = UIBarStyle.Black
-		statusBarStyle = UIStatusBarStyle.LightContent
+		barStyle = UIBarStyle.black
+		statusBarStyle = UIStatusBarStyle.lightContent
 		
-		UIApplication.sharedApplication().delegate?.window??.tintColor = tintColor
+		UIApplication.shared.delegate?.window??.tintColor = tintColor
 		UINavigationBar.appearance().barStyle = barStyle
-		UIApplication.sharedApplication().setStatusBarStyle(statusBarStyle, animated: true)
+		UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
 		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Dark.buttonColor
 		selectedColor = Dark.selectedColor
 		
-		UISwitch.appearance().onTintColor = tintColor.colorWithAlphaComponent(0.3)
+		UISwitch.appearance().onTintColor = tintColor.withAlphaComponent(0.3)
 		UISwitch.appearance().thumbTintColor = tintColor
 		
 		starColor = Dark.starColor
@@ -141,9 +142,9 @@ struct Theme {
 		// sgi gray 32
 		static let authorColor = UIColor(red: 81.0/255.0, green: 81.0/255.0, blue: 81.0/255.0, alpha: 1)
 		static let descriptionColor = UIColor(red: 81.0/255.0, green: 81.0/255.0, blue: 81.0/255.0, alpha: 1)
-		static let selectedBackgroudColor = UIColor.lightGrayColor()
+		static let selectedBackgroudColor = UIColor.lightGray
 		
-		static let poweredLabelColor = UIColor.darkGrayColor()
+		static let poweredLabelColor = UIColor.darkGray
 
 		// orange
 		static let buttonColor = UIColor(red: 242.0/255.0, green: 137.0/255.0, blue: 32.0/255.0, alpha: 1.0)
@@ -169,9 +170,9 @@ struct Theme {
 		static let authorColor = UIColor(red: 140.0/255.0, green: 140.0/255.0, blue: 140.0/255.0, alpha: 1)
 		// #c0c0c0
 		static let descriptionColor = UIColor(red: 192.0/255.0, green: 192.0/255.0, blue: 192.0/255.0, alpha: 1)
-		static let selectedBackgroundColor = UIColor.darkGrayColor()
+		static let selectedBackgroundColor = UIColor.darkGray
 		
-		static let poweredLabelColor = UIColor.lightGrayColor()
+		static let poweredLabelColor = UIColor.lightGray
 		
 		// orange
 		static let buttonColor = UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0)

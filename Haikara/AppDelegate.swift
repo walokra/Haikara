@@ -12,11 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-	var openUrl: NSURL? // used to save state when App is not running before the url triggered
+	var openUrl: URL? // used to save state when App is not running before the url triggered
 
-    static let settings = Settings()
-	
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
 		setObservers()
@@ -27,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let splitViewController = self.window!.rootViewController as! UISplitViewController
 
-		let minimumWidth: CGFloat = min(CGRectGetWidth(splitViewController.view.bounds),CGRectGetHeight(splitViewController.view.bounds));
+		let minimumWidth: CGFloat = min(splitViewController.view.bounds.width,splitViewController.view.bounds.height);
 		splitViewController.minimumPrimaryColumnWidth = minimumWidth / 2;
 		splitViewController.maximumPrimaryColumnWidth = minimumWidth;
 
@@ -40,35 +38,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         masterViewController.delegate = detailViewController
 
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         
         return true
     }
 
-	// iOS 8
-	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-		return parseAndOpenUrl(url)
-	}
-	
 	// iOS 9
-	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
 		return parseAndOpenUrl(url)
 	}
 	
-	func parseAndOpenUrl(url: NSURL) -> Bool {
-		let url = url.standardizedURL
-		let urlString = url!.absoluteString
-		let host = url!.host
+	func parseAndOpenUrl(_ url: URL) -> Bool {
+		let url = url.standardized
+		let urlString = url.absoluteString
+		let host = url.host
 
 		#if DEBUG
-            print("openURL, url=\(url)")
-			print("openURL, urlString=\(urlString)")
-			print("openURL, host=\(host)")
+            print("openURL, url=\(String(describing: url))")
+			print("openURL, urlString=\(String(describing: urlString))")
+			print("openURL, host=\(String(describing: host))")
         #endif
 		
-		if host!.rangeOfString("article") != nil {
-			let webUrl = urlString!.stringByReplacingOccurrencesOfString("Highkara://article?url=", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-           	NSNotificationCenter.defaultCenter().postNotificationName("handleOpenURL", object: webUrl)
+		if host!.range(of: "article") != nil {
+			let webUrl = urlString.replacingOccurrences(of: "Highkara://article?url=", with: "", options: NSString.CompareOptions.literal, range: nil)
+			NotificationCenter.default.post(name: .handleOpenURL, object: webUrl)
    			self.openUrl = url
    			return true
     	} else {
@@ -82,8 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.optOutAnalytics(_:)), name: "optOutAnalyticsChangedNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.optOutAnalytics(_:)), name: .optOutAnalyticsChangedNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -105,14 +98,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		rightNavController.navigationBar.barStyle = Theme.barStyle
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("AppDelegate, Received themeChangedNotification")
         #endif
 		setTheme()
 	}
 	
-	func optOutAnalytics(notification: NSNotification) {
+	func optOutAnalytics(_ notification: Notification) {
         #if DEBUG
             print("AppDelegate, Received optOutAnalyticsChangedNotification")
         #endif
@@ -123,8 +116,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setCache() {
         let cacheSizeMemory = 8 * 1024 * 1024
         let cacheSizeDisk = 40 * 1024 * 1024
-        let cache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "HighkaraCache")
-        NSURLCache.setSharedURLCache(cache)
+        let cache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "HighkaraCache")
+        URLCache.shared = cache
     }
 
 	func setAnalytics() {
@@ -133,42 +126,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Configure tracker from GoogleService-Info.plist.
 		var configureError:NSError?
 		GGLContext.sharedInstance().configureWithError(&configureError)
-		assert(configureError == nil, "Error configuring Google services: \(configureError)")
+		assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
 
 		// Optional: configure GAI options.
 		let gai = GAI.sharedInstance()
-		gai.optOut = settings.optOutAnalytics
-		gai.trackUncaughtExceptions = true  // report uncaught exceptions
+		gai?.optOut = settings.optOutAnalytics
+		gai?.trackUncaughtExceptions = true  // report uncaught exceptions
 //		#if DEBUG
 //			gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
 //		#endif
 	}
 	
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
 	// stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

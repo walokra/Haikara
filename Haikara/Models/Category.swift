@@ -19,7 +19,7 @@ class Category: NSObject, NSCoding {
 	let highlight: Bool
     var selected: Bool
     
-    required init(title: String, sectionID: Int, depth: Int, htmlFilename: String, highlight: Bool, selected: Bool) {
+    init(title: String, sectionID: Int, depth: Int, htmlFilename: String, highlight: Bool, selected: Bool) {
         self.title = title
         self.sectionID = sectionID
         self.depth = depth
@@ -28,26 +28,26 @@ class Category: NSObject, NSCoding {
         self.selected = selected
         super.init()
     }
-    
+
     required init(coder aDecoder: NSCoder) {
-        title = aDecoder.decodeObjectForKey("title") as! String
-        sectionID = aDecoder.decodeObjectForKey("sectionID") as! Int
-        depth = aDecoder.decodeObjectForKey("depth") as! Int
-        htmlFilename = aDecoder.decodeObjectForKey("htmlFilename") as! String
-		highlight = aDecoder.decodeObjectForKey("highlight") as! Bool
-        selected = aDecoder.decodeObjectForKey("selected") as! Bool
+        title = aDecoder.decodeObject(of: NSString.self, forKey: "title")! as String
+        sectionID = aDecoder.decodeInteger(forKey: "sectionID") 
+        depth = aDecoder.decodeInteger(forKey: "depth")
+        htmlFilename = aDecoder.decodeObject(of: NSString.self, forKey: "htmlFilename")! as String
+		highlight = aDecoder.decodeBool(forKey: "highlight")
+        selected = aDecoder.decodeBool(forKey: "selected")
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(title, forKey: "title")
-        aCoder.encodeObject(sectionID, forKey: "sectionID")
-        aCoder.encodeObject(depth, forKey: "depth")
-        aCoder.encodeObject(htmlFilename, forKey: "htmlFilename")
-		aCoder.encodeObject(highlight, forKey: "highlight")
-        aCoder.encodeObject(selected, forKey: "selected")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(title, forKey: "title")
+        aCoder.encode(sectionID, forKey: "sectionID")
+        aCoder.encode(depth, forKey: "depth")
+        aCoder.encode(htmlFilename, forKey: "htmlFilename")
+		aCoder.encode(highlight, forKey: "highlight")
+        aCoder.encode(selected, forKey: "selected")
     }
     
-    override var description: String {
-        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename), highlight=\(self.highlight), selected=\(self.selected)"
-    }
+//    override var description: String {
+//        return "Category: title=\(self.title), sectionID=\(self.sectionID), depth=\(self.depth), htmlFilename=\(self.htmlFilename), highlight=\(self.highlight), selected=\(self.selected)"
+//    }
 }

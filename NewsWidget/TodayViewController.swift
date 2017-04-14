@@ -17,7 +17,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
 	
-	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
+	let defaults: UserDefaults = UserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
 	
 	let defaultValues = Defaults(
 			useToRetrieveLists: "finnish",
@@ -49,13 +49,13 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             print(#function)
         #endif
 		
-		if let region: String = defaults.objectForKey("region") as? String {
+		if let region: String = defaults.object(forKey: "region") as? String {
             self.region = region
         } else {
             self.region = defaultValues.region
         }
 		
-        if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
+        if let useMobileUrl: Bool = defaults.object(forKey: "useMobileUrl") as? Bool {
             self.useMobileUrl = useMobileUrl
         } else {
             self.useMobileUrl = defaultValues.useMobileUrl
@@ -65,11 +65,11 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
-        if let unarchivedtodayCategoryByLang = defaults.objectForKey("todayCategoryByLang") as? NSData {
-            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+        if let unarchivedtodayCategoryByLang = defaults.object(forKey: "todayCategoryByLang") as? Data {
+            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
 			self.selectedTodayCategoryName = self.todayCategoryByLang[self.region!]!.htmlFilename
 		} else {
-			if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
+			if let genericNewsURLPart: String = defaults.object(forKey: "genericNewsURLPart") as? String {
             	self.selectedTodayCategoryName = genericNewsURLPart
         	} else {
             	self.selectedTodayCategoryName = defaultValues.genericNewsURLPart
@@ -79,13 +79,13 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	
 	// Variables
 	var entries = [Entry]()
-	var newsEntriesUpdatedByLang = Dictionary<String, NSDate>()
+	var newsEntriesUpdatedByLang = Dictionary<String, Date>()
 	let page: Int = 1
 	let maxNewsItems: Int = 5
 	var selectedTodayCategoryName: String?
 
 	// Loading indicator
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
 	var loading = false
 	
 	// Theme colors
@@ -112,15 +112,15 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
 	
 	func setTheme() {
-		selectedCellBackground.backgroundColor = UIColor.darkGrayColor()
+		selectedCellBackground.backgroundColor = UIColor.darkGray
 	}
 	
 	func setLoadingIndicator() {
 		loadingIndicator.color = tintColor
-		loadingIndicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 		loadingIndicator.center = self.view.center
 		self.view.addSubview(loadingIndicator)
-		loadingIndicator.bringSubviewToFront(self.view)
+		loadingIndicator.bringSubview(toFront: self.view)
 	}
 	
 	func initView() {
@@ -133,16 +133,16 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		configureTableView()
 		
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
-		self.tableView.tableFooterView?.hidden = true
+		self.tableView.tableFooterView?.isHidden = true
 		
 		if self.entries.isEmpty {
-            getNews(self.page)
+            _ = getNews(self.page)
 		}
 	}
 	
 	func setTodayCategory() {
 		#if DEBUG
-			print("TodayViewController, setTodayCategory: getting today category for '\(self.region)' from settings")
+			print("TodayViewController, setTodayCategory: getting today category for '\(String(describing: self.region))' from settings")
 		#endif
 		
 		if let category: Category = self.todayCategoryByLang[self.region!] {
@@ -159,29 +159,29 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		tableView.estimatedRowHeight = 33.0
 	}
 	
-	func getNews(page: Int) -> NCUpdateResult {
+	func getNews(_ page: Int) -> NCUpdateResult {
 		if (!self.loading) {
 			if !self.entries.isEmpty {
             	#if DEBUG
             	    print("TodayViewController, getNews: checking if entries need refreshing")
             	#endif
             
-            	if let updated: NSDate = self.newsEntriesUpdatedByLang[self.region!] {
-            	    let calendar = NSCalendar.currentCalendar()
-            	    let comps = NSDateComponents()
+            	if let updated: Date = self.newsEntriesUpdatedByLang[self.region!] {
+            	    let calendar = Calendar.current
+            	    var comps = DateComponents()
             	    comps.minute = 1
-            	    let updatedPlusMinute = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
-            	    let today = NSDate()
+            	    let updatedPlusMinute = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
+            	    let today = Date()
                 
             	    #if DEBUG
-            	        print("TodayViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(updatedPlusMinute)")
+            	        print("TodayViewController, getNews: today=\(today), updated=\(updated), updatedPlusMinute=\(String(describing: updatedPlusMinute))")
             	    #endif
-                
+					
             	    if updatedPlusMinute!.isGreaterThanDate(today) {
 						#if DEBUG
             	        	print("TodayViewController, getNews: No need for updating entries")
             	    	#endif
-            	        return .NoData
+            	        return .noData
             	    }
             	}
         	}
@@ -202,10 +202,10 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			)
 		}
 		
-		return .NewData
+		return .newData
 	}
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let path = self.tableView!.indexPathForSelectedRow!
 		let row = path.row
 		
@@ -219,20 +219,20 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			print("didSelectRowAtIndexPath, webURL=\(webURLString)")
 		#endif
 
-		let url: NSURL = NSURL(string: "Highkara://article?url=\(webURLString)")!
-		self.extensionContext?.openURL(url, completionHandler: nil)
+		let url: URL = URL(string: "Highkara://article?url=\(webURLString)")!
+		self.extensionContext?.open(url, completionHandler: nil)
 
 		self.trackNewsClick(tableItem)
 	}
 	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.entries.count
     }
 	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell for this indexPath
-		let cell: TodayEntryCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCell, forIndexPath: indexPath) as? TodayEntryCell
+		let cell: TodayEntryCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCell, for: indexPath) as? TodayEntryCell
 
         let tableItem: Entry = entries[indexPath.row] as Entry
         cell.entryTitle.text = tableItem.title
@@ -253,9 +253,9 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         return cell
     }
 	
-	func setLoadingState(loading: Bool) {
+	func setLoadingState(_ loading: Bool) {
 		self.loading = loading
-		self.loadingIndicator.hidden = !loading
+		self.loadingIndicator.isHidden = !loading
 		if (loading) {
 			self.loadingIndicator.startAnimating()
 		} else {
@@ -264,7 +264,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		}
 	}
 
-	func trackNewsClick(entry: Entry) {
+	func trackNewsClick(_ entry: Entry) {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
 	
@@ -272,7 +272,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		self.preferredContentSize = tableView.contentSize
 	}
 	
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
 		#if DEBUG
 			print("widgetPerformUpdateWithCompletionHandler")
 		#endif
@@ -282,8 +282,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
 
-		dispatch_async(dispatch_get_main_queue(),{
-			self.getNews(self.page)
+		DispatchQueue.main.async(execute: {
+			_ = self.getNews(self.page)
 			#if DEBUG
 				print("widgetPerformUpdateWithCompletionHandler, results=\(self.entries.count)")
 			#endif
@@ -291,10 +291,10 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			self.resetContentSize()
 			self.setLoadingState(false)
 
-			completionHandler(NCUpdateResult.NewData)
+			completionHandler(NCUpdateResult.newData)
         });
 		
-		completionHandler(NCUpdateResult.NoData)
+		completionHandler(NCUpdateResult.noData)
     }
 
     override func didReceiveMemoryWarning() {

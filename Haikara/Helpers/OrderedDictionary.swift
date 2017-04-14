@@ -26,9 +26,9 @@
 
 import Foundation
 
-struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStringConvertible {
-    private var keyStorage: Array<KeyType> = []
-    private var pairStorage: Dictionary<KeyType, ValueType> = [:]
+struct OrderedDictionary<KeyType: Hashable, ValueType>: Sequence, CustomStringConvertible {
+    fileprivate var keyStorage: Array<KeyType> = []
+    fileprivate var pairStorage: Dictionary<KeyType, ValueType> = [:]
     
     //MARK: Initalization
     
@@ -59,7 +59,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
             return pairStorage[key]
         }
         mutating set(newValue) {
-            if let oldValue = pairStorage[key] {
+            if pairStorage[key] != nil {
                 pairStorage[key] = newValue
             } else {
                 keyStorage.append(key)
@@ -77,9 +77,9 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
         }
         set(newValue) {
             let (key, value): (KeyType, ValueType) = newValue
-            if let oldValue = pairStorage[key] {
+            if pairStorage[key] != nil {
                 var idx: Int = 0
-                if let keyIndex = keyStorage.indexOf(key) {
+                if let keyIndex = keyStorage.index(of: key) {
                     if index > keyIndex {
                         //Compensate for the deleted entry
                         idx = index - 1
@@ -88,14 +88,14 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
                     }
                     
                     //Remove the old entry
-                    keyStorage.removeAtIndex(keyIndex)
+                    keyStorage.remove(at: keyIndex)
                     //Insert the new one
                     pairStorage[key] = value
-                    keyStorage.insert(key, atIndex: idx)
+                    keyStorage.insert(key, at: idx)
                 }
             } else {
                 //No previous value
-                keyStorage.insert(key, atIndex: index)
+                keyStorage.insert(key, at: index)
                 pairStorage[key] = value
             }
         }
@@ -118,23 +118,23 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     //MARK: Adding
     
     /*Adds a new entry as the last element in an existing ordered dictionary.*/
-    mutating func append(newElement: (KeyType, ValueType)) {
+    mutating func append(_ newElement: (KeyType, ValueType)) {
         let (key, value) = newElement
         pairStorage[key] = value
         keyStorage.append(key)
     }
     
     /*Inserts an entry into the collection at a given index. If the key exists, its entry will be deleted, before the new entry is inserted; also, the insertion compensates for the deleted key, so the entry will end up between the same to entries regardless if a key is deleted or not.*/
-    mutating func insert(newElement: (KeyType, ValueType), atIndex: Int) {
+    mutating func insert(_ newElement: (KeyType, ValueType), atIndex: Int) {
         self[atIndex] = newElement
     }
     
     //MARK: Updating
     
     /**Inserts at the end or updates a value for a given key and returns the previous value for that key if one existed, or nil if a previous value did not exist.*/
-    mutating func updateValue(value: ValueType, forKey: KeyType) -> ValueType? {
+    mutating func updateValue(_ value: ValueType, forKey: KeyType) -> ValueType? {
         let test: ValueType? = pairStorage.updateValue(value, forKey: forKey)
-        if let myValue = test {
+        if test != nil {
             //The key already exists, no need to add
         } else {
             keyStorage.append(forKey)
@@ -145,31 +145,31 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     //MARK: Removing
     
     /**Removes the key-value pair for the specified key and returns its value, or nil if a value for that key did not previously exist.*/
-    mutating func removeEntryForKey(key: KeyType) -> ValueType? {
-        if let index = keyStorage.indexOf(key) {
-            keyStorage.removeAtIndex(index)
+    mutating func removeEntryForKey(_ key: KeyType) -> ValueType? {
+        if let index = keyStorage.index(of: key) {
+            keyStorage.remove(at: index)
         }
-        return pairStorage.removeValueForKey(key)
+        return pairStorage.removeValue(forKey: key)
     }
     
     /**Removes all the elements from the collection and clears the underlying storage buffer.*/
     mutating func removeAllEntries() {
-        keyStorage.removeAll(keepCapacity: false)
-        pairStorage.removeAll(keepCapacity: false)
+        keyStorage.removeAll(keepingCapacity: false)
+        pairStorage.removeAll(keepingCapacity: false)
     }
     
     /**Removes the entry at the given index and returns it.*/
-    mutating func removeEntryAtIndex(index: Int) -> (KeyType, ValueType) {
+    mutating func removeEntryAtIndex(_ index: Int) -> (KeyType, ValueType) {
         let key: KeyType = keyStorage[index]
-        let value: ValueType = pairStorage.removeValueForKey(key)!
-        keyStorage.removeAtIndex(index)
+        let value: ValueType = pairStorage.removeValue(forKey: key)!
+        keyStorage.remove(at: index)
         return (key, value)
     }
     
     /**Removes the last entry from the collection and returns it.*/
     mutating func removeLastEntry() -> (KeyType, ValueType) {
         let key: KeyType = keyStorage[keyStorage.endIndex]
-        let value: ValueType = pairStorage.removeValueForKey(key)!
+        let value: ValueType = pairStorage.removeValue(forKey: key)!
         keyStorage.removeLast()
         return (key, value)
     }
@@ -223,48 +223,48 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements.*/
     mutating func sort(isOrderedBefore sortFunction: ((KeyType, ValueType), (KeyType, ValueType)) -> Bool) {
         var tempArray = Array(pairStorage)
-        tempArray.sortInPlace(sortFunction)
+        tempArray.sort(by: sortFunction)
         keyStorage = tempArray.map({
-            let (key, value) = $0
+            let (key, _) = $0
             return key
         })
     }
     
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements by their keys.*/
     mutating func sortByKeys(isOrderedBefore sortFunction: (KeyType, KeyType) -> Bool) {
-        keyStorage.sortInPlace(sortFunction)
+        keyStorage.sort(by: sortFunction)
     }
     
     /**Sorts the receiver in place using a given closure to determine the order of a provided pair of elements by their values.*/
     mutating func sortByValues(isOrderedBefore sortFunction: (ValueType, ValueType) -> Bool) {
         var tempArray = Array(pairStorage)
-        tempArray.sortInPlace({
-            let (aKey, aValue) = $0
-            let (bKey, bValue) = $1
+        tempArray.sort(by: {
+            let (_, aValue) = $0
+            let (_, bValue) = $1
             return sortFunction(aValue, bValue)
         })
         keyStorage = tempArray.map({
-            let (key, value) = $0
+            let (key, _) = $0
             return key
         })
     }
     
     /**Returns an ordered dictionary containing elements from the receiver sorted using a given closure.*/
-    func sorted(isOrderedBefore: ((KeyType, ValueType), (KeyType, ValueType)) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
+    func sorted(_ isOrderedBefore: ((KeyType, ValueType), (KeyType, ValueType)) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
         var temp: OrderedDictionary = OrderedDictionary(orderedDictionary: self)
         temp.sort(isOrderedBefore: isOrderedBefore)
         return temp
     }
     
     /**Returns an ordered dictionary containing elements from the receiver sorted using a given closure by their keys.*/
-    func sortedByKeys(isOrderedBefore: (KeyType, KeyType) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
+    func sortedByKeys(_ isOrderedBefore: (KeyType, KeyType) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
         var temp: OrderedDictionary = OrderedDictionary(orderedDictionary: self)
         temp.sortByKeys(isOrderedBefore: isOrderedBefore)
         return temp
     }
     
     /**Returns an ordered dictionary containing elements from the receiver sorted using a given closure by their values.*/
-    func sortedByValues(isOrderedBefore: (ValueType, ValueType) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
+    func sortedByValues(_ isOrderedBefore: (ValueType, ValueType) -> Bool) -> OrderedDictionary<KeyType, ValueType> {
         var temp: OrderedDictionary = OrderedDictionary(orderedDictionary: self)
         temp.sortByValues(isOrderedBefore: isOrderedBefore)
         return temp
@@ -273,7 +273,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     /**Returns an ordered dictionary containing the elements of the receiver in reverse order by index.*/
     func reverse() -> OrderedDictionary<KeyType, ValueType> {
         var temp = OrderedDictionary(orderedDictionary: self)
-        temp.keyStorage = Array(temp.keyStorage.reverse())
+        temp.keyStorage = Array(temp.keyStorage.reversed())
         return temp
     }
     
@@ -307,7 +307,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     /**Returns a single value representing the result of applying a provided reduction closure for each element.*/
     func reduce<NewKeyType, NewValueType>(initial value: (NewKeyType, NewValueType), combine combo: ((NewKeyType, NewValueType), (KeyType, ValueType)) -> (NewKeyType, NewValueType)) ->  (NewKeyType, NewValueType) {
         let tempArray = Array(pairStorage)
-        return tempArray.reduce(value, combine: combo)
+        return tempArray.reduce(value, combo)
     }
     
     //MARK: Printable
@@ -326,8 +326,8 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: SequenceType, CustomStri
     }
     
     //MARK: Sequence
-    func generate() -> IndexingGenerator<[(KeyType, ValueType)]> {
-        return self.entries.generate()
+    func makeIterator() -> IndexingIterator<[(KeyType, ValueType)]> {
+        return self.entries.makeIterator()
     }
     
 }

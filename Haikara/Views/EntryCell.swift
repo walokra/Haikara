@@ -22,7 +22,7 @@ class EntryCell: UITableViewCell {
 
 	var request: Request?
 
-	func configure(downloadURL: NSURL) {
+	func configure(_ downloadURL: URL) {
         reset()
 		populateCell(downloadURL)
     }
@@ -32,12 +32,11 @@ class EntryCell: UITableViewCell {
         request?.cancel()
     }
 
-    func populateCell(downloadURL: NSURL) {
-		entryImage!.af_setImageWithURL(
-					downloadURL,
+    func populateCell(_ downloadURL: URL) {
+		entryImage!.af_setImage(
+					withURL: downloadURL,
 					placeholderImage: UIImage(named: "PlaceholderImage"),
-					filter: nil,
-					imageTransition: .None)
+					filter: nil)
     }
 	
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -54,7 +53,7 @@ class EntryCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

@@ -12,14 +12,14 @@ class SettingsViewWrapperController: UIViewController {
 
     var navigationItemTitle: String = NSLocalizedString("SETTINGS_TITLE", comment: "Title for settings view")
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		self.tabBarController!.title = navigationItemTitle
         self.navigationItem.title = navigationItemTitle
 	}
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 	
 		setObservers()
@@ -27,7 +27,7 @@ class SettingsViewWrapperController: UIViewController {
     }
 	
 	func setObservers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewWrapperController.setTheme(_:)), name: "themeChangedNotification", object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewWrapperController.setTheme(_:)), name: .themeChangedNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -37,7 +37,7 @@ class SettingsViewWrapperController: UIViewController {
 		self.tabBarController?.tabBar.barStyle = Theme.barStyle
 	}
 
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("SettingsViewWrapperController, Received themeChangedNotification")
         #endif
@@ -46,6 +46,6 @@ class SettingsViewWrapperController: UIViewController {
 	
 	// stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

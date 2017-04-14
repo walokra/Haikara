@@ -21,13 +21,13 @@ class CategoryPickerViewController: UITableViewController {
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
 	
     let settings = Settings.sharedInstance
-	var defaults: NSUserDefaults?
+	var defaults: UserDefaults?
 
     var categories = [Category]()
 	var selectedTodayCategory: Category? {
     	didSet {
-			print("categories=\(categories.count); selectedTodayCategory=\(selectedTodayCategory)")
-			selectedTodayCategoryIndex = categories.indexOf(selectedTodayCategory!)
+			print("categories=\(categories.count); selectedTodayCategory=\(String(describing: selectedTodayCategory))")
+			selectedTodayCategoryIndex = categories.index(of: selectedTodayCategory!)
 		}
   	}
   	var selectedTodayCategoryIndex: Int?
@@ -49,10 +49,10 @@ class CategoryPickerViewController: UITableViewController {
 		self.tableView.reloadData()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 	  if segue.identifier == "SaveSelectedCategory" {
     	if let cell = sender as? UITableViewCell {
-      		let indexPath = tableView.indexPathForCell(cell)
+      		let indexPath = tableView.indexPath(for: cell)
       		if let index = indexPath?.row {
         		selectedTodayCategory = categories[index]
       		}
@@ -60,16 +60,16 @@ class CategoryPickerViewController: UITableViewController {
 	  }
 	}
 	
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
   		return 1
 	}
  
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   		return categories.count
 	}
  
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-  		let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listRegionCell, forIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  		let cell = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listRegionCell, for: indexPath)
 		
 		let category: Category = self.categories[indexPath.row]
   		cell.textLabel?.text = category.title
@@ -93,12 +93,12 @@ class CategoryPickerViewController: UITableViewController {
   		return cell
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
  
   		//Other row is selected - need to deselect it
   		if let index = selectedTodayCategoryIndex {
-    		let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))
+    		let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0))
 			if (indexPath.row % 2 == 0) {
 				cell?.backgroundColor = Theme.evenRowColor
 			} else {
@@ -108,18 +108,23 @@ class CategoryPickerViewController: UITableViewController {
 		
 		settings.todayCategoryByLang.updateValue(selectedTodayCategory!, forKey: settings.region)
 		selectedTodayCategory = categories[indexPath.row]
-        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(settings.todayCategoryByLang as Dictionary<String, Category>)
-        defaults!.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: settings.todayCategoryByLang as Dictionary<String, Category>)
+        defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 		defaults!.synchronize()
 
 		self.trackEvent("setTodayCategory", category: "ui_Event", action: "setTodayCategory", label: "settings", value: 1)
 
-        NSNotificationCenter.defaultCenter().postNotificationName("todayCategoryChangedNotification", object: nil, userInfo: ["todayCategory": selectedTodayCategory!])
+        NotificationCenter.default.post(name: .todayCategoryChangedNotification, object: nil, userInfo: ["todayCategory": selectedTodayCategory!])
  
   		//update the checkmark for the current row
-  		let cell = tableView.cellForRowAtIndexPath(indexPath)
+  		let cell = tableView.cellForRow(at: indexPath)
 		cell?.backgroundColor = Theme.selectedColor
 	}
 
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+	
 }
-

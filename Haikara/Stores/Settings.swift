@@ -32,7 +32,6 @@ struct Defaults {
 	let fontSizeBase: CGFloat
 }
 
-var instance: Settings?
 class Settings {
 	let defaultValues = Defaults(
 			useToRetrieveLists: "finnish",
@@ -56,87 +55,87 @@ class Settings {
     
     func resetToDefaults() {
         self.useToRetrieveLists = defaultValues.useToRetrieveLists
-        defaults.setObject(self.useToRetrieveLists, forKey: "useToRetrieveLists")
+        defaults.set(self.useToRetrieveLists, forKey: "useToRetrieveLists")
         
         self.mostPopularName = defaultValues.mostPopularName
-        defaults.setObject(self.mostPopularName, forKey: "mostPopularName")
+        defaults.set(self.mostPopularName, forKey: "mostPopularName")
 
         self.latestName = defaultValues.latestName
-        defaults.setObject(self.latestName, forKey: "latestName")
+        defaults.set(self.latestName, forKey: "latestName")
 
         self.domainToUse = defaultValues.domainToUse
-        defaults.setObject(self.domainToUse, forKey: "domainToUse")
+        defaults.set(self.domainToUse, forKey: "domainToUse")
         
         self.genericNewsURLPart = defaultValues.genericNewsURLPart
-        defaults.setObject(self.genericNewsURLPart, forKey: "genericNewsURLPart")
+        defaults.set(self.genericNewsURLPart, forKey: "genericNewsURLPart")
         
-        defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
-        self.deviceID = defaults.stringForKey("deviceID")!
+        defaults.set(UUID().uuidString, forKey: "deviceID")
+        self.deviceID = defaults.string(forKey: "deviceID")!
         
         self.showDesc = defaultValues.showDesc
-        defaults.setObject(self.showDesc, forKey: "showDesc")
+        defaults.set(self.showDesc, forKey: "showDesc")
         
         self.useMobileUrl = defaultValues.useMobileUrl
-        defaults.setObject(self.useMobileUrl, forKey: "useMobileUrl")
+        defaults.set(self.useMobileUrl, forKey: "useMobileUrl")
         
         self.useReaderView = defaultValues.useReaderView
-        defaults.setObject(self.useReaderView, forKey: "useReaderView")
+        defaults.set(self.useReaderView, forKey: "useReaderView")
 
         self.useDarkTheme = defaultValues.useDarkTheme
-        defaults.setObject(self.useDarkTheme, forKey: "useDarkTheme")
+        defaults.set(self.useDarkTheme, forKey: "useDarkTheme")
 		
 		self.showNewsPicture = defaultValues.showNewsPicture
-        defaults.setObject(self.showNewsPicture, forKey: "showNewsPicture")
+        defaults.set(self.showNewsPicture, forKey: "showNewsPicture")
 
 		self.useChrome = defaultValues.useChrome
-        defaults.setObject(self.useChrome, forKey: "useChrome")
+        defaults.set(self.useChrome, forKey: "useChrome")
 		self.createNewTab = defaultValues.createNewTab
-        defaults.setObject(self.createNewTab, forKey: "createNewTab")
+        defaults.set(self.createNewTab, forKey: "createNewTab")
 
         self.region = defaultValues.region
-        defaults.setObject(self.region, forKey: "region")
+        defaults.set(self.region, forKey: "region")
         
         self.categoriesFavorited = Dictionary<String, Array<Int>>()
-        defaults.setObject(self.categoriesFavorited, forKey: "categoriesFavorited")
+        defaults.set(self.categoriesFavorited, forKey: "categoriesFavorited")
         
         self.categoriesHidden = Dictionary<String, Array<Int>>()        
-        defaults.setObject(self.categoriesHidden, forKey: "categoriesHidden")
+        defaults.set(self.categoriesHidden, forKey: "categoriesHidden")
         
         self.categoriesByLang = Dictionary<String, Array<Category>>()
-        defaults.setObject(self.categoriesByLang, forKey: "categoriesByLang")
-        let archivedCategoriesByLang = NSKeyedArchiver.archivedDataWithRootObject(self.categoriesByLang as Dictionary<String, Array<Category>>)
-        defaults.setObject(archivedCategoriesByLang, forKey: "categoriesByLang")
+        defaults.set(self.categoriesByLang, forKey: "categoriesByLang")
+        let archivedCategoriesByLang = NSKeyedArchiver.archivedData(withRootObject: self.categoriesByLang as Dictionary<String, Array<Category>>)
+        defaults.set(archivedCategoriesByLang, forKey: "categoriesByLang")
         
         self.categories = [Category]()
 
         self.todayCategoryByLang = Dictionary<String, Category>()
-        defaults.setObject(self.todayCategoryByLang, forKey: "todayCategoryByLang")
-        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedDataWithRootObject(self.todayCategoryByLang as Dictionary<String, Category>)
-        defaults.setObject(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+        defaults.set(self.todayCategoryByLang, forKey: "todayCategoryByLang")
+        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.todayCategoryByLang as Dictionary<String, Category>)
+        defaults.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 
         self.languages = [Language]()
-        let archivedLanguages = NSKeyedArchiver.archivedDataWithRootObject(self.languages as [Language])
-        defaults.setObject(archivedLanguages, forKey: "languages")
+        let archivedLanguages = NSKeyedArchiver.archivedData(withRootObject: self.languages as [Language])
+        defaults.set(archivedLanguages, forKey: "languages")
 		
         self.newsSourcesFiltered = Dictionary<String, Array<Int>>()
-        defaults.setObject(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+        defaults.set(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
         
         self.newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
-        defaults.setObject(self.newsSourcesByLang, forKey: "newsSourcesByLang")
-        let archivedNewsSourcesByLang = NSKeyedArchiver.archivedDataWithRootObject(self.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-        defaults.setObject(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
+        defaults.set(self.newsSourcesByLang, forKey: "newsSourcesByLang")
+        let archivedNewsSourcesByLang = NSKeyedArchiver.archivedData(withRootObject: self.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
+        defaults.set(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
 
         self.newsSources = [NewsSources]()
 		
 		self.optOutAnalytics = defaultValues.optOutAnalytics
-        defaults.setObject(self.optOutAnalytics, forKey: "optOutAnalytics")
+        defaults.set(self.optOutAnalytics, forKey: "optOutAnalytics")
 		
 		self.fontName = defaultValues.fontName
-		defaults.setObject(self.fontName, forKey: "fontName")
+		defaults.set(self.fontName, forKey: "fontName")
 		self.useSystemSize = defaultValues.useSystemSize
-		defaults.setObject(self.useSystemSize, forKey: "useSystemSize")
+		defaults.set(self.useSystemSize, forKey: "useSystemSize")
 		self.fontSizeBase = defaultValues.fontSizeBase
-		defaults.setObject(self.fontSizeBase, forKey: "fontSizeBase")
+		defaults.set(self.fontSizeBase, forKey: "fontSizeBase")
 		
         #if DEBUG
             print("Settings resetted to defaults: \(self.description)")
@@ -145,20 +144,13 @@ class Settings {
         defaults.synchronize()
     }
 	
-    // Singleton
-    class var sharedInstance: Settings {
-        struct Static {
-            static var instance: Settings?
-            static var token: dispatch_once_t = 0
-        }
-        
-        dispatch_once(&Static.token) {
-            Static.instance = Settings()
-        }
-        
-        return Static.instance!
-    }
-    
+    //MARK: Shared Instance
+
+    static let sharedInstance : Settings = {
+        let instance = Settings()
+        return instance
+    }()
+	
     let APIKEY: String
     var deviceID: String
     let appID: String
@@ -185,16 +177,16 @@ class Settings {
 	
     var region: String // http://high.fi/api/?act=listLanguages
 
-    var languagesUpdated = NSDate()
+    var languagesUpdated = Date()
     var languages = [Language]()
     
-    var categoriesUpdatedByLang = Dictionary<String, NSDate>()
+    var categoriesUpdatedByLang = Dictionary<String, Date>()
     var categoriesByLang = Dictionary<String, Array<Category>>()
     var categories = [Category]()
     var categoriesFavorited = Dictionary<String, Array<Int>>()
     var categoriesHidden = Dictionary<String, Array<Int>>()
 	
-	var newsSourcesUpdatedByLang = Dictionary<String, NSDate>()
+	var newsSourcesUpdatedByLang = Dictionary<String, Date>()
 	var newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
 	var newsSourcesFiltered = Dictionary<String, Array<Int>>()
 	var newsSources = [NewsSources]()
@@ -211,14 +203,16 @@ class Settings {
 	var fontSizeMedium: UIFont
 	var fontSizeSmall: UIFont
 	
-	let defaults: NSUserDefaults = NSUserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
+	let defaults: UserDefaults = UserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
 	
-    init() {
+	// MARK: Init
+	
+    private init() {
         #if DEBUG
             print(#function)
         #endif
         
-        let dictionary = NSBundle.mainBundle().infoDictionary!
+        let dictionary = Bundle.main.infoDictionary!
         let version = dictionary["CFBundleShortVersionString"] as! String
         let build = dictionary["CFBundleVersion"] as! String
         
@@ -235,33 +229,33 @@ class Settings {
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
 		
-        if let useToRetrieveLists: String = defaults.objectForKey("useToRetrieveLists") as? String {
+        if let useToRetrieveLists: String = defaults.object(forKey: "useToRetrieveLists") as? String {
             self.useToRetrieveLists = useToRetrieveLists
         } else {
             self.useToRetrieveLists = defaultValues.useToRetrieveLists
         }
-        if let mostPopularName: String = defaults.objectForKey("mostPopularName") as? String {
+        if let mostPopularName: String = defaults.object(forKey: "mostPopularName") as? String {
             self.mostPopularName = mostPopularName
         } else {
             self.mostPopularName = defaultValues.mostPopularName
         }
-        if let latestName: String = defaults.objectForKey("latestName") as? String {
+        if let latestName: String = defaults.object(forKey: "latestName") as? String {
             self.latestName = latestName
         } else {
             self.latestName = defaultValues.latestName
         }
-        if let domainToUse: String = defaults.objectForKey("domainToUse") as? String {
+        if let domainToUse: String = defaults.object(forKey: "domainToUse") as? String {
             self.domainToUse = domainToUse
         } else {
             self.domainToUse = defaultValues.domainToUse
         }
-        if let genericNewsURLPart: String = defaults.objectForKey("genericNewsURLPart") as? String {
+        if let genericNewsURLPart: String = defaults.object(forKey: "genericNewsURLPart") as? String {
             self.genericNewsURLPart = genericNewsURLPart
         } else {
             self.genericNewsURLPart = defaultValues.genericNewsURLPart
         }
 		
-		self.deviceID = NSUUID().UUIDString
+		self.deviceID = UUID().uuidString
 		
 //        if let deviceID = defaults.stringForKey("deviceID") {
 //            self.deviceID = deviceID
@@ -274,138 +268,138 @@ class Settings {
 //        }
 		
         // SettingsView
-        if let showDesc: Bool = defaults.objectForKey("showDesc") as? Bool {
+        if let showDesc: Bool = defaults.object(forKey: "showDesc") as? Bool {
             self.showDesc = showDesc
         } else {
             self.showDesc = defaultValues.showDesc
         }
         
-        if let useMobileUrl: Bool = defaults.objectForKey("useMobileUrl") as? Bool {
+        if let useMobileUrl: Bool = defaults.object(forKey: "useMobileUrl") as? Bool {
             self.useMobileUrl = useMobileUrl
         } else {
             self.useMobileUrl = defaultValues.useMobileUrl
         }
         
-        if let useReaderView: Bool = defaults.objectForKey("useReaderView") as? Bool {
+        if let useReaderView: Bool = defaults.object(forKey: "useReaderView") as? Bool {
             self.useReaderView = useReaderView
         } else {
             self.useReaderView = defaultValues.useReaderView
         }
 
-        if let useDarkTheme: Bool = defaults.objectForKey("useDarkTheme") as? Bool {
+        if let useDarkTheme: Bool = defaults.object(forKey: "useDarkTheme") as? Bool {
             self.useDarkTheme = useDarkTheme
         } else {
             self.useDarkTheme = defaultValues.useDarkTheme
         }
 		
-		if let showNewsPicture: Bool = defaults.objectForKey("showNewsPicture") as? Bool {
+		if let showNewsPicture: Bool = defaults.object(forKey: "showNewsPicture") as? Bool {
             self.showNewsPicture = showNewsPicture
         } else {
             self.showNewsPicture = defaultValues.showNewsPicture
         }
 		
-		if let useChrome: Bool = defaults.objectForKey("useChrome") as? Bool {
+		if let useChrome: Bool = defaults.object(forKey: "useChrome") as? Bool {
             self.useChrome = useChrome
         } else {
             self.useChrome = defaultValues.useChrome
         }
-		if let createNewTab: Bool = defaults.objectForKey("createNewTab") as? Bool {
+		if let createNewTab: Bool = defaults.object(forKey: "createNewTab") as? Bool {
             self.createNewTab = createNewTab
         } else {
             self.createNewTab = defaultValues.createNewTab
         }
 
-        if let region: String = defaults.objectForKey("region") as? String {
+        if let region: String = defaults.object(forKey: "region") as? String {
             self.region = region
         } else {
             self.region = defaultValues.region
         }
-        self.preferredLanguage = NSLocale.preferredLanguages()[0] 
+        self.preferredLanguage = Locale.preferredLanguages[0] 
 
         // Get array of languages from storage
-        if let unarchivedLanguages = defaults.objectForKey("languages") as? NSData {
-            self.languages = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedLanguages) as! [Language]
+        if let unarchivedLanguages = defaults.object(forKey: "languages") as? Data {
+            self.languages = NSKeyedUnarchiver.unarchiveObject(with: unarchivedLanguages) as! [Language]
         }
 
         // Get Dictionary of categories from storage
-        if let unarchivedCategoriesByLang = defaults.objectForKey("categoriesByLang") as? NSData {
-            self.categoriesByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
+        if let unarchivedCategoriesByLang = defaults.object(forKey: "categoriesByLang") as? Data {
+            self.categoriesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
             
             if let categories: [Category] = categoriesByLang[self.region] {
                 self.categories = categories
             }
         }
         
-        if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesFavorited") as? Dictionary<String, Array<Int>> {
+        if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesFavorited") as? Dictionary<String, Array<Int>> {
             self.categoriesFavorited = categoriesFavorited
         }
         
-        if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.objectForKey("categoriesHidden") as? Dictionary<String, Array<Int>> {
+        if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesHidden") as? Dictionary<String, Array<Int>> {
             self.categoriesHidden = categoriesHidden
         }
         
         // Get dates when data was updated last time from API
-        if let languagesUpdated: NSDate = defaults.objectForKey("languagesUpdated") as? NSDate {
+        if let languagesUpdated: Date = defaults.object(forKey: "languagesUpdated") as? Date {
             self.languagesUpdated = languagesUpdated
         }
-        if let categoriesUpdatedByLang: Dictionary<String, NSDate> = defaults.objectForKey("categoriesUpdatedByLang") as? Dictionary<String, NSDate> {
+        if let categoriesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "categoriesUpdatedByLang") as? Dictionary<String, Date> {
             self.categoriesUpdatedByLang = categoriesUpdatedByLang
         }
-		if let newsSourcesUpdatedByLang: Dictionary<String, NSDate> = defaults.objectForKey("newsSourcesUpdatedByLang") as? Dictionary<String, NSDate> {
+		if let newsSourcesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "newsSourcesUpdatedByLang") as? Dictionary<String, Date> {
             self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
         }
 		
 		// Get Dictionary of today categories from storage
-        if let unarchivedtodayCategoryByLang = defaults.objectForKey("todayCategoryByLang") as? NSData {
-            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+        if let unarchivedtodayCategoryByLang = defaults.object(forKey: "todayCategoryByLang") as? Data {
+            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
 		}
 
         // Get Dictionary of news sources from storage
-        if let unarchivedNewsSourcesByLang = defaults.objectForKey("newsSourcesByLang") as? NSData {
-            self.newsSourcesByLang = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedNewsSourcesByLang) as! Dictionary<String, Array<NewsSources>>
+        if let unarchivedNewsSourcesByLang = defaults.object(forKey: "newsSourcesByLang") as? Data {
+            self.newsSourcesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedNewsSourcesByLang) as! Dictionary<String, Array<NewsSources>>
             
             if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
                 self.newsSources = newsSources
             }
         }
 		
-        if let newsSourcesFiltered: Dictionary<String, Array<Int>> = defaults.objectForKey("newsSourcesFiltered") as? Dictionary<String, Array<Int>> {
+        if let newsSourcesFiltered: Dictionary<String, Array<Int>> = defaults.object(forKey: "newsSourcesFiltered") as? Dictionary<String, Array<Int>> {
             self.newsSourcesFiltered = newsSourcesFiltered
         }
 		
-		if let optOutAnalytics: Bool = defaults.objectForKey("optOutAnalytics") as? Bool {
+		if let optOutAnalytics: Bool = defaults.object(forKey: "optOutAnalytics") as? Bool {
             self.optOutAnalytics = optOutAnalytics
         } else {
             self.optOutAnalytics = defaultValues.optOutAnalytics
         }
 		
-		if let fontName: String = defaults.objectForKey("fontName") as? String {
+		if let fontName: String = defaults.object(forKey: "fontName") as? String {
             self.fontName = fontName
         } else {
             self.fontName = defaultValues.fontName
         }
-		if let useSystemSize: Bool = defaults.objectForKey("useSystemSize") as? Bool {
+		if let useSystemSize: Bool = defaults.object(forKey: "useSystemSize") as? Bool {
             self.useSystemSize = useSystemSize
         } else {
             self.useSystemSize = defaultValues.useSystemSize
         }
 		
-		if let fontSizeBase: CGFloat = defaults.objectForKey("fontSizeBase") as? CGFloat {
+		if let fontSizeBase: CGFloat = defaults.object(forKey: "fontSizeBase") as? CGFloat {
             self.fontSizeBase = fontSizeBase
         } else {
             self.fontSizeBase = defaultValues.fontSizeBase
         }
 
 		if self.useSystemSize {
-			self.fontSizeXLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-			self.fontSizeLarge = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-			self.fontSizeSmall = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-			self.fontSizeMedium = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
+			self.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+			self.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+			self.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+			self.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
 		} else {
-			self.fontSizeXLarge = UIFont.systemFontOfSize(self.fontSizeBase + 6.0)
-			self.fontSizeLarge = UIFont.systemFontOfSize(self.fontSizeBase + 5.0)
-			self.fontSizeSmall = UIFont.systemFontOfSize(self.fontSizeBase + 2.0)
-			self.fontSizeMedium = UIFont.systemFontOfSize(self.fontSizeBase + 3.0)
+			self.fontSizeXLarge = UIFont.systemFont(ofSize: self.fontSizeBase + 6.0)
+			self.fontSizeLarge = UIFont.systemFont(ofSize: self.fontSizeBase + 5.0)
+			self.fontSizeSmall = UIFont.systemFont(ofSize: self.fontSizeBase + 2.0)
+			self.fontSizeMedium = UIFont.systemFont(ofSize: self.fontSizeBase + 3.0)
 		}
 
 		self.defaults.synchronize()
@@ -420,21 +414,21 @@ class Settings {
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(todayCategoryByLang[self.region]), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
     }
 	
-	func removeSource(sourceID: Int) -> Bool {
+	func removeSource(_ sourceID: Int) -> Bool {
 		var removed: Bool = false
         if var sourceFilteredForLang = self.newsSourcesFiltered[self.region] {
             #if DEBUG
                 print("sourceFilteredForLang=\(sourceFilteredForLang)")
             #endif
             
-            if let index = sourceFilteredForLang.indexOf(sourceID) {
+            if let index = sourceFilteredForLang.index(of: sourceID) {
 				#if DEBUG
 	                print("Removing item at index \(index)")
 				#endif
-                sourceFilteredForLang.removeAtIndex(index)
+                sourceFilteredForLang.remove(at: index)
                 removed = true
             }
             if (!removed) {
@@ -452,7 +446,7 @@ class Settings {
         }
         
         #if DEBUG
-            print("newsSourcesFiltered[\(self.region)]=\(self.newsSourcesFiltered[self.region])")
+            print("newsSourcesFiltered[\(self.region)]=\(String(describing: self.newsSourcesFiltered[self.region]))")
         #endif
 		
 		return removed

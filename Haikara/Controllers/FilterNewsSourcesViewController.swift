@@ -23,7 +23,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	@IBOutlet weak var tableTitleView: UIView!
     @IBOutlet weak var tableView: UITableView!
     let settings = Settings.sharedInstance
-	var defaults: NSUserDefaults?
+	var defaults: UserDefaults?
 	
 	var navigationItemTitle: String = NSLocalizedString("SETTINGS_FILTERED_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -33,13 +33,13 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 	var filteredTableData = [NewsSources]()
 	var searchText: String? = ""
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
     	super.viewWillDisappear(animated)
 		searchText = searchController.searchBar.text
-		searchController.active = false
+		searchController.isActive = false
   	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
         self.tabBarController!.title = navigationItemTitle
@@ -47,7 +47,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		
 		if !(searchText?.isEmpty)! {
 			searchController.searchBar.text = searchText
-			searchController.active = true
+			searchController.isActive = true
 		}
 	}
 	
@@ -66,7 +66,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         }
 		
         #if DEBUG
-            print("newsSources filtered=\(settings.newsSourcesFiltered[settings.region])")
+            print("newsSources filtered=\(String(describing: settings.newsSourcesFiltered[settings.region]))")
         #endif
             
         self.tableView!.delegate=self
@@ -91,10 +91,10 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     }
 	
 	func setObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setRegionNewsSources(_:)), name: "regionChangedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.resetNewsSourcesFiltered(_:)), name: "settingsResetedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setTheme(_:)), name: "themeChangedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FilterNewsSourcesViewController.setContentSize(_:)), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setRegionNewsSources(_:)), name: .regionChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.resetNewsSourcesFiltered(_:)), name: .settingsResetedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	func setTheme() {
@@ -104,7 +104,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		tableTitleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(notification: NSNotification) {
+	func setTheme(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, Received themeChangedNotification")
         #endif
@@ -121,14 +121,14 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		tableView.reloadData()
 	}
 	
-	func setContentSize(notification: NSNotification) {
+	func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionNewsSources(notification: NSNotification) {
+    func setRegionNewsSources(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, regionChangedNotification")
         #endif
@@ -136,7 +136,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         getNewsSources()
     }
     
-    func resetNewsSourcesFiltered(notification: NSNotification) {
+    func resetNewsSourcesFiltered(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, Received resetNewsSourcesFiltered")
         #endif
@@ -145,34 +145,34 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         self.tableView!.reloadData()
     }
 	
-	func updateSearchResultsForSearchController(searchController: UISearchController) {
+	func updateSearchResults(for searchController: UISearchController) {
 //		#if DEBUG
 //            print("updateSearchResultsForSearchController")
 //        #endif
-		filteredTableData.removeAll(keepCapacity: false)
+		filteredTableData.removeAll(keepingCapacity: false)
 		
         let searchPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchController.searchBar.text! + "*")
 
-        let array = (newsSources as NSArray).filteredArrayUsingPredicate(searchPredicate)
+        let array = (newsSources as NSArray).filtered(using: searchPredicate)
         filteredTableData = array as! [NewsSources]
 
         self.tableView.reloadData()
 	}
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-		if self.searchController.active {
+		if self.searchController.isActive {
 		   return self.filteredTableData.count
         } else{
 		  return self.newsSources.count
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.TableViewCellIdentifiers.listCategoryCell, forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
 		
 		var tableItem: NewsSources
-		if self.searchController.active {
+		if self.searchController.isActive {
 			tableItem = filteredTableData[indexPath.row] as NewsSources
         } else {
 			tableItem = newsSources[indexPath.row] as NewsSources
@@ -182,7 +182,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
-		if (settings.newsSourcesFiltered[settings.region]?.indexOf(tableItem.sourceID) != nil) {
+		if (settings.newsSourcesFiltered[settings.region]?.index(of: tableItem.sourceID) != nil) {
 			cell.backgroundColor = Theme.selectedColor
 			cell.accessibilityTraits = UIAccessibilityTraitSelected
 		} else {
@@ -203,9 +203,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		var selectedNewsSource: NewsSources
-		if self.searchController.active {
+		if self.searchController.isActive {
 			selectedNewsSource = self.filteredTableData[indexPath.row]
 		} else {
 			selectedNewsSource = self.newsSources[indexPath.row]
@@ -215,17 +215,23 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
         #endif
 		
-		self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "settings", value: selectedNewsSource.sourceID)
+		self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "settings", value: selectedNewsSource.sourceID as NSNumber)
 		
 		let removed = self.settings.removeSource(selectedNewsSource.sourceID)
 		self.newsSources[indexPath.row].selected = removed
         
-        defaults!.setObject(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+        defaults!.set(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
 		defaults!.synchronize()
 		
         self.tableView!.reloadData()
     }
 
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	    let selectionColor = UIView() as UIView
+	    selectionColor.backgroundColor = Theme.tintColor
+	    cell.selectedBackgroundView = selectionColor
+	}
+	
     func getNewsSources(){
         // Get news sources for selected region from settings' store
         if let newsSources: [NewsSources] = self.settings.newsSourcesByLang[self.settings.region] {
@@ -234,15 +240,15 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 				print("newsSources=\(newsSources)")
 			#endif
 			
-			if let updated: NSDate = self.settings.newsSourcesUpdatedByLang[self.settings.region] {
-				let calendar = NSCalendar.currentCalendar()
-				let comps = NSDateComponents()
+			if let updated: Date = self.settings.newsSourcesUpdatedByLang[self.settings.region] {
+				let calendar = Calendar.current
+				var comps = DateComponents()
 				comps.day = 1
-				let updatedPlusWeek = calendar.dateByAddingComponents(comps, toDate: updated, options: NSCalendarOptions())
-				let today = NSDate()
+				let updatedPlusWeek = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
+				let today = Date()
 				
 				#if DEBUG
-					print("today=\(today), updated=\(updated), updatedPlusWeek=\(updatedPlusWeek)")
+					print("today=\(today), updated=\(updated), updatedPlusWeek=\(String(describing: updatedPlusWeek))")
 				#endif
 					
 				if updatedPlusWeek!.isLessThanDate(today) {
@@ -273,13 +279,13 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
                 self.newsSources = result
                 
                 self.settings.newsSourcesByLang.updateValue(self.settings.newsSources, forKey: self.settings.region)
-                let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-				self.defaults!.setObject(archivedObject, forKey: "newsSourcesByLang")
+                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
+				self.defaults!.set(archivedObject, forKey: "newsSourcesByLang")
                 
-                self.settings.newsSourcesUpdatedByLang.updateValue(NSDate(), forKey: self.settings.region)
-                self.defaults!.setObject(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
+                self.settings.newsSourcesUpdatedByLang.updateValue(Date(), forKey: self.settings.region)
+                self.defaults!.set(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
                 #if DEBUG
-                    print("news sources updated, \(self.settings.newsSourcesUpdatedByLang[self.settings.region])")
+                    print("news sources updated, \(String(describing: self.settings.newsSourcesUpdatedByLang[self.settings.region]))")
                 #endif
                 
                 self.defaults!.synchronize()
@@ -300,7 +306,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     
     // stop observing
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

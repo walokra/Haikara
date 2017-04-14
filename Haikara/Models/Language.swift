@@ -34,30 +34,30 @@ class Language: NSObject, NSCoding {
             self.genericNewsURLPart = genericNewsURLPart
             super.init()
     }
-    
+	
     required init(coder aDecoder: NSCoder) {
-        language = aDecoder.decodeObjectForKey("language") as! String
-        country = aDecoder.decodeObjectForKey("country") as! String
-        domainToUse = aDecoder.decodeObjectForKey("domainToUse") as! String
-        languageCode = aDecoder.decodeObjectForKey("languageCode") as! String
-        mostPopularName = aDecoder.decodeObjectForKey("mostPopularName") as! String
-        latestName = aDecoder.decodeObjectForKey("latestName") as! String
-        useToRetrieveLists = aDecoder.decodeObjectForKey("useToRetrieveLists") as! String
-        genericNewsURLPart = aDecoder.decodeObjectForKey("genericNewsURLPart") as! String
+        language = aDecoder.decodeObject(of: NSString.self, forKey: "language")! as String
+        country = aDecoder.decodeObject(of: NSString.self, forKey: "country")! as String
+        domainToUse = aDecoder.decodeObject(of: NSString.self, forKey: "domainToUse")! as String
+        languageCode = aDecoder.decodeObject(of: NSString.self, forKey: "languageCode")! as String
+        mostPopularName = aDecoder.decodeObject(of: NSString.self, forKey: "mostPopularName")! as String
+        latestName = aDecoder.decodeObject(of: NSString.self, forKey: "latestName")! as String
+        useToRetrieveLists = aDecoder.decodeObject(of: NSString.self, forKey: "useToRetrieveLists")! as String
+        genericNewsURLPart = aDecoder.decodeObject(of: NSString.self, forKey: "genericNewsURLPart")! as String
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(language, forKey: "language")
-        aCoder.encodeObject(country, forKey: "country")
-        aCoder.encodeObject(domainToUse, forKey: "domainToUse")
-        aCoder.encodeObject(languageCode, forKey: "languageCode")
-        aCoder.encodeObject(mostPopularName, forKey: "mostPopularName")
-        aCoder.encodeObject(latestName, forKey: "latestName")
-        aCoder.encodeObject(useToRetrieveLists, forKey: "useToRetrieveLists")
-        aCoder.encodeObject(genericNewsURLPart, forKey: "genericNewsURLPart")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(language, forKey: "language")
+        aCoder.encode(country, forKey: "country")
+        aCoder.encode(domainToUse, forKey: "domainToUse")
+        aCoder.encode(languageCode, forKey: "languageCode")
+        aCoder.encode(mostPopularName, forKey: "mostPopularName")
+        aCoder.encode(latestName, forKey: "latestName")
+        aCoder.encode(useToRetrieveLists, forKey: "useToRetrieveLists")
+        aCoder.encode(genericNewsURLPart, forKey: "genericNewsURLPart")
     }
     
-    override var description: String {
-        return "Language: language=\(self.language), country=\(self.country), domainToUse=\(self.domainToUse), languageCode=\(self.languageCode), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), useToRetrieveLists=\(self.useToRetrieveLists), genericNewsURLPart=\(self.genericNewsURLPart)"
-    }
+//    override var description: String {
+//        return "Language: language=\(self.language), country=\(self.country), domainToUse=\(self.domainToUse), languageCode=\(self.languageCode), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), useToRetrieveLists=\(self.useToRetrieveLists), genericNewsURLPart=\(self.genericNewsURLPart)"
+//    }
 }

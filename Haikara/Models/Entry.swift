@@ -57,7 +57,7 @@ class Entry: NSObject {
 	let highlightType: String
     var timeSince: String
 	var orderNro: Int
-    
+
     init(title: String, link: String, clickTrackingLink: String, author: String, publishedDateJS: String, picture: String?, originalPicture: String?, shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, shareURL: String, mobileShareURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, highlightType: String, timeSince: String, orderNro: Int) {
             self.title = title
             self.link = link
@@ -80,8 +80,8 @@ class Entry: NSObject {
             self.timeSince = timeSince
 			self.orderNro = orderNro
     }
-    
-    override var description: String {
-        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), picture=\(self.picture), originalPicture=\(self.originalPicture), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), shareURL=\(self.shareURL), mobileShareURL=\(self.mobileShareURL), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), highlightType=\(self.highlightType), timeSince=\(self.timeSince), orderNro=\(self.orderNro)"
-    }
+
+//    override var description: String {
+//        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), picture=\(self.picture), originalPicture=\(self.originalPicture), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), shareURL=\(self.shareURL), mobileShareURL=\(self.mobileShareURL), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), highlightType=\(self.highlightType), timeSince=\(self.timeSince), orderNro=\(self.orderNro)"
+//    }
 }
