@@ -52,97 +52,6 @@ class Settings {
 			useSystemSize: true,
 			fontSizeBase: 10.0
 		)
-    
-    func resetToDefaults() {
-        self.useToRetrieveLists = defaultValues.useToRetrieveLists
-        defaults.set(self.useToRetrieveLists, forKey: "useToRetrieveLists")
-        
-        self.mostPopularName = defaultValues.mostPopularName
-        defaults.set(self.mostPopularName, forKey: "mostPopularName")
-
-        self.latestName = defaultValues.latestName
-        defaults.set(self.latestName, forKey: "latestName")
-
-        self.domainToUse = defaultValues.domainToUse
-        defaults.set(self.domainToUse, forKey: "domainToUse")
-        
-        self.genericNewsURLPart = defaultValues.genericNewsURLPart
-        defaults.set(self.genericNewsURLPart, forKey: "genericNewsURLPart")
-        
-        defaults.set(UUID().uuidString, forKey: "deviceID")
-        self.deviceID = defaults.string(forKey: "deviceID")!
-        
-        self.showDesc = defaultValues.showDesc
-        defaults.set(self.showDesc, forKey: "showDesc")
-        
-        self.useMobileUrl = defaultValues.useMobileUrl
-        defaults.set(self.useMobileUrl, forKey: "useMobileUrl")
-        
-        self.useReaderView = defaultValues.useReaderView
-        defaults.set(self.useReaderView, forKey: "useReaderView")
-
-        self.useDarkTheme = defaultValues.useDarkTheme
-        defaults.set(self.useDarkTheme, forKey: "useDarkTheme")
-		
-		self.showNewsPicture = defaultValues.showNewsPicture
-        defaults.set(self.showNewsPicture, forKey: "showNewsPicture")
-
-		self.useChrome = defaultValues.useChrome
-        defaults.set(self.useChrome, forKey: "useChrome")
-		self.createNewTab = defaultValues.createNewTab
-        defaults.set(self.createNewTab, forKey: "createNewTab")
-
-        self.region = defaultValues.region
-        defaults.set(self.region, forKey: "region")
-        
-        self.categoriesFavorited = Dictionary<String, Array<Int>>()
-        defaults.set(self.categoriesFavorited, forKey: "categoriesFavorited")
-        
-        self.categoriesHidden = Dictionary<String, Array<Int>>()        
-        defaults.set(self.categoriesHidden, forKey: "categoriesHidden")
-        
-        self.categoriesByLang = Dictionary<String, Array<Category>>()
-        defaults.set(self.categoriesByLang, forKey: "categoriesByLang")
-        let archivedCategoriesByLang = NSKeyedArchiver.archivedData(withRootObject: self.categoriesByLang as Dictionary<String, Array<Category>>)
-        defaults.set(archivedCategoriesByLang, forKey: "categoriesByLang")
-        
-        self.categories = [Category]()
-
-        self.todayCategoryByLang = Dictionary<String, Category>()
-        defaults.set(self.todayCategoryByLang, forKey: "todayCategoryByLang")
-        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.todayCategoryByLang as Dictionary<String, Category>)
-        defaults.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
-
-        self.languages = [Language]()
-        let archivedLanguages = NSKeyedArchiver.archivedData(withRootObject: self.languages as [Language])
-        defaults.set(archivedLanguages, forKey: "languages")
-		
-        self.newsSourcesFiltered = Dictionary<String, Array<Int>>()
-        defaults.set(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
-        
-        self.newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
-        defaults.set(self.newsSourcesByLang, forKey: "newsSourcesByLang")
-        let archivedNewsSourcesByLang = NSKeyedArchiver.archivedData(withRootObject: self.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-        defaults.set(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
-
-        self.newsSources = [NewsSources]()
-		
-		self.optOutAnalytics = defaultValues.optOutAnalytics
-        defaults.set(self.optOutAnalytics, forKey: "optOutAnalytics")
-		
-		self.fontName = defaultValues.fontName
-		defaults.set(self.fontName, forKey: "fontName")
-		self.useSystemSize = defaultValues.useSystemSize
-		defaults.set(self.useSystemSize, forKey: "useSystemSize")
-		self.fontSizeBase = defaultValues.fontSizeBase
-		defaults.set(self.fontSizeBase, forKey: "fontSizeBase")
-		
-        #if DEBUG
-            print("Settings resetted to defaults: \(self.description)")
-        #endif
-        
-        defaults.synchronize()
-    }
 	
     //MARK: Shared Instance
 
@@ -207,7 +116,7 @@ class Settings {
 	
 	// MARK: Init
 	
-    private init() {
+	init() {
         #if DEBUG
             print(#function)
         #endif
@@ -317,19 +226,19 @@ class Settings {
         self.preferredLanguage = Locale.preferredLanguages[0] 
 
         // Get array of languages from storage
-        if let unarchivedLanguages = defaults.object(forKey: "languages") as? Data {
+        if let unarchivedLanguages = defaults.data(forKey: "languages") {
             self.languages = NSKeyedUnarchiver.unarchiveObject(with: unarchivedLanguages) as! [Language]
         }
 
         // Get Dictionary of categories from storage
-        if let unarchivedCategoriesByLang = defaults.object(forKey: "categoriesByLang") as? Data {
+        if let unarchivedCategoriesByLang = defaults.data(forKey: "categoriesByLang") {
             self.categoriesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
             
             if let categories: [Category] = categoriesByLang[self.region] {
                 self.categories = categories
             }
         }
-        
+		
         if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesFavorited") as? Dictionary<String, Array<Int>> {
             self.categoriesFavorited = categoriesFavorited
         }
@@ -349,13 +258,12 @@ class Settings {
             self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
         }
 		
-		// Get Dictionary of today categories from storage
-        if let unarchivedtodayCategoryByLang = defaults.object(forKey: "todayCategoryByLang") as? Data {
+		if let unarchivedtodayCategoryByLang = defaults.data(forKey: "todayCategoryByLang") {
             self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
 		}
 
         // Get Dictionary of news sources from storage
-        if let unarchivedNewsSourcesByLang = defaults.object(forKey: "newsSourcesByLang") as? Data {
+        if let unarchivedNewsSourcesByLang = defaults.data(forKey: "newsSourcesByLang") {
             self.newsSourcesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedNewsSourcesByLang) as! Dictionary<String, Array<NewsSources>>
             
             if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
@@ -417,6 +325,97 @@ class Settings {
 		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
     }
 	
+	func resetToDefaults() {
+        self.useToRetrieveLists = defaultValues.useToRetrieveLists
+        defaults.set(self.useToRetrieveLists, forKey: "useToRetrieveLists")
+        
+        self.mostPopularName = defaultValues.mostPopularName
+        defaults.set(self.mostPopularName, forKey: "mostPopularName")
+
+        self.latestName = defaultValues.latestName
+        defaults.set(self.latestName, forKey: "latestName")
+
+        self.domainToUse = defaultValues.domainToUse
+        defaults.set(self.domainToUse, forKey: "domainToUse")
+        
+        self.genericNewsURLPart = defaultValues.genericNewsURLPart
+        defaults.set(self.genericNewsURLPart, forKey: "genericNewsURLPart")
+        
+        defaults.set(UUID().uuidString, forKey: "deviceID")
+        self.deviceID = defaults.string(forKey: "deviceID")!
+        
+        self.showDesc = defaultValues.showDesc
+        defaults.set(self.showDesc, forKey: "showDesc")
+        
+        self.useMobileUrl = defaultValues.useMobileUrl
+        defaults.set(self.useMobileUrl, forKey: "useMobileUrl")
+        
+        self.useReaderView = defaultValues.useReaderView
+        defaults.set(self.useReaderView, forKey: "useReaderView")
+
+        self.useDarkTheme = defaultValues.useDarkTheme
+        defaults.set(self.useDarkTheme, forKey: "useDarkTheme")
+		
+		self.showNewsPicture = defaultValues.showNewsPicture
+        defaults.set(self.showNewsPicture, forKey: "showNewsPicture")
+
+		self.useChrome = defaultValues.useChrome
+        defaults.set(self.useChrome, forKey: "useChrome")
+		self.createNewTab = defaultValues.createNewTab
+        defaults.set(self.createNewTab, forKey: "createNewTab")
+
+        self.region = defaultValues.region
+        defaults.set(self.region, forKey: "region")
+        
+        self.categoriesFavorited = Dictionary<String, Array<Int>>()
+        defaults.set(self.categoriesFavorited, forKey: "categoriesFavorited")
+        
+        self.categoriesHidden = Dictionary<String, Array<Int>>()        
+        defaults.set(self.categoriesHidden, forKey: "categoriesHidden")
+        
+        self.categoriesByLang = Dictionary<String, Array<Category>>()
+        defaults.set(self.categoriesByLang, forKey: "categoriesByLang")
+        let archivedCategoriesByLang = NSKeyedArchiver.archivedData(withRootObject: self.categoriesByLang as Dictionary<String, Array<Category>>)
+        defaults.set(archivedCategoriesByLang, forKey: "categoriesByLang")
+        
+        self.categories = [Category]()
+
+        self.todayCategoryByLang = Dictionary<String, Category>()
+        defaults.set(self.todayCategoryByLang, forKey: "todayCategoryByLang")
+        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.todayCategoryByLang as Dictionary<String, Category>)
+        defaults.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+
+        self.languages = [Language]()
+        let archivedLanguages = NSKeyedArchiver.archivedData(withRootObject: self.languages as [Language])
+        defaults.set(archivedLanguages, forKey: "languages")
+		
+        self.newsSourcesFiltered = Dictionary<String, Array<Int>>()
+        defaults.set(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+        
+        self.newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
+        defaults.set(self.newsSourcesByLang, forKey: "newsSourcesByLang")
+        let archivedNewsSourcesByLang = NSKeyedArchiver.archivedData(withRootObject: self.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
+        defaults.set(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
+
+        self.newsSources = [NewsSources]()
+		
+		self.optOutAnalytics = defaultValues.optOutAnalytics
+        defaults.set(self.optOutAnalytics, forKey: "optOutAnalytics")
+		
+		self.fontName = defaultValues.fontName
+		defaults.set(self.fontName, forKey: "fontName")
+		self.useSystemSize = defaultValues.useSystemSize
+		defaults.set(self.useSystemSize, forKey: "useSystemSize")
+		self.fontSizeBase = defaultValues.fontSizeBase
+		defaults.set(self.fontSizeBase, forKey: "fontSizeBase")
+		
+        #if DEBUG
+            print("Settings resetted to defaults: \(self.description)")
+        #endif
+        
+        defaults.synchronize()
+    }
+
 	func removeSource(_ sourceID: Int) -> Bool {
 		var removed: Bool = false
         if var sourceFilteredForLang = self.newsSourcesFiltered[self.region] {

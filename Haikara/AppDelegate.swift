@@ -13,7 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 	var openUrl: URL? // used to save state when App is not running before the url triggered
-
+	
+	override init() {
+        super.init()
+        _ = Settings()
+    }
+	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
