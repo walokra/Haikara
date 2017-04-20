@@ -1,3 +1,9 @@
+0.10.0 (2017-04-20)
+* Add new user specific category (ICYMI, In case you missed)
+* Update API calls to match new requirements
+* Add accessibility
+* Fix bugs: no news picture, search paging
+
 0.9.14 (2016-11-11)
 * Add Search functionality
 * Fix layout issues with iPad in Settings view
