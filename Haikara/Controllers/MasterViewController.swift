@@ -46,7 +46,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			
 			self.trackEvent("favoritesButtonAction", category: "ui_Event", action: "favoritesButtonAction", label: "main", value: (favoritesSelected) ? 1 : 0)
 			
-        	getCategories()
+        	getCategoriesFromSettingOrAPI()
 		} else {
 			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .alert)
 		
@@ -114,7 +114,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         currentLanguage = settings.region
         
         if self.categories.isEmpty {
-            getCategories()
+            getCategoriesFromSettingOrAPI()
         }
 
         self.tableView!.delegate = self
@@ -168,7 +168,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             print(notification.userInfo as Any)
         #endif
         
-        getCategories()
+        getCategoriesFromSettingOrAPI()
     }
     
     func updateSelectedCategories(_ notification: Notification) {
@@ -207,11 +207,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView!.reloadData()
     }
 
-    func getCategories(){
+    func getCategoriesFromSettingOrAPI(){
         // Get categories for selected region from settings' store
 		if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
 			#if DEBUG
-				print("MasterView, getCategories: getting categories for '\(self.settings.region)' from settings")
+				print("MasterView, getCategoriesFromSettingOrAPI: getting categories for '\(self.settings.region)' from settings")
 			#endif
                 
 			if let updated: Date = self.settings.categoriesUpdatedByLang[self.settings.region] {
@@ -241,7 +241,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		}
         
         #if DEBUG
-            print("MasterView, getCategories: getting categories for lang from API")
+            print("MasterView, getCategoriesFromSettingOrAPI: getting categories for lang from API")
         #endif
         // If categories for selected region is not found, fetch from API
         getCategoriesFromAPI()

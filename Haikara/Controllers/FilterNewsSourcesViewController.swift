@@ -140,9 +140,13 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         #if DEBUG
             print("FilterNewsSourcesViewController, Received resetNewsSourcesFiltered")
         #endif
-        
-        self.newsSources = settings.newsSources
-        self.tableView!.reloadData()
+		
+		if (settings.newsSources.isEmpty) {
+			getNewsSourcesFromAPI()
+		} else {
+			self.newsSources = settings.newsSources
+		}
+		self.tableView!.reloadData()
     }
 	
 	func updateSearchResults(for searchController: UISearchController) {
@@ -266,9 +270,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		}
 
         #if DEBUG
-            print("filter view, getCategories: getting news sources for lang from API")
+            print("filter view, getNewsSources: getting news sources for lang from API")
         #endif
-        // If categories for selected region is not found, fetch from API
+        // If news sources for selected region is not found, fetch from API
         getNewsSourcesFromAPI()
     }
     
