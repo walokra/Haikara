@@ -139,10 +139,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		self.defaults = settings.defaults
 		
 		// Check for force touch feature, and add force touch/previewing capability.
-        if #available(iOS 9.0, *) {
-            if traitCollection.forceTouchCapability == .available {
-                registerForPreviewing(with: self, sourceView: tableView)
-            }
+		if traitCollection.forceTouchCapability == .available {
+			registerForPreviewing(with: self, sourceView: tableView)
         }
 
 		searchBar.showsCancelButton = true		
@@ -538,23 +536,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#endif
 			_ = OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
 		} else {
-			if #available(iOS 9.0, *) {
-				#if DEBUG
-					print("iOS 9.0, *")
-				#endif
-				let svc = SFSafariViewController(url: webURL, entersReaderIfAvailable: settings.useReaderView)
-				svc.view.tintColor = Theme.tintColor
-				self.present(svc, animated: true, completion: nil)
-			} else {
-				#if DEBUG
-					print("Fallback on earlier versions")
-				#endif
-
-				let vc = NewsItemViewController()
-				if (!title.isEmpty) {vc.title = title}
-				vc.loadWebView(webURL)
-				self.navigationController?.pushViewController(vc, animated: true)
-			}
+			let svc = SFSafariViewController(url: webURL, entersReaderIfAvailable: settings.useReaderView)
+			svc.view.tintColor = Theme.tintColor
+			self.present(svc, animated: true, completion: nil)
 		}
 	}
 	
@@ -574,8 +558,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	// MARK: - SafariView
 	
-	// Dismiss the view controller and return to app.
-	@available(iOS 9.0, *)
 	func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
 		self.dismiss(animated: true, completion: nil)
 	}

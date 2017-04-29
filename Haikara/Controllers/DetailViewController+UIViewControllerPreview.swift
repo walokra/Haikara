@@ -23,17 +23,14 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
 		let webURL = URL(string: tableItem.originalURL)
 		
         // Create a detail view controller and set its properties.
-        if #available(iOS 9.0, *) {
-            let destinationViewController = SFSafariViewController(url: webURL!, entersReaderIfAvailable: settings.useReaderView)
+		let destinationViewController = SFSafariViewController(url: webURL!, entersReaderIfAvailable: settings.useReaderView)
 
-    	    destinationViewController.preferredContentSize = view.frame.size //CGSize(width: 0.0, height: 0.0)
+		destinationViewController.preferredContentSize = view.frame.size //CGSize(width: 0.0, height: 0.0)
         
-	        // Set the source rect to the cell frame, so surrounding elements are blurred.
-            previewingContext.sourceRect = cell.frame
-        
-        	return destinationViewController
-		}
-		return nil
+		// Set the source rect to the cell frame, so surrounding elements are blurred.
+		previewingContext.sourceRect = cell.frame
+	
+		return destinationViewController
     }
     
     /// Present the view controller for the "Pop" action.

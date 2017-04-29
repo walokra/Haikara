@@ -31,10 +31,8 @@ extension MasterViewController: UIViewControllerPreviewingDelegate {
         detailViewController.preferredContentSize = CGSize(width: 0.0, height: 0.0)
         
         // Set the source rect to the cell frame, so surrounding elements are blurred.
-        if #available(iOS 9.0, *) {
-            previewingContext.sourceRect = cell.frame
-        }
-        
+		previewingContext.sourceRect = cell.frame
+		
         return detailViewController
     }
     
