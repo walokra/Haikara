@@ -292,7 +292,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
         let tableItem: Category = categories[indexPath.row] as Category
         cell.textLabel!.text = tableItem.title
-        cell.indentationLevel = (favoritesSelected) ? 0 : tableItem.depth - 1
+        cell.indentationLevel = (favoritesSelected) ? 0 : ((tableItem.depth == 1) ? 0 : tableItem.depth + 1)
 		cell.textLabel!.textColor = Theme.textColor
 		cell.textLabel!.font = settings.fontSizeXLarge
 

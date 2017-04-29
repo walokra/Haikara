@@ -121,7 +121,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         let tableItem: Category = categories[indexPath.row] as Category
         
         cell.textLabel!.text = tableItem.title
-        cell.indentationLevel = tableItem.depth
+        cell.indentationLevel = (tableItem.depth == 1) ? 0 : tableItem.depth + 1
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
