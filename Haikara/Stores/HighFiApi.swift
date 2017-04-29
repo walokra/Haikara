@@ -250,7 +250,7 @@ open class HighFiApi {
     }
 	
 	// e.g. http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
-    class func getCategories(_ completionHandler: @escaping (Array<Category>) -> Void, failureHandler: @escaping (String) -> Void) {
+    class func getCategories(_ completionHandler: @escaping ([Category]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")
         #endif
@@ -307,9 +307,8 @@ open class HighFiApi {
 			cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
 			cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
 			
-//			let categories: [Category] = json.flatMap { Category(json: $0) }
 			let categories: [Category] = (responseData.value(forKey: "categories") as! [NSDictionary])
-          	    .filter({ ($0["depth"] as! Int) == 1 })
+//          	    .filter({ ($0["depth"] as! Int) == 1 })
 				.map { Category(
 					title: $0["title"] as! String,
 					sectionID: $0["sectionID"] as! Int,
