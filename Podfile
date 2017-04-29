@@ -13,6 +13,12 @@ target 'highkara' do
 	#pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 end
 
+target 'HighkaraTests' do
+    inherit! :search_paths
+    # Pods for testing
+	shared_pods
+end
+
 target 'Today' do
 	shared_pods
 end

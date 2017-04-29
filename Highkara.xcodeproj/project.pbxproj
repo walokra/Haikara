@@ -21,12 +21,19 @@
 		3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA5E1BEA6BF500C5A0BD /* Language.swift */; };
 		3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
 		3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA621BEA6C1D00C5A0BD /* Entry.swift */; };
+		3637A8AD1EB4A198003D25C7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
+		3637A8AE1EB4A5A0003D25C7 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
+		3637A8AF1EB4A5C2003D25C7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
+		3637A8B01EB4A5CE003D25C7 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA621BEA6C1D00C5A0BD /* Entry.swift */; };
+		3637A8B11EB4A5D0003D25C7 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
+		3637A8B21EB4A5D3003D25C7 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA5E1BEA6BF500C5A0BD /* Language.swift */; };
 		364E87301BDFEE5A003F2EE5 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E872F1BDFEE5A003F2EE5 /* Shared.swift */; };
 		364F067A1BC456FC00362DF6 /* FavoriteCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */; };
 		3650D7871B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7801B9312B000A4D528 /* Localizable.strings */; };
 		3650D7881B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7831B9312B000A4D528 /* Localizable.strings */; };
 		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
 		3662C1101E77483E00AF55A0 /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */; };
+		366BC8851EB487770068DEB7 /* HighkaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BC8841EB487770068DEB7 /* HighkaraTests.swift */; };
 		366D94C81C06547B00E84284 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */; };
 		36724BA71D5E647C0022C1E9 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */; };
@@ -55,11 +62,9 @@
 		367BAD471D189E8600F6B949 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368E20811D5E3837009255B9 /* RegionPickerViewController.swift */; };
 		3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */; };
-		369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */; };
 		36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */; };
 		36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C121B2E0AE900BE0C77 /* Main.storyboard */; };
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
-		36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */; };
 		36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA1A781C66900C008268B3 /* TouchableTextView.swift */; };
 		36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */; };
 		36AE3B871D74D9280043C01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36AE3B861D74D9280043C01E /* GoogleService-Info.plist */; };
@@ -78,22 +83,16 @@
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
 		56661E35E201E29CA75C78D6 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */; };
+		ED2BBB030C3DDDEC88450E0F /* Pods_HighkaraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		369AAEE81BF29DE10038EDA2 /* PBXContainerItemProxy */ = {
+		366BC8871EB487770068DEB7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 36A39C081B2E0AE900BE0C77;
 			remoteInfo = highkara;
-		};
-		36A39C1F1B2E0AE900BE0C77 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 36A39C011B2E0AE900BE0C77 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 36A39C081B2E0AE900BE0C77;
-			remoteInfo = Haikara;
 		};
 		36C3D6E01D60604B00CDF9E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -120,6 +119,7 @@
 
 /* Begin PBXFileReference section */
 		00420E044BF4749D356A6EEA /* Pods-Today.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.debug.xcconfig"; sourceTree = "<group>"; };
+		1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HighkaraTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36065CEC1B92522800AF0102 /* HighFiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighFiApi.swift; sourceTree = "<group>"; };
 		360B4E301B4C69D70019FA1F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		360F97D71BD6D77C00D9EB38 /* HideCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideCategoryViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +139,9 @@
 		3650D7841B9312B000A4D528 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localizable.strings; sourceTree = "<group>"; };
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
+		366BC8821EB487770068DEB7 /* HighkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		366BC8841EB487770068DEB7 /* HighkaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraTests.swift; sourceTree = "<group>"; };
+		366BC8861EB487770068DEB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		366D94C71C06547B00E84284 /* NewsSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSources.swift; sourceTree = "<group>"; };
 		366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterNewsSourcesViewController.swift; sourceTree = "<group>"; };
 		36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
@@ -164,18 +167,12 @@
 		367BAD421D188B6300F6B949 /* TodayEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayEntryCell.swift; sourceTree = "<group>"; };
 		368E20811D5E3837009255B9 /* RegionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionPickerViewController.swift; sourceTree = "<group>"; };
 		3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInChromeController.swift; sourceTree = "<group>"; };
-		369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraUITests.swift; sourceTree = "<group>"; };
-		369AAEE71BF29DE10038EDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		369C42141D74E900006FE35E /* Today-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Today-Bridging-Header.h"; sourceTree = "<group>"; };
 		36A39C091B2E0AE900BE0C77 /* highkara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highkara.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A39C0D1B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A39C0E1B2E0AE900BE0C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36A39C131B2E0AE900BE0C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		36A39C151B2E0AE900BE0C77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = highkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		36A39C231B2E0AE900BE0C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikaraTests.swift; sourceTree = "<group>"; };
 		36AA1A781C66900C008268B3 /* TouchableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableTextView.swift; sourceTree = "<group>"; };
 		36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MasterViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
 		36AE3B861D74D9280043C01E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -194,13 +191,23 @@
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		49057798B8E0F09649ABCC5F /* Pods-highkara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.release.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.release.xcconfig"; sourceTree = "<group>"; };
+		5D14BFAF73CA9AA57FD82E9F /* Pods-HighkaraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighkaraTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DF258B82BC868AA8338CE1F /* Pods-highkara.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.debug.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.debug.xcconfig"; sourceTree = "<group>"; };
 		7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_highkara.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		808BE505B97C4AD349677701 /* Pods-HighkaraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighkaraTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4C89DC1073AB6AEA86465BD /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6FB4050DF578DF5D89F7BFA /* Pods-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		366BC87F1EB487770068DEB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED2BBB030C3DDDEC88450E0F /* Pods_HighkaraTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		367BAD1B1D1874B600F6B949 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,25 +217,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		369AAEE01BF29DE10038EDA2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		36A39C061B2E0AE900BE0C77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				56661E35E201E29CA75C78D6 /* Pods_highkara.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		36A39C1B1B2E0AE900BE0C77 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +234,7 @@
 				3610239C1D2466E200303C76 /* NotificationCenter.framework */,
 				A4C89DC1073AB6AEA86465BD /* Pods_Today.framework */,
 				7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */,
+				1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,6 +320,15 @@
 			path = Resources/fi.lproj;
 			sourceTree = "<group>";
 		};
+		366BC8831EB487770068DEB7 /* HighkaraTests */ = {
+			isa = PBXGroup;
+			children = (
+				366BC8841EB487770068DEB7 /* HighkaraTests.swift */,
+				366BC8861EB487770068DEB7 /* Info.plist */,
+			);
+			path = HighkaraTests;
+			sourceTree = "<group>";
+		};
 		36778F6F1B3760C000F387E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,24 +367,14 @@
 			path = NewsWidget;
 			sourceTree = "<group>";
 		};
-		369AAEE41BF29DE10038EDA2 /* HighkaraUITests */ = {
-			isa = PBXGroup;
-			children = (
-				369AAEE51BF29DE10038EDA2 /* HighkaraUITests.swift */,
-				369AAEE71BF29DE10038EDA2 /* Info.plist */,
-			);
-			path = HighkaraUITests;
-			sourceTree = "<group>";
-		};
 		36A39C001B2E0AE900BE0C77 = {
 			isa = PBXGroup;
 			children = (
 				367BAD2F1D1874FC00F6B949 /* highkara.entitlements */,
 				36A39C0B1B2E0AE900BE0C77 /* Haikara */,
 				36AE3B891D74DA7A0043C01E /* Haikara-Bridging-Header.h */,
-				36A39C211B2E0AE900BE0C77 /* HaikaraTests */,
-				369AAEE41BF29DE10038EDA2 /* HighkaraUITests */,
 				367BAD211D1874B600F6B949 /* Today */,
+				366BC8831EB487770068DEB7 /* HighkaraTests */,
 				36A39C0A1B2E0AE900BE0C77 /* Products */,
 				0370D6607F96A7F8D5340885 /* Frameworks */,
 				F9B8CC90AA190563613F79C6 /* Pods */,
@@ -392,9 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				36A39C091B2E0AE900BE0C77 /* highkara.app */,
-				36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */,
-				369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */,
 				367BAD1E1D1874B600F6B949 /* Today.appex */,
+				366BC8821EB487770068DEB7 /* HighkaraTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -427,23 +419,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		36A39C211B2E0AE900BE0C77 /* HaikaraTests */ = {
-			isa = PBXGroup;
-			children = (
-				36A39C241B2E0AE900BE0C77 /* HaikaraTests.swift */,
-				36A39C221B2E0AE900BE0C77 /* Supporting Files */,
-			);
-			path = HaikaraTests;
-			sourceTree = "<group>";
-		};
-		36A39C221B2E0AE900BE0C77 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				36A39C231B2E0AE900BE0C77 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		36D3DC2A1B9319F8000673ED /* icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +437,8 @@
 				D6FB4050DF578DF5D89F7BFA /* Pods-Today.release.xcconfig */,
 				7DF258B82BC868AA8338CE1F /* Pods-highkara.debug.xcconfig */,
 				49057798B8E0F09649ABCC5F /* Pods-highkara.release.xcconfig */,
+				5D14BFAF73CA9AA57FD82E9F /* Pods-HighkaraTests.debug.xcconfig */,
+				808BE505B97C4AD349677701 /* Pods-HighkaraTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -469,6 +446,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		366BC8811EB487770068DEB7 /* HighkaraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 366BC8891EB487770068DEB7 /* Build configuration list for PBXNativeTarget "HighkaraTests" */;
+			buildPhases = (
+				A3AFE36E3F0C94FBA135801D /* [CP] Check Pods Manifest.lock */,
+				366BC87E1EB487770068DEB7 /* Sources */,
+				366BC87F1EB487770068DEB7 /* Frameworks */,
+				366BC8801EB487770068DEB7 /* Resources */,
+				C2D8DE926795D6BAE0D802F6 /* [CP] Embed Pods Frameworks */,
+				48256EA124AFD451E5C1CE71 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				366BC8881EB487770068DEB7 /* PBXTargetDependency */,
+			);
+			name = HighkaraTests;
+			productName = HighkaraTests;
+			productReference = 366BC8821EB487770068DEB7 /* HighkaraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		367BAD1D1D1874B600F6B949 /* Today */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "Today" */;
@@ -488,24 +486,6 @@
 			productName = NewsWidget;
 			productReference = 367BAD1E1D1874B600F6B949 /* Today.appex */;
 			productType = "com.apple.product-type.app-extension";
-		};
-		369AAEE21BF29DE10038EDA2 /* HighkaraUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 369AAEEC1BF29DE20038EDA2 /* Build configuration list for PBXNativeTarget "HighkaraUITests" */;
-			buildPhases = (
-				369AAEDF1BF29DE10038EDA2 /* Sources */,
-				369AAEE01BF29DE10038EDA2 /* Frameworks */,
-				369AAEE11BF29DE10038EDA2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				369AAEE91BF29DE10038EDA2 /* PBXTargetDependency */,
-			);
-			name = HighkaraUITests;
-			productName = HighkaraUITests;
-			productReference = 369AAEE31BF29DE10038EDA2 /* HighkaraUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		36A39C081B2E0AE900BE0C77 /* highkara */ = {
 			isa = PBXNativeTarget;
@@ -530,24 +510,6 @@
 			productReference = 36A39C091B2E0AE900BE0C77 /* highkara.app */;
 			productType = "com.apple.product-type.application";
 		};
-		36A39C1D1B2E0AE900BE0C77 /* highkaraTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkaraTests" */;
-			buildPhases = (
-				36A39C1A1B2E0AE900BE0C77 /* Sources */,
-				36A39C1B1B2E0AE900BE0C77 /* Frameworks */,
-				36A39C1C1B2E0AE900BE0C77 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */,
-			);
-			name = highkaraTests;
-			productName = HaikaraTests;
-			productReference = 36A39C1E1B2E0AE900BE0C77 /* highkaraTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -556,10 +518,15 @@
 			attributes = {
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
+					366BC8811EB487770068DEB7 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 36A39C081B2E0AE900BE0C77;
+					};
 					367BAD1D1D1874B600F6B949 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8X9ZUVVBWA;
@@ -571,10 +538,6 @@
 							};
 						};
 					};
-					369AAEE21BF29DE10038EDA2 = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 36A39C081B2E0AE900BE0C77;
-					};
 					36A39C081B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
@@ -585,10 +548,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					36A39C1D1B2E0AE900BE0C77 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 36A39C081B2E0AE900BE0C77;
 					};
 				};
 			};
@@ -607,27 +566,26 @@
 			projectRoot = "";
 			targets = (
 				36A39C081B2E0AE900BE0C77 /* highkara */,
-				36A39C1D1B2E0AE900BE0C77 /* highkaraTests */,
-				369AAEE21BF29DE10038EDA2 /* HighkaraUITests */,
 				367BAD1D1D1874B600F6B949 /* Today */,
+				366BC8811EB487770068DEB7 /* HighkaraTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		366BC8801EB487770068DEB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		367BAD1C1D1874B600F6B949 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				367BAD261D1874B600F6B949 /* MainInterface.storyboard in Resources */,
 				36AE3B881D74D9280043C01E /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		369AAEE11BF29DE10038EDA2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,13 +621,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		36A39C1C1B2E0AE900BE0C77 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -685,7 +636,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		360619A31D6065CF00DAAA29 /* ShellScript */ = {
@@ -714,6 +665,21 @@
 			shellPath = /bin/sh;
 			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/Today.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\n    rm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
+		48256EA124AFD451E5C1CE71 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		69B684C108F2EF749EFFCE0C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -726,7 +692,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */ = {
@@ -774,9 +740,53 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A3AFE36E3F0C94FBA135801D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C2D8DE926795D6BAE0D802F6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		366BC87E1EB487770068DEB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3637A8B01EB4A5CE003D25C7 /* Entry.swift in Sources */,
+				3637A8B11EB4A5D0003D25C7 /* NewsSources.swift in Sources */,
+				366BC8851EB487770068DEB7 /* HighkaraTests.swift in Sources */,
+				3637A8B21EB4A5D3003D25C7 /* Language.swift in Sources */,
+				3637A8AE1EB4A5A0003D25C7 /* HighFiApi.swift in Sources */,
+				3637A8AF1EB4A5C2003D25C7 /* Settings.swift in Sources */,
+				3637A8AD1EB4A198003D25C7 /* Category.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		367BAD1A1D1874B600F6B949 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -790,14 +800,6 @@
 				367BAD3E1D1883F900F6B949 /* Shared.swift in Sources */,
 				367BAD391D18815500F6B949 /* Settings.swift in Sources */,
 				367BAD461D189E8300F6B949 /* Category.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		369AAEDF1BF29DE10038EDA2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				369AAEE61BF29DE10038EDA2 /* HighkaraUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,26 +839,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		36A39C1A1B2E0AE900BE0C77 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				36A39C251B2E0AE900BE0C77 /* HaikaraTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		369AAEE91BF29DE10038EDA2 /* PBXTargetDependency */ = {
+		366BC8881EB487770068DEB7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
-			targetProxy = 369AAEE81BF29DE10038EDA2 /* PBXContainerItemProxy */;
-		};
-		36A39C201B2E0AE900BE0C77 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 36A39C081B2E0AE900BE0C77 /* highkara */;
-			targetProxy = 36A39C1F1B2E0AE900BE0C77 /* PBXContainerItemProxy */;
+			targetProxy = 366BC8871EB487770068DEB7 /* PBXContainerItemProxy */;
 		};
 		36C3D6E11D60604B00CDF9E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -902,6 +891,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		366BC88A1EB487770068DEB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D14BFAF73CA9AA57FD82E9F /* Pods-HighkaraTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/Google\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleInterchangeUtilities\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleSymbolUtilities\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
+				);
+				INFOPLIST_FILE = HighkaraTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/highkara.app/highkara";
+			};
+			name = Debug;
+		};
+		366BC88B1EB487770068DEB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 808BE505B97C4AD349677701 /* Pods-HighkaraTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = HighkaraTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/highkara.app/highkara";
+			};
+			name = Release;
+		};
 		367BAD2B1D1874B600F6B949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00420E044BF4749D356A6EEA /* Pods-Today.debug.xcconfig */;
@@ -914,13 +959,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
-					"$(PROJECT_DIR)/build/Release-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -947,13 +987,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
-					"$(PROJECT_DIR)/build/Release-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -965,39 +999,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		369AAEEA1BF29DE10038EDA2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = HighkaraUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
-				TEST_TARGET_NAME = highkara;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		369AAEEB1BF29DE10038EDA2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = HighkaraUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7977259-f433-44c1-804b-a7e5eecb317c";
-				TEST_TARGET_NAME = highkara;
-				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -1109,12 +1110,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1141,12 +1137,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Build/Products/Release-iphoneos/Alamofire",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1163,59 +1154,23 @@
 			};
 			name = Release;
 		};
-		36A39C2C1B2E0AE900BE0C77 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HaikaraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = highkaraTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Haikara.app/Haikara";
-			};
-			name = Debug;
-		};
-		36A39C2D1B2E0AE900BE0C77 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HaikaraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruleoftech.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = highkaraTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Haikara.app/Haikara";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		366BC8891EB487770068DEB7 /* Build configuration list for PBXNativeTarget "HighkaraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				366BC88A1EB487770068DEB7 /* Debug */,
+				366BC88B1EB487770068DEB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		367BAD2D1D1874B600F6B949 /* Build configuration list for PBXNativeTarget "Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				367BAD2B1D1874B600F6B949 /* Debug */,
 				367BAD2C1D1874B600F6B949 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		369AAEEC1BF29DE20038EDA2 /* Build configuration list for PBXNativeTarget "HighkaraUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				369AAEEA1BF29DE10038EDA2 /* Debug */,
-				369AAEEB1BF29DE10038EDA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1234,15 +1189,6 @@
 			buildConfigurations = (
 				36A39C291B2E0AE900BE0C77 /* Debug */,
 				36A39C2A1B2E0AE900BE0C77 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		36A39C2B1B2E0AE900BE0C77 /* Build configuration list for PBXNativeTarget "highkaraTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				36A39C2C1B2E0AE900BE0C77 /* Debug */,
-				36A39C2D1B2E0AE900BE0C77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
