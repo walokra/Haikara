@@ -655,6 +655,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 //		}
 		
 		var date = ""
+		// If published date is over one day, show date, otherwise time
 		if tableItem.orderNro >= 1440 {
 			date = formatDate(tableItem.publishedDateJS)
 		} else {

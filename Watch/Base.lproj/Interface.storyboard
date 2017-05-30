@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c9n-PN-mgN">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
+    </dependencies>
+    <scenes>
+        <!--Highkara-->
+        <scene sceneID="oTB-3e-FYV">
+            <objects>
+                <controller identifier="News" title="Highkara" id="c9n-PN-mgN" customClass="NewsInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <table alignment="left" id="A8c-vb-zai">
+                            <items>
+                                <tableRow identifier="NewsRow" id="qpR-zE-7Pq" customClass="NewsRowController" customModule="Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="sRo-zV-eOt">
+                                        <items>
+                                            <label width="1" alignment="left" text="title" numberOfLines="0" id="0vv-lA-ld9">
+                                                <fontDescription key="font" type="system" pointSize="13"/>
+                                            </label>
+                                            <label alignment="left" text="author" id="NJe-5Q-YyT">
+                                                <fontDescription key="font" type="italicSystem" pointSize="11"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="authorLabel" destination="NJe-5Q-YyT" id="WeH-2G-dPt"/>
+                                        <outlet property="newsTitle" destination="0vv-lA-ld9" id="Gf9-3n-bNc"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="newsTable" destination="A8c-vb-zai" id="abn-9d-Nlg"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="29" y="34"/>
+        </scene>
+        <!--NewsEntry-->
+        <scene sceneID="NRq-Ne-Nmu">
+            <objects>
+                <controller identifier="NewsEntry" id="mKV-ox-Gwy" customClass="NewsDetailsInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="Y2u-h7-Fj0">
+                            <items>
+                                <label width="1" alignment="left" text="description" numberOfLines="0" id="nEM-wF-UQe">
+                                    <fontDescription key="font" type="system" pointSize="13"/>
+                                </label>
+                                <label alignment="left" text="published" id="eGB-yG-5qS">
+                                    <fontDescription key="font" type="italicSystem" pointSize="11"/>
+                                </label>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Read" id="k4e-F5-nBc">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                            <connections>
+                                <action selector="readEntryAction" destination="mKV-ox-Gwy" id="aEW-nK-shG"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="descLabel" destination="nEM-wF-UQe" id="o5Y-xW-njK"/>
+                        <outlet property="publishedLabel" destination="eGB-yG-5qS" id="VkQ-ro-s3r"/>
+                        <outlet property="readEntryButton" destination="k4e-F5-nBc" id="r2n-Mj-b9m"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="278" y="36"/>
+        </scene>
+        <!--ReadEntry-->
+        <scene sceneID="cMd-os-OKZ">
+            <objects>
+                <controller identifier="ReadEntry" id="zC6-WW-gLe" customClass="ReadInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <button width="1" alignment="left" title="Read" id="ceP-JG-eXD"/>
+                    </items>
+                    <connections>
+                        <outlet property="readButton" destination="ceP-JG-eXD" id="wyr-LC-Fbh"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="523" y="38"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+</document>

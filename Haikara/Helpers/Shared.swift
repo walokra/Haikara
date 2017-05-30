@@ -8,8 +8,7 @@
 
 import UIKit
 
-extension Date
-{
+extension Date {
     func isGreaterThanDate(_ dateToCompare : Date) -> Bool {
         return self.compare(dateToCompare) == ComparisonResult.orderedDescending
     }
