@@ -26,11 +26,11 @@ target 'HighkaraTests' do
 end
 
 target 'Today' do
-	alamofire
 	shared_pods
+    pod 'Alamofire', '~> 4.4'
 end
 
 target 'Watch Extension' do
-	platform :watchos, '2.0'
-    alamofire
+	platform :watchos, '3.0'
+    pod 'Alamofire', '~> 4.4'
 end 

@@ -7,7 +7,6 @@
 //
 
 import WatchKit
-import WatchConnectivity
 
 import Foundation
 
@@ -32,7 +31,7 @@ class NewsDetailsInterfaceController: WKInterfaceController {
 				} else {
 					publishedLabel.setText(formatTime(entry.publishedDateJS))
 				}
-      		}
+			}
     	}
   	}
 	
