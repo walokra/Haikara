@@ -13,7 +13,7 @@ protocol CategorySelectionDelegate: class {
     func categorySelected(_ newCategory: Category)
 }
 
-class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
@@ -25,6 +25,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
     let settings = Settings.sharedInstance
 	var defaults: UserDefaults?
+	// default section
+	var selectedCategory: Category?
 
 	var favoritesItemTitle: String = NSLocalizedString("SETTINGS_FAVORITES_TITLE", comment: "")
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -87,6 +89,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		let uuid = UUID().uuidString
 		let hmacResult: String = uuid.hmac(HMACAlgorithm.sha256, key: uuid)
 		print("hmacResult=\(hmacResult)")
+		
+		self.selectedCategory = Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true)
 		
 		if let deviceID = defaults!.string(forKey: "deviceID") {
 			settings.deviceID = deviceID
@@ -170,7 +174,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         getCategoriesFromSettingOrAPI()
     }
-    
+
     func updateSelectedCategories(_ notification: Notification) {
         #if DEBUG
             print("MasterView, Received selectedCategoriesChangedNotification")
@@ -313,11 +317,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	    cell.selectedBackgroundView = selectionColor
 	}
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCategory = self.categories[indexPath.row]
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {	
+        self.selectedCategory = self.categories[indexPath.row]
+		
         if let detailViewController = self.delegate as? DetailViewController {
-            self.delegate?.categorySelected(selectedCategory)
+            self.delegate?.categorySelected(self.selectedCategory!)
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
 
