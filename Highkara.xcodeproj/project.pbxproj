@@ -21,6 +21,7 @@
 		3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA5E1BEA6BF500C5A0BD /* Language.swift */; };
 		3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
 		3631CA631BEA6C1D00C5A0BD /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA621BEA6C1D00C5A0BD /* Entry.swift */; };
+		36332B811EE0B4DD005575D5 /* GlobalSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36332B801EE0B4DD005575D5 /* GlobalSplitViewController.swift */; };
 		3637A8AD1EB4A198003D25C7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631CA601BEA6C0A00C5A0BD /* Category.swift */; };
 		3637A8AE1EB4A5A0003D25C7 /* HighFiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36065CEC1B92522800AF0102 /* HighFiApi.swift */; };
 		3637A8AF1EB4A5C2003D25C7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361141291B408A85001A6BA4 /* Settings.swift */; };
@@ -188,6 +189,7 @@
 		3631CA5E1BEA6BF500C5A0BD /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		3631CA601BEA6C0A00C5A0BD /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3631CA621BEA6C1D00C5A0BD /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		36332B801EE0B4DD005575D5 /* GlobalSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSplitViewController.swift; sourceTree = "<group>"; };
 		364E872F1BDFEE5A003F2EE5 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCategoriesViewController.swift; sourceTree = "<group>"; };
 		36501E231EC7ADAF00E078AD /* Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,6 +362,7 @@
 				368E20811D5E3837009255B9 /* RegionPickerViewController.swift */,
 				36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */,
 				36724BA61D5E647C0022C1E9 /* CategoryPickerViewController.swift */,
+				36332B801EE0B4DD005575D5 /* GlobalSplitViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1090,6 +1093,7 @@
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
 				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
+				36332B811EE0B4DD005575D5 /* GlobalSplitViewController.swift in Sources */,
 				36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */,
 				366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */,
 				36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */,
