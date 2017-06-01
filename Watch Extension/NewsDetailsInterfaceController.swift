@@ -15,13 +15,6 @@ class NewsDetailsInterfaceController: WKInterfaceController {
 	
 	@IBOutlet var descLabel: WKInterfaceLabel!
 	@IBOutlet var publishedLabel: WKInterfaceLabel!
-	@IBOutlet var readEntryButton: WKInterfaceButton!
-	
-	@IBAction func readEntryAction() {
-		#if DEBUG
-			print("readEntryAction")
-		#endif
-	}
 	
 	let calendar = Calendar.autoupdatingCurrent
 	let dateFormatter = DateFormatter()

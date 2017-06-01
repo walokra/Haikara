@@ -57,35 +57,14 @@
                                 </label>
                             </items>
                         </group>
-                        <button width="1" alignment="left" title="Read" id="k4e-F5-nBc">
-                            <fontDescription key="font" type="system" pointSize="14"/>
-                            <connections>
-                                <action selector="readEntryAction" destination="mKV-ox-Gwy" id="aEW-nK-shG"/>
-                            </connections>
-                        </button>
                     </items>
                     <connections>
                         <outlet property="descLabel" destination="nEM-wF-UQe" id="o5Y-xW-njK"/>
                         <outlet property="publishedLabel" destination="eGB-yG-5qS" id="VkQ-ro-s3r"/>
-                        <outlet property="readEntryButton" destination="k4e-F5-nBc" id="r2n-Mj-b9m"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="278" y="36"/>
-        </scene>
-        <!--ReadEntry-->
-        <scene sceneID="cMd-os-OKZ">
-            <objects>
-                <controller identifier="ReadEntry" id="zC6-WW-gLe" customClass="ReadInterfaceController" customModule="Watch_Extension">
-                    <items>
-                        <button width="1" alignment="left" title="Read" id="ceP-JG-eXD"/>
-                    </items>
-                    <connections>
-                        <outlet property="readButton" destination="ceP-JG-eXD" id="wyr-LC-Fbh"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="523" y="38"/>
         </scene>
     </scenes>
     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

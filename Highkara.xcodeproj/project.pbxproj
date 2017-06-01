@@ -98,7 +98,6 @@
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
 		36F0E84F1C03B7880081F10B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F0E84E1C03B7880081F10B /* Theme.swift */; };
 		36F6D4BF1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6D4BE1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift */; };
-		36F6D4C11EDE10D8006203D2 /* ReadInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6D4C01EDE10D8006203D2 /* ReadInterfaceController.swift */; };
 		56661E35E201E29CA75C78D6 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */; };
 		8740C6D6603E30B769B13532 /* Pods_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDCD9BAF645EE6D6C4836AF /* Pods_Watch_Extension.framework */; };
 		ED2BBB030C3DDDEC88450E0F /* Pods_HighkaraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */; };
@@ -262,7 +261,6 @@
 		36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCModalPushPopAnimator.swift; sourceTree = "<group>"; };
 		36F0E84E1C03B7880081F10B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		36F6D4BE1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailsInterfaceController.swift; sourceTree = "<group>"; };
-		36F6D4C01EDE10D8006203D2 /* ReadInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadInterfaceController.swift; sourceTree = "<group>"; };
 		3CAD4331AD0DA6BD947156C6 /* Pods-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		424EC12EC11297FF0DD6B924 /* Pods-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		49057798B8E0F09649ABCC5F /* Pods-highkara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-highkara.release.xcconfig"; path = "Pods/Target Support Files/Pods-highkara/Pods-highkara.release.xcconfig"; sourceTree = "<group>"; };
@@ -419,7 +417,6 @@
 				36501E4F1EC7AFF900E078AD /* NewsInterfaceController.swift */,
 				36501E5C1EC7BDA500E078AD /* NewsRowController.swift */,
 				36F6D4BE1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift */,
-				36F6D4C01EDE10D8006203D2 /* ReadInterfaceController.swift */,
 			);
 			path = "Watch Extension";
 			sourceTree = "<group>";
@@ -1038,7 +1035,6 @@
 				36F6D4BF1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift in Sources */,
 				36501E471EC7AEB700E078AD /* HighFiApi.swift in Sources */,
 				36501E371EC7ADAF00E078AD /* ExtensionDelegate.swift in Sources */,
-				36F6D4C11EDE10D8006203D2 /* ReadInterfaceController.swift in Sources */,
 				36501E501EC7AFF900E078AD /* NewsInterfaceController.swift in Sources */,
 				36501E4A1EC7AEC300E078AD /* Category.swift in Sources */,
 			);
