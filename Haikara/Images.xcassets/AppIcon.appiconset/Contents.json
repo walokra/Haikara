@@ -128,7 +128,7 @@
     {
       "size" : "24x24",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_48x48.png",
+      "filename" : "watch_app-icon_48x48_38-notification.png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "38mm"
@@ -136,7 +136,7 @@
     {
       "size" : "27.5x27.5",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_55x55.png",
+      "filename" : "watch_app-icon_55x55_42-notification.png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "42mm"
@@ -144,21 +144,21 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_58x58.png",
+      "filename" : "watch_app-icon_58x58_38-companion.png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_87x87.png",
+      "filename" : "watch_app-icon_87x87_42-companion.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_80x80.png",
+      "filename" : "watch_app-icon_80x80_home.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "38mm"
@@ -166,7 +166,7 @@
     {
       "size" : "44x44",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_88x88.png",
+      "filename" : "watch_app-icon_88x88_42-long.png",
       "scale" : "2x",
       "role" : "longLook",
       "subtype" : "42mm"
@@ -174,7 +174,7 @@
     {
       "size" : "86x86",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_172x172.png",
+      "filename" : "watch_app-icon_172x172_38-short.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "38mm"
@@ -182,7 +182,7 @@
     {
       "size" : "98x98",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_196x196.png",
+      "filename" : "watch_app-icon_196x196_42-short.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
