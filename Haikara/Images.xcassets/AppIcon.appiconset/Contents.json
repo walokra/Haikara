@@ -164,7 +164,7 @@
     {
       "size" : "40x40",
       "idiom" : "watch",
-      "filename" : "watch_app-icon_80x80_home_no-alpha.png",
+      "filename" : "watch_app-icon_80x80_home.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "38mm"
