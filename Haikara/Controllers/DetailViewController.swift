@@ -41,10 +41,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
 	@IBOutlet weak var searchBar: UISearchBar!
 	var searchActive : Bool = false
-	
-//	var filtered:[Entry] = []
-//	var filteredSections = OrderedDictionary<String, Array<Entry>>()
-//	var filteredSectionsSorted = [String]()
 
 	let cellIdentifier = "tableCell"
 	var entries = [Entry]()
@@ -411,7 +407,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					self.sortedSections = self.sections.keys
 					i += 1
 				}
-				//println("sections=\(self.sections.count)")
 				
 				self.tableView!.reloadData()
 				self.refreshControl?.endRefreshing()
@@ -441,13 +436,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				} else {
 					self.entries = self.entries + fetchedEntries
 				}
-				//println("newsEntries=\(self.newsEntries.count)")
 				
 				// Put each item in a section
 				for item in fetchedEntries {
 					// If we don't have section for particular time, create new one,
 					// Otherwise just add item to existing section
-					//	println("section=\(entry.section), title=\(entry.title)")
 					if self.sections[item.timeSince] == nil {
 						self.sections[item.timeSince] = [item]
 					} else {
@@ -456,7 +449,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					
 					self.sortedSections = self.sections.keys
 				}
-				//println("sections=\(self.sections.count)")
 				//self.sortedSections.sortInPlace{ $0 < $1 }
 				
 				self.tableView!.reloadData()
@@ -490,7 +482,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			for item in fetchedEntries {
 				// If we don't have section for particular time, create new one,
 				// Otherwise just add item to existing section
-				//	println("section=\(entry.section), title=\(entry.title)")
 				if self.sections[item.timeSince] == nil {
 					self.sections[item.timeSince] = [item]
 				} else {
@@ -499,7 +490,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				
 				self.sortedSections = self.sections.keys
 			}
-			print("filteredSections=\(self.sections.count)")
+			#if DEBUG
+				print("filteredSections=\(self.sections.count)")
+			#endif
 			//self.sortedSections.sortInPlace{ $0 < $1 }
 
 			self.tableView!.reloadData()
@@ -627,19 +620,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		self.trackNewsClick(tableItem)
 	}
 	
+	// Return the number of sections
 	func numberOfSections(in tableView: UITableView) -> Int {
-//		if(searchActive) {
-//            return filteredSections.count
-//        }
-        // Return the number of sections.
 		return self.sections.count
     }
 
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
-//		if(searchActive){
-//			return self.filteredSections[filteredSectionsSorted[section]]!.count
-//		}
+	// Return the number of rows in the section.
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.sections[sortedSections[section]]!.count
     }
 	
@@ -848,7 +835,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		// Bottom, get next page
 		let currentOffset = scrollView.contentOffset.y
 		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-//		print("scrollViewDidScroll, currentOffset=\(currentOffset), maximumOffset=\(maximumOffset), diff=\(maximumOffset - currentOffset)")
 		if (maximumOffset - currentOffset) <= -80 {
 			if (!self.loading && self.highFiSection != "top") {
 				self.page += 1

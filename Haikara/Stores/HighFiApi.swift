@@ -13,18 +13,6 @@ import Alamofire
 open class HighFiApi {
 	
 	class func setupManager(_ appID: String, maxAge: Int) {
-//	    // Create a custom configuration
-//      let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-//		var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-//		defaultHeaders!["User-Agent"] = appID
-//		defaultHeaders!["Cache-Control"] = "private, must-revalidate, max-age=\(maxAge)"
-//      config.HTTPAdditionalHeaders = defaultHeaders
-//		config.requestCachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
-//		config.URLCache = NSURLCache.sharedURLCache()
-//		let manager = Alamofire.Manager(configuration: config)
-//		
-//		return manager
-
         SessionManager.default.session.configuration.httpAdditionalHeaders = [
             "User-Agent": appID,
             "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
@@ -48,9 +36,6 @@ open class HighFiApi {
 			
 			#if DEBUG
 				debugPrint(response)
-//                    print("HighFiApi, request: \(String(describing: response.request))")
-//                    print("HighFiApi, response: \(response.response)")
-//                    print("HighFiApi, data: \(response.data)")
 			#endif
 				
 			// check if responseJSON already has an error
@@ -76,12 +61,6 @@ open class HighFiApi {
 			let responseData = json["responseData"] as! NSDictionary
 			let feed = (responseData.value(forKey: "feed") as! NSDictionary)
 
-//      		var entries: [Entry] = []
-//      		for element in json {
-//        		if let entryResult = Entry(json: element) {
-//          			entries.append(entryResult)
-//        		}
-//      		}
 			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
 				.map { Entry(
                         title: $0["title"] as! String,
@@ -106,21 +85,17 @@ open class HighFiApi {
 						orderNro: 0
                         )
                 }
-			print("entries: \(entries.count)")
+                #if DEBUG
+                    print("entries: \(entries.count)")
+                #endif
 			
 			return completionHandler(entries)
-	  
-//			let responseData = (data.value(forKey: "responseData") as! NSDictionary)
-//            let feed = (responseData.value(forKey: "feed") as! NSDictionary)
-//			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
-  
         }
 	}
 
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
 	// e.g. http://high.fi/uutiset/json-private
     class func getNews(_ page: Int, section: String, completionHandler: @escaping ([Entry]) -> Void, failureHandler: @escaping (String) -> Void) {
-        
         #if DEBUG
             print("HighFiApi.getNews: \(page), \(section)")
         #endif
@@ -155,9 +130,6 @@ open class HighFiApi {
 				
 			#if DEBUG
 				debugPrint(response)
-//              print("HighFiApi, request: \(String(describing: response.request))")
-//              print("HighFiApi, response: \(response.response)")
-//              print("HighFiApi, data: \(response.data)")
 			#endif
 				
 			// check if responseJSON already has an error
@@ -170,9 +142,6 @@ open class HighFiApi {
     			return
   			}
 			
-//			let responseData = (data.valueForKey("responseData") as! NSDictionary)
-//            let feed = (responseData.valueForKey("feed") as! NSDictionary)
-//			let entries: [Entry] = (feed.valueForKey("entries") as! [NSDictionary])
 			guard let json = response.result.value as? [String: AnyObject] else {
                 #if DEBUG
                     print("Error: \(#function)\n", "Did not get JSON dictionary in response")
@@ -190,14 +159,6 @@ open class HighFiApi {
 				newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
 			}
 				
-//      		var entries: [Entry] = []
-//      		for element in json {
-//        		if let entryResult = Entry(json: element) {
-//					if !newsSourcesFiltered.contains(entryResult.sourceID) {
-//          				entries.append(entryResult)
-//					}
-//        		}
-//      		}
 			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
 			    .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
 				.map { Entry(
@@ -224,7 +185,9 @@ open class HighFiApi {
                         )
                 }
 
-			print("entries: \(entries.count)")
+            #if DEBUG
+                print("entries: \(entries.count)")
+            #endif
 			
 			return completionHandler(entries)
         }
@@ -266,9 +229,6 @@ open class HighFiApi {
 			
 			#if DEBUG
 				debugPrint(response)
-//              print("HighFiApi, request: \(String(describing: response.request))")
-//              print("HighFiApi, response: \(response.response)")
-//              print("HighFiApi, data: \(response.data)")
 			#endif
 				
 			// check if responseJSON already has an error
@@ -319,7 +279,9 @@ open class HighFiApi {
 					)
 			}
 
-			print("categories: \(categories.count)")
+            #if DEBUG
+                print("categories: \(categories.count)")
+            #endif
 			
 			return completionHandler(cat + categories)
         }
@@ -343,9 +305,6 @@ open class HighFiApi {
 		
 			#if DEBUG
 				debugPrint(response)
-//              print("HighFiApi, request: \(String(describing: response.request))")
-//              print("HighFiApi, response: \(response.response)")
-//              print("HighFiApi, data: \(response.data)")
 			#endif
 				
 			// check if responseJSON already has an error
@@ -368,14 +327,8 @@ open class HighFiApi {
       		}
 			
 			let responseData = json["responseData"] as! NSDictionary
-			
-//      		var languages: [Language] = []
-//      		for element in json {
-//        		if let categoryResult = Language(json: element) {
-//					languages.append(categoryResult)
-//        		}
-//      		}
-			let languages: [Language] = (responseData.value(forKey: "supportedLanguages") as! [NSDictionary])
+
+            let languages: [Language] = (responseData.value(forKey: "supportedLanguages") as! [NSDictionary])
 				.map { Language(
 					language: $0["language"] as! String,
 					country: $0["country"] as! String,
@@ -413,9 +366,6 @@ open class HighFiApi {
         request.responseJSON { response in
 			#if DEBUG
 				debugPrint(response)
-//              print("HighFiApi, request: \(String(describing: response.request))")
-//              print("HighFiApi, response: \(response.response)")
-//              print("HighFiApi, data: \(response.data)")
 			#endif
 				
 			// check if responseJSON already has an error
