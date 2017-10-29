@@ -166,7 +166,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             self.preferredContentSize = maxSize;
         }
         else {
-            self.preferredContentSize = CGSize(width: 0, height: 200);
+            self.preferredContentSize = tableView.contentSize //CGSize(width: 0, height: 220);
         }
     }
 
@@ -258,9 +258,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         cell.entryTitle.text = tableItem.title
 		// In iOS 19 widget background is light grey
 		if #available(iOS 10.0, *) {
-			#if DEBUG
-				print("iOS 10.0, *")
-			#endif
 			cell.entryTitle.textColor = textColorDark
 		} else {
 			cell.entryTitle.textColor = textColorLight
