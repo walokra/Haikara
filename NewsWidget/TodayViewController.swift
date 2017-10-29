@@ -102,7 +102,13 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			print("viewDidLoad()")
 		#endif
         super.viewDidLoad()
-		
+
+        if #available(iOSApplicationExtension 10.0, *) {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
+        } else {
+            // Fallback on earlier versions
+        }
+
 		initSettings()
 		setTheme()
 		
@@ -153,6 +159,20 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			self.selectedTodayCategoryName = category.htmlFilename
 		}
 	}
+
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize){
+        if (activeDisplayMode == NCWidgetDisplayMode.compact) {
+            self.preferredContentSize = maxSize;
+        }
+        else {
+            self.preferredContentSize = CGSize(width: 0, height: 200);
+        }
+    }
+
+    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
+        return UIEdgeInsets.zero
+    }
 	
 	func configureTableView() {
 		tableView.rowHeight = UITableViewAutomaticDimension

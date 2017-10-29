@@ -1,38 +1,47 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bif-Jq-892">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="bif-Jq-892">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--TodayWidget-->
         <scene sceneID="6eZ-R8-ekF">
             <objects>
                 <tableViewController storyboardIdentifier="TodayViewController" title="TodayWidget" id="bif-Jq-892" customClass="TodayViewController" customModule="Today" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="33" sectionHeaderHeight="28" sectionFooterHeight="28" id="NJ6-SD-fGY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="NJ6-SD-fGY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="33" id="X2u-51-6eg" customClass="TodayEntryCell" customModule="Today" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="33"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="41" id="X2u-51-6eg" customClass="TodayEntryCell" customModule="Today" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X2u-51-6eg" id="6Lw-ck-tsQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxD-z9-k7m">
-                                            <rect key="frame" x="8" y="0.0" width="304" height="25"/>
+                                            <rect key="frame" x="8" y="4" width="304" height="33"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leadingMargin" id="gLe-NR-sZl"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="trailing" secondItem="6Lw-ck-tsQ" secondAttribute="trailingMargin" id="hKD-H1-pKa"/>
-                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="top" id="kRK-Vc-bnP"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="-0.5" id="xdb-AV-UAa"/>
+                                        <constraint firstAttribute="bottom" secondItem="WxD-z9-k7m" secondAttribute="bottom" constant="3.5" id="0sA-TV-WQQ"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="top" secondItem="6Lw-ck-tsQ" secondAttribute="top" constant="4" id="Eq3-8E-CPa"/>
+                                        <constraint firstItem="WxD-z9-k7m" firstAttribute="leading" secondItem="6Lw-ck-tsQ" secondAttribute="leading" constant="8" id="PHv-9h-xfw"/>
+                                        <constraint firstAttribute="trailing" secondItem="WxD-z9-k7m" secondAttribute="trailing" constant="8" id="ZD1-pb-4ol"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
