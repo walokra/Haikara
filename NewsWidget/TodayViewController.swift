@@ -105,6 +105,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
         if #available(iOSApplicationExtension 10.0, *) {
             self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
+            resetContentSize()
         } else {
             // Fallback on earlier versions
         }
@@ -166,7 +167,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             self.preferredContentSize = maxSize;
         }
         else {
-            self.preferredContentSize = tableView.contentSize //CGSize(width: 0, height: 220);
+            self.preferredContentSize = tableView.contentSize
         }
     }
 
