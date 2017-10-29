@@ -530,7 +530,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			_ = OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
 		} else {
 			let svc = SFSafariViewController(url: webURL, entersReaderIfAvailable: settings.useReaderView)
-			svc.view.tintColor = Theme.tintColor
+			if #available(iOS 10.0, *) {
+				svc.preferredControlTintColor  = Theme.tintColor
+			} else {
+				svc.view.tintColor = Theme.tintColor
+			}
 			self.present(svc, animated: true, completion: nil)
 		}
 	}
