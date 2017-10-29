@@ -613,10 +613,17 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		var webURL = URL(string: tableItem.originalURL)
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
 			webURL = URL(string: tableItem.originalMobileUrl!)
-		}		
+		}
+		if ((tableItem.ampURL != nil && !tableItem.ampURL!.isEmpty) && self.settings.useMobileUrl) {
+			webURL = URL(string: tableItem.ampURL!)
+		}
+
 		#if DEBUG
 			print("didSelectRowAtIndexPath, useMobileUrl=\(self.settings.useMobileUrl), useReaderView=\(self.settings.useReaderView)")
 			print("didSelectRowAtIndexPath, webURL=\(String(describing: webURL))")
+			print("didSelectRowAtIndexPath, originalURL=\(String(describing: tableItem.originalURL))")
+			print("didSelectRowAtIndexPath, originalMobileUrl=\(String(describing: tableItem.originalMobileUrl))")
+			print("didSelectRowAtIndexPath, ampURL=\(String(describing: tableItem.ampURL))")
 		#endif
 		
 		handleOpenBrowser(webURL!, title: tableItem.title, event: "openURL")

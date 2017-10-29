@@ -50,6 +50,7 @@ class Entry: NSObject {
     let originalMobileUrl: String?
     let shareURL: String
     var mobileShareURL: String?
+    var ampURL: String?
     let articleID: Int
     var sectionID: Int
     let sourceID: Int
@@ -58,7 +59,7 @@ class Entry: NSObject {
     var timeSince: String
 	var orderNro: Int
 
-    init(title: String, link: String, clickTrackingLink: String, author: String, publishedDateJS: String, picture: String?, originalPicture: String?, shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, shareURL: String, mobileShareURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, highlightType: String, timeSince: String, orderNro: Int) {
+    init(title: String, link: String, clickTrackingLink: String, author: String, publishedDateJS: String, picture: String?, originalPicture: String?, shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, shareURL: String, mobileShareURL: String?, ampURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, highlightType: String, timeSince: String, orderNro: Int) {
             self.title = title
             self.link = link
             self.clickTrackingLink = clickTrackingLink
@@ -79,9 +80,10 @@ class Entry: NSObject {
 			self.highlightType = highlightType
             self.timeSince = timeSince
 			self.orderNro = orderNro
+            self.ampURL = ampURL
     }
 
 //    override var description: String {
-//        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), picture=\(self.picture), originalPicture=\(self.originalPicture), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), shareURL=\(self.shareURL), mobileShareURL=\(self.mobileShareURL), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), highlightType=\(self.highlightType), timeSince=\(self.timeSince), orderNro=\(self.orderNro)"
+//        return "Entry: title=\(self.title), link=\(self.link), clickTrackingLink=\(self.clickTrackingLink), author=\(self.author), published=\(self.publishedDateJS), picture=\(self.picture), originalPicture=\(self.originalPicture), desc=\(self.shortDescription), originalURL=\(self.originalURL), mobileLink=\(self.mobileLink), originalMobileUrl=\(self.originalMobileUrl), shareURL=\(self.shareURL), mobileShareURL=\(self.mobileShareURL), ampURL=\(self.ampURL), articleID=\(self.articleID), sectionID=\(self.sectionID), sourceID=\(self.sourceID), highlight=\(self.highlight), highlightType=\(self.highlightType), timeSince=\(self.timeSince), orderNro=\(self.orderNro)"
 //    }
 }
