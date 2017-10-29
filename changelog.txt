@@ -1,3 +1,18 @@
+0.11.1 (2017-11-01)
+* Add support for AMP URLs
+* Add support for extended Today Widget
+* Fix some layout issues with Today Widget
+* Update Alamofire libraries
+
+0.11.0 (2017-06-04)
+* Add WatchOS extension app
+* Show category menu on iPad with swipe
+
+0.10.1 (2017-04-29)
+* Remove old version checks for <iOS 9
+* Increase category indentation for clarity
+* Fix minor bugs
+
 0.10.0 (2017-04-20)
 * Add new user specific category (ICYMI, In case you missed)
 * Update API calls to match new requirements
