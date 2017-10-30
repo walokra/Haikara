@@ -112,7 +112,7 @@ class Settings {
 	var fontSizeMedium: UIFont
 	var fontSizeSmall: UIFont
 	
-	let defaults: UserDefaults = UserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
+	let defaults: UserDefaults = UserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
 	// MARK: Init
 	

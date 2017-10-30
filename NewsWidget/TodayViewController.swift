@@ -17,7 +17,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
 	
-	let defaults: UserDefaults = UserDefaults.init(suiteName: "VZSFR9BSV5.group.com.ruleoftech.highkara")!
+    let defaults: UserDefaults = UserDefaults.init(suiteName: "group.com.ruleoftech.highkara")!
 	
 	let defaultValues = Defaults(
 			useToRetrieveLists: "finnish",
