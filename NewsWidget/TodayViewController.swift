@@ -48,7 +48,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         #if DEBUG
             print(#function)
         #endif
-		
+
 		if let region: String = defaults.object(forKey: "region") as? String {
             self.region = region
         } else {
@@ -159,9 +159,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize){
-        #if DEBUG
-            print("widgetActiveDisplayModeDidChange, activeDisplayMode: \(activeDisplayMode), maxSize: \(maxSize)")
-        #endif
         if (activeDisplayMode == NCWidgetDisplayMode.compact) {
             self.preferredContentSize = maxSize
         } else {
