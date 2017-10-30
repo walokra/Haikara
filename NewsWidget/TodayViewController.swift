@@ -105,9 +105,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
         if #available(iOSApplicationExtension 10.0, *) {
             self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
-            resetContentSize()
         } else {
-            // Fallback on earlier versions
+            self.preferredContentSize = tableView.contentSize
         }
 
 		initSettings()
@@ -139,9 +138,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		
 		configureTableView()
 		
-		tableView.tableFooterView = UIView(frame: CGRect.zero)
-		self.tableView.tableFooterView?.isHidden = true
-		
 		if self.entries.isEmpty {
             _ = getNews(self.page)
 		}
@@ -163,19 +159,27 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize){
+        #if DEBUG
+            print("widgetActiveDisplayModeDidChange, activeDisplayMode: \(activeDisplayMode), maxSize: \(maxSize)")
+        #endif
         if (activeDisplayMode == NCWidgetDisplayMode.compact) {
-            self.preferredContentSize = maxSize;
-        }
-        else {
-            self.preferredContentSize = tableView.contentSize
+            self.preferredContentSize = maxSize
+        } else {
+            self.preferredContentSize = CGSize(width: 0, height: 200)
         }
     }
 
-    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
-        return UIEdgeInsets.zero
-    }
+//    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
+//        #if DEBUG
+//            print("widgetMarginInsetsForProposedMarginInsets")
+//        #endif
+//        return UIEdgeInsets.zero
+//    }
 	
 	func configureTableView() {
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.tableView.tableFooterView?.isHidden = true
+
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 33.0
 	}
@@ -214,7 +218,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 					self.entries = Array(result[0..<self.maxNewsItems])
 		
 					self.tableView.reloadData()
-					self.resetContentSize()
 					self.setLoadingState(false)
 				}
 				, failureHandler: {(error)in
@@ -286,10 +289,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		HighFiApi.trackNewsClick(entry.clickTrackingLink)
 	}
 	
-	func resetContentSize(){
-		self.preferredContentSize = tableView.contentSize
-	}
-	
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
 		#if DEBUG
 			print("widgetPerformUpdateWithCompletionHandler")
@@ -306,7 +305,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 				print("widgetPerformUpdateWithCompletionHandler, results=\(self.entries.count)")
 			#endif
 			self.tableView.reloadData()
-			self.resetContentSize()
 			self.setLoadingState(false)
 
 			completionHandler(NCUpdateResult.newData)
