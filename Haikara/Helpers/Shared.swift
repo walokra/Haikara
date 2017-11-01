@@ -33,25 +33,31 @@ extension Notification.Name {
 
 extension UIViewController {
     func sendScreenView(_ viewName: String) {
-		let gai = GAI.sharedInstance()
-		if !(gai?.optOut)! {
-    	    let tracker = gai?.defaultTracker
-    	    tracker?.set(kGAIScreenName, value: viewName)
-    	    let builder = GAIDictionaryBuilder.createScreenView()
-    	    tracker?.send(builder?.build() as! [AnyHashable: Any])
+		guard let gai = GAI.sharedInstance() else { return }
+		if (gai.optOut) {
+    	    return
 		}
+        
+        guard let tracker = gai.defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: viewName)
+
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     func trackEvent(_ event: String, category: String, action: String, label: String, value: NSNumber?) {
-		let gai = GAI.sharedInstance()
-		if !(gai?.optOut)! {
-			let tracker = gai?.defaultTracker
-			tracker?.set(kGAIEvent, value: event)
-        	let trackDictionary = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: label, value: value)
-        	tracker?.send(trackDictionary?.build() as! [AnyHashable: Any])
-		}
-    }
-	
+        guard let gai = GAI.sharedInstance() else { return }
+        if (gai.optOut) {
+            return
+        }
+        
+        guard let tracker = gai.defaultTracker else { return }
+        tracker.set(kGAIEvent, value: event)
+        
+        guard let trackDictionary = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: label, value: value) else { return }
+        tracker.send(trackDictionary.build() as [NSObject : AnyObject])
+	}
+
     func handleError(_ error: String, title: String) {
         #if DEBUG
             print("handleError, error: \(error)")

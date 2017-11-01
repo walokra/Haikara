@@ -12,7 +12,7 @@ def alamofire_image
 end
 
 def shared_pods
-	pod 'Google/Analytics'
+	pod 'GoogleAnalytics'
 end
 
 target 'highkara' do

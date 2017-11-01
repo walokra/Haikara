@@ -128,18 +128,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func setAnalytics() {
 		let settings = Settings.sharedInstance
 
-		// Configure tracker from GoogleService-Info.plist.
-		var configureError:NSError?
-		GGLContext.sharedInstance().configureWithError(&configureError)
-		assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+        guard let gai = GAI.sharedInstance() else {
+            assert(false, "Google Analytics not configured correctly")
+        }
+        gai.tracker(withTrackingId: "UA-528020-10")
+        // Optional: automatically report uncaught exceptions.
+        gai.trackUncaughtExceptions = true
+        
+        // Remove before app release.
+        // #if DEBUG
+        //  gai.logger.logLevel = .verbose;
+        // #endif
 
-		// Optional: configure GAI options.
-		let gai = GAI.sharedInstance()
-		gai?.optOut = settings.optOutAnalytics
-		gai?.trackUncaughtExceptions = true  // report uncaught exceptions
-//		#if DEBUG
-//			gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
-//		#endif
+        gai.optOut = settings.optOutAnalytics
 	}
 	
     func applicationWillResignActive(_ application: UIApplication) {

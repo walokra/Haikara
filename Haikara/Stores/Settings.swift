@@ -137,7 +137,7 @@ class Settings {
 		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
-		
+
         if let useToRetrieveLists: String = defaults.object(forKey: "useToRetrieveLists") as? String {
             self.useToRetrieveLists = useToRetrieveLists
         } else {
@@ -312,10 +312,6 @@ class Settings {
 
 		self.defaults.synchronize()
 
-        // For development
-//        self.categoriesByLang = Dictionary<String, Array<Category>>()
-//        self.categoriesUpdatedByLang = Dictionary<String, NSDate>()
-        
         #if DEBUG
             print("\(self.description)")
         #endif
