@@ -29,22 +29,22 @@ class Category: NSObject, NSCoding {
         super.init()
     }
 
-    required init(coder aDecoder: NSCoder) {
-        title = aDecoder.decodeObject(of: NSString.self, forKey: "title")! as String
-        sectionID = aDecoder.decodeInteger(forKey: "sectionID") 
-        depth = aDecoder.decodeInteger(forKey: "depth")
-        htmlFilename = aDecoder.decodeObject(of: NSString.self, forKey: "htmlFilename")! as String
-		highlight = aDecoder.decodeBool(forKey: "highlight")
-        selected = aDecoder.decodeBool(forKey: "selected")
+    required init(coder decoder: NSCoder) {
+        title = decoder.decodeObject(of: NSString.self, forKey: "title")! as String
+        sectionID = decoder.decodeObject(forKey: "sectionID") as! Int
+        depth = decoder.decodeObject(forKey: "depth") as! Int
+        htmlFilename = decoder.decodeObject(of: NSString.self, forKey: "htmlFilename")! as String
+		highlight = decoder.decodeObject(forKey: "highlight") as! Bool
+        selected = decoder.decodeObject(forKey: "selected") as! Bool
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(title, forKey: "title")
-        aCoder.encode(sectionID, forKey: "sectionID")
-        aCoder.encode(depth, forKey: "depth")
-        aCoder.encode(htmlFilename, forKey: "htmlFilename")
-		aCoder.encode(highlight, forKey: "highlight")
-        aCoder.encode(selected, forKey: "selected")
+    func encode(with coder: NSCoder) {
+        coder.encode(title, forKey: "title")
+        coder.encode(sectionID, forKey: "sectionID")
+        coder.encode(depth, forKey: "depth")
+        coder.encode(htmlFilename, forKey: "htmlFilename")
+		coder.encode(highlight, forKey: "highlight")
+        coder.encode(selected, forKey: "selected")
     }
     
 //    override var description: String {

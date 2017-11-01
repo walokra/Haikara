@@ -24,8 +24,8 @@ class NewsSources: NSObject, NSCoding {
 
 	required init(coder aDecoder: NSCoder) {
         sourceName = aDecoder.decodeObject(of: NSString.self, forKey: "sourceName")! as String
-        sourceID = aDecoder.decodeInteger(forKey: "sourceID")
-		selected = aDecoder.decodeBool(forKey: "selected")
+        sourceID = aDecoder.decodeObject(forKey: "sourceID") as! Int
+		selected = aDecoder.decodeObject(forKey: "selected") as! Bool
     }
     
     func encode(with aCoder: NSCoder) {
