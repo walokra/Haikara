@@ -31,11 +31,11 @@ class Category: NSObject, NSCoding {
 
     required init(coder decoder: NSCoder) {
         title = decoder.decodeObject(of: NSString.self, forKey: "title")! as String
-        sectionID = decoder.decodeObject(forKey: "sectionID") as! Int
-        depth = decoder.decodeObject(forKey: "depth") as! Int
+        sectionID = decoder.decodeInteger(forKey: "sectionID")
+        depth = decoder.decodeInteger(forKey: "depth")
         htmlFilename = decoder.decodeObject(of: NSString.self, forKey: "htmlFilename")! as String
-		highlight = decoder.decodeObject(forKey: "highlight") as! Bool
-        selected = decoder.decodeObject(forKey: "selected") as! Bool
+		highlight = decoder.decodeBool(forKey: "highlight")
+        selected = decoder.decodeBool(forKey: "selected")
     }
     
     func encode(with coder: NSCoder) {

@@ -231,8 +231,9 @@ class Settings {
         }
 
         // Get Dictionary of categories from storage
-        if let unarchivedCategoriesByLang = defaults.data(forKey: "categoriesByLang") {
-            self.categoriesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedCategoriesByLang) as! Dictionary<String, Array<Category>>
+        if let categoriesByLangData = defaults.data(forKey: "categoriesByLang"),
+            let unarchivedCategoriesByLang = NSKeyedUnarchiver.unarchiveObject(with: categoriesByLangData) as? Dictionary<String, Array<Category>> {
+            self.categoriesByLang = unarchivedCategoriesByLang
             
             if let categories: [Category] = categoriesByLang[self.region] {
                 self.categories = categories
@@ -258,14 +259,15 @@ class Settings {
             self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
         }
 		
-		if let unarchivedtodayCategoryByLang = defaults.data(forKey: "todayCategoryByLang") {
-            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+		if let todayCategoryByLangData = defaults.data(forKey: "todayCategoryByLang"),
+            let unarchivedtodayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: todayCategoryByLangData) as? Dictionary<String, Category> {
+            self.todayCategoryByLang = unarchivedtodayCategoryByLang
 		}
 
         // Get Dictionary of news sources from storage
-        if let unarchivedNewsSourcesByLang = defaults.data(forKey: "newsSourcesByLang") {
-            self.newsSourcesByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedNewsSourcesByLang) as! Dictionary<String, Array<NewsSources>>
-            
+        if let newsSourcesByLangData = defaults.data(forKey: "newsSourcesByLang"),
+            let unarchivedNewsSourcesByLang = NSKeyedUnarchiver.unarchiveObject(with: newsSourcesByLangData) as? Dictionary<String, Array<NewsSources>> {
+            self.newsSourcesByLang = unarchivedNewsSourcesByLang
             if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
                 self.newsSources = newsSources
             }
