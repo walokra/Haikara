@@ -37,60 +37,61 @@ open class HighFiApi {
 			#if DEBUG
 				debugPrint(response)
 			#endif
-				
-			// check if responseJSON already has an error
-			// e.g., no network connection
-  			guard response.result.error == nil else {
-				#if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
-				failureHandler(response.result.error! as! String)
-    			return
-  			}
-			
-			// make sure we got JSON and it's an array of dictionaries
-			guard let json = response.result.value as? [String: AnyObject] else {
-                #if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
+                
+            switch response.result {
+                case .success:
+                    // make sure we got JSON and it's an array of dictionaries
+                    guard let json = response.result.value as? [String: AnyObject] else {
+                        #if DEBUG
+                            print("Error: \(#function)\n", response.result.error!)
+                        #endif
+                        
+                        failureHandler("Did not get JSON array in response")
+                        return
+                    }
+                    
+                    let responseData = json["responseData"] as! NSDictionary
+                    let feed = (responseData.value(forKey: "feed") as! NSDictionary)
+                    
+                    let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
+                        .map {(element) in
+                            return Entry(
+                                title: element["title"] as! String,
+                                link: element["link"] as! String,
+                                clickTrackingLink: element["clickTrackingLink"] as! String,
+                                author: element["author"] as! String,
+                                publishedDateJS: element["publishedDateJS"] as! String,
+                                picture: element["picture"] as? String,
+                                originalPicture: element["originalPicture"] as? String,
+                                shortDescription: element["shortDescription"] as? String,
+                                originalURL: element["originalURL"] as! String,
+                                mobileLink: element["mobileLink"] as? String,
+                                originalMobileUrl: element["originalMobileUrl"] as?    String,
+                                shareURL: element["shareURL"] as! String,
+                                mobileShareURL: element["mobileShareURL"] as? String,
+                                ampURL: element["ampURL"] as? String,
+                                articleID: element["articleID"] as! Int,
+                                sectionID: element["sectionID"] as! Int,
+                                sourceID: element["sourceID"] as! Int,
+                                highlight: element["highlight"] as! Bool,
+                                highlightType: element["highlightType"] as! String,
+                                timeSince: "Juuri nyt",
+                                orderNro: 0
+                            )
+                    }
+                    #if DEBUG
+                        print("entries: \(entries.count)")
+                    #endif
+                    
+                    return completionHandler(entries)
 
-        		failureHandler("Did not get JSON array in response")
-        		return
-      		}
-			
-			let responseData = json["responseData"] as! NSDictionary
-			let feed = (responseData.value(forKey: "feed") as! NSDictionary)
-
-			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
-				.map { Entry(
-                        title: $0["title"] as! String,
-                        link: $0["link"] as! String,
-                        clickTrackingLink: $0["clickTrackingLink"] as! String,
-                        author: $0["author"] as! String,
-                        publishedDateJS: $0["publishedDateJS"] as! String,
-						picture: $0["picture"] as? String,
-                        originalPicture: $0["originalPicture"] as? String,
-                        shortDescription: $0["shortDescription"] as? String,
-                        originalURL: $0["originalURL"] as! String,
-                        mobileLink: $0["mobileLink"] as? String,
-                        originalMobileUrl: $0["originalMobileUrl"] as?	String,
-                        shareURL: $0["shareURL"] as! String,
-                        mobileShareURL: $0["mobileShareURL"] as? String,
-                        ampURL: $0["ampURL"] as? String,
-                        articleID: $0["articleID"] as! Int,
-                        sectionID: $0["sectionID"] as! Int,
-                        sourceID: $0["sourceID"] as! Int,
-                        highlight: $0["highlight"] as! Bool,
-						highlightType: $0["highlightType"] as! String,
-                        timeSince: "Juuri nyt",
-						orderNro: 0
-                        )
-                }
-                #if DEBUG
-                    print("entries: \(entries.count)")
-                #endif
-			
-			return completionHandler(entries)
+                case .failure(let error):
+                    #if DEBUG
+                        print("Error: \(#function)\n", error)
+                    #endif
+                    failureHandler(error.localizedDescription)
+                    return
+            }
         }
 	}
 
@@ -132,66 +133,75 @@ open class HighFiApi {
 			#if DEBUG
 				debugPrint(response)
 			#endif
-				
-			// check if responseJSON already has an error
-			// e.g., no network connection
-  			guard response.result.error == nil else {
-				#if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
-				failureHandler(response.result.error! as! String)
-    			return
-  			}
-			
-			guard let json = response.result.value as? [String: AnyObject] else {
-                #if DEBUG
-                    print("Error: \(#function)\n", "Did not get JSON dictionary in response")
-                #endif
 
-        		failureHandler("Did not get JSON dictionary in response")
-        		return
-      		}
-
-			let responseData = json["responseData"] as! NSDictionary
-            let feed = responseData.value(forKey: "feed") as! NSDictionary
-			
-			var newsSourcesFiltered = [Int]()
-			if settings.newsSourcesFiltered[settings.region] != nil {
-				newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
-			}
-				
-			let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
-			    .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
-				.map { Entry(
-                        title: $0["title"] as! String,
-                        link: $0["link"] as! String,
-                        clickTrackingLink: $0["clickTrackingLink"] as! String,
-                        author: $0["author"] as! String,
-                        publishedDateJS: $0["publishedDateJS"] as! String,
-						picture: $0["picture"] as? String,
-                        originalPicture: $0["originalPicture"] as? String,
-                        shortDescription: $0["shortDescription"] as? String,
-                        originalURL: $0["originalURL"] as! String,
-                        mobileLink: $0["mobileLink"] as? String,
-                        originalMobileUrl: $0["originalMobileUrl"] as?	String,
-                        shareURL: $0["shareURL"] as! String,
-                        mobileShareURL: $0["mobileShareURL"] as? String,
-                        ampURL: $0["ampURL"] as? String,
-                        articleID: $0["articleID"] as! Int,
-                        sectionID: $0["sectionID"] as! Int,
-                        sourceID: $0["sourceID"] as! Int,
-                        highlight: $0["highlight"] as! Bool,
-						highlightType: $0["highlightType"] as! String,
-                        timeSince: "Juuri nyt",
-						orderNro: 0
-                        )
-                }
-
-            #if DEBUG
-                print("entries: \(entries.count)")
-            #endif
-			
-			return completionHandler(entries)
+            switch response.result {
+                case .success:
+                    guard let json = response.result.value as? [String: AnyObject] else {
+                        #if DEBUG
+                            print("Error: \(#function)\n", "Did not get JSON dictionary in response")
+                        #endif
+                        
+                        failureHandler("Did not get JSON dictionary in response")
+                        return
+                    }
+                    
+                    let responseData = json["responseData"] as! NSDictionary
+                    let feed = responseData.value(forKey: "feed") as! NSDictionary
+                    
+                    var newsSourcesFiltered = [Int]()
+                    if settings.newsSourcesFiltered[settings.region] != nil {
+                        newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
+                    }
+                    
+                    do {
+                    let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
+                        .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
+                        .map {(element) in
+                            return Entry(
+                                title: element["title"] as! String,
+                                link: element["link"] as! String,
+                                clickTrackingLink: element["clickTrackingLink"] as! String,
+                                author: element["author"] as! String,
+                                publishedDateJS: element["publishedDateJS"] as! String,
+                                picture: element["picture"] as? String,
+                                originalPicture: element["originalPicture"] as? String,
+                                shortDescription: element["shortDescription"] as? String,
+                                originalURL: element["originalURL"] as! String,
+                                mobileLink: element["mobileLink"] as? String,
+                                originalMobileUrl: element["originalMobileUrl"] as?    String,
+                                shareURL: element["shareURL"] as! String,
+                                mobileShareURL: element["mobileShareURL"] as? String,
+                                ampURL: element["ampURL"] as? String,
+                                articleID: element["articleID"] as! Int,
+                                sectionID: element["sectionID"] as! Int,
+                                sourceID: element["sourceID"] as! Int,
+                                highlight: element["highlight"] as! Bool,
+                                highlightType: element["highlightType"] as! String,
+                                timeSince: "Juuri nyt",
+                                orderNro: 0
+                            )
+                    }
+                    
+                    #if DEBUG
+                        print("entries: \(entries.count)")
+                    #endif
+                    
+                    return completionHandler(entries)
+                    } catch{
+                        #if DEBUG
+                            print("parse error")
+                        #endif
+                        failureHandler("parse error")
+                        return
+                    }
+                
+                case .failure(let error):
+                    #if DEBUG
+                        print("Error: \(#function)\n", error)
+                    #endif
+                    failureHandler(error.localizedDescription)
+                    return
+            }
         }
     }
 	
@@ -232,60 +242,51 @@ open class HighFiApi {
 			#if DEBUG
 				debugPrint(response)
 			#endif
-				
-			// check if responseJSON already has an error
-			// e.g., no network connection
-  			guard response.result.error == nil else {
-				#if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
-				failureHandler(response.result.error! as! String)
-    			return
-  			}
 			
-			// make sure we got JSON and it's an array of dictionaries
-//			guard let json = response.result.value as? [String: AnyObject] else {
-//                #if DEBUG
-//                    print("Error: \(#function)\n", response.result.error!)
-//                #endif
-//
-//        		failureHandler("Did not get JSON array in response")
-//        		return
-//      		}
-
-			guard let json = response.result.value as? [String: AnyObject] else {
-                #if DEBUG
-                    print("Error: \(#function)\n", "Did not get JSON array in response")
-                #endif
-
-        		failureHandler("Did not get JSON array in response")
-        		return
-      		}
-			
-			let responseData = json["responseData"] as! NSDictionary
-			
-			// Add always found categories to the list
-			var cat = [Category]()
-			cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
-			cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
-			
-			let categories: [Category] = (responseData.value(forKey: "categories") as! [NSDictionary])
-//          	    .filter({ ($0["depth"] as! Int) == 1 })
-				.map { Category(
-					title: $0["title"] as! String,
-					sectionID: $0["sectionID"] as! Int,
-					depth: $0["depth"] as! Int,
-					htmlFilename: $0["htmlFilename"] as! String,
-					highlight: $0["highlight"] as! Bool,
-					selected: false
-					)
-			}
-
-            #if DEBUG
-                print("categories: \(categories.count)")
-            #endif
-			
-			return completionHandler(cat + categories)
+            switch response.result {
+                case .success:
+                    guard let json = response.result.value as? [String: AnyObject] else {
+                        #if DEBUG
+                            print("Error: \(#function)\n", "Did not get JSON array in response")
+                        #endif
+                        
+                        failureHandler("Did not get JSON array in response")
+                        return
+                    }
+                    
+                    let responseData = json["responseData"] as! NSDictionary
+                    
+                    // Add always found categories to the list
+                    var cat = [Category]()
+                    cat.append(Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true))
+                    cat.append(Category(title: settings.mostPopularName, sectionID: 1, depth: 1, htmlFilename: "top", highlight: false, selected: true))
+                    
+                    let categories: [Category] = (responseData.value(forKey: "categories") as! [NSDictionary])
+                        //                  .filter({ ($0["depth"] as! Int) == 1 })
+                        .map {(element) in
+                            return Category(
+                                title: element["title"] as! String,
+                                sectionID: element["sectionID"] as! Int,
+                                depth: element["depth"] as! Int,
+                                htmlFilename: element["htmlFilename"] as! String,
+                                highlight: element["highlight"] as! Bool,
+                                selected: false
+                            )
+                    }
+                    
+                    #if DEBUG
+                        print("categories: \(categories.count)")
+                    #endif
+                    
+                    return completionHandler(cat + categories)
+            
+                case .failure(let error):
+                    #if DEBUG
+                        print("Error: \(#function)\n", error)
+                    #endif
+                    failureHandler(error.localizedDescription)
+                    return
+            }
         }
     }
 
@@ -308,47 +309,48 @@ open class HighFiApi {
 			#if DEBUG
 				debugPrint(response)
 			#endif
-				
-			// check if responseJSON already has an error
-			// e.g., no network connection
-  			guard response.result.error == nil else {
-				#if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
-				failureHandler(response.result.error! as! String)
-    			return
-  			}
-
-			guard let json = response.result.value as? [String: AnyObject] else {
-                #if DEBUG
-                    print("Error: \(#function)\n", "Did not get JSON array in response")
-                #endif
-
-        		failureHandler("Did not get JSON array in response")
-        		return
-      		}
-			
-			let responseData = json["responseData"] as! NSDictionary
-
-            let languages: [Language] = (responseData.value(forKey: "supportedLanguages") as! [NSDictionary])
-				.map { Language(
-					language: $0["language"] as! String,
-					country: $0["country"] as! String,
-					domainToUse: $0["domainToUse"] as! String,
-					languageCode: $0["languageCode"] as! String,
-					mostPopularName: $0["mostPopularName"] as! String,
-					latestName: $0["latestName"] as! String,
-					useToRetrieveLists: $0["useToRetrieveLists"] as!	String,
-					genericNewsURLPart: $0["genericNewsURLPart"] as! String
-					)
-				}
-
-			#if DEBUG
-				print("HighFiApi, languages: \(languages.count)")
-				//println("languages: \(languages)")
-			#endif
-			
-			return completionHandler(languages)
+            
+            switch response.result {
+                case .success:
+                    guard let json = response.result.value as? [String: AnyObject] else {
+                        #if DEBUG
+                            print("Error: \(#function)\n", "Did not get JSON array in response")
+                        #endif
+                        
+                        failureHandler("Did not get JSON array in response")
+                        return
+                    }
+                    
+                    let responseData = json["responseData"] as! NSDictionary
+                    
+                    let languages: [Language] = (responseData.value(forKey: "supportedLanguages") as! [NSDictionary])
+                        .map {(element) in
+                            return Language(
+                                language: element["language"] as! String,
+                                country: element["country"] as! String,
+                                domainToUse: element["domainToUse"] as! String,
+                                languageCode: element["languageCode"] as! String,
+                                mostPopularName: element["mostPopularName"] as! String,
+                                latestName: element["latestName"] as! String,
+                                useToRetrieveLists: element["useToRetrieveLists"] as!    String,
+                                genericNewsURLPart: element["genericNewsURLPart"] as! String
+                            )
+                    }
+                    
+                    #if DEBUG
+                        print("HighFiApi, languages: \(languages.count)")
+                        //println("languages: \(languages)")
+                    #endif
+                    
+                    return completionHandler(languages)
+            
+                case .failure(let error):
+                    #if DEBUG
+                        print("Error: \(#function)\n", error)
+                    #endif
+                    failureHandler(error.localizedDescription)
+                    return
+            }
         }
     }
 	
@@ -370,40 +372,41 @@ open class HighFiApi {
 				debugPrint(response)
 			#endif
 				
-			// check if responseJSON already has an error
-			// e.g., no network connection
-  			guard response.result.error == nil else {
-				#if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
-				failureHandler(response.result.error! as! String)
-    			return
-  			}
-			
-			// make sure we got JSON and it's an array of dictionaries
-			guard let json = response.result.value as? [String: AnyObject] else {
-                #if DEBUG
-                    print("Error: \(#function)\n", response.result.error!)
-                #endif
+            switch response.result {
+                case .success:
+                    // make sure we got JSON and it's an array of dictionaries
+                    guard let json = response.result.value as? [String: AnyObject] else {
+                        #if DEBUG
+                            print("Error: \(#function)\n", response.result.error!)
+                        #endif
+                        
+                        failureHandler("Did not get JSON array in response")
+                        return
+                    }
+                    
+                    let responseData = json["responseData"] as! NSDictionary
+                    let newsSources: [NewsSources] = (responseData.value(forKey: "newsSources") as! [NSDictionary])
+                        .map {(element) in
+                            return NewsSources(
+                                sourceName: element["sourceName"] as! String,
+                                sourceID: element["sourceID"] as! Int,
+                                selected: false
+                            )
+                    }
+                    
+                    #if DEBUG
+                        print("HighFiApi, newsSources: \(newsSources.count)")
+                    #endif
+                    
+                    return completionHandler(newsSources)
 
-        		failureHandler("Did not get JSON array in response")
-        		return
-      		}
-			
-			let responseData = json["responseData"] as! NSDictionary
-			let newsSources: [NewsSources] = (responseData.value(forKey: "newsSources") as! [NSDictionary])
-				.map { NewsSources(
-					sourceName: $0["sourceName"] as! String,
-					sourceID: $0["sourceID"] as! Int,
-					selected: false
-					)
-				}
-
-			#if DEBUG
-				print("HighFiApi, newsSources: \(newsSources.count)")
-			#endif
-			
-			return completionHandler(newsSources)
+                case .failure(let error):
+                    #if DEBUG
+                        print("Error: \(#function)\n", error)
+                    #endif
+                    failureHandler(error.localizedDescription)
+                    return
+            }
         }
     }
 }
