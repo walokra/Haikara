@@ -101,6 +101,8 @@
 		36F6D4BF1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6D4BE1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift */; };
 		56661E35E201E29CA75C78D6 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */; };
 		8740C6D6603E30B769B13532 /* Pods_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDCD9BAF645EE6D6C4836AF /* Pods_Watch_Extension.framework */; };
+		DA1BFAA61FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */; };
+		DA1BFAA71FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */; };
 		ED2BBB030C3DDDEC88450E0F /* Pods_HighkaraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -272,6 +274,8 @@
 		808BE505B97C4AD349677701 /* Pods-HighkaraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighkaraTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4C89DC1073AB6AEA86465BD /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6FB4050DF578DF5D89F7BFA /* Pods-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.release.xcconfig"; sourceTree = "<group>"; };
+		DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x~iphone.png"; sourceTree = "<group>"; };
+		DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-812h@3x~iphone.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,6 +470,8 @@
 				36778F731B3760C000F387E0 /* Default-667h@2x~iphone.png */,
 				36778F741B3760C000F387E0 /* Default-736h@3x~iphone.png */,
 				36778F751B3760C000F387E0 /* Default-Landscape@2x~ipad.png */,
+				DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */,
+				DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */,
 				36778F761B3760C000F387E0 /* Default-Landscape@3x.png */,
 				36778F771B3760C000F387E0 /* Default-Landscape~ipad.png */,
 				36778F781B3760C000F387E0 /* Default-Portrait@2x~ipad.png */,
@@ -821,8 +827,10 @@
 				36778F881B37651000F387E0 /* iTunesArtwork.png in Resources */,
 				36B3F4451B9B1B0A0095F85A /* ios-funnel.png in Resources */,
 				36778F851B3760C000F387E0 /* Default@2x~iphone.png in Resources */,
+				DA1BFAA71FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png in Resources */,
 				3650D7881B9312B000A4D528 /* Localizable.strings in Resources */,
 				36778F7E1B3760C000F387E0 /* Default-667h@2x~iphone.png in Resources */,
+				DA1BFAA61FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png in Resources */,
 				36778F841B3760C000F387E0 /* Default-Portrait~ipad.png in Resources */,
 				361E2F851C162C6D00D27F7C /* ios-star-outline.png in Resources */,
 				36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */,
