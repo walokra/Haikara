@@ -114,6 +114,14 @@ open class HighFiApi {
         }
 	}
 
+    class func parseArticleID(id: Any) -> Int {
+        if let id = id as? Int {
+            return id
+        } else {
+            return (id as! NSString).integerValue
+        }
+    }
+    
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
 	// e.g. http://high.fi/uutiset/json-private
     class func getNews(_ page: Int, section: String, completionHandler: @escaping ([Entry]) -> Void, failureHandler: @escaping (String) -> Void) {
@@ -171,8 +179,7 @@ open class HighFiApi {
                     if settings.newsSourcesFiltered[settings.region] != nil {
                         newsSourcesFiltered = settings.newsSourcesFiltered[settings.region]!
                     }
-                    
-                    do {
+
                     let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
                         .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
                         .map {(element) in
@@ -191,7 +198,7 @@ open class HighFiApi {
                                 shareURL: element["shareURL"] as! String,
                                 mobileShareURL: element["mobileShareURL"] as? String,
                                 ampURL: element["ampURL"] as? String,
-                                articleID: element["articleID"] as! Int,
+                                articleID: parseArticleID(id: element["articleID"] as Any),
                                 sectionID: element["sectionID"] as! Int,
                                 sourceID: element["sourceID"] as! Int,
                                 highlight: element["highlight"] as! Bool,
@@ -206,14 +213,7 @@ open class HighFiApi {
                     #endif
                     
                     return completionHandler(entries)
-                    } catch{
-                        #if DEBUG
-                            print("parse error")
-                        #endif
-                        failureHandler("parse error")
-                        return
-                    }
-                
+
                 case .failure(let error):
                     #if DEBUG
                         print("Error: \(#function)\n", error)
