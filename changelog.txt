@@ -1,3 +1,19 @@
+0.12.0 (2018-03-31)
+* Add option to show paid-for / paywalled news sites which are omitted by default
+* Migrate to Swift 4
+* Fix minor UI layout issues in settings
+* Remove exception domains as High.fi provides now https
+
+0.11.3 (2017-12-23)
+* Add support for iPhone X full screen mode by adding correct launch image.
+* Fix problem in High.fi API when articleID is String and not Int (at least in media, tiede, netflix-uudet ja viranomaiset) by parsing articleID from Any to Int.
+* Remove GoogleToolboxForMac from Pods
+* Use case success and failure for Alamofire json
+
+0.11.2 (2017-11-02)
+* Guard againts decoding values from Swift 2 and Swift 3
+* Use GoogleAnalytics as Google/Analytics is deprated
+
 0.11.1 (2017-11-01)
 * Add support for AMP URLs
 * Add support for extended Today Widget
