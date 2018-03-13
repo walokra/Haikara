@@ -384,7 +384,7 @@ open class HighFiApi {
         
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = Alamofire.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act": "listSources", "usedLanguage": settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
 			#if DEBUG

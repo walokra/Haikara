@@ -260,7 +260,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         if let newsSources: [NewsSources] = self.settings.newsSourcesByLang[self.settings.region] {
 			#if DEBUG
 				print("filter view, getNewsSources: getting news sources for '\(self.settings.region)' from settings")
-				print("newsSources=\(newsSources)")
+//                print("newsSources=\(newsSources)")
 			#endif
 			
 			if let updated: Date = self.settings.newsSourcesUpdatedByLang[self.settings.region] {
