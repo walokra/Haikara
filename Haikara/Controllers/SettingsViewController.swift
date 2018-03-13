@@ -440,7 +440,7 @@ class SettingsViewController: UITableViewController {
 		self.tableView.reloadData()
 	}
 
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("SettingsViewController, Received themeChangedNotification")
         #endif
@@ -473,7 +473,7 @@ class SettingsViewController: UITableViewController {
 		renderPreview()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
@@ -487,14 +487,14 @@ class SettingsViewController: UITableViewController {
 		setSelectedRegion()
 	}
 	
-	func setTodayCategories(_ notification: Notification) {
+	@objc func setTodayCategories(_ notification: Notification) {
         #if DEBUG
             print("SettingsViewController, Received categoriesRefreshedNotification")
         #endif
 		setSelectedRegion() //setSelectedTodayCategory()
 	}
 	
-	func setTodayCategory(_ notification: Notification) {
+	@objc func setTodayCategory(_ notification: Notification) {
         #if DEBUG
             print("SettingsViewController, Received todayCategoryChangedNotification")
         #endif

@@ -126,7 +126,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let searchText = searchBar.text?.trimmingCharacters(
     		in: CharacterSet.whitespacesAndNewlines
 		)
-		if searchText?.characters.count > 2 {
+		if searchText?.count > 2 {
         	searchActive = false
 			didSearch = true
 			self.search(searchBar.text!)
@@ -219,7 +219,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 
-	func handleOpenURL(_ notification:Notification){
+	@objc func handleOpenURL(_ notification:Notification){
     	if let url = notification.object as? String {
 			let webURL = URL(string: url)
 
@@ -235,7 +235,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
@@ -260,7 +260,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 //        return Theme.statusBarStyle
 //    }
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("DetailViewController, Received themeChangedNotification")
         #endif
@@ -528,7 +528,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		tableView.estimatedRowHeight = 110.0
 	}
 	
-	func refresh(_ sender:AnyObject) {
+	@objc func refresh(_ sender:AnyObject) {
 		self.page = 1
 		if (self.highFiSection == "favorites") {
 			getFavorites()
@@ -966,10 +966,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func createClockIcon(_ color: UIColor) {
 		let string = String.ionIconString("ion-ios-clock-outline")
-        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 14.00)!])
-        stringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
+        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 14.00)!])
+        stringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
         stringAttributed.addAttribute(
-        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
+        	NSAttributedStringKey.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
         )
 		clockLabel.attributedText = stringAttributed
 	}

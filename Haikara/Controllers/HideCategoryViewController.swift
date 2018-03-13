@@ -92,7 +92,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("HideCategoriesView, Received themeChangedNotification")
         #endif
@@ -104,14 +104,14 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(_ notification: Notification) {
+    @objc func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("Received categoriesRefreshedNotification")
         #endif
@@ -120,7 +120,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         self.tableView!.reloadData()
     }
     
-    func resetHidden(_ notification: Notification) {
+    @objc func resetHidden(_ notification: Notification) {
         #if DEBUG
             print("Received settingsResetedNotification")
         #endif

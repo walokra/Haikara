@@ -91,7 +91,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		titleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("FavoriteCategoriesView, Received themeChangedNotification")
         #endif
@@ -103,14 +103,14 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(_ notification: Notification) {
+    @objc func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("Received categoriesRefreshedNotification")
         #endif
@@ -119,7 +119,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         self.tableView!.reloadData()
     }
     
-    func resetFavorited(_ notification: Notification) {
+    @objc func resetFavorited(_ notification: Notification) {
         #if DEBUG
             print("Received settingsResetedNotification")
         #endif

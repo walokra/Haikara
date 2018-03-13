@@ -77,4 +77,10 @@ class EntryCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    override func setHighlighted(_ hilighted: Bool, animated: Bool) {
+        super.setHighlighted(hilighted, animated: animated)
+        
+        // Configure the view for the hilighted state
+    }
 }

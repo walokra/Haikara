@@ -123,7 +123,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		tableTitleView.backgroundColor = Theme.backgroundColor
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, Received themeChangedNotification")
         #endif
@@ -140,14 +140,14 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("DetailViewController, Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionNewsSources(_ notification: Notification) {
+    @objc func setRegionNewsSources(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, regionChangedNotification")
         #endif
@@ -155,7 +155,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         getNewsSources()
     }
     
-    func resetNewsSourcesFiltered(_ notification: Notification) {
+    @objc func resetNewsSourcesFiltered(_ notification: Notification) {
         #if DEBUG
             print("FilterNewsSourcesViewController, Received resetNewsSourcesFiltered")
         #endif

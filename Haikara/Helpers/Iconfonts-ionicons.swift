@@ -63,10 +63,10 @@ public extension NSMutableAttributedString {
         }
         
         // Build the initial string - using the suffix specifics
-        let iconAttributed = NSMutableAttributedString(string: iconString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: suffixFontSize)!])
+        let iconAttributed = NSMutableAttributedString(string: iconString, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: suffixFontSize)!])
         
         // Role font awesome over the icon and size according to parameter
-        iconAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicon", fontSize: iconSize), range: NSRange(location: 0,length: 1))
+        iconAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicon", fontSize: iconSize), range: NSRange(location: 0,length: 1))
         
         return iconAttributed
         

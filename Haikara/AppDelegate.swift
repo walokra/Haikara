@@ -122,14 +122,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		rightNavController.navigationBar.barStyle = Theme.barStyle
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("AppDelegate, Received themeChangedNotification")
         #endif
 		setTheme()
 	}
 	
-	func optOutAnalytics(_ notification: Notification) {
+	@objc func optOutAnalytics(_ notification: Notification) {
         #if DEBUG
             print("AppDelegate, Received optOutAnalyticsChangedNotification")
         #endif

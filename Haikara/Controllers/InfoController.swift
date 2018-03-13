@@ -104,7 +104,7 @@ class InfoController: UITableViewController {
 		infoLabel.textColor = Theme.textColor
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
 		#if DEBUG
             print("Received themeChangedNotification")
         #endif
@@ -124,7 +124,7 @@ class InfoController: UITableViewController {
 		tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("Received UIContentSizeCategoryDidChangeNotification")
         #endif

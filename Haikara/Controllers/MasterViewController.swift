@@ -167,7 +167,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.tableView!.reloadData()
 	}
 	
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("MasterViewController, Received themeChangedNotification")
         #endif
@@ -178,14 +178,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		self.tableView.reloadData()
 	}
 	
-	func setContentSize(_ notification: Notification) {
+	@objc func setContentSize(_ notification: Notification) {
 		#if DEBUG
             print("Received UIContentSizeCategoryDidChangeNotification")
         #endif
 		setContentSize()
 	}
 	
-    func setRegionCategory(_ notification: Notification) {
+    @objc func setRegionCategory(_ notification: Notification) {
         #if DEBUG
             print("MasterView, Received regionChangedNotification")
             print(notification.userInfo as Any)
@@ -194,7 +194,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         getCategoriesFromSettingOrAPI()
     }
 
-    func updateSelectedCategories(_ notification: Notification) {
+    @objc func updateSelectedCategories(_ notification: Notification) {
         #if DEBUG
             print("MasterView, Received selectedCategoriesChangedNotification")
             print(notification.userInfo as Any)
@@ -350,10 +350,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func createfavoritesIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-star-outline")
-        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         buttonStringAttributed.addAttribute(
-        	NSForegroundColorAttributeName, value: color, range: NSRange(location: 0,length: 1)
+        	NSAttributedStringKey.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
         )
         
         favoritesButton.titleLabel?.textAlignment = .center
@@ -363,10 +363,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func createSettingsIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-gear-outline")
-        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        buttonStringAttributed.addAttribute(NSFontAttributeName, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         buttonStringAttributed.addAttribute(
-            NSForegroundColorAttributeName,
+            NSAttributedStringKey.foregroundColor,
             value: color,
             range: NSRange(location: 0,length: 1)
         )

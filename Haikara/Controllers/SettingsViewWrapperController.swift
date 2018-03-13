@@ -56,7 +56,7 @@ class SettingsViewWrapperController: UIViewController {
 		self.tabBarController?.tabBar.barStyle = Theme.barStyle
 	}
 
-	func setTheme(_ notification: Notification) {
+	@objc func setTheme(_ notification: Notification) {
         #if DEBUG
             print("SettingsViewWrapperController, Received themeChangedNotification")
         #endif

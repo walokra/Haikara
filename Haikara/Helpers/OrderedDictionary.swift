@@ -335,16 +335,16 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: Sequence, CustomStringCo
 //MARK: Operators
 
 /**Determines the equality of two ordered dictionaries. Evaluates to true if the two ordered dictionaries contain exactly the same keys and values in the same order.*/
-func == <KeyType: Equatable, ValueType: Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
+func == <KeyType, ValueType: Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
     return lhs.keyStorage == rhs.keyStorage && lhs.pairStorage == rhs.pairStorage
 }
 
 /**Determines the similarity of two ordered dictionaries. Evaluates to true if the two ordered dictionaries contain exactly the same keys and values but not necessarly in the same order.*/
-func ~= <KeyType : Equatable, ValueType : Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
+func ~= <KeyType, ValueType : Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
     return lhs.pairStorage == rhs.pairStorage
 }
 
 /**Determines the inequality of two ordered dictionaries. Evaluates to true if the two ordered dictionaries do not contain exactly the same keys and values in the same order*/
-func != <KeyType : Equatable, ValueType : Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
+func != <KeyType, ValueType : Equatable>(lhs: OrderedDictionary<KeyType, ValueType>, rhs: OrderedDictionary<KeyType, ValueType>) -> Bool {
     return lhs.keyStorage != rhs.keyStorage || lhs.pairStorage != rhs.pairStorage
 }

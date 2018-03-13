@@ -35,9 +35,9 @@ private let googleChromeHTTPSScheme: String = "googlechromes:"
 private let googleChromeCallbackScheme: String = "googlechrome-x-callback:"
 
 private func encodeByAddingPercentEscapes(_ input: String?) -> String {
-//	let encodedHost = input.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-// Use: NSURLComponents
-    return CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, input! as CFString, nil, "!*'();:@&=+$,/?%#[]" as CFString, CFStringConvertNSStringEncodingToEncoding(String.Encoding.utf8.rawValue)) as String;
+    let allowedCharacterSet = NSCharacterSet.urlQueryAllowed as! NSMutableCharacterSet
+    allowedCharacterSet.removeCharacters(in: "\n:#[]/?@!$&'()*+,;=") // these characters need to be left alone
+    return input!.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet as CharacterSet)!
 }
 
 open class OpenInChromeController {
@@ -79,7 +79,7 @@ open class OpenInChromeController {
             }
             if let chromeScheme = chromeScheme {
                 let absoluteURLString = url.absoluteString
-                let chromeURLString = chromeScheme + absoluteURLString.substring(from: absoluteURLString.range(of: ":")!.lowerBound)
+                let chromeURLString = chromeScheme + String(absoluteURLString[absoluteURLString.range(of: ":")!.lowerBound...])
                 return UIApplication.shared.openURL(URL(string: chromeURLString)!)
             }
         }
