@@ -42,11 +42,11 @@ open class HighFiApi {
 		#if DEBUG
             print("HighFiApi.search: \(searchText)")
         #endif
-    	// http://high.fi/search.cfm?q=formula&x=0&y=0&outputtype=json-private
+    	// https://high.fi/search.cfm?q=formula&x=0&y=0&outputtype=json-private
     	let settings = Settings.sharedInstance
 		setupManager(settings.appID, maxAge: 60)
 
-        let feed = "http://" + settings.domainToUse + "/search.cfm"
+        let feed = "https://" + settings.domainToUse + "/search.cfm"
 		
         let request = Alamofire.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "includePaid": settings.includePaid, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
 
@@ -123,7 +123,7 @@ open class HighFiApi {
     }
     
     // Getting news from High.fi and return values to blocks as completion handlers, completion closure (callback)
-	// e.g. http://high.fi/uutiset/json-private
+	// e.g. https://high.fi/uutiset/json-private
     class func getNews(_ page: Int, section: String, completionHandler: @escaping ([Entry]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getNews: \(page), \(section)")
@@ -132,7 +132,7 @@ open class HighFiApi {
         let settings = Settings.sharedInstance
 		setupManager(settings.appID, maxAge: 60)
 
-        var feed = "http://" + settings.domainToUse + "/" + section + "/"
+        var feed = "https://" + settings.domainToUse + "/" + section + "/"
         if (page != 1) {
             feed = feed + String(page) + "/"
         }
@@ -243,7 +243,7 @@ open class HighFiApi {
 		}
     }
 	
-	// e.g. http://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
+	// e.g. https://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
     class func getCategories(_ completionHandler: @escaping ([Category]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.getCategories()")
@@ -252,7 +252,7 @@ open class HighFiApi {
         let settings = Settings.sharedInstance
         setupManager(settings.appID, maxAge: 84600)
 
-        let url = "http://" + settings.domainToUse + "/api/"
+        let url = "https://" + settings.domainToUse + "/api/"
         
         let request = Alamofire.request(url, method: .get, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
@@ -310,7 +310,7 @@ open class HighFiApi {
     }
 
     // You should cache this method's return value for min 24h
-    // http://high.fi/api/?act=listLanguages&APIKEY=123
+    // https://high.fi/api/?act=listLanguages&APIKEY=123
     class func listLanguages(_ completionHandler: @escaping ([Language]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("HighFiApi.listLanguages()")
@@ -319,7 +319,7 @@ open class HighFiApi {
         let settings = Settings.sharedInstance
     	setupManager(settings.appID, maxAge: 84600)
 	
-        let url = "http://" + settings.domainToUse + "/api"
+        let url = "https://" + settings.domainToUse + "/api"
         
         let request = Alamofire.request(url, method: .get, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
@@ -373,7 +373,7 @@ open class HighFiApi {
         }
     }
 	
-    // http://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
+    // https://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
     class func listSources(_ completionHandler: @escaping ([NewsSources]) -> Void, failureHandler: @escaping (String) -> Void) {
         #if DEBUG
             print("listSources()")
@@ -382,7 +382,7 @@ open class HighFiApi {
         let settings = Settings.sharedInstance
     	setupManager(settings.appID, maxAge: 84600)
         
-        let url = "http://" + settings.domainToUse + "/api"
+        let url = "https://" + settings.domainToUse + "/api"
         
         let request = Alamofire.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act": "listSources", "usedLanguage": settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
