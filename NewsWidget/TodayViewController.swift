@@ -53,6 +53,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			createNewTab: false,
 			region: "Finland",
 			optOutAnalytics: false,
+            includePaid: false,
 			fontName: "Avenir-Light",
 			useSystemSize: true,
 			fontSizeBase: 10.0

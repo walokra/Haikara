@@ -5,6 +5,9 @@
 /* Class = "UILabel"; text = "Prefer mobile sites"; ObjectID = "4wi-JJ-PjM"; */
 "4wi-JJ-PjM.text" = "Käytä mobiilisivustoja";
 
+/* Class = "UILabel"; text = "Paywalled news"; ObjectID = "529-rb-YKB"; */
+"529-rb-YKB.text" = "Maksulliset lähteet";
+
 /* Class = "UIViewController"; title = "Menu"; ObjectID = "6hf-xG-t83"; */
 "6hf-xG-t83.title" = "Valikko";
 

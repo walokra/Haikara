@@ -31,11 +31,25 @@ class SettingsViewController: UITableViewController {
 
 	let viewName = "SettingsView"
 
+    // Mark: Outlets
+    
 	@IBOutlet weak var aboutLabel: UILabel!
 	
-	@IBOutlet weak var useDarkLabel: UILabel!
+    // General
+    @IBOutlet weak var widgetCategoryLabel: UILabel!
+    @IBOutlet weak var widgetCategoryDetailLabel: UILabel!
+    
+    @IBOutlet weak var regionLabel: UILabel!
+    @IBOutlet weak var regionDetailLabel: UILabel!
+    
+    @IBOutlet weak var includePaidSwitch: UISwitch!
+    @IBOutlet weak var includePaidLabel: UILabel!
+    
+    // Theme
+    @IBOutlet weak var useDarkLabel: UILabel!
 	@IBOutlet weak var useDarkThemeSwitch: UISwitch!
 	
+    // Browser
 	@IBOutlet weak var useMobileUrlLabel: UILabel!
 	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
 
@@ -49,16 +63,7 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useChromeNewTabLabel: UILabel!
 
 	@IBOutlet weak var useChromeNewTabCell: UITableViewCell!
-	@IBOutlet weak var optOutAnalyticsLabel: UILabel!
-	@IBOutlet weak var optOutAnalyticsSwitch: UISwitch!
-	
-	@IBOutlet weak var widgetCategoryLabel: UILabel!
-	@IBOutlet weak var regionLabel: UILabel!
-	
-	@IBOutlet weak var widgetCategoryDetailLabel: UILabel!
-	@IBOutlet weak var regionDetailLabel: UILabel!
 
-	// Mark: Outlets
 	// Preview
 	@IBOutlet weak var previewImage: UIImageView!
 	@IBOutlet weak var previewTitle: UILabel!
@@ -81,6 +86,12 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var fontsizeMediumLabel: UILabel!
 	@IBOutlet weak var fontsizeLargeLabel: UILabel!
 
+    @IBOutlet weak var optOutAnalyticsLabel: UILabel!
+    @IBOutlet weak var optOutAnalyticsSwitch: UISwitch!
+    
+    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var resetLabel: UILabel!
+    
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
 	
@@ -88,9 +99,6 @@ class SettingsViewController: UITableViewController {
 	let fontsizeMediumAccLabel: String = NSLocalizedString("FONT_MEDIUM_ACC_LABEL", comment: "Accessibility label for medium font label")
 	let fontsizeLargeAccLabel: String = NSLocalizedString("FONT_LARGE_ACC_LABEL", comment: "Accessibility label for large font label")
 
-	@IBOutlet weak var resetButton: UIButton!
-	@IBOutlet weak var resetLabel: UILabel!
-	
 	@IBAction func resetAction(_ sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .alert)
 		
@@ -199,6 +207,17 @@ class SettingsViewController: UITableViewController {
 		}
 	}
 
+    @IBAction func includePaidAction(_ sender: UISwitch) {
+        settings.includePaid = sender.isOn
+        defaults!.set(settings.includePaid, forKey: "includePaid")
+        defaults!.synchronize()
+        #if DEBUG
+            print ("includePaid \(settings.includePaid), sender.on=\(sender.isOn)")
+        #endif
+        
+        self.trackEvent("includePaid", category: "ui_Event", action: "includePaid", label: "settings", value: (!sender.isOn) ? 1 : 0)
+    }
+    
 	@IBAction func useMobileUrlAction(_ sender: UISwitch) {
         settings.useMobileUrl = sender.isOn
         defaults!.set(settings.useMobileUrl, forKey: "useMobileUrl")
@@ -258,19 +277,6 @@ class SettingsViewController: UITableViewController {
 		self.trackEvent("createNewTab", category: "ui_Event", action: "createNewTab", label: "settings", value: (sender.isOn) ? 1 : 0)
 	}
 	
-	@IBAction func optOutAnalyticsAction(_ sender: UISwitch) {
-		self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (sender.isOn) ? 1 : 0)
-		
-		settings.optOutAnalytics = sender.isOn
-        defaults!.set(settings.optOutAnalytics, forKey: "optOutAnalytics")
-		defaults!.synchronize()
-        #if DEBUG
-            print ("optOutAnalyticsAction \(settings.optOutAnalytics), sender.on=\(sender.isOn)")
-        #endif
-		
-		NotificationCenter.default.post(name: .optOutAnalyticsChangedNotification, object: nil, userInfo: nil)
-	}
-
 	@IBAction func showDescAction(_ sender: UISwitch) {
 		settings.showDesc = sender.isOn
         defaults!.set(settings.showDesc, forKey: "showDesc")
@@ -330,6 +336,19 @@ class SettingsViewController: UITableViewController {
 		
 		NotificationCenter.default.post(name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil, userInfo: nil)
 	}
+    
+    @IBAction func optOutAnalyticsAction(_ sender: UISwitch) {
+        self.trackEvent("optOutAnalytics", category: "ui_Event", action: "optOutAnalytics", label: "settings", value: (sender.isOn) ? 1 : 0)
+        
+        settings.optOutAnalytics = sender.isOn
+        defaults!.set(settings.optOutAnalytics, forKey: "optOutAnalytics")
+        defaults!.synchronize()
+        #if DEBUG
+            print ("optOutAnalyticsAction \(settings.optOutAnalytics), sender.on=\(sender.isOn)")
+        #endif
+        
+        NotificationCenter.default.post(name: .optOutAnalyticsChangedNotification, object: nil, userInfo: nil)
+    }
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -358,6 +377,7 @@ class SettingsViewController: UITableViewController {
     }
 	
 	func setSettings() {
+        includePaidSwitch.isOn = settings.includePaid
         useMobileUrlSwitch.isOn = settings.useMobileUrl
         useReaderViewSwitch.isOn = settings.useReaderView
 		useDarkThemeSwitch.isOn = settings.useDarkTheme
@@ -390,6 +410,7 @@ class SettingsViewController: UITableViewController {
 		
 		self.view.backgroundColor = Theme.backgroundColor
 		
+        includePaidLabel.textColor = Theme.textColor
 		useMobileUrlLabel.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
@@ -429,6 +450,7 @@ class SettingsViewController: UITableViewController {
 	func setContentSize() {
 		tableView.reloadData()
 		
+        includePaidLabel.font = settings.fontSizeLarge
 		useMobileUrlLabel.font = settings.fontSizeLarge
 		useReaderLabel.font = settings.fontSizeLarge
 		useDarkLabel.font = settings.fontSizeLarge
@@ -509,114 +531,75 @@ class SettingsViewController: UITableViewController {
 		self.tableView.reloadData()
 	}
 	
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-   		// Change the color of all cells
-   		cell.backgroundColor = Theme.backgroundColor
-		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = settings.fontSizeLarge
-		
-		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
-		cell.selectionStyle = .none
-	}
-	
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    	let cell = super.tableView(tableView, cellForRowAt: indexPath)
-    	if cell == self.useChromeCell && useChromeCell.isHidden {
-			return 0
-		}
-		if cell == self.useChromeNewTabCell && (useChromeCell.isHidden || !settings.useChrome){
-			return 0
-		}
-		
-		return super.tableView(tableView, heightForRowAt:indexPath)
-	}
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	    let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-		headerView.tintColor = Theme.sectionColor
-		headerView.backgroundColor = Theme.sectionColor
-		
-		var sectionLabel: UILabel
-		sectionLabel = UILabel(frame: CGRect(x: 8, y: 0, width: tableView.frame.size.width/2, height: 25))
-		sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-		sectionLabel.textColor = Theme.sectionTitleColor
-		sectionLabel.font = settings.fontSizeLarge
-		
-		headerView.addSubview(sectionLabel)
-		
-    	return headerView
-	}
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // Mark functions
+    
+    var categories = [Category]()
+    var selectedTodayCategory: Category? {
+        didSet {
+            widgetCategoryDetailLabel.text? = selectedTodayCategory!.title
+        }
     }
-	
-	var categories = [Category]()
-	var selectedTodayCategory: Category? {
-		didSet {
-    		widgetCategoryDetailLabel.text? = selectedTodayCategory!.title
-		}
-	}
-	func setSelectedTodayCategory() {
+    
+    func setSelectedTodayCategory() {
         DispatchQueue.main.async {
-			if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
-				#if DEBUG
-					print("SettingsViewController, setting categories for '\(self.settings.region)' from settings")
-				#endif
-			
-				self.categories = categories
-			}
-
-			var defaultRowIndex = 0
-			if (self.settings.todayCategoryByLang[self.settings.region] != nil) {
-				for (index, element) in self.categories.enumerated() {
-	            	let cat = element as Category
-	            	if (cat.sectionID == self.settings.todayCategoryByLang[self.settings.region]?.sectionID) {
-	            	    defaultRowIndex = index
-	            	}
-	        	}
-			}
-			
-	        #if DEBUG
-	            print("SettingsViewController, setTodayCategory=\(String(describing: self.settings.todayCategoryByLang[self.settings.region]?.title)), defaultRowIndex=\(defaultRowIndex)")
-        	#endif
-		    self.selectedTodayCategory = self.categories[defaultRowIndex]
-			
-			self.settings.todayCategoryByLang.updateValue(self.selectedTodayCategory!, forKey: self.settings.region)
-        	let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.settings.todayCategoryByLang as Dictionary<String, Category>)
-        	self.defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
-			self.defaults!.synchronize()
-		}
+            if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {
+                #if DEBUG
+                    print("SettingsViewController, setting categories for '\(self.settings.region)' from settings")
+                #endif
+                
+                self.categories = categories
+            }
+            
+            var defaultRowIndex = 0
+            if (self.settings.todayCategoryByLang[self.settings.region] != nil) {
+                for (index, element) in self.categories.enumerated() {
+                    let cat = element as Category
+                    if (cat.sectionID == self.settings.todayCategoryByLang[self.settings.region]?.sectionID) {
+                        defaultRowIndex = index
+                    }
+                }
+            }
+            
+            #if DEBUG
+                print("SettingsViewController, setTodayCategory=\(String(describing: self.settings.todayCategoryByLang[self.settings.region]?.title)), defaultRowIndex=\(defaultRowIndex)")
+            #endif
+            self.selectedTodayCategory = self.categories[defaultRowIndex]
+            
+            self.settings.todayCategoryByLang.updateValue(self.selectedTodayCategory!, forKey: self.settings.region)
+            let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.settings.todayCategoryByLang as Dictionary<String, Category>)
+            self.defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+            self.defaults!.synchronize()
+        }
     }
-	
-	var languages = [Language]()
-	// The list of currently supported by the server.
+
+    // The list of currently supported by the server.
+    var languages = [Language]()
+    
     func listLanguages(){
-//        #if DEBUG
-//            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
-//        #endif
-		
+        //        #if DEBUG
+        //            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
+        //        #endif
+        
         if !self.settings.languages.isEmpty {
             #if DEBUG
                 print("SettingsViewController, listLanguages: getting languages from settings")
             #endif
             
             let updated: Date = self.settings.languagesUpdated
-			let calendar = Calendar.current
-			var comps = DateComponents()
-			comps.day = 1
-			let updatedPlusWeek = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
-			let today = Date()
-                
-			#if DEBUG
-				print("today=\(today), updated=\(updated), updatedPlusWeek=\(String(describing: updatedPlusWeek))")
-			#endif
-                
-			if updatedPlusWeek!.isLessThanDate(today) {
-				getLanguagesFromAPI()
-				return
-			}
+            let calendar = Calendar.current
+            var comps = DateComponents()
+            comps.day = 1
+            let updatedPlusWeek = (calendar as NSCalendar).date(byAdding: comps, to: updated, options: NSCalendar.Options())
+            let today = Date()
+            
+            #if DEBUG
+                print("today=\(today), updated=\(updated), updatedPlusWeek=\(String(describing: updatedPlusWeek))")
+            #endif
+            
+            if updatedPlusWeek!.isLessThanDate(today) {
+                getLanguagesFromAPI()
+                return
+            }
             
             self.languages = self.settings.languages
             self.setSelectedRegion()
@@ -636,7 +619,7 @@ class SettingsViewController: UITableViewController {
                     // Clear old entries
                     self.languages = result
                     self.settings.languages = result
-
+                    
 //                  #if DEBUG
 //                      println("supportedLanguages=\(self.supportedLanguages)")
 //                  #endif
@@ -647,9 +630,10 @@ class SettingsViewController: UITableViewController {
                     
                     self.settings.languagesUpdated = Date()
                     self.defaults!.set(self.settings.languagesUpdated, forKey: "languagesUpdated")
-                    #if DEBUG
-                        print("languages update, \(self.settings.languagesUpdated)")
-                    #endif
+                    // Can't use this here, it breaks Interface Builder
+//                    #if DEBUG
+//                        print("languages update, \(self.settings.languagesUpdated)")
+//                    #endif
                     
                     self.defaults!.synchronize()
                     
@@ -657,33 +641,78 @@ class SettingsViewController: UITableViewController {
                     
                     return
                 }
-            }
+        }
             , failureHandler: {(error)in
                 self.handleError(error, title: self.errorTitle)
-            }
+        }
         )
     }
-	
-	var selectedLanguage: Language? {
-		didSet {
-    		regionDetailLabel.text? = selectedLanguage!.country
-		}
-	}
-	func setSelectedRegion() {
+    
+    var selectedLanguage: Language? {
+        didSet {
+            regionDetailLabel.text? = selectedLanguage!.country
+        }
+    }
+    func setSelectedRegion() {
         DispatchQueue.main.async {
-	        var defaultRowIndex = 0
-	        for (index, element) in self.languages.enumerated() {
-	            let lang = element as Language
-	            if (lang.country == self.settings.region) {
-	                defaultRowIndex = index
-	            }
-	        }
-	        #if DEBUG
-	            print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
-        	#endif
-		    self.selectedLanguage = self.languages[defaultRowIndex]
-			self.setSelectedTodayCategory()
-		}
+            var defaultRowIndex = 0
+            for (index, element) in self.languages.enumerated() {
+                let lang = element as Language
+                if (lang.country == self.settings.region) {
+                    defaultRowIndex = index
+                }
+            }
+            #if DEBUG
+                print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
+            #endif
+            self.selectedLanguage = self.languages[defaultRowIndex]
+            self.setSelectedTodayCategory()
+        }
+    }
+
+    // Mark tableView
+    
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+   		// Change the color of all cells
+   		cell.backgroundColor = Theme.backgroundColor
+		cell.textLabel!.textColor = Theme.cellTitleColor
+		cell.textLabel!.font = settings.fontSizeLarge
+		
+		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+		cell.selectionStyle = .none
+	}
+	
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        if cell == self.useChromeCell && useChromeCell.isHidden {
+            return 0
+        }
+        if cell == self.useChromeNewTabCell && (useChromeCell.isHidden || !settings.useChrome){
+            return 0
+        }
+        
+        return super.tableView(tableView, heightForRowAt:indexPath)
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        headerView.tintColor = Theme.sectionColor
+        headerView.backgroundColor = Theme.sectionColor
+        
+        var sectionLabel: UILabel
+        sectionLabel = UILabel(frame: CGRect(x: 8, y: 0, width: tableView.frame.size.width/2, height: 25))
+        sectionLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        sectionLabel.textColor = Theme.sectionTitleColor
+        sectionLabel.font = settings.fontSizeLarge
+        
+        headerView.addSubview(sectionLabel)
+        
+        return headerView
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
 	// stop observing

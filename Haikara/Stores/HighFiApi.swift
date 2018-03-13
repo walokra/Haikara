@@ -48,7 +48,7 @@ open class HighFiApi {
 
         let feed = "http://" + settings.domainToUse + "/search.cfm"
 		
-		let request = Alamofire.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
+        let request = Alamofire.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "includePaid": settings.includePaid, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
 
             request.validate()
             request.responseJSON{ response in
@@ -152,7 +152,7 @@ open class HighFiApi {
         }
 //        print("categoriesHidden=\(categoriesHidden)")
 		
-        let request = Alamofire.request(feed, method: .get, parameters: ["APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
+        let request = Alamofire.request(feed, method: .get, parameters: ["includePaid": settings.includePaid, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
             request.responseJSON{ response in
@@ -384,7 +384,7 @@ open class HighFiApi {
         
         let url = "http://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(url, method: .get, parameters: ["act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = Alamofire.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act":"listSources", "usedLanguage":settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
 			#if DEBUG

@@ -45,6 +45,7 @@ struct Defaults {
 	let createNewTab: Bool
 	let region: String
 	let optOutAnalytics: Bool
+    let includePaid: Bool
 	
 	let fontName: String
 	let useSystemSize: Bool
@@ -67,6 +68,7 @@ class Settings {
 			createNewTab: false,
 			region: "Finland",
 			optOutAnalytics: false,
+            includePaid: false,
 			fontName: "Avenir-Light",
 			useSystemSize: true,
 			fontSizeBase: 10.0
@@ -123,6 +125,8 @@ class Settings {
 	
 	var optOutAnalytics: Bool
 	
+    var includePaid: Bool
+
 	var fontName: String
 	var useSystemSize: Bool
 	var fontSizeBase: CGFloat
@@ -302,6 +306,12 @@ class Settings {
             self.optOutAnalytics = defaultValues.optOutAnalytics
         }
 		
+        if let includePaid: Bool = defaults.object(forKey: "includePaid") as? Bool {
+            self.includePaid = includePaid
+        } else {
+            self.includePaid = defaultValues.includePaid
+        }
+
 		if let fontName: String = defaults.object(forKey: "fontName") as? String {
             self.fontName = fontName
         } else {
@@ -339,7 +349,7 @@ class Settings {
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), includePaid=\(self.includePaid), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
     }
 	
 	func resetToDefaults() {
@@ -418,6 +428,9 @@ class Settings {
 		
 		self.optOutAnalytics = defaultValues.optOutAnalytics
         defaults.set(self.optOutAnalytics, forKey: "optOutAnalytics")
+
+        self.includePaid = defaultValues.includePaid
+        defaults.set(self.includePaid, forKey: "includePaid")
 		
 		self.fontName = defaultValues.fontName
 		defaults.set(self.fontName, forKey: "fontName")
