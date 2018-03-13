@@ -37,7 +37,8 @@ struct Theme {
 	static var cellTitleColor: UIColor = Light.textColor
 	static var cellAuthorColor: UIColor = Light.authorColor
 	static var cellDescriptionColor: UIColor = Light.descriptionColor
-	static var selectedCellBackground = UIView()
+	static var selectedBackgroundColor = Light.selectedBackgroudColor
+    
 	static var barStyle: UIBarStyle = UIBarStyle.default
 	static var statusBarStyle: UIStatusBarStyle = UIStatusBarStyle.default
 	static var searchBarTintColor: UIColor = Light.backgroundColor
@@ -88,8 +89,8 @@ struct Theme {
 		cellTitleColor = Light.textColor
 		cellAuthorColor = Light.authorColor
 		cellDescriptionColor = Light.descriptionColor
-		selectedCellBackground.backgroundColor = Light.selectedBackgroudColor
-		
+		selectedBackgroundColor = Light.selectedBackgroudColor
+
 		poweredLabelColor = Light.poweredLabelColor
 		
 		tintColor = Light.tintColor
@@ -123,7 +124,7 @@ struct Theme {
 		cellTitleColor = Dark.textColor
 		cellAuthorColor = Dark.authorColor
 		cellDescriptionColor = Dark.descriptionColor
-		selectedCellBackground.backgroundColor = Dark.selectedBackgroundColor
+		selectedBackgroundColor = Dark.selectedBackgroundColor
 		
 		poweredLabelColor = Dark.poweredLabelColor
 		

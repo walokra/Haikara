@@ -724,7 +724,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		cell.contentView.setNeedsLayout()
     	cell.contentView.layoutIfNeeded()
 
-		cell.selectedBackgroundView = Theme.selectedCellBackground
+//		cell.selectedBackgroundView = Theme.selectedBackgroundView
+		let selectedBackgroundView = UIView() as UIView
+		selectedBackgroundView.backgroundColor = Theme.selectedBackgroundColor
+		cell.selectedBackgroundView = selectedBackgroundView
 		
 		if (indexPath.row % 2 == 0) {
 			cell.backgroundColor = Theme.evenRowColor
