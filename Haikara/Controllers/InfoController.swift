@@ -42,12 +42,12 @@ class InfoController: UITableViewController {
 	
 	@IBOutlet weak var openHighFiButton: UIButton!
 	@IBAction func openHighFi(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "http://high.fi/")!)
+		UIApplication.shared.openURL(URL(string: "https://high.fi/")!)
 	}
 
 	@IBOutlet weak var openAppStoreButton: UIButton!
 	@IBAction func openAppStore(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "http://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
+		UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
 
 	@IBOutlet weak var openTwitterButton: UIButton!

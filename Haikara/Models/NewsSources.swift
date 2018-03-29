@@ -27,7 +27,7 @@
 
 import UIKit
 
-// http://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
+// https://high.fi/api/?act=listSources&usedLanguage=Finnish&APIKEY=123
 // { "responseData": { "newsSources": [ { "sourceName": "Aamulehti", "sourceID": 316 }, { "sourceName": "Aamuposti", "sourceID": 317 }, { "sourceName": "Aamuset", "sourceID": 318 }, { "sourceName": "AfterDawn", "sourceID": 319 }]}}
 class NewsSources: NSObject, NSCoding {
 	let sourceName: String

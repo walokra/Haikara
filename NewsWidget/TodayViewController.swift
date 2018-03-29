@@ -59,7 +59,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			fontSizeBase: 10.0
 		)
 	
-	var region: String? // http://high.fi/api/?act=listLanguages
+	var region: String?
 	var genericNewsURLPart: String?
 	var useMobileUrl: Bool? // Prefer mobile optimized URLs
 	var todayCategoryByLang = Dictionary<String, Category>()

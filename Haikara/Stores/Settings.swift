@@ -105,7 +105,7 @@ class Settings {
 	var useChrome: Bool
 	var createNewTab: Bool
 	
-    var region: String // http://high.fi/api/?act=listLanguages
+    var region: String
 
     var languagesUpdated = Date()
     var languages = [Language]()
