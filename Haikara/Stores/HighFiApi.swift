@@ -409,6 +409,7 @@ open class HighFiApi {
                             return NewsSources(
                                 sourceName: element["sourceName"] as! String,
                                 sourceID: element["sourceID"] as! Int,
+                                paywall: element["paywall"] as! String,
                                 selected: false
                             )
                     }

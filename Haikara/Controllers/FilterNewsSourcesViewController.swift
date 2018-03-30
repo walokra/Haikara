@@ -27,9 +27,9 @@
 
 import UIKit
 
-class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
-
-	let viewName = "Settings_FilterNewsSourcesView"
+class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let viewName = "Settings_FilterNewsSourcesView"
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
@@ -37,7 +37,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         }
     }
 
-	var searchController: UISearchController!
+    var searchController = UISearchController(searchResultsController: nil)
 
 	@IBOutlet weak var tableTitleView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -83,30 +83,47 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		if self.newsSources.isEmpty {
             getNewsSources()
         }
-		
         #if DEBUG
             print("newsSources filtered=\(String(describing: settings.newsSourcesFiltered[settings.region]))")
         #endif
-            
+
         self.tableView!.delegate=self
         self.tableView.dataSource = self
 		
-		searchController = ({
-			let controller = UISearchController(searchResultsController: nil)
+        // Setup the Search Controller
+        searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
-			controller.hidesNavigationBarDuringPresentation = false
-            controller.dimsBackgroundDuringPresentation = false
+            controller.hidesNavigationBarDuringPresentation = false
+            if #available(iOS 9.1, *) {
+                controller.obscuresBackgroundDuringPresentation = false
+            } else {
+                controller.dimsBackgroundDuringPresentation = false
+            }
             controller.searchBar.sizeToFit()
             controller.searchBar.barStyle = Theme.barStyle
             controller.searchBar.barTintColor = Theme.searchBarTintColor
             controller.searchBar.backgroundColor = Theme.backgroundColor
-			controller.searchBar.placeholder = searchPlaceholderText
-			self.tableTitleView.addSubview(controller.searchBar)
+            controller.searchBar.placeholder = searchPlaceholderText
+            // Setup the Scope Bar
+//            controller.searchBar.scopeButtonTitles = ["free", "monthly-limit", "strict-paywall"]
+            controller.searchBar.delegate = self
+
+            if #available(iOS 11.0, *) {
+                navigationItem.searchController = searchController
+            } else {
+                // Fallback on earlier versions
+            }
+
+            self.tableTitleView.addSubview(controller.searchBar)
             return controller
         })()
 		
 //		Hides searchController but leads to blank screen when view dismissed and coming up
 //		self.definesPresentationContext = true
+        
+        // Setup the search footer
+//        tableView.tableFooterView = searchFooter
     }
 	
 	func setObservers() {
@@ -167,35 +184,82 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		}
 		self.tableView!.reloadData()
     }
-	
-	func updateSearchResults(for searchController: UISearchController) {
-//		#if DEBUG
-//            print("updateSearchResultsForSearchController")
-//        #endif
-		filteredTableData.removeAll(keepingCapacity: false)
-		
-        let searchPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchController.searchBar.text! + "*")
-
-        let array = (newsSources as NSArray).filtered(using: searchPredicate)
-        filteredTableData = array as! [NewsSources]
-
-        self.tableView.reloadData()
-	}
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
-		if self.searchController.isActive {
-		   return self.filteredTableData.count
-        } else{
-		  return self.newsSources.count
-        }
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
     }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredTableData = newsSources.filter({( newsSource : NewsSources) -> Bool in
+            return newsSource.sourceName.lowercased().contains(searchText.lowercased())
+        })
+
+        tableView.reloadData()
+    }
+    
+//    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+//        guard let searchText = searchController.searchBar.text else {
+//            return
+//        }
+//
+//        filteredTableData.removeAll(keepingCapacity: false)
+//
+//        #if DEBUG
+//            print("updateSearchResultsForSearchController: searchText=\(searchText)")
+//        #endif
+//
+//        let searchPredicate: NSPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchText + "*")
+//
+//        let array = (newsSources as NSArray).filtered(using: searchPredicate)
+//
+//        self.filteredTableData = array as! [NewsSources]
+//        self.tableView.reloadData()
+//    }
+    
+//    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+//        filteredTableData = newsSources.filter({( newsSource : NewsSources) -> Bool in
+//            let doesPaywallMatch = (scope == "All") || (newsSource.paywall == scope)
+//
+//            if searchBarIsEmpty() {
+//                return doesPaywallMatch
+//            } else {
+//                return doesPaywallMatch && newsSource.sourceName.lowercased().contains(searchText.lowercased())
+//            }
+//        })
+//        tableView.reloadData()
+//    }
+
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+//    func isFiltering() -> Bool {
+//        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+//        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+//    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return filteredTableData.count
+        }
+        return newsSources.count
+    }
+    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if isFiltering() {
+//            searchFooter.setIsFilteringToShow(filteredItemCount: filteredTableData.count, of: newsSources.count)
+//            return filteredTableData.count
+//        }
+//
+//        searchFooter.setNotFiltering()
+//        return newsSources.count
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
 		
 		var tableItem: NewsSources
-		if self.searchController.isActive {
+		if isFiltering() {
 			tableItem = filteredTableData[indexPath.row] as NewsSources
         } else {
 			tableItem = newsSources[indexPath.row] as NewsSources
@@ -260,7 +324,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         if let newsSources: [NewsSources] = self.settings.newsSourcesByLang[self.settings.region] {
 			#if DEBUG
 				print("filter view, getNewsSources: getting news sources for '\(self.settings.region)' from settings")
-//                print("newsSources=\(newsSources)")
+                print("newsSources=\(newsSources)")
 			#endif
 			
 			if let updated: Date = self.settings.newsSourcesUpdatedByLang[self.settings.region] {
@@ -295,35 +359,36 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         getNewsSourcesFromAPI()
     }
     
+    
     func getNewsSourcesFromAPI() {
         HighFiApi.listSources(
             { (result) in
                 self.settings.newsSources = result
                 self.newsSources = result
-                
+
                 self.settings.newsSourcesByLang.updateValue(self.settings.newsSources, forKey: self.settings.region)
                 let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-				self.defaults!.set(archivedObject, forKey: "newsSourcesByLang")
+                self.defaults!.set(archivedObject, forKey: "newsSourcesByLang")
                 
                 self.settings.newsSourcesUpdatedByLang.updateValue(Date(), forKey: self.settings.region)
                 self.defaults!.set(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
-                #if DEBUG
-                    print("news sources updated, \(String(describing: self.settings.newsSourcesUpdatedByLang[self.settings.region]))")
-                #endif
+//                #if DEBUG
+//                    print("news sources updated, \(String(describing: self.settings.newsSourcesUpdatedByLang[self.settings.region]))")
+//                #endif
                 
                 self.defaults!.synchronize()
                 
-//                #if DEBUG
-//                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
-//                #endif
-
-	        	self.tableView!.reloadData()
-			
+                //                #if DEBUG
+                //                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
+                //                #endif
+                
+                self.tableView!.reloadData()
+                
                 return
-            }
+        }
             , failureHandler: {(error)in
                 self.handleError(error, title: self.errorTitle)
-            }
+        }
         )
     }
     
@@ -332,4 +397,24 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         NotificationCenter.default.removeObserver(self)
     }
 
+}
+
+extension FilterNewsSourcesViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+//    func updateSearchResults(for searchController: UISearchController) {
+//        let searchBar = searchController.searchBar
+//        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+//        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+//    }
+}
+
+extension FilterNewsSourcesViewController: UISearchBarDelegate {
+    // MARK: - UISearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
 }
