@@ -317,6 +317,16 @@ extension FilterNewsSourcesViewController: UITableViewDataSource {
 //        searchFooter.setNotFiltering()
         return newsSources.count
     }
+    
+    private func mapPaywallToDesc(newsSource: NewsSources) -> String {
+        var paywallInfo = ""
+        payWallItems.forEach { (item) in
+            if (newsSource.paywall != "free" && item.type == newsSource.paywall) {
+                paywallInfo = " (" + item.description + ")"
+            }
+        }
+        return paywallInfo
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
@@ -328,7 +338,7 @@ extension FilterNewsSourcesViewController: UITableViewDataSource {
             tableItem = newsSources[indexPath.row] as NewsSources
         }
 
-        cell.textLabel!.text = tableItem.sourceName
+        cell.textLabel!.text = tableItem.sourceName + mapPaywallToDesc(newsSource: tableItem)
         cell.textLabel!.textColor = Theme.cellTitleColor
         cell.textLabel!.font = settings.fontSizeXLarge
 
