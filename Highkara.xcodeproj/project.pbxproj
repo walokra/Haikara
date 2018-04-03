@@ -101,8 +101,10 @@
 		36F6D4BF1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6D4BE1EDE02CE006203D2 /* NewsDetailsInterfaceController.swift */; };
 		56661E35E201E29CA75C78D6 /* Pods_highkara.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F49E4FD0EB2BBADB5E6F17A /* Pods_highkara.framework */; };
 		8740C6D6603E30B769B13532 /* Pods_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDCD9BAF645EE6D6C4836AF /* Pods_Watch_Extension.framework */; };
+		DA034B15207143D700923D1A /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA034B14207143D700923D1A /* SearchFooter.swift */; };
 		DA1BFAA61FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */; };
 		DA1BFAA71FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */; };
+		DAAB6E6620720708000E66E5 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB6E6520720708000E66E5 /* Paywall.swift */; };
 		ED2BBB030C3DDDEC88450E0F /* Pods_HighkaraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A89C9F610E62B45B882DE0B /* Pods_HighkaraTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -274,8 +276,10 @@
 		808BE505B97C4AD349677701 /* Pods-HighkaraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighkaraTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4C89DC1073AB6AEA86465BD /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6FB4050DF578DF5D89F7BFA /* Pods-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-Today/Pods-Today.release.xcconfig"; sourceTree = "<group>"; };
+		DA034B14207143D700923D1A /* SearchFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x~iphone.png"; sourceTree = "<group>"; };
 		DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-812h@3x~iphone.png"; sourceTree = "<group>"; };
+		DAAB6E6520720708000E66E5 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +350,7 @@
 				3631CA601BEA6C0A00C5A0BD /* Category.swift */,
 				3631CA621BEA6C1D00C5A0BD /* Entry.swift */,
 				366D94C71C06547B00E84284 /* NewsSources.swift */,
+				DAAB6E6520720708000E66E5 /* Paywall.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */,
 				365A045A1B3EB9090032C5B6 /* EntryCell.swift */,
 				36AA1A781C66900C008268B3 /* TouchableTextView.swift */,
+				DA034B14207143D700923D1A /* SearchFooter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -693,7 +699,7 @@
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
 					36501E221EC7ADAF00E078AD = {
@@ -1127,6 +1133,7 @@
 				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
+				DA034B15207143D700923D1A /* SearchFooter.swift in Sources */,
 				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
 				36332B811EE0B4DD005575D5 /* GlobalSplitViewController.swift in Sources */,
 				36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */,
@@ -1138,6 +1145,7 @@
 				365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */,
 				36F0E84F1C03B7880081F10B /* Theme.swift in Sources */,
 				364F067A1BC456FC00362DF6 /* FavoriteCategoriesViewController.swift in Sources */,
+				DAAB6E6620720708000E66E5 /* Paywall.swift in Sources */,
 				36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */,
 				366D94C81C06547B00E84284 /* NewsSources.swift in Sources */,
 				36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */,
@@ -1487,12 +1495,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1543,12 +1553,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

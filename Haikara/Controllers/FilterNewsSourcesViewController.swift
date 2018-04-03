@@ -27,7 +27,7 @@
 
 import UIKit
 
-class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FilterNewsSourcesViewController: UIViewController {
     
     let viewName = "Settings_FilterNewsSourcesView"
 
@@ -37,10 +37,11 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         }
     }
 
-    var searchController = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
 
-	@IBOutlet weak var tableTitleView: UIView!
+    @IBOutlet weak var tableTitleView: UIView!
     @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var searchFooter: SearchFooter!
     let settings = Settings.sharedInstance
 	var defaults: UserDefaults?
 	
@@ -51,6 +52,8 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
     var newsSources = [NewsSources]()
 	var filteredTableData = [NewsSources]()
 	var searchText: String? = ""
+    
+    let payWallItems = [Paywall.Free, Paywall.Partial, Paywall.Monthly, Paywall.Strict]
 	
 	override func viewWillDisappear(_ animated: Bool) {
     	super.viewWillDisappear(animated)
@@ -87,41 +90,36 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
             print("newsSources filtered=\(String(describing: settings.newsSourcesFiltered[settings.region]))")
         #endif
 
-        self.tableView!.delegate=self
+        self.tableView!.delegate = self
         self.tableView.dataSource = self
-		
         // Setup the Search Controller
-        searchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.hidesNavigationBarDuringPresentation = false
-            if #available(iOS 9.1, *) {
-                controller.obscuresBackgroundDuringPresentation = false
-            } else {
-                controller.dimsBackgroundDuringPresentation = false
-            }
-            controller.searchBar.sizeToFit()
-            controller.searchBar.barStyle = Theme.barStyle
-            controller.searchBar.barTintColor = Theme.searchBarTintColor
-            controller.searchBar.backgroundColor = Theme.backgroundColor
-            controller.searchBar.placeholder = searchPlaceholderText
-            // Setup the Scope Bar
-//            controller.searchBar.scopeButtonTitles = ["free", "monthly-limit", "strict-paywall"]
-            controller.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        if #available(iOS 9.1, *) {
+            searchController.obscuresBackgroundDuringPresentation = false
+        } else {
+            searchController.dimsBackgroundDuringPresentation = false
+        }
+        searchController.searchBar.placeholder = searchPlaceholderText
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            // Fallback on earlier versions
+        }
+//        self.definesPresentationContext = true
 
-            if #available(iOS 11.0, *) {
-                navigationItem.searchController = searchController
-            } else {
-                // Fallback on earlier versions
-            }
-
-            self.tableTitleView.addSubview(controller.searchBar)
-            return controller
-        })()
-		
-//		Hides searchController but leads to blank screen when view dismissed and coming up
-//		self.definesPresentationContext = true
+        // Setup the Scope Bar
+//        searchController.searchBar.scopeButtonTitles = [payWallItems[0].description, payWallItems[1].description, payWallItems[2].description, payWallItems[3].description]
+//        searchController.searchBar.showsScopeBar = true
+//        searchController.searchBar.delegate = self
         
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.barStyle = Theme.barStyle
+        searchController.searchBar.barTintColor = Theme.searchBarTintColor
+        searchController.searchBar.backgroundColor = Theme.backgroundColor
+        
+        self.tableTitleView.addSubview(searchController.searchBar)
+
         // Setup the search footer
 //        tableView.tableFooterView = searchFooter
     }
@@ -137,7 +135,7 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 		Theme.loadTheme()
 		view.backgroundColor = Theme.backgroundColor
 		tableView.backgroundColor = Theme.backgroundColor
-		tableTitleView.backgroundColor = Theme.backgroundColor
+        tableTitleView.backgroundColor = Theme.backgroundColor
 	}
 	
 	@objc func setTheme(_ notification: Notification) {
@@ -190,36 +188,11 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredTableData = newsSources.filter({( newsSource : NewsSources) -> Bool in
-            return newsSource.sourceName.lowercased().contains(searchText.lowercased())
-        })
-
-        tableView.reloadData()
-    }
-    
-//    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-//        guard let searchText = searchController.searchBar.text else {
-//            return
-//        }
-//
+//    func filterContentForSearchText(_ searchText: String, scope: Paywall = Paywall.All) {
 //        filteredTableData.removeAll(keepingCapacity: false)
 //
-//        #if DEBUG
-//            print("updateSearchResultsForSearchController: searchText=\(searchText)")
-//        #endif
-//
-//        let searchPredicate: NSPredicate = NSPredicate(format: "sourceName like[c] %@", "*" + searchText + "*")
-//
-//        let array = (newsSources as NSArray).filtered(using: searchPredicate)
-//
-//        self.filteredTableData = array as! [NewsSources]
-//        self.tableView.reloadData()
-//    }
-    
-//    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
 //        filteredTableData = newsSources.filter({( newsSource : NewsSources) -> Bool in
-//            let doesPaywallMatch = (scope == "All") || (newsSource.paywall == scope)
+//            let doesPaywallMatch = (scope == Paywall.All) || (newsSource.paywall == scope.type)
 //
 //            if searchBarIsEmpty() {
 //                return doesPaywallMatch
@@ -230,95 +203,29 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 //        tableView.reloadData()
 //    }
 
-    func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+    func filterContentForSearchText(_ searchText: String) {
+        filteredTableData.removeAll(keepingCapacity: false)
+        
+        filteredTableData = newsSources.filter({( newsSource : NewsSources) -> Bool in
+            return newsSource.sourceName.lowercased().contains(searchText.lowercased())
+        })
+        
+        tableView.reloadData()
     }
+    
 //    func isFiltering() -> Bool {
 //        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
 //        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
 //    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredTableData.count
-        }
-        return newsSources.count
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
     }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if isFiltering() {
-//            searchFooter.setIsFilteringToShow(filteredItemCount: filteredTableData.count, of: newsSources.count)
-//            return filteredTableData.count
-//        }
-//
-//        searchFooter.setNotFiltering()
-//        return newsSources.count
-//    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
-		
-		var tableItem: NewsSources
-		if isFiltering() {
-			tableItem = filteredTableData[indexPath.row] as NewsSources
-        } else {
-			tableItem = newsSources[indexPath.row] as NewsSources
-        }
-			
-		cell.textLabel!.text = tableItem.sourceName
-		cell.textLabel!.textColor = Theme.cellTitleColor
-		cell.textLabel!.font = settings.fontSizeXLarge
-        
-		if (settings.newsSourcesFiltered[settings.region]?.index(of: tableItem.sourceID) != nil) {
-			cell.backgroundColor = Theme.selectedColor
-			cell.accessibilityTraits = UIAccessibilityTraitSelected
-		} else {
-			if (indexPath.row % 2 == 0) {
-				cell.backgroundColor = Theme.evenRowColor
-			} else {
-				cell.backgroundColor = Theme.oddRowColor
-			}
-		}
-		
-		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
 
-        return cell
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		var selectedNewsSource: NewsSources
-		if self.searchController.isActive {
-			selectedNewsSource = self.filteredTableData[indexPath.row]
-		} else {
-			selectedNewsSource = self.newsSources[indexPath.row]
-		}
-
-        #if DEBUG
-            print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
-        #endif
-		
-		self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "settings", value: selectedNewsSource.sourceID as NSNumber)
-		
-		let removed = self.settings.removeSource(selectedNewsSource.sourceID)
-		self.newsSources[indexPath.row].selected = removed
-        
-        defaults!.set(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
-		defaults!.synchronize()
-		
-        self.tableView!.reloadData()
-    }
-
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-	    let selectionColor = UIView() as UIView
-	    selectionColor.backgroundColor = Theme.tintColor
-	    cell.selectedBackgroundView = selectionColor
-	}
-	
     func getNewsSources(){
         // Get news sources for selected region from settings' store
         if let newsSources: [NewsSources] = self.settings.newsSourcesByLang[self.settings.region] {
@@ -378,9 +285,9 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
                 
                 self.defaults!.synchronize()
                 
-                //                #if DEBUG
-                //                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
-                //                #endif
+//                #if DEBUG
+//                    print("categoriesByLang=\(self.settings.categoriesByLang[self.settings.region])")
+//                #endif
                 
                 self.tableView!.reloadData()
                 
@@ -399,22 +306,98 @@ class FilterNewsSourcesViewController: UIViewController, UITableViewDataSource, 
 
 }
 
+extension FilterNewsSourcesViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+//            searchFooter.setIsFilteringToShow(filteredItemCount: filteredTableData.count, of: newsSources.count)
+            return filteredTableData.count
+        }
+
+//        searchFooter.setNotFiltering()
+        return newsSources.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: MainStoryboard.TableViewCellIdentifiers.listCategoryCell, for: indexPath)
+
+        var tableItem: NewsSources
+        if isFiltering() {
+            tableItem = filteredTableData[indexPath.row] as NewsSources
+        } else {
+            tableItem = newsSources[indexPath.row] as NewsSources
+        }
+
+        cell.textLabel!.text = tableItem.sourceName
+        cell.textLabel!.textColor = Theme.cellTitleColor
+        cell.textLabel!.font = settings.fontSizeXLarge
+
+        if (settings.newsSourcesFiltered[settings.region]?.index(of: tableItem.sourceID) != nil) {
+            cell.backgroundColor = Theme.selectedColor
+            cell.accessibilityTraits = UIAccessibilityTraitSelected
+        } else {
+            if (indexPath.row % 2 == 0) {
+                cell.backgroundColor = Theme.evenRowColor
+            } else {
+                cell.backgroundColor = Theme.oddRowColor
+            }
+        }
+
+        Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
+
+        return cell
+    }
+}
+
+extension FilterNewsSourcesViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var selectedNewsSource: NewsSources
+        if isFiltering() {
+            selectedNewsSource = self.filteredTableData[indexPath.row]
+        } else {
+            selectedNewsSource = self.newsSources[indexPath.row]
+        }
+
+        #if DEBUG
+            print("didSelectRowAtIndexPath, selectedNewsSource=\(selectedNewsSource.sourceName), \(selectedNewsSource.sourceID)")
+        #endif
+
+        self.trackEvent("removeSource", category: "ui_Event", action: "removeSource", label: "settings", value: selectedNewsSource.sourceID as NSNumber)
+
+        let removed = self.settings.removeSource(selectedNewsSource.sourceID)
+        self.newsSources[indexPath.row].selected = removed
+
+        defaults!.set(settings.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+        defaults!.synchronize()
+
+        self.tableView!.reloadData()
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let selectionColor = UIView() as UIView
+        selectionColor.backgroundColor = Theme.tintColor
+        cell.selectedBackgroundView = selectionColor
+    }
+
+}
+
 extension FilterNewsSourcesViewController: UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
+//    func updateSearchResults(for searchController: UISearchController) {
+//        let searchBar = searchController.searchBar
+//        let scope = payWallItems[searchBar.selectedScopeButtonIndex]
+//        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+//    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
-    
-//    func updateSearchResults(for searchController: UISearchController) {
-//        let searchBar = searchController.searchBar
-//        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-//        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
-//    }
 }
 
-extension FilterNewsSourcesViewController: UISearchBarDelegate {
-    // MARK: - UISearchBar Delegate
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
-}
+//extension FilterNewsSourcesViewController: UISearchBarDelegate {
+//    // MARK: - UISearchBar Delegate
+//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+//        filterContentForSearchText(searchBar.text!, scope: payWallItems[selectedScope])
+//    }
+//}
