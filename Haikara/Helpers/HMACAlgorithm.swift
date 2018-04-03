@@ -99,7 +99,7 @@ extension String {
             hash.appendFormat("%02x", result[i])
         }
 
-        result.deinitialize()
+        result.deinitialize(count: digestLen)
         return String(hash)
     }
 }

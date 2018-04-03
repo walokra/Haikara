@@ -100,7 +100,7 @@ struct Theme {
 
 		UIApplication.shared.delegate?.window??.tintColor = tintColor
 		UINavigationBar.appearance().barStyle = barStyle
-		UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
+//        UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
 		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Light.buttonColor
@@ -135,7 +135,7 @@ struct Theme {
 		
 		UIApplication.shared.delegate?.window??.tintColor = tintColor
 		UINavigationBar.appearance().barStyle = barStyle
-		UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
+//        UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: true)
 		UITabBar.appearance().barStyle = barStyle
 		
 		buttonColor = Dark.buttonColor
