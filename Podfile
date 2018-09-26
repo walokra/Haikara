@@ -8,7 +8,7 @@ def alamofire
 end
 
 def alamofire_image
-	pod 'AlamofireImage', '~> 3.3'
+	pod 'AlamofireImage', '~> 3.4'
 end
 
 def shared_pods
