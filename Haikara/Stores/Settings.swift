@@ -330,10 +330,10 @@ class Settings {
         }
 
 		if self.useSystemSize {
-			self.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
-			self.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-			self.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-			self.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
+			self.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+			self.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
+			self.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+			self.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
 		} else {
 			self.fontSizeXLarge = UIFont.systemFont(ofSize: self.fontSizeBase + 6.0)
 			self.fontSizeLarge = UIFont.systemFont(ofSize: self.fontSizeBase + 5.0)

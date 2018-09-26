@@ -128,7 +128,7 @@ class FilterNewsSourcesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setRegionNewsSources(_:)), name: .regionChangedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.resetNewsSourcesFiltered(_:)), name: .settingsResetedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FilterNewsSourcesViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -344,7 +344,7 @@ extension FilterNewsSourcesViewController: UITableViewDataSource {
 
         if (settings.newsSourcesFiltered[settings.region]?.index(of: tableItem.sourceID) != nil) {
             cell.backgroundColor = Theme.selectedColor
-            cell.accessibilityTraits = UIAccessibilityTraitSelected
+            cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {
             if (indexPath.row % 2 == 0) {
                 cell.backgroundColor = Theme.evenRowColor

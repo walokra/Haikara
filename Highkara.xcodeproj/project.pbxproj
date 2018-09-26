@@ -613,7 +613,6 @@
 				36501E2C1EC7ADAF00E078AD /* Frameworks */,
 				36501E2D1EC7ADAF00E078AD /* Resources */,
 				1EBD2BC0D9FB1EC0CA9C4FE4 /* [CP] Embed Pods Frameworks */,
-				C014E525C1D1F4E1787E2409 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -633,7 +632,6 @@
 				366BC87F1EB487770068DEB7 /* Frameworks */,
 				366BC8801EB487770068DEB7 /* Resources */,
 				C2D8DE926795D6BAE0D802F6 /* [CP] Embed Pods Frameworks */,
-				48256EA124AFD451E5C1CE71 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -653,7 +651,6 @@
 				367BAD1B1D1874B600F6B949 /* Frameworks */,
 				367BAD1A1D1874B600F6B949 /* Sources */,
 				367BAD1C1D1874B600F6B949 /* Resources */,
-				7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */,
 				360619A31D6065CF00DAAA29 /* ShellScript */,
 			);
 			buildRules = (
@@ -675,7 +672,6 @@
 				36A39C071B2E0AE900BE0C77 /* Resources */,
 				36C3D6E21D60604C00CDF9E9 /* Embed App Extensions */,
 				A05F0E712116715D6C7D586E /* [CP] Embed Pods Frameworks */,
-				8E90AB979042954A0B639816 /* [CP] Copy Pods Resources */,
 				360619A81D60724400DAAA29 /* ShellScript */,
 				36501E451EC7ADAF00E078AD /* Embed Watch Content */,
 			);
@@ -716,7 +712,7 @@
 					36501E2E1EC7ADAF00E078AD = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -733,7 +729,7 @@
 					367BAD1D1D1874B600F6B949 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -744,7 +740,7 @@
 					36A39C081B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -754,7 +750,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */;
+			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -910,21 +906,6 @@
 			shellPath = /bin/sh;
 			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/Today.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\n    rm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
-		48256EA124AFD451E5C1CE71 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		69B684C108F2EF749EFFCE0C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -941,36 +922,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7ED7602B2F52816C18C0C0DE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Today/Pods-Today-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8E90AB979042954A0B639816 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9EC745D96FDAF724EE10D4EA /* [CP] Check Pods Manifest.lock */ = {
@@ -1027,21 +978,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C014E525C1D1F4E1787E2409 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C2D8DE926795D6BAE0D802F6 /* [CP] Embed Pods Frameworks */ = {
@@ -1257,7 +1193,7 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1289,7 +1225,7 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1325,10 +1261,9 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1358,10 +1293,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Watch App Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1397,7 +1331,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/highkara.app/highkara";
 			};
 			name = Debug;
@@ -1418,7 +1352,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/highkara.app/highkara";
 			};
 			name = Release;
@@ -1449,8 +1383,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget dev";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1477,8 +1410,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1619,8 +1551,7 @@
 				PROVISIONING_PROFILE = "ccb3b378-f99c-4b02-b9fb-a5e08000efa1";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkare dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1646,10 +1577,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ddfd09a6-bc95-40a9-b374-c0be62cba1c2";
-				PROVISIONING_PROFILE_SPECIFIER = "Highkara news reader iOS dist";
+				PROVISIONING_PROFILE_SPECIFIER = "Highkara news reader";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1693,7 +1623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */ = {
+		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C261B2E0AE900BE0C77 /* Debug */,

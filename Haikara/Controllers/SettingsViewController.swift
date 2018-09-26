@@ -141,7 +141,7 @@ class SettingsViewController: UITableViewController {
 		
 			// All done
 			let doneController = UIAlertController(title: self.resetMessageTitle, message: self.resetMessage, preferredStyle: .alert)
-        	let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        	let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         	doneController.addAction(OKAction)
 			
 			self.present(doneController, animated: true) {}
@@ -317,7 +317,7 @@ class SettingsViewController: UITableViewController {
 		
 		selectFontSizeSlider.isEnabled = !settings.useSystemSize
 		
-		NotificationCenter.default.post(name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil, userInfo: nil)
+		NotificationCenter.default.post(name: UIContentSizeCategory.didChangeNotification, object: nil, userInfo: nil)
 	}
 	
 	@IBAction func selectBaseFontSizeAction(_ sender: UISlider) {
@@ -334,7 +334,7 @@ class SettingsViewController: UITableViewController {
 
 		Theme.setFonts()
 		
-		NotificationCenter.default.post(name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil, userInfo: nil)
+		NotificationCenter.default.post(name: UIContentSizeCategory.didChangeNotification, object: nil, userInfo: nil)
 	}
     
     @IBAction func optOutAnalyticsAction(_ sender: UISwitch) {
@@ -398,7 +398,7 @@ class SettingsViewController: UITableViewController {
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SettingsViewController.setSelectedRegion(_:)), name: "regionChangedNotification", object: nil)
 	NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.setTodayCategories(_:)), name: .categoriesRefreshedNotification, object: nil)
 	NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.setTodayCategory(_:)), name: .todayCategoryChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 		
 	}
 	
@@ -422,7 +422,7 @@ class SettingsViewController: UITableViewController {
 		optOutAnalyticsLabel.textColor = Theme.textColor
 
 		resetLabel.textColor = Theme.textColor
-		resetButton.setTitleColor(Theme.textColor, for: UIControlState())
+		resetButton.setTitleColor(Theme.textColor, for: UIControl.State())
 		
 		aboutLabel.textColor = Theme.textColor
 

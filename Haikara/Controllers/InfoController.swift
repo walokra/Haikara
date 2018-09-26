@@ -85,7 +85,7 @@ class InfoController: UITableViewController {
 	
 	func setObservers() {
 		NotificationCenter.default.addObserver(self, selector: #selector(InfoController.setTheme(_:)), name: .themeChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(InfoController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(InfoController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -95,11 +95,11 @@ class InfoController: UITableViewController {
 		
 		aboutLabel.textColor = Theme.textColor
 		licenseLabel.textColor = Theme.textColor
-		openAppStoreButton.setTitleColor(Theme.buttonColor, for: UIControlState())
-		openHighFiButton.setTitleColor(Theme.buttonColor, for: UIControlState())
-		bugsButton.setTitleColor(Theme.buttonColor, for: UIControlState())
-		openTwitterButton.setTitleColor(Theme.buttonColor, for: UIControlState())
-		openEmailButton.setTitleColor(Theme.buttonColor, for: UIControlState())
+		openAppStoreButton.setTitleColor(Theme.buttonColor, for: UIControl.State())
+		openHighFiButton.setTitleColor(Theme.buttonColor, for: UIControl.State())
+		bugsButton.setTitleColor(Theme.buttonColor, for: UIControl.State())
+		openTwitterButton.setTitleColor(Theme.buttonColor, for: UIControl.State())
+		openEmailButton.setTitleColor(Theme.buttonColor, for: UIControl.State())
 		
 		infoLabel.textColor = Theme.textColor
 	}
@@ -132,7 +132,7 @@ class InfoController: UITableViewController {
     }
 
 	func configureTableView() {
-		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 75.0
 	}
 	

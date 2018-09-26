@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Settings()
     }
 	
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
 		setObservers()
@@ -48,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setAnalytics()
 
         let splitViewController = self.window!.rootViewController as! UISplitViewController
+        splitViewController.preferredDisplayMode = .allVisible
 
 		let minimumWidth: CGFloat = min(splitViewController.view.bounds.width,splitViewController.view.bounds.height);
 		splitViewController.minimumPrimaryColumnWidth = minimumWidth / 2;
@@ -68,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 	// iOS 9
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+	func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
 		return parseAndOpenUrl(url)
 	}
 	

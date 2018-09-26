@@ -13,7 +13,7 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
 	
 	var dismissing: Bool = false
 	var percentageDriven: Bool = false
-	var opts: UIViewAnimationOptions = UIViewAnimationOptions()
+	var opts: UIView.AnimationOptions = UIView.AnimationOptions()
 	
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.35
@@ -38,7 +38,7 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
         topView.transform = dismissing ? CGAffineTransform.identity : CGAffineTransform(translationX: offset, y: 0)
         
         let shadowView = UIImageView(image: UIImage(named: "shadow"))
-        shadowView.contentMode = UIViewContentMode.scaleAspectFill
+        shadowView.contentMode = UIView.ContentMode.scaleAspectFill
         shadowView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
         shadowView.frame = bottomView.bounds
         bottomView.addSubview(shadowView)
@@ -56,9 +56,9 @@ class SCModalPushPopAnimator: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-	func animOpts() -> UIViewAnimationOptions {
-		let opts = self.percentageDriven ? UIViewAnimationOptions.curveLinear : UIViewAnimationOptions()
+	func animOpts() -> UIView.AnimationOptions {
+		let opts = self.percentageDriven ? UIView.AnimationOptions.curveLinear : UIView.AnimationOptions()
 	
-		return opts.union(UIViewAnimationOptions.allowAnimatedContent).union(UIViewAnimationOptions.beginFromCurrentState).union(UIViewAnimationOptions.layoutSubviews)
+		return opts.union(UIView.AnimationOptions.allowAnimatedContent).union(UIView.AnimationOptions.beginFromCurrentState).union(UIView.AnimationOptions.layoutSubviews)
     }
 }

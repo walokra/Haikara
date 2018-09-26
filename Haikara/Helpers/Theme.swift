@@ -66,10 +66,10 @@ struct Theme {
 	
 	static func setFonts() {
 		if Settings.sharedInstance.useSystemSize {
-			Settings.sharedInstance.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
-			Settings.sharedInstance.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-			Settings.sharedInstance.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-			Settings.sharedInstance.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
+			Settings.sharedInstance.fontSizeXLarge = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+			Settings.sharedInstance.fontSizeLarge = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
+			Settings.sharedInstance.fontSizeSmall = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+			Settings.sharedInstance.fontSizeMedium = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
 		} else {
 			Settings.sharedInstance.fontSizeXLarge = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 6.0)
 			Settings.sharedInstance.fontSizeLarge = UIFont.systemFont(ofSize: Settings.sharedInstance.fontSizeBase + 5.0)

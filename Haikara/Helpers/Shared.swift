@@ -84,7 +84,7 @@ extension UIViewController {
 		self.trackEvent("handleError", category: "ui_Event", action: "handleError", label: "error", value: 1)
 		
         let alertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alertController.addAction(OKAction)
         
         self.present(alertController, animated: true){}
@@ -102,7 +102,7 @@ class Shared: NSObject {
 			tableView.layoutMargins = UIEdgeInsets.zero
 	    }
 
-		cell.separatorInset = UIEdgeInsetsMake(0, 0, cell.frame.size.width, 0)
+		cell.separatorInset = UIEdgeInsets.init(top: 0, left: 0, bottom: cell.frame.size.width, right: 0)
 		if (cell.responds(to: #selector(getter: UIView.preservesSuperviewLayoutMargins))){
 			cell.layoutMargins = UIEdgeInsets.zero
 			cell.preservesSuperviewLayoutMargins = false

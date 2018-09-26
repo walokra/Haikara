@@ -80,7 +80,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setRegionCategory(_:)), name: .categoriesRefreshedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.resetFavorited(_:)), name: .settingsResetedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(FavoriteCategoriesViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -146,7 +146,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
         
         if (settings.categoriesFavorited[settings.region]?.index(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
-			cell.accessibilityTraits = UIAccessibilityTraitSelected
+			cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor

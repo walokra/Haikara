@@ -95,7 +95,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let publishedFormatter = DateFormatter()
 	let publishedTimeFormatter = DateFormatter()
 	
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
 	var loading = false
 	
 	var didSearch: Bool = false
@@ -207,7 +207,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("REFRESH", comment: "Refresh the news"))
-		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), for: UIControlEvents.valueChanged)
+		self.refreshControl.addTarget(self, action: #selector(DetailViewController.refresh(_:)), for: UIControl.Event.valueChanged)
 		self.tableView.addSubview(refreshControl)
 	}
 	
@@ -216,7 +216,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	func setObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.handleOpenURL(_:)), name: .handleOpenURL, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 
 	@objc func handleOpenURL(_ notification:Notification){
@@ -272,7 +272,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
    		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
    		loadingIndicator.center = self.view.center
    		self.view.addSubview(loadingIndicator)
-   		loadingIndicator.bringSubview(toFront: self.view)
+   		loadingIndicator.bringSubviewToFront(self.view)
 	}
 	
 	// MARK: - API
@@ -524,7 +524,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	}
 	
 	func configureTableView() {
-		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 110.0
 	}
 	
@@ -747,7 +747,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 		let share = UITableViewRowAction(style: .default, title: shareButtonText) {
 			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
-			self.tableView(tableView, commit: UITableViewCellEditingStyle.none, forRowAt: indexPath)
+			self.tableView(tableView, commit: UITableViewCell.EditingStyle.none, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
@@ -767,7 +767,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			let objectsToShare = [tableItem.title, webURL!] as [Any]
 			let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 			
-			activityViewController.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+			activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
 			
 			self.present(activityViewController, animated: true, completion: nil)
 		}
@@ -775,10 +775,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		let delete = UITableViewRowAction(style: .default, title: deleteButtonText) {
 			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
-			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertControllerStyle.alert)
+			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertController.Style.alert)
 
 			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .destructive, handler: { (action: UIAlertAction!) in
-				self.tableView(tableView, commit: UITableViewCellEditingStyle.delete, forRowAt: indexPath)
+				self.tableView(tableView, commit: UITableViewCell.EditingStyle.delete, forRowAt: indexPath)
 			
 				let tableSection = self.sections[self.sortedSections[indexPath.section]]
 				let tableItem = tableSection![indexPath.row]
@@ -811,7 +811,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		let browser = UITableViewRowAction(style: .default, title: browserButtonText) {
 			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
-			self.tableView(tableView, commit: UITableViewCellEditingStyle.insert, forRowAt: indexPath)
+			self.tableView(tableView, commit: UITableViewCell.EditingStyle.insert, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
@@ -843,7 +843,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	}
 	
 	// We need empty implementation to get editActionsForRowAtIndexPath to work.
-	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 	}
 	
 	// MARK: - Helpers
@@ -860,7 +860,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	func scrollToTop() {
 		if (self.numberOfSections(in: self.tableView) > 0 ) {
 			let top = IndexPath(row: Foundation.NSNotFound, section: 0);
-			self.tableView.scrollToRow(at: top, at: UITableViewScrollPosition.top, animated: true);
+			self.tableView.scrollToRow(at: top, at: UITableView.ScrollPosition.top, animated: true);
 		}
 	}
 	
@@ -969,10 +969,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	
 	func createClockIcon(_ color: UIColor) {
 		let string = String.ionIconString("ion-ios-clock-outline")
-        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 14.00)!])
-        stringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
+        let stringAttributed = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 14.00)!])
+        stringAttributed.addAttribute(NSAttributedString.Key.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 14), range: NSRange(location: 0,length: 1))
         stringAttributed.addAttribute(
-        	NSAttributedStringKey.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
+        	NSAttributedString.Key.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
         )
 		clockLabel.attributedText = stringAttributed
 	}

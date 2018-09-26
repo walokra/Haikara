@@ -71,7 +71,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		} else {
 			let alertController = UIAlertController(title: favoritesCategoryTitle, message: favoritesCategoryMessage, preferredStyle: .alert)
 		
-			let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+			let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
 			alertController.addAction(okAction)
 
 			let gotoSettingsAction = UIAlertAction(title: settingsText, style: .default) { (action) in
@@ -149,7 +149,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.updateSelectedCategories(_:)), name: .selectedCategoriesChangedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: .settingsResetedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -350,30 +350,30 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 	
 	func createfavoritesIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-star-outline")
-        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        buttonStringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSAttributedString.Key.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         buttonStringAttributed.addAttribute(
-        	NSAttributedStringKey.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
+        	NSAttributedString.Key.foregroundColor, value: color, range: NSRange(location: 0,length: 1)
         )
         
         favoritesButton.titleLabel?.textAlignment = .center
         favoritesButton.titleLabel?.numberOfLines = 1
-        favoritesButton.setAttributedTitle(buttonStringAttributed, for: UIControlState())
+        favoritesButton.setAttributedTitle(buttonStringAttributed, for: UIControl.State())
     }
 	
 	func createSettingsIconButton(_ color: UIColor) {
         let buttonString = String.ionIconString("ion-ios-gear-outline")
-        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
-        buttonStringAttributed.addAttribute(NSAttributedStringKey.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
+        let buttonStringAttributed = NSMutableAttributedString(string: buttonString, attributes: [NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 11.00)!])
+        buttonStringAttributed.addAttribute(NSAttributedString.Key.font, value: UIFont.iconFontOfSize("ionicons", fontSize: 32), range: NSRange(location: 0,length: 1))
         buttonStringAttributed.addAttribute(
-            NSAttributedStringKey.foregroundColor,
+            NSAttributedString.Key.foregroundColor,
             value: color,
             range: NSRange(location: 0,length: 1)
         )
         
         settingsButton.titleLabel?.textAlignment = .center
         settingsButton.titleLabel?.numberOfLines = 1
-        settingsButton.setAttributedTitle(buttonStringAttributed, for: UIControlState())
+        settingsButton.setAttributedTitle(buttonStringAttributed, for: UIControl.State())
 	}
 	
 	override func didReceiveMemoryWarning() {

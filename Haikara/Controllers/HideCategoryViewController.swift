@@ -81,7 +81,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setRegionCategory(_:)), name: .categoriesRefreshedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.resetHidden(_:)), name: .settingsResetedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setContentSize(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(HideCategoryViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -147,7 +147,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
         
         if (settings.categoriesHidden[settings.region]?.index(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
-			cell.accessibilityTraits = UIAccessibilityTraitSelected
+			cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {
 			if (indexPath.row % 2 == 0) {
 				cell.backgroundColor = Theme.evenRowColor

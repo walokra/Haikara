@@ -105,7 +105,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	var selectedTodayCategoryName: String?
 
 	// Loading indicator
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
 	var loading = false
 	
 	// Theme colors
@@ -146,7 +146,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 		loadingIndicator.center = self.view.center
 		self.view.addSubview(loadingIndicator)
-		loadingIndicator.bringSubview(toFront: self.view)
+		loadingIndicator.bringSubviewToFront(self.view)
 	}
 	
 	func initView() {
@@ -197,7 +197,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.tableFooterView?.isHidden = true
 
-		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 33.0
 	}
 	
