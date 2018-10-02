@@ -38,6 +38,7 @@ struct Defaults {
 	// settings
 	let showDesc: Bool
 	let useMobileUrl: Bool
+    let useAmpUrl: Bool
 	let useReaderView: Bool
 	let useDarkTheme: Bool
 	let showNewsPicture: Bool
@@ -61,6 +62,7 @@ class Settings {
 			genericNewsURLPart: "uutiset",
 			showDesc: false,
 			useMobileUrl: true,
+            useAmpUrl: false,
 			useReaderView: false,
 			useDarkTheme: false,
 			showNewsPicture: false,
@@ -99,6 +101,7 @@ class Settings {
     
     var showDesc: Bool // Showing descriptions for news items or not
     var useMobileUrl: Bool // Prefer mobile optimized URLs
+    var useAmpUrl: Bool // Prefer Accelerated Mobile Page (AMP) version
     var useReaderView: Bool // Use Reader View with SFSafariViewController if available
 	var useDarkTheme: Bool // Use Dark Theme
 	var showNewsPicture: Bool // Show News Picture
@@ -212,6 +215,12 @@ class Settings {
             self.useMobileUrl = defaultValues.useMobileUrl
         }
         
+        if let useAmpUrl: Bool = defaults.object(forKey: "useAmpUrl") as? Bool {
+            self.useAmpUrl = useAmpUrl
+        } else {
+            self.useAmpUrl = defaultValues.useAmpUrl
+        }
+
         if let useReaderView: Bool = defaults.object(forKey: "useReaderView") as? Bool {
             self.useReaderView = useReaderView
         } else {
@@ -349,7 +358,7 @@ class Settings {
     }
     
     var description: String {
-		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), includePaid=\(self.includePaid), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
+		return "Settings: APIKEY=\(self.APIKEY), deviceID=\(self.deviceID), appID=\(self.appID), preferredLanguage=\(self.preferredLanguage), highFiEndpoint=\(self.highFiEndpoint), highFiActCategory=\(self.highFiActCategory), highFiActUsedLanguage=\(self.highFiActUsedLanguage), useToRetrieveLists=\(self.useToRetrieveLists), mostPopularName=\(self.mostPopularName), latestName=\(self.latestName), domainToUse=\(self.domainToUse), genericNewsURLPart=\(self.genericNewsURLPart), showDesc=\(self.showDesc), useMobileUrl=\(self.useMobileUrl), useAmpUrl=\(self.useAmpUrl), useReaderView=\(self.useReaderView), useDarkTheme=\(self.useDarkTheme), showNewsPicture=\(self.showNewsPicture), useChrome=\(self.useChrome), region=\(self.region), todayCategoryByLang=\(String(describing: todayCategoryByLang[self.region])), optOutAnalytics=\(self.optOutAnalytics), includePaid=\(self.includePaid), fontName=\(self.fontName), useSystemSize=\(self.useSystemSize), fontSizeBase=\(self.fontSizeBase)"
     }
 	
 	func resetToDefaults() {
@@ -377,6 +386,9 @@ class Settings {
         self.useMobileUrl = defaultValues.useMobileUrl
         defaults.set(self.useMobileUrl, forKey: "useMobileUrl")
         
+        self.useAmpUrl = defaultValues.useAmpUrl
+        defaults.set(self.useAmpUrl, forKey: "useAmpUrl")
+
         self.useReaderView = defaultValues.useReaderView
         defaults.set(self.useReaderView, forKey: "useReaderView")
 

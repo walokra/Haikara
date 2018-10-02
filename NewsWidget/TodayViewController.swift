@@ -46,6 +46,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 			genericNewsURLPart: "uutiset",
 			showDesc: false,
 			useMobileUrl: true,
+            useAmpUrl: false,
 			useReaderView: false,
 			useDarkTheme: false,
 			showNewsPicture: false,
