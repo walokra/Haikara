@@ -1,3 +1,4 @@
+/* HOW TO: ibtool Base.lproj/Main.storyboard --generate-strings-file file_name.txt */
 
 /* Class = "UILabel"; text = "Description"; ObjectID = "4SW-bs-Kz2"; */
 "4SW-bs-Kz2.text" = "Kuvaus";
@@ -211,3 +212,6 @@
 
 /* Class = "UIBarButtonItem"; title = "Favorites"; ObjectID = "SD7-bb-pdC"; */
 "SD7-bb-pdC.title" = "Suosikit";
+
+/* Class = "UILabel"; text = "Prefer AMP Views"; ObjectID = "hyE-bY-L9h"; */
+"hyE-bY-L9h.text" = "Käytä AMP sivuja";

@@ -633,7 +633,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
 			webURL = URL(string: tableItem.originalMobileUrl!)
 		}
-		if ((tableItem.ampURL != nil && !tableItem.ampURL!.isEmpty) && self.settings.useMobileUrl) {
+		if ((tableItem.ampURL != nil && !tableItem.ampURL!.isEmpty) && self.settings.useAmpUrl) {
 			webURL = URL(string: tableItem.ampURL!)
 		}
 

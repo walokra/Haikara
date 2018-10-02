@@ -53,6 +53,10 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var useMobileUrlLabel: UILabel!
 	@IBOutlet weak var useMobileUrlSwitch: UISwitch!
 
+    // AMP
+    @IBOutlet weak var useAmpUrlLabel: UILabel!
+    @IBOutlet weak var useAmpUrlSwitch: UISwitch!
+    
 	@IBOutlet weak var useReaderLabel: UILabel!
 	@IBOutlet weak var useReaderViewSwitch: UISwitch!
 
@@ -137,6 +141,7 @@ class SettingsViewController: UITableViewController {
         	self.listLanguages()
 			
         	self.useMobileUrlSwitch.isOn = self.settings.useMobileUrl
+            self.useAmpUrlSwitch.isOn = self.settings.useAmpUrl
         	self.useReaderViewSwitch.isOn = self.settings.useReaderView
 		
 			// All done
@@ -229,6 +234,18 @@ class SettingsViewController: UITableViewController {
 		self.trackEvent("useMobileUrl", category: "ui_Event", action: "useMobileUrl", label: "settings", value: (!sender.isOn) ? 1 : 0)
 	}
 
+    @IBAction func useAmpUrlAction(_ sender: UISwitch) {
+        settings.useAmpUrl = sender.isOn
+        defaults!.set(settings.useAmpUrl, forKey: "useAmpUrl")
+        defaults!.synchronize()
+        #if DEBUG
+        print ("useAmpUrl \(settings.useAmpUrl), sender.on=\(sender.isOn)")
+        #endif
+        
+        self.trackEvent("useAmpUrl", category: "ui_Event", action: "useAmpUrl", label: "settings", value: (!sender.isOn) ? 1 : 0)
+    }
+    
+    
 	@IBAction func useReaderViewAction(_ sender: UISwitch) {
 		settings.useReaderView = sender.isOn
         defaults!.set(settings.useReaderView, forKey: "useReaderView")
@@ -379,6 +396,7 @@ class SettingsViewController: UITableViewController {
 	func setSettings() {
         includePaidSwitch.isOn = settings.includePaid
         useMobileUrlSwitch.isOn = settings.useMobileUrl
+        useAmpUrlSwitch.isOn = settings.useAmpUrl
         useReaderViewSwitch.isOn = settings.useReaderView
 		useDarkThemeSwitch.isOn = settings.useDarkTheme
 		useChromeSwitch.isOn = settings.useChrome
@@ -412,6 +430,7 @@ class SettingsViewController: UITableViewController {
 		
         includePaidLabel.textColor = Theme.textColor
 		useMobileUrlLabel.textColor = Theme.textColor
+        useAmpUrlLabel.textColor = Theme.textColor
 		useReaderLabel.textColor = Theme.textColor
 		useChromeLabel.textColor = Theme.textColor
 		useChromeNewTabLabel.textColor = Theme.textColor
@@ -452,6 +471,7 @@ class SettingsViewController: UITableViewController {
 		
         includePaidLabel.font = settings.fontSizeLarge
 		useMobileUrlLabel.font = settings.fontSizeLarge
+        useAmpUrlLabel.font = settings.fontSizeLarge
 		useReaderLabel.font = settings.fontSizeLarge
 		useDarkLabel.font = settings.fontSizeLarge
 		useChromeLabel.font = settings.fontSizeLarge
