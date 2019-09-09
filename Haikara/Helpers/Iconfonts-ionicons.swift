@@ -37,7 +37,7 @@ public extension UIFont{
 
 public extension String {
     // returns the unicode character representation of the target icon as a String.
-    public static func ionIconString(_ name: String) -> String {
+    static func ionIconString(_ name: String) -> String {
         
         return fetchIconIonIcon(name)
         
@@ -46,7 +46,7 @@ public extension String {
 
 public extension NSMutableAttributedString {
     // returns an AttributedString containing the target icon and any “suffix” text both at their specified target size.
-    public static func ionIconAttributedString(_ name: String, suffix: String?, iconSize: CGFloat, suffixSize: CGFloat?) -> NSMutableAttributedString {
+    static func ionIconAttributedString(_ name: String, suffix: String?, iconSize: CGFloat, suffixSize: CGFloat?) -> NSMutableAttributedString {
         
         // Initialise some variables
         var iconString = fetchIconIonIcon(name)

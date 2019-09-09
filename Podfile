@@ -4,11 +4,11 @@ platform :ios, '9.0'
 use_frameworks!
 
 def alamofire
-	pod 'Alamofire', '~> 4.7'
+	pod 'Alamofire', '~> 4.8'
 end
 
 def alamofire_image
-	pod 'AlamofireImage', '~> 3.4'
+	pod 'AlamofireImage', '~> 3.5'
 end
 
 def shared_pods

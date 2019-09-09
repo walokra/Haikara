@@ -752,7 +752,7 @@
 			};
 			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */;
 			compatibilityVersion = "Xcode 6.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -868,7 +868,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-watchOS/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -877,7 +877,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		360619A31D6065CF00DAAA29 /* ShellScript */ = {
@@ -948,7 +948,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 			);
@@ -959,7 +959,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-highkara/Pods-highkara-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3AFE36E3F0C94FBA135801D /* [CP] Check Pods Manifest.lock */ = {
@@ -986,7 +986,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 			);
@@ -997,7 +997,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HighkaraTests/Pods-HighkaraTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1549,7 +1549,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ccb3b378-f99c-4b02-b9fb-a5e08000efa1";
-				PROVISIONING_PROFILE_SPECIFIER = "Highkare dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Highkara dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
