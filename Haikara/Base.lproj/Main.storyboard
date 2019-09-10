@@ -190,27 +190,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcJ-Zh-1pv">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcJ-Zh-1pv">
                                 <rect key="frame" x="0.0" y="64" width="375" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select favorite categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxB-h8-nBo">
-                                        <rect key="frame" x="8" y="0.0" width="361" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Select favorite categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxB-h8-nBo">
+                                        <rect key="frame" x="8" y="0.0" width="359" height="40"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="mxB-h8-nBo" firstAttribute="leading" secondItem="AcJ-Zh-1pv" secondAttribute="leading" constant="8" id="4gI-gv-bai"/>
+                                    <constraint firstAttribute="trailing" secondItem="mxB-h8-nBo" secondAttribute="trailing" constant="8" id="4tF-9j-EZg"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PSc-w6-6CB" secondAttribute="trailing" id="8dP-th-Ced"/>
                             <constraint firstItem="PSc-w6-6CB" firstAttribute="leading" secondItem="XCy-hf-nvI" secondAttribute="leading" id="Q0T-I7-hOh"/>
+                            <constraint firstItem="PSc-w6-6CB" firstAttribute="top" secondItem="mxB-h8-nBo" secondAttribute="bottom" id="Uvb-kw-F0m"/>
                             <constraint firstItem="PSc-w6-6CB" firstAttribute="top" secondItem="cY5-Z4-ghi" secondAttribute="bottom" constant="40" id="c9n-DB-B7g"/>
                             <constraint firstItem="9cf-85-dod" firstAttribute="top" secondItem="PSc-w6-6CB" secondAttribute="bottom" id="cF4-of-Nle"/>
+                            <constraint firstItem="mxB-h8-nBo" firstAttribute="top" secondItem="cY5-Z4-ghi" secondAttribute="bottom" id="haI-Gm-axt"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" image="ios-star-outline.png" id="Rwm-VB-qca"/>
@@ -259,15 +263,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mh9-K2-ab4">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mh9-K2-ab4">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ZUC-0f-GhU" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leading" id="8Yu-z6-Xfl"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" id="HYt-0j-vPI"/>
+                            <constraint firstItem="Mh9-K2-ab4" firstAttribute="leading" secondItem="Lkw-N5-POt" secondAttribute="leading" id="NI3-TK-YVd"/>
+                            <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Mh9-K2-ab4" secondAttribute="bottom" constant="8" id="eNU-Nm-7ZJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Mh9-K2-ab4" secondAttribute="trailing" id="lYe-8h-2fR"/>
                             <constraint firstItem="ZUC-0f-GhU" firstAttribute="top" secondItem="Sll-4e-fI4" secondAttribute="bottom" constant="52" id="tJV-ZR-5uK"/>
                             <constraint firstItem="E6Q-7U-ip8" firstAttribute="top" secondItem="ZUC-0f-GhU" secondAttribute="bottom" id="vd7-XY-Thr"/>
                             <constraint firstAttribute="trailing" secondItem="ZUC-0f-GhU" secondAttribute="trailing" id="wtk-a6-Goe"/>
@@ -1067,25 +1074,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHT-1g-Wa3">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHT-1g-Wa3">
                                 <rect key="frame" x="0.0" y="64" width="375" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hide categories shown in news" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAV-Wr-Rb5">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Hide categories shown in news" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAV-Wr-Rb5">
                                         <rect key="frame" x="8" y="0.0" width="359" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="eAV-Wr-Rb5" firstAttribute="leading" secondItem="JHT-1g-Wa3" secondAttribute="leading" constant="8" id="6zo-Nh-qU5"/>
+                                    <constraint firstAttribute="trailing" secondItem="eAV-Wr-Rb5" secondAttribute="trailing" constant="8" id="Mr9-Ab-IlF"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fDC-sf-d4V" firstAttribute="leading" secondItem="gTY-q5-3S8" secondAttribute="leading" id="6lE-JU-tCa"/>
                             <constraint firstItem="fDC-sf-d4V" firstAttribute="top" secondItem="aDf-vE-mfn" secondAttribute="bottom" constant="40" id="DSC-ky-y1y"/>
+                            <constraint firstItem="eAV-Wr-Rb5" firstAttribute="top" secondItem="aDf-vE-mfn" secondAttribute="bottom" id="WYG-Ex-eOA"/>
+                            <constraint firstItem="fDC-sf-d4V" firstAttribute="top" secondItem="eAV-Wr-Rb5" secondAttribute="bottom" id="cjx-n1-H7P"/>
                             <constraint firstAttribute="trailing" secondItem="fDC-sf-d4V" secondAttribute="trailing" id="w8A-Sy-Ic2"/>
                             <constraint firstItem="gAA-5N-yws" firstAttribute="top" secondItem="fDC-sf-d4V" secondAttribute="bottom" id="y9C-Si-JIZ"/>
                         </constraints>

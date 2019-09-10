@@ -741,7 +741,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */;
+			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1610,7 +1610,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */ = {
+		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C261B2E0AE900BE0C77 /* Debug */,
