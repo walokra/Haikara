@@ -332,15 +332,26 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 // MARK: - Today Widget colors
 fileprivate enum Colors {
     enum TodayWidget {
-        static var selectedBackground: UIColor { UIColor.darkGray }
+        static var selectedBackground: UIColor {
+            guard #available(iOS 13, *)
+                else { return UIColor.darkGray }
+            
+            return UIColor.systemGray3
+        }
+        
         static var tint: UIColor { UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0) }
+
         static var label : UIColor {
-            // In iOS 19 widget background is light grey
-            if #available(iOS 10.0, *) {
-                return .black
-            } else {
-                return UIColor(white: 0.98, alpha: 1.0)
+            guard #available(iOS 10.0, *) else {
+                // in iOS 8-9 widget background is black
+                return UIColor(white: 0.98, alpha: 1)
             }
+            guard #available(iOS 13.0, *) else {
+                // In iOS 10+ widget background is light grey
+                return .black
+            }
+
+            return UIColor.label
         }
     }
 }
