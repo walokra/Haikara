@@ -127,8 +127,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
 		initSettings()
 		
-        // "Set Theme"
-        selectedCellBackground.backgroundColor = Colors.TodayWidget.selectedBackground
+		// "Set Theme"
+		selectedCellBackground.backgroundColor = Colors.TodayWidget.selectedBackground
 
 		setLoadingIndicator()
 		
@@ -136,7 +136,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
 	
 	func setLoadingIndicator() {
-        loadingIndicator.color = Colors.TodayWidget.tint
+		loadingIndicator.color = Colors.TodayWidget.tint
 		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 		loadingIndicator.center = self.view.center
 		self.view.addSubview(loadingIndicator)
@@ -271,7 +271,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
         let tableItem: Entry = entries[indexPath.row] as Entry
         cell.entryTitle.text = tableItem.title
-        cell.entryTitle.textColor = Colors.TodayWidget.label
+		cell.entryTitle.textColor = Colors.TodayWidget.label
 		cell.selectedBackgroundView = selectedCellBackground
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
@@ -340,7 +340,7 @@ fileprivate enum Colors {
         }
         
         static var tint: UIColor { UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0) }
-
+        
         static var label : UIColor {
             guard #available(iOS 10.0, *) else {
                 // in iOS 8-9 widget background is black
@@ -350,7 +350,7 @@ fileprivate enum Colors {
                 // In iOS 10+ widget background is light grey
                 return .black
             }
-
+            
             return UIColor.label
         }
     }
