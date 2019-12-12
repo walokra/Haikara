@@ -108,11 +108,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
 	var loading = false
 	
-	// Theme colors
-	let textColorLight = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1)
-	let textColorDark = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1)
 	var selectedCellBackground = UIView()
-	let tintColor = UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0)
 	
 	// localization
 	let errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
@@ -130,19 +126,17 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
 
 		initSettings()
-		setTheme()
 		
+		// "Set Theme"
+		selectedCellBackground.backgroundColor = Colors.TodayWidget.selectedBackground
+
 		setLoadingIndicator()
 		
 		initView()
     }
 	
-	func setTheme() {
-		selectedCellBackground.backgroundColor = UIColor.darkGray
-	}
-	
 	func setLoadingIndicator() {
-		loadingIndicator.color = tintColor
+		loadingIndicator.color = Colors.TodayWidget.tint
 		loadingIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 		loadingIndicator.center = self.view.center
 		self.view.addSubview(loadingIndicator)
@@ -277,13 +271,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 
         let tableItem: Entry = entries[indexPath.row] as Entry
         cell.entryTitle.text = tableItem.title
-		// In iOS 19 widget background is light grey
-		if #available(iOS 10.0, *) {
-			cell.entryTitle.textColor = textColorDark
-		} else {
-			cell.entryTitle.textColor = textColorLight
-		}
-		
+		cell.entryTitle.textColor = Colors.TodayWidget.label
 		cell.selectedBackgroundView = selectedCellBackground
 		
 		Shared.hideWhiteSpaceBeforeCell(tableView, cell: cell)
@@ -339,4 +327,31 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 //    deinit {
 //        NSNotificationCenter.defaultCenter().removeObserver(self)
 //    }
+}
+
+// MARK: - Today Widget colors
+fileprivate enum Colors {
+    enum TodayWidget {
+        static var selectedBackground: UIColor {
+            guard #available(iOS 13, *)
+                else { return UIColor.darkGray }
+            
+            return UIColor.systemGray3
+        }
+        
+        static var tint: UIColor { UIColor(red: 171.0/255.0, green: 97.0/255.0, blue: 23.0/255.0, alpha: 1.0) }
+        
+        static var label : UIColor {
+            guard #available(iOS 10.0, *) else {
+                // in iOS 8-9 widget background is black
+                return UIColor(white: 0.98, alpha: 1)
+            }
+            guard #available(iOS 13.0, *) else {
+                // In iOS 10+ widget background is light grey
+                return .black
+            }
+            
+            return UIColor.label
+        }
+    }
 }
