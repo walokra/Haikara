@@ -83,8 +83,6 @@
 		36A39C161B2E0AE900BE0C77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A39C151B2E0AE900BE0C77 /* Images.xcassets */; };
 		36AA1A791C66900C008268B3 /* TouchableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA1A781C66900C008268B3 /* TouchableTextView.swift */; };
 		36AA7DD51C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */; };
-		36AE3B871D74D9280043C01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36AE3B861D74D9280043C01E /* GoogleService-Info.plist */; };
-		36AE3B881D74D9280043C01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36AE3B861D74D9280043C01E /* GoogleService-Info.plist */; };
 		36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */; };
 		36B3F4391B9B0BBC0095F85A /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4381B9B0BBC0095F85A /* ionicons.ttf */; };
 		36B3F4401B9B106F0095F85A /* Iconfonts-ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */; };
@@ -249,7 +247,6 @@
 		36A39C151B2E0AE900BE0C77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		36AA1A781C66900C008268B3 /* TouchableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableTextView.swift; sourceTree = "<group>"; };
 		36AA7DD41C67536D00EC2C23 /* MasterViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MasterViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
-		36AE3B861D74D9280043C01E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		36AE3B891D74DA7A0043C01E /* Haikara-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Haikara-Bridging-Header.h"; path = "Haikara/Haikara-Bridging-Header.h"; sourceTree = "<group>"; };
 		36B0D0ED1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UIViewControllerPreview.swift"; sourceTree = "<group>"; };
 		36B3F4381B9B0BBC0095F85A /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };

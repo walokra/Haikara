@@ -52,29 +52,9 @@ extension Notification.Name {
 
 extension UIViewController {
     func sendScreenView(_ viewName: String) {
-		guard let gai = GAI.sharedInstance() else { return }
-		if (gai.optOut) {
-    	    return
-		}
-        
-        guard let tracker = gai.defaultTracker else { return }
-        tracker.set(kGAIScreenName, value: viewName)
-
-        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
-        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     func trackEvent(_ event: String, category: String, action: String, label: String, value: NSNumber?) {
-        guard let gai = GAI.sharedInstance() else { return }
-        if (gai.optOut) {
-            return
-        }
-        
-        guard let tracker = gai.defaultTracker else { return }
-        tracker.set(kGAIEvent, value: event)
-        
-        guard let trackDictionary = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: label, value: value) else { return }
-        tracker.send(trackDictionary.build() as [NSObject : AnyObject])
 	}
 
     func handleError(_ error: String, title: String) {

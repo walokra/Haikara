@@ -45,8 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
         setCache()
 		
-		setAnalytics()
-
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         splitViewController.preferredDisplayMode = .allVisible
 
@@ -134,7 +132,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
             print("AppDelegate, Received optOutAnalyticsChangedNotification")
         #endif
-		setAnalytics()
 	}
 	
     // http://nshipster.com/nsurlcache/
@@ -145,26 +142,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLCache.shared = cache
     }
 
-	func setAnalytics() {
-		let settings = Settings.sharedInstance
-
-        guard let gai = GAI.sharedInstance() else {
-            assert(false, "Google Analytics not configured correctly")
-            return
-        }
-        
-        gai.tracker(withTrackingId: "UA-528020-10")
-        // Optional: automatically report uncaught exceptions.
-        gai.trackUncaughtExceptions = true
-        
-        // Remove before app release.
-        // #if DEBUG
-        //  gai.logger.logLevel = .verbose;
-        // #endif
-
-        gai.optOut = settings.optOutAnalytics
-	}
-	
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -12,13 +12,11 @@ def alamofire_image
 end
 
 def shared_pods
-	pod 'GoogleAnalytics'
 end
 
 target 'highkara' do
 	alamofire
 	alamofire_image
-	shared_pods
 
 	target 'HighkaraTests' do
   	inherit! :search_paths
@@ -27,7 +25,6 @@ target 'highkara' do
 end
 
 target 'Today' do
-	shared_pods
 	alamofire
 end
 
