@@ -32,7 +32,7 @@ import Alamofire
 open class HighFiApi {
 	
 	class func setupManager(_ appID: String, maxAge: Int) {
-        SessionManager.default.session.configuration.httpAdditionalHeaders = [
+        Session.default.session.configuration.httpAdditionalHeaders = [
             "User-Agent": appID,
             "Cache-Control": "private, must-revalidate, max-age=\(maxAge)"
         ]
@@ -48,7 +48,7 @@ open class HighFiApi {
 
         let feed = "https://" + settings.domainToUse + "/search.cfm"
 		
-        let request = Alamofire.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "includePaid": settings.includePaid, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
+        let request = AF.request(feed, method: .get, parameters: ["q": searchText, "x": 0, "y": 0, "includePaid": settings.includePaid, "outputtype": settings.highFiEndpoint, "APIKEY": settings.APIKEY])
 
             request.validate()
             request.responseJSON{ response in
@@ -58,11 +58,11 @@ open class HighFiApi {
 			#endif
                 
             switch response.result {
-                case .success:
+                case .success(let value):
                     // make sure we got JSON and it's an array of dictionaries
-                    guard let json = response.result.value as? [String: AnyObject] else {
+                    guard let json = value as? [String: AnyObject] else {
                         #if DEBUG
-                            print("Error: \(#function)\n", response.result.error!)
+                            print("Error: \(#function)\n", "Did not get JSON dictionary in response")
                         #endif
                         
                         failureHandler("Did not get JSON array in response")
@@ -152,7 +152,7 @@ open class HighFiApi {
         }
 //        print("categoriesHidden=\(categoriesHidden)")
 		
-        let request = Alamofire.request(feed, method: .get, parameters: ["includePaid": settings.includePaid, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
+        let request = AF.request(feed, method: .get, parameters: ["includePaid": settings.includePaid, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID, "jsonHideSections": categoriesHiddenParam])
 
             request.validate()
             request.responseJSON{ response in
@@ -162,8 +162,8 @@ open class HighFiApi {
 			#endif
 
             switch response.result {
-                case .success:
-                    guard let json = response.result.value as? [String: AnyObject] else {
+                case .success(let value):
+                    guard let json = value as? [String: AnyObject] else {
                         #if DEBUG
                             print("Error: \(#function)\n", "Did not get JSON dictionary in response")
                         #endif
@@ -226,21 +226,23 @@ open class HighFiApi {
 	
 	// make a silent HTTP GET request to the click tracking URL provided in the JSON's link field
     class func trackNewsClick(_ link: String) {
-        #if DEBUG
-            print("HighFiApi.trackNewsClick(\(link))")
-        #endif
-        let settings = Settings.sharedInstance
-		
-		DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-			Alamofire.request(link, parameters: ["APIKEY": settings.APIKEY, "appID": settings.appID])
-	            .response { response in
-    	            #if DEBUG
-        	            print("trackNewsClick, request: \(String(describing: response.request))")
-            	        // print("trackNewsClick, response: \(response)")
-                	    // print("trackNewsClick, error: \(error)")
-                	#endif
-	        }
-		}
+        if !link.isEmpty {
+            #if DEBUG
+                print("HighFiApi.trackNewsClick(\(link))")
+            #endif
+            let settings = Settings.sharedInstance
+            
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+                AF.request(link, parameters: ["APIKEY": settings.APIKEY, "appID": settings.appID])
+                    .response { response in
+                        #if DEBUG
+                            print("trackNewsClick, request: \(String(describing: response.request))")
+                            // print("trackNewsClick, response: \(response)")
+                            // print("trackNewsClick, error: \(error)")
+                        #endif
+                }
+            }
+        }
     }
 	
 	// e.g. https://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
@@ -254,7 +256,7 @@ open class HighFiApi {
 
         let url = "https://" + settings.domainToUse + "/api/"
         
-        let request = Alamofire.request(url, method: .get, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = AF.request(url, method: .get, parameters: ["act": settings.highFiActCategory, "usedLanguage": settings.useToRetrieveLists, "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
 			
@@ -263,8 +265,8 @@ open class HighFiApi {
 			#endif
 			
             switch response.result {
-                case .success:
-                    guard let json = response.result.value as? [String: AnyObject] else {
+                case .success(let value):
+                    guard let json = value as? [String: AnyObject] else {
                         #if DEBUG
                             print("Error: \(#function)\n", "Did not get JSON array in response")
                         #endif
@@ -321,7 +323,7 @@ open class HighFiApi {
 	
         let url = "https://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(url, method: .get, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = AF.request(url, method: .get, parameters: ["act":"listLanguages", "APIKEY": settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
 		
@@ -330,8 +332,8 @@ open class HighFiApi {
 			#endif
             
             switch response.result {
-                case .success:
-                    guard let json = response.result.value as? [String: AnyObject] else {
+                case .success(let value):
+                    guard let json = value as? [String: AnyObject] else {
                         #if DEBUG
                             print("Error: \(#function)\n", "Did not get JSON array in response")
                         #endif
@@ -384,7 +386,7 @@ open class HighFiApi {
         
         let url = "https://" + settings.domainToUse + "/api"
         
-        let request = Alamofire.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act": "listSources", "usedLanguage": settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
+        let request = AF.request(url, method: .get, parameters: ["includePaid": settings.includePaid, "act": "listSources", "usedLanguage": settings.useToRetrieveLists, "APIKEY":settings.APIKEY, "deviceID": settings.deviceID, "appID": settings.appID])
         request.validate()
         request.responseJSON { response in
 			#if DEBUG
@@ -392,11 +394,11 @@ open class HighFiApi {
 			#endif
 				
             switch response.result {
-                case .success:
+                case .success(let value):
                     // make sure we got JSON and it's an array of dictionaries
-                    guard let json = response.result.value as? [String: AnyObject] else {
+                    guard let json = value as? [String: AnyObject] else {
                         #if DEBUG
-                            print("Error: \(#function)\n", response.result.error!)
+                            print("Error: \(#function)\n", "Did not get JSON array in response")
                         #endif
                         
                         failureHandler("Did not get JSON array in response")
