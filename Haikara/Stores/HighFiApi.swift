@@ -181,32 +181,52 @@ open class HighFiApi {
                     }
 
                     let entries: [Entry] = (feed.value(forKey: "entries") as! [NSDictionary])
-                        .filter({ !newsSourcesFiltered.contains($0["sourceID"] as! Int) })
-                        .map {(element) in
+                        .filter{!newsSourcesFiltered.contains(($0["sourceID"] ?? -1) as! Int) }
+                        .compactMap { element in
+                            let title = (element["title"] as? String) ?? ""
+                            let link = (element["link"] as? String) ?? ""
+                            let clickTrackingLink = (element["clickTrackingLink"] as? String) ?? nil
+                            let author = (element["author"] as? String) ?? ""
+                            let publishedDateJS = (element["publishedDateJS"] as? String) ?? ""
+                            let picture = (element["picture"] as? String) ?? nil
+                            let originalPicture = (element["originalPicture"] as? String) ?? nil
+                            let shortDescription = (element["shortDescription"] as? String) ?? nil
+                            let originalURL = (element["originalURL"] as? String) ?? nil
+                            let mobileLink = (element["mobileLink"] as? String) ?? nil
+                            let originalMobileUrl = (element["originalMobileUrl"] as? String) ?? nil
+                            let shareURL = (element["shareURL"] as? String) ?? nil
+                            let mobileShareURL = (element["mobileShareURL"] as? String) ?? nil
+                            let ampURL = (element["ampURL"] as? String) ?? nil
+                            let articleID = parseArticleID(id: (element["articleID"]) ?? 0 as Any)
+                            let sectionID = (element["sectionID"] as? Int) ?? 0
+                            let sourceID = (element["sourceID"] as? Int) ?? 0
+                            let highlight = (element["highlight"] as? Bool) ?? false
+                            let highlightType = (element["highlightType"] as? String) ?? ""
+                            
                             return Entry(
-                                title: element["title"] as! String,
-                                link: element["link"] as! String,
-                                clickTrackingLink: element["clickTrackingLink"] as! String,
-                                author: element["author"] as! String,
-                                publishedDateJS: element["publishedDateJS"] as! String,
-                                picture: element["picture"] as? String,
-                                originalPicture: element["originalPicture"] as? String,
-                                shortDescription: element["shortDescription"] as? String,
-                                originalURL: element["originalURL"] as! String,
-                                mobileLink: element["mobileLink"] as? String,
-                                originalMobileUrl: element["originalMobileUrl"] as?    String,
-                                shareURL: element["shareURL"] as! String,
-                                mobileShareURL: element["mobileShareURL"] as? String,
-                                ampURL: element["ampURL"] as? String,
-                                articleID: parseArticleID(id: element["articleID"] as Any),
-                                sectionID: element["sectionID"] as! Int,
-                                sourceID: element["sourceID"] as! Int,
-                                highlight: element["highlight"] as! Bool,
-                                highlightType: element["highlightType"] as! String,
+                                title: title,
+                                link: link,
+                                clickTrackingLink: clickTrackingLink,
+                                author: author,
+                                publishedDateJS: publishedDateJS,
+                                picture: picture,
+                                originalPicture: originalPicture,
+                                shortDescription: shortDescription,
+                                originalURL: originalURL,
+                                mobileLink: mobileLink,
+                                originalMobileUrl: originalMobileUrl,
+                                shareURL: shareURL,
+                                mobileShareURL: mobileShareURL,
+                                ampURL: ampURL,
+                                articleID: articleID,
+                                sectionID: sectionID,
+                                sourceID: sourceID,
+                                highlight: highlight,
+                                highlightType: highlightType,
                                 timeSince: "Juuri nyt",
                                 orderNro: 0
                             )
-                    }
+                        }
                     
                     #if DEBUG
                         print("entries: \(entries.count)")

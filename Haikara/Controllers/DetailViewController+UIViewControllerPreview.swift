@@ -39,7 +39,7 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
 		
 		let tableSection = sections[sortedSections[indexPath.section]]
 		let tableItem = tableSection![indexPath.row]
-		let webURL = URL(string: tableItem.originalURL)
+        let webURL = URL(string: tableItem.originalURL ?? tableItem.link)
 		
         // Create a detail view controller and set its properties.
         let config = SFSafariViewController.Configuration()

@@ -30,16 +30,16 @@ import UIKit
 class Entry: NSObject {
     let title: String
     let link: String
-    let clickTrackingLink: String
+    let clickTrackingLink: String?
     let author: String
     let publishedDateJS: String
     let picture: String?
     let originalPicture: String?
     var shortDescription: String?
-    let originalURL: String
+    let originalURL: String?
     var mobileLink: String?
     let originalMobileUrl: String?
-    let shareURL: String
+    let shareURL: String?
     var mobileShareURL: String?
     var ampURL: String?
     let articleID: Int
@@ -50,7 +50,7 @@ class Entry: NSObject {
     var timeSince: String
 	var orderNro: Int
 
-    init(title: String, link: String, clickTrackingLink: String, author: String, publishedDateJS: String, picture: String?, originalPicture: String?, shortDescription: String?, originalURL: String, mobileLink: String?, originalMobileUrl: String?, shareURL: String, mobileShareURL: String?, ampURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, highlightType: String, timeSince: String, orderNro: Int) {
+    init(title: String, link: String, clickTrackingLink: String?, author: String, publishedDateJS: String, picture: String?, originalPicture: String?, shortDescription: String?, originalURL: String?, mobileLink: String?, originalMobileUrl: String?, shareURL: String?, mobileShareURL: String?, ampURL: String?, articleID: Int, sectionID: Int, sourceID: Int, highlight: Bool, highlightType: String, timeSince: String, orderNro: Int) {
             self.title = title
             self.link = link
             self.clickTrackingLink = clickTrackingLink

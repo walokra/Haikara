@@ -632,7 +632,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		let tableSection = sections[sortedSections[path.section]]
 		let tableItem = tableSection![row]
 		
-		var webURL = URL(string: tableItem.originalURL)
+		var webURL = URL(string: tableItem.originalURL ?? tableItem.link)
 		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
 			webURL = URL(string: tableItem.originalMobileUrl!)
 		}
@@ -700,12 +700,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		cell.entryDescription.textColor = Theme.cellDescriptionColor
 		
 		if settings.showNewsPicture {
-			if tableItem.picture != nil {
+			if let picture = tableItem.picture {
 				cell.entryImageWidthConstraint.constant = 100
         		cell.entryTitleLeadingConstraint.constant = 10
 				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
-				let downloadURL = URL(string: tableItem.picture!)!
-				cell.configure(downloadURL)
+				if let downloadURL = URL(string: picture) {
+					cell.configure(downloadURL)
+				}				
 			} else {
 				cell.entryImage!.image = nil
 				cell.entryImage.frame = CGRect.zero
@@ -755,7 +756,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
 			
-			var webURL = URL(string: tableItem.shareURL)
+			var webURL = URL(string: tableItem.shareURL ?? tableItem.link)
 			if ((tableItem.mobileShareURL != nil && !tableItem.mobileShareURL!.isEmpty) && self.settings.useMobileUrl) {
 				webURL = URL(string: tableItem.mobileShareURL!)
 			}
@@ -819,7 +820,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
 			let tableItem = tableSection![indexPath.row]
 			
-			var webURL = URL(string: tableItem.originalURL)
+			var webURL = URL(string: tableItem.originalURL ?? tableItem.link)
 			if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.settings.useMobileUrl) {
 				webURL = URL(string: tableItem.originalMobileUrl!)
 			}
@@ -831,7 +832,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			self.trackEvent("externalBrowser", category: "ui_Event", action: "externalBrowser", label: "main", value: 1)
 			
 			// Open news item in external browser, like Safari
-			UIApplication.shared.openURL(webURL!)
+			UIApplication.shared.open(webURL!)
 			
 			self.trackNewsClick(tableItem)
 		}
@@ -965,7 +966,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	}
 	
 	func trackNewsClick(_ entry: Entry) {
-		HighFiApi.trackNewsClick(entry.clickTrackingLink)
+		HighFiApi.trackNewsClick(entry.clickTrackingLink ?? "")
 	}
 	
 	// MARK: - Icons

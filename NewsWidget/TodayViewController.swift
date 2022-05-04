@@ -298,7 +298,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	}
 
 	func trackNewsClick(_ entry: Entry) {
-		HighFiApi.trackNewsClick(entry.clickTrackingLink)
+		HighFiApi.trackNewsClick(entry.clickTrackingLink ?? "")
 	}
 	
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
