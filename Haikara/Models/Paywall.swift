@@ -24,6 +24,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+import UIKit
 
 var paywallTextAll: String = NSLocalizedString("PAYWALL_TEXT_ALL", comment: "News source paywall type")
 var paywallTextFree: String = NSLocalizedString("PAYWALL_TEXT_FREE", comment: "News source paywall type")

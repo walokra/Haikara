@@ -48,7 +48,6 @@
 		3650D7871B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7801B9312B000A4D528 /* Localizable.strings */; };
 		3650D7881B9312B000A4D528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3650D7831B9312B000A4D528 /* Localizable.strings */; };
 		365A045B1B3EB9090032C5B6 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A045A1B3EB9090032C5B6 /* EntryCell.swift */; };
-		3662C1101E77483E00AF55A0 /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */; };
 		366BC8851EB487770068DEB7 /* HighkaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BC8841EB487770068DEB7 /* HighkaraTests.swift */; };
 		366D94C81C06547B00E84284 /* NewsSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C71C06547B00E84284 /* NewsSources.swift */; };
 		366D94CA1C06556B00E84284 /* FilterNewsSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D94C91C06556B00E84284 /* FilterNewsSourcesViewController.swift */; };
@@ -102,6 +101,7 @@
 		DA034B15207143D700923D1A /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA034B14207143D700923D1A /* SearchFooter.swift */; };
 		DA1BFAA61FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */; };
 		DA1BFAA71FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */; };
+		DA5A23392822BA47004A19EE /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */; };
 		DAAB6E6620720708000E66E5 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB6E6520720708000E66E5 /* Paywall.swift */; };
 /* End PBXBuildFile section */
 
@@ -210,7 +210,6 @@
 		3650D7811B9312B000A4D528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		3650D7841B9312B000A4D528 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localizable.strings; sourceTree = "<group>"; };
 		365A045A1B3EB9090032C5B6 /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
-		3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
 		366BC8821EB487770068DEB7 /* HighkaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighkaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		366BC8841EB487770068DEB7 /* HighkaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighkaraTests.swift; sourceTree = "<group>"; };
 		366BC8861EB487770068DEB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -271,6 +270,7 @@
 		DA034B14207143D700923D1A /* SearchFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x~iphone.png"; sourceTree = "<group>"; };
 		DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-812h@3x~iphone.png"; sourceTree = "<group>"; };
+		DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
 		DAAB6E6520720708000E66E5 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 		E0E960A3360124A935A3CA95 /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -380,11 +380,11 @@
 			isa = PBXGroup;
 			children = (
 				364E872F1BDFEE5A003F2EE5 /* Shared.swift */,
+				DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */,
 				361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */,
 				36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */,
 				36F0E84E1C03B7880081F10B /* Theme.swift */,
 				3699CBD31DBEA2A300A246DB /* OpenInChromeController.swift */,
-				3662C10F1E77483E00AF55A0 /* HMACAlgorithm.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -538,7 +538,6 @@
 		36A39C0C1B2E0AE900BE0C77 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				36AE3B861D74D9280043C01E /* GoogleService-Info.plist */,
 				3650D77F1B9312B000A4D528 /* en.lproj */,
 				3650D7821B9312B000A4D528 /* fi.lproj */,
 				36A39C0D1B2E0AE900BE0C77 /* Info.plist */,
@@ -683,7 +682,7 @@
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
 					36501E221EC7ADAF00E078AD = {
@@ -700,7 +699,7 @@
 					36501E2E1EC7ADAF00E078AD = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1330;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -717,7 +716,7 @@
 					367BAD1D1D1874B600F6B949 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1330;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -728,7 +727,7 @@
 					36A39C081B2E0AE900BE0C77 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8X9ZUVVBWA;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1330;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -738,7 +737,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */;
+			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -791,7 +790,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				367BAD261D1874B600F6B949 /* MainInterface.storyboard in Resources */,
-				36AE3B881D74D9280043C01E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,7 +799,6 @@
 			files = (
 				36A39C141B2E0AE900BE0C77 /* Main.storyboard in Resources */,
 				36778F891B37651000F387E0 /* iTunesArtwork@2x.png in Resources */,
-				36AE3B871D74D9280043C01E /* GoogleService-Info.plist in Resources */,
 				36778F7D1B3760C000F387E0 /* Default-568h@2x~iphone.png in Resources */,
 				36778F7C1B3760C000F387E0 /* Default-414w-736h@3x~iphone.png in Resources */,
 				36221F091B3F385F00CB10AB /* app-logo_40x40.png in Resources */,
@@ -1045,7 +1042,6 @@
 				361DEC6F1B43FE1C004014C4 /* OrderedDictionary.swift in Sources */,
 				36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */,
 				36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */,
-				3662C1101E77483E00AF55A0 /* HMACAlgorithm.swift in Sources */,
 				368E20821D5E3837009255B9 /* RegionPickerViewController.swift in Sources */,
 				36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */,
 				360B4E311B4C69D70019FA1F /* SettingsViewController.swift in Sources */,
@@ -1053,6 +1049,7 @@
 				36B0D0EE1C676609002127D4 /* DetailViewController+UIViewControllerPreview.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
+				DA5A23392822BA47004A19EE /* HMACAlgorithm.swift in Sources */,
 				DA034B15207143D700923D1A /* SearchFooter.swift in Sources */,
 				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
 				36332B811EE0B4DD005575D5 /* GlobalSplitViewController.swift in Sources */,
@@ -1168,7 +1165,7 @@
 				);
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c5942919-f82d-4538-82bb-f44bfe24877c";
@@ -1203,7 +1200,7 @@
 				);
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6c6257a2-9407-4fce-a72b-9b0b07e9b37e";
@@ -1243,7 +1240,7 @@
 				);
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "65621444-562b-4244-a8c3-52cdc00d19dd";
@@ -1251,7 +1248,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1278,14 +1275,14 @@
 				);
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "a11a8972-0ef8-4624-8d23-d29b324caedd";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Watch App Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1318,7 +1315,7 @@
 					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
 				);
 				INFOPLIST_FILE = HighkaraTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1341,7 +1338,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
 				INFOPLIST_FILE = HighkaraTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1368,9 +1365,9 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1378,7 +1375,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget dev";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1397,9 +1394,9 @@
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1407,7 +1404,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1434,6 +1431,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1458,7 +1456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -1466,6 +1464,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1492,6 +1491,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1513,7 +1513,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
@@ -1522,6 +1522,7 @@
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1540,9 +1541,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
@@ -1550,7 +1551,7 @@
 				PROVISIONING_PROFILE = "ccb3b378-f99c-4b02-b9fb-a5e08000efa1";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1570,9 +1571,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.13.1;
+				MARKETING_VERSION = 0.15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
@@ -1580,7 +1581,7 @@
 				PROVISIONING_PROFILE = "ddfd09a6-bc95-40a9-b374-c0be62cba1c2";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara news reader";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1624,7 +1625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */ = {
+		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C261B2E0AE900BE0C77 /* Debug */,

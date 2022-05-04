@@ -46,7 +46,7 @@ class CategoryPickerViewController: UITableViewController {
 	var selectedTodayCategory: Category? {
     	didSet {
 			print("categories=\(categories.count); selectedTodayCategory=\(String(describing: selectedTodayCategory))")
-			selectedTodayCategoryIndex = categories.index(of: selectedTodayCategory!)
+			selectedTodayCategoryIndex = categories.firstIndex(of: selectedTodayCategory!)
 		}
   	}
   	var selectedTodayCategoryIndex: Int?
@@ -127,9 +127,16 @@ class CategoryPickerViewController: UITableViewController {
 		
 		settings.todayCategoryByLang.updateValue(selectedTodayCategory!, forKey: settings.region)
 		selectedTodayCategory = categories[indexPath.row]
-        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: settings.todayCategoryByLang as Dictionary<String, Category>)
-        defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
-		defaults!.synchronize()
+        do {
+            let archivedTodayCategoryByLang = try NSKeyedArchiver.archivedData(withRootObject: settings.todayCategoryByLang as Dictionary<String, Category>, requiringSecureCoding: false)
+            defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+            defaults!.synchronize()
+        }
+        catch {
+            #if DEBUG
+                print("error: \(error)")
+            #endif
+        }
 
 		self.trackEvent("setTodayCategory", category: "ui_Event", action: "setTodayCategory", label: "settings", value: 1)
 

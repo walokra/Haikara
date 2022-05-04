@@ -5,6 +5,8 @@
 // From http://stackoverflow.com/a/27032056/1634162
 //
 
+import UIKit
+
 enum HMACAlgorithm {
     case md5, sha1, sha224, sha256, sha384, sha512
 

@@ -36,7 +36,7 @@ class NewsInterfaceController: WKInterfaceController {
 	
 	override func awake(withContext: Any?) {
 		super.awake(withContext: withContext)
-		_ = getNews(1)
+		getNews(1)
 	}
 
 	override func table(_: WKInterfaceTable, didSelectRowAt rowIndex: Int) {

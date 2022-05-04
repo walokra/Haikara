@@ -52,7 +52,7 @@ class EntryCell: UITableViewCell {
     }
 
     func populateCell(_ downloadURL: URL) {
-		entryImage!.af_setImage(
+        entryImage!.af.setImage(
 					withURL: downloadURL,
 					placeholderImage: UIImage(named: "PlaceholderImage"),
 					filter: nil)

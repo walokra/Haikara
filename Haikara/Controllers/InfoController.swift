@@ -42,32 +42,32 @@ class InfoController: UITableViewController {
 	
 	@IBOutlet weak var openHighFiButton: UIButton!
 	@IBAction func openHighFi(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "https://high.fi/")!)
+        UIApplication.shared.open(URL(string: "https://high.fi/")!)
 	}
 
 	@IBOutlet weak var openAppStoreButton: UIButton!
 	@IBAction func openAppStore(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
+		UIApplication.shared.open(URL(string: "https://itunes.apple.com/us/app/highkara-uutislukija/id1035170336")!)
 	}
 
 	@IBOutlet weak var openTwitterButton: UIButton!
 	@IBAction func openTwitter(_ sender: AnyObject) {
 	let url = URL(string: "twitter://user?screen_name=walokra")
 		if UIApplication.shared.canOpenURL(url!) {
-			UIApplication.shared.openURL(url!)
+			UIApplication.shared.open(url!)
 		} else {
-	        UIApplication.shared.openURL(URL(string: "https://twitter.com/walokra")!)
+	        UIApplication.shared.open(URL(string: "https://twitter.com/walokra")!)
 		}
 	}
 
 	@IBOutlet weak var bugsButton: UIButton!
 	@IBAction func openBugs(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "https://github.com/walokra/haikara/issues")!)
+		UIApplication.shared.open(URL(string: "https://github.com/walokra/haikara/issues")!)
 	}
 
 	@IBOutlet weak var openEmailButton: UIButton!
 	@IBAction func openEmail(_ sender: AnyObject) {
-		UIApplication.shared.openURL(URL(string: "mailto:marko.wallin@iki.fi")!)
+		UIApplication.shared.open(URL(string: "mailto:marko.wallin@iki.fi")!)
 	}
 
     override func viewDidLoad() {

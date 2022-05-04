@@ -248,52 +248,59 @@ class Settings {
         }
         self.preferredLanguage = Locale.preferredLanguages[0] 
 
-        // Get array of languages from storage
-        if let unarchivedLanguages = defaults.data(forKey: "languages") {
-            self.languages = NSKeyedUnarchiver.unarchiveObject(with: unarchivedLanguages) as! [Language]
-        }
+        do {
+            // Get array of languages from storage
+            if let unarchivedLanguages = defaults.data(forKey: "languages") {
+                self.languages = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedLanguages) as! [Language]
+            }
 
-        // Get Dictionary of categories from storage
-        if let categoriesByLangData = defaults.data(forKey: "categoriesByLang"),
-            let unarchivedCategoriesByLang = NSKeyedUnarchiver.unarchiveObject(with: categoriesByLangData) as? Dictionary<String, Array<Category>> {
-            self.categoriesByLang = unarchivedCategoriesByLang
+            // Get Dictionary of categories from storage
+            if let categoriesByLangData = defaults.data(forKey: "categoriesByLang"),
+                let unarchivedCategoriesByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(categoriesByLangData) as? Dictionary<String, Array<Category>> {
+                self.categoriesByLang = unarchivedCategoriesByLang
+                
+                if let categories: [Category] = categoriesByLang[self.region] {
+                    self.categories = categories
+                }
+            }
             
-            if let categories: [Category] = categoriesByLang[self.region] {
-                self.categories = categories
+            if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesFavorited") as? Dictionary<String, Array<Int>> {
+                self.categoriesFavorited = categoriesFavorited
             }
-        }
-		
-        if let categoriesFavorited: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesFavorited") as? Dictionary<String, Array<Int>> {
-            self.categoriesFavorited = categoriesFavorited
-        }
-        
-        if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesHidden") as? Dictionary<String, Array<Int>> {
-            self.categoriesHidden = categoriesHidden
-        }
-        
-        // Get dates when data was updated last time from API
-        if let languagesUpdated: Date = defaults.object(forKey: "languagesUpdated") as? Date {
-            self.languagesUpdated = languagesUpdated
-        }
-        if let categoriesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "categoriesUpdatedByLang") as? Dictionary<String, Date> {
-            self.categoriesUpdatedByLang = categoriesUpdatedByLang
-        }
-		if let newsSourcesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "newsSourcesUpdatedByLang") as? Dictionary<String, Date> {
-            self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
-        }
-		
-		if let todayCategoryByLangData = defaults.data(forKey: "todayCategoryByLang"),
-            let unarchivedtodayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: todayCategoryByLangData) as? Dictionary<String, Category> {
-            self.todayCategoryByLang = unarchivedtodayCategoryByLang
-		}
+            
+            if let categoriesHidden: Dictionary<String, Array<Int>> = defaults.object(forKey: "categoriesHidden") as? Dictionary<String, Array<Int>> {
+                self.categoriesHidden = categoriesHidden
+            }
+            
+            // Get dates when data was updated last time from API
+            if let languagesUpdated: Date = defaults.object(forKey: "languagesUpdated") as? Date {
+                self.languagesUpdated = languagesUpdated
+            }
+            if let categoriesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "categoriesUpdatedByLang") as? Dictionary<String, Date> {
+                self.categoriesUpdatedByLang = categoriesUpdatedByLang
+            }
+            if let newsSourcesUpdatedByLang: Dictionary<String, Date> = defaults.object(forKey: "newsSourcesUpdatedByLang") as? Dictionary<String, Date> {
+                self.newsSourcesUpdatedByLang = newsSourcesUpdatedByLang
+            }
+            
+            if let todayCategoryByLangData = defaults.data(forKey: "todayCategoryByLang"),
+                let unarchivedtodayCategoryByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(todayCategoryByLangData) as? Dictionary<String, Category> {
+                self.todayCategoryByLang = unarchivedtodayCategoryByLang
+            }
 
-        // Get Dictionary of news sources from storage
-        if let newsSourcesByLangData = defaults.data(forKey: "newsSourcesByLang"),
-            let unarchivedNewsSourcesByLang = NSKeyedUnarchiver.unarchiveObject(with: newsSourcesByLangData) as? Dictionary<String, Array<NewsSources>> {
-            self.newsSourcesByLang = unarchivedNewsSourcesByLang
-            if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
-                self.newsSources = newsSources
+            // Get Dictionary of news sources from storage
+            if let newsSourcesByLangData = defaults.data(forKey: "newsSourcesByLang"),
+                let unarchivedNewsSourcesByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(newsSourcesByLangData) as? Dictionary<String, Array<NewsSources>> {
+                self.newsSourcesByLang = unarchivedNewsSourcesByLang
+                if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
+                    self.newsSources = newsSources
+                }
             }
+        }
+        catch {
+            #if DEBUG
+                print("error: \(error)")
+            #endif
         }
 		
         if let newsSourcesFiltered: Dictionary<String, Array<Int>> = defaults.object(forKey: "newsSourcesFiltered") as? Dictionary<String, Array<Int>> {
@@ -400,29 +407,37 @@ class Settings {
         self.categoriesHidden = Dictionary<String, Array<Int>>()        
         defaults.set(self.categoriesHidden, forKey: "categoriesHidden")
         
-        self.categoriesByLang = Dictionary<String, Array<Category>>()
-        defaults.set(self.categoriesByLang, forKey: "categoriesByLang")
-        let archivedCategoriesByLang = NSKeyedArchiver.archivedData(withRootObject: self.categoriesByLang as Dictionary<String, Array<Category>>)
-        defaults.set(archivedCategoriesByLang, forKey: "categoriesByLang")
-        
-        self.categories = [Category]()
+        do {
+            self.categoriesByLang = Dictionary<String, Array<Category>>()
+            defaults.set(self.categoriesByLang, forKey: "categoriesByLang")
+            let archivedCategoriesByLang = try NSKeyedArchiver.archivedData(withRootObject: self.categoriesByLang as Dictionary<String, Array<Category>>, requiringSecureCoding: false)
+            defaults.set(archivedCategoriesByLang, forKey: "categoriesByLang")
+            
+            self.categories = [Category]()
 
-        self.todayCategoryByLang = Dictionary<String, Category>()
-        defaults.set(self.todayCategoryByLang, forKey: "todayCategoryByLang")
-        let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.todayCategoryByLang as Dictionary<String, Category>)
-        defaults.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+            self.todayCategoryByLang = Dictionary<String, Category>()
+            defaults.set(self.todayCategoryByLang, forKey: "todayCategoryByLang")
+            let archivedTodayCategoryByLang = try NSKeyedArchiver.archivedData(withRootObject:self.todayCategoryByLang as Dictionary<String, Category>, requiringSecureCoding: false)
+            defaults.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
 
-        self.languages = [Language]()
-        let archivedLanguages = NSKeyedArchiver.archivedData(withRootObject: self.languages as [Language])
-        defaults.set(archivedLanguages, forKey: "languages")
-		
-        self.newsSourcesFiltered = Dictionary<String, Array<Int>>()
-        defaults.set(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
-        
-        self.newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
-        defaults.set(self.newsSourcesByLang, forKey: "newsSourcesByLang")
-        let archivedNewsSourcesByLang = NSKeyedArchiver.archivedData(withRootObject: self.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-        defaults.set(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
+            self.languages = [Language]()
+            let archivedLanguages = try NSKeyedArchiver.archivedData(withRootObject:self.languages as [Language], requiringSecureCoding:false)
+            defaults.set(archivedLanguages, forKey: "languages")
+            
+            self.newsSourcesFiltered = Dictionary<String, Array<Int>>()
+            defaults.set(self.newsSourcesFiltered, forKey: "newsSourcesFiltered")
+            
+            self.newsSourcesByLang = Dictionary<String, Array<NewsSources>>()
+            defaults.set(self.newsSourcesByLang, forKey: "newsSourcesByLang")
+            
+            let archivedNewsSourcesByLang = try NSKeyedArchiver.archivedData(withRootObject: self.newsSourcesByLang  as Dictionary<String, Array<NewsSources>>, requiringSecureCoding: false)
+            defaults.set(archivedNewsSourcesByLang, forKey: "newsSourcesByLang")
+        }
+        catch {
+            #if DEBUG
+                print("error: \(error)")
+            #endif
+        }
 
         self.newsSources = [NewsSources]()
 		
@@ -453,7 +468,7 @@ class Settings {
                 print("sourceFilteredForLang=\(sourceFilteredForLang)")
             #endif
             
-            if let index = sourceFilteredForLang.index(of: sourceID) {
+            if let index = sourceFilteredForLang.firstIndex(of: sourceID) {
 				#if DEBUG
 	                print("Removing item at index \(index)")
 				#endif

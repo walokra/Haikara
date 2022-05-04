@@ -274,8 +274,15 @@ class FilterNewsSourcesViewController: UIViewController {
                 self.newsSources = result
 
                 self.settings.newsSourcesByLang.updateValue(self.settings.newsSources, forKey: self.settings.region)
-                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>)
-                self.defaults!.set(archivedObject, forKey: "newsSourcesByLang")
+                do {
+                    let archivedObject = try NSKeyedArchiver.archivedData(withRootObject: self.settings.newsSourcesByLang as Dictionary<String, Array<NewsSources>>, requiringSecureCoding: false)
+                    self.defaults!.set(archivedObject, forKey: "newsSourcesByLang")
+                }
+                catch {
+                    #if DEBUG
+                        print("error: \(error)")
+                    #endif
+                }
                 
                 self.settings.newsSourcesUpdatedByLang.updateValue(Date(), forKey: self.settings.region)
                 self.defaults!.set(self.settings.newsSourcesUpdatedByLang, forKey: "newsSourcesUpdatedByLang")
@@ -342,7 +349,7 @@ extension FilterNewsSourcesViewController: UITableViewDataSource {
         cell.textLabel!.textColor = Theme.cellTitleColor
         cell.textLabel!.font = settings.fontSizeXLarge
 
-        if (settings.newsSourcesFiltered[settings.region]?.index(of: tableItem.sourceID) != nil) {
+        if (settings.newsSourcesFiltered[settings.region]?.firstIndex(of: tableItem.sourceID) != nil) {
             cell.backgroundColor = Theme.selectedColor
             cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {

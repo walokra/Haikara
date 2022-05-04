@@ -117,10 +117,18 @@ class SettingsViewController: UITableViewController {
         	        self.settings.categories = result
 					
         	        self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
-	                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-        	        self.defaults!.set(archivedObject, forKey: "categoriesByLang")
-					self.defaults!.synchronize()
-					
+                    
+                    do {
+                        let archivedObject = try NSKeyedArchiver.archivedData(withRootObject: self.settings.categoriesByLang as Dictionary<String, Array<Category>>, requiringSecureCoding: false)
+                        self.defaults!.set(archivedObject, forKey: "categoriesByLang")
+                        self.defaults!.synchronize()
+                    }
+                    catch {
+                        #if DEBUG
+                            print("error: \(error)")
+                        #endif
+                    }
+
                 	// Send notification to inform favorite & hide views to refresh
                 	NotificationCenter.default.post(name: .settingsResetedNotification, object: nil, userInfo: nil)
 					NotificationCenter.default.post(name: .themeChangedNotification, object: nil)
@@ -566,9 +574,16 @@ class SettingsViewController: UITableViewController {
             self.selectedTodayCategory = self.categories[defaultRowIndex]
             
             self.settings.todayCategoryByLang.updateValue(self.selectedTodayCategory!, forKey: self.settings.region)
-            let archivedTodayCategoryByLang = NSKeyedArchiver.archivedData(withRootObject: self.settings.todayCategoryByLang as Dictionary<String, Category>)
-            self.defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
-            self.defaults!.synchronize()
+            do {
+                let archivedTodayCategoryByLang = try NSKeyedArchiver.archivedData(withRootObject: self.settings.todayCategoryByLang as Dictionary<String, Category>, requiringSecureCoding: false)
+                self.defaults!.set(archivedTodayCategoryByLang, forKey: "todayCategoryByLang")
+                self.defaults!.synchronize()
+            }
+            catch {
+                #if DEBUG
+                    print("error: \(error)")
+                #endif
+            }
         }
     }
 
@@ -623,11 +638,17 @@ class SettingsViewController: UITableViewController {
 //                  #if DEBUG
 //                      println("supportedLanguages=\(self.supportedLanguages)")
 //                  #endif
-                    
-                    let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.languages as Array<Language>)
-                    
-                    self.defaults!.set(archivedObject, forKey: "languages")
-                    
+
+                    do {
+                        let archivedObject = try NSKeyedArchiver.archivedData(withRootObject: self.settings.languages as Array<Language>, requiringSecureCoding: false)
+                        self.defaults!.set(archivedObject, forKey: "languages")
+                    }
+                    catch {
+                        #if DEBUG
+                            print("error: \(error)")
+                        #endif
+                    }
+                                        
                     self.settings.languagesUpdated = Date()
                     self.defaults!.set(self.settings.languagesUpdated, forKey: "languagesUpdated")
                     // Can't use this here, it breaks Interface Builder

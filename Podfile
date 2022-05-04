@@ -1,17 +1,14 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 use_frameworks!
 
 def alamofire
-	pod 'Alamofire', '~> 4.9'
+	pod 'Alamofire', '~> 5.6.1'
 end
 
 def alamofire_image
-	pod 'AlamofireImage', '~> 3.5.2'
-end
-
-def shared_pods
+	pod 'AlamofireImage', '~> 4.1'
 end
 
 target 'highkara' do
@@ -29,17 +26,9 @@ target 'Today' do
 end
 
 target 'Watch Extension' do
-	platform :watchos, '3.0'
+	platform :watchos, '4.0'
 	alamofire
 end
-
-#post_install do |installer|
-#    installer.pods_project.targets.each do |target|
-#        target.build_configurations.each do |config|
-#            config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = '4.0'
-#        end
-#    end
-#end
 
 post_install do |installer|
     watchosPods = ['Alamofire-watchOS']

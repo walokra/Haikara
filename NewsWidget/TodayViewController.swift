@@ -86,8 +86,15 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
         if let unarchivedtodayCategoryByLang = defaults.object(forKey: "todayCategoryByLang") as? Data {
-            self.todayCategoryByLang = NSKeyedUnarchiver.unarchiveObject(with: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
-			self.selectedTodayCategoryName = self.todayCategoryByLang[self.region!]!.htmlFilename
+            do {
+                self.todayCategoryByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+                self.selectedTodayCategoryName = self.todayCategoryByLang[self.region!]!.htmlFilename
+            }
+            catch {
+                #if DEBUG
+                    print("error: \(error)")
+                #endif
+            }
 		} else {
 			if let genericNewsURLPart: String = defaults.object(forKey: "genericNewsURLPart") as? String {
             	self.selectedTodayCategoryName = genericNewsURLPart

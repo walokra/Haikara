@@ -277,8 +277,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 self.categories = result
                 
                 self.settings.categoriesByLang.updateValue(self.settings.categories, forKey: self.settings.region)
-                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self.settings.categoriesByLang as Dictionary<String, Array<Category>>)
-				self.defaults!.set(archivedObject, forKey: "categoriesByLang")
+                do {
+                    let archivedObject = try NSKeyedArchiver.archivedData(withRootObject: self.settings.categoriesByLang as Dictionary<String, Array<Category>>, requiringSecureCoding: false)
+                    self.defaults!.set(archivedObject, forKey: "categoriesByLang")
+                }
+                catch {
+                    #if DEBUG
+                        print("error: \(error)")
+                    #endif
+                }
                 
                 self.settings.categoriesUpdatedByLang.updateValue(Date(), forKey: self.settings.region)
                 self.defaults!.set(self.settings.categoriesUpdatedByLang, forKey: "categoriesUpdatedByLang")

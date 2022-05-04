@@ -42,7 +42,10 @@ extension DetailViewController: UIViewControllerPreviewingDelegate {
 		let webURL = URL(string: tableItem.originalURL)
 		
         // Create a detail view controller and set its properties.
-		let destinationViewController = SFSafariViewController(url: webURL!, entersReaderIfAvailable: settings.useReaderView)
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = settings.useReaderView
+
+        let destinationViewController = SFSafariViewController(url: webURL!, configuration: config)
 
 		destinationViewController.preferredContentSize = view.frame.size //CGSize(width: 0.0, height: 0.0)
         
