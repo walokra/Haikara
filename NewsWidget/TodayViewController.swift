@@ -253,15 +253,23 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		
 		let tableItem = self.entries[row]
 		
-		var webURLString = tableItem.originalURL
-		if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.useMobileUrl!) {
-			webURLString = tableItem.originalMobileUrl!
-		}		
-		#if DEBUG
-			print("didSelectRowAtIndexPath, webURL=\(webURLString)")
-		#endif
+        var webURL = URL(string: tableItem.originalURL ?? tableItem.link)
+        if ((tableItem.originalMobileUrl != nil && !tableItem.originalMobileUrl!.isEmpty) && self.useMobileUrl!) {
+            webURL = URL(string: tableItem.originalMobileUrl!)
+        }
+        if ((tableItem.ampURL != nil && !tableItem.ampURL!.isEmpty) && self.useMobileUrl!) {
+            webURL = URL(string: tableItem.ampURL!)
+        }
 
-		let url: URL = URL(string: "Highkara://article?url=\(webURLString)")!
+        #if DEBUG
+            print("didSelectRowAtIndexPath, useMobileUrl=\(self.useMobileUrl)")
+            print("didSelectRowAtIndexPath, webURL=\(String(describing: webURL))")
+            print("didSelectRowAtIndexPath, originalURL=\(String(describing: tableItem.originalURL))")
+            print("didSelectRowAtIndexPath, originalMobileUrl=\(String(describing: tableItem.originalMobileUrl))")
+            print("didSelectRowAtIndexPath, ampURL=\(String(describing: tableItem.ampURL))")
+        #endif
+        
+		let url: URL = URL(string: "Highkara://article?url=\(webURL!)")!
 		self.extensionContext?.open(url, completionHandler: nil)
 
 		self.trackNewsClick(tableItem)
