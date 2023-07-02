@@ -79,7 +79,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: Sequence, CustomStringCo
             let (key, value): (KeyType, ValueType) = newValue
             if pairStorage[key] != nil {
                 var idx: Int = 0
-                if let keyIndex = keyStorage.index(of: key) {
+                if let keyIndex = keyStorage.firstIndex(of: key) {
                     if index > keyIndex {
                         //Compensate for the deleted entry
                         idx = index - 1
@@ -146,7 +146,7 @@ struct OrderedDictionary<KeyType: Hashable, ValueType>: Sequence, CustomStringCo
     
     /**Removes the key-value pair for the specified key and returns its value, or nil if a value for that key did not previously exist.*/
     mutating func removeEntryForKey(_ key: KeyType) -> ValueType? {
-        if let index = keyStorage.index(of: key) {
+        if let index = keyStorage.firstIndex(of: key) {
             keyStorage.remove(at: index)
         }
         return pairStorage.removeValue(forKey: key)

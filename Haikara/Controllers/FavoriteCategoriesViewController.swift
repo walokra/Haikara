@@ -144,7 +144,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
-        if (settings.categoriesFavorited[settings.region]?.index(of: tableItem.sectionID) != nil) {
+        if (settings.categoriesFavorited[settings.region]?.firstIndex(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
 			cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {
@@ -177,7 +177,7 @@ class FavoriteCategoriesViewController: UIViewController, UITableViewDataSource,
                 print("langFavoriteCats=\(langFavoriteCats)")
             #endif
             
-            if let index = langFavoriteCats.index(of: selectedCategory.sectionID) {
+            if let index = langFavoriteCats.firstIndex(of: selectedCategory.sectionID) {
                 langFavoriteCats.remove(at: index)
                 removed = true
                 self.categories[indexPath.row].selected = false

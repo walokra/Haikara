@@ -45,7 +45,7 @@ class RegionPickerViewController: UITableViewController {
     var languages = [Language]()
 	var selectedLanguage: Language? {
     	didSet {
-			selectedLanguageIndex = languages.index(of: selectedLanguage!)
+            selectedLanguageIndex = languages.firstIndex(of: selectedLanguage!)
 		}
   	}
   	var selectedLanguageIndex: Int?

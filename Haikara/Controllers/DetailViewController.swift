@@ -95,7 +95,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let publishedFormatter = DateFormatter()
 	let publishedTimeFormatter = DateFormatter()
 	
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.large)
 	var loading = false
 	
 	var didSearch: Bool = false

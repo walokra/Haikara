@@ -145,7 +145,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
         
-        if (settings.categoriesHidden[settings.region]?.index(of: tableItem.sectionID) != nil) {
+        if (settings.categoriesHidden[settings.region]?.firstIndex(of: tableItem.sectionID) != nil) {
             cell.backgroundColor = Theme.selectedColor
 			cell.accessibilityTraits = UIAccessibilityTraits.selected
         } else {
@@ -178,7 +178,7 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
                 print("catHiddenForLang=\(catHiddenForLang)")
             #endif
             
-            if let index = catHiddenForLang.index(of: selectedCategory.sectionID) {
+            if let index = catHiddenForLang.firstIndex(of: selectedCategory.sectionID) {
 //                print("Removing item at index \(index)")
                 catHiddenForLang.remove(at: index)
                 removed = true
