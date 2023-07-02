@@ -188,17 +188,7 @@ class Settings {
         }
 		
 		self.deviceID = UUID().uuidString
-		
-//        if let deviceID = defaults.stringForKey("deviceID") {
-//            self.deviceID = deviceID
-//        } else {
-//            defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
-//            self.deviceID = defaults.stringForKey("deviceID")!
-//            #if DEBUG
-//                print("Setting new deviceID value: \(self.deviceID)")
-//            #endif
-//        }
-		
+				
         // SettingsView
         if let showDesc: Bool = defaults.object(forKey: "showDesc") as? Bool {
             self.showDesc = showDesc

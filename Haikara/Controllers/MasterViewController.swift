@@ -27,6 +27,7 @@
 
 import UIKit
 import SafariServices
+import CryptoKit
 
 protocol CategorySelectionDelegate: class {
     func categorySelected(_ newCategory: Category)
@@ -105,21 +106,26 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 		
 		self.defaults = settings.defaults
 		
-		let uuid = UUID().uuidString
-		let hmacResult: String = uuid.hmac(HMACAlgorithm.sha256, key: uuid)
-		print("hmacResult=\(hmacResult)")
-		
-		self.selectedCategory = Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true)
-		
+		let uuidString = UUID().uuidString
+        let uuidData = uuidString.data(using: .utf8)!
+
+        let hash = SHA256.hash(data: uuidData)
+        let hashHexString = hash.map { String(format: "%02hhx", $0) }.joined()
+        #if DEBUG
+            print("hashResult=\(hashHexString)")
+        #endif
+        
 		if let deviceID = defaults!.string(forKey: "deviceID") {
 			settings.deviceID = deviceID
         } else {
-            defaults!.set(hmacResult, forKey: "deviceID")
+            defaults!.set(hashHexString, forKey: "deviceID")
             settings.deviceID = defaults!.string(forKey: "deviceID")!
             #if DEBUG
                 print("Setting new deviceID value: \(settings.deviceID)")
             #endif
         }
+
+        self.selectedCategory = Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true)
 		
 		setObservers()
 		setTheme()

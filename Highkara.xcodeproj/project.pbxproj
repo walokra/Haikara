@@ -99,7 +99,6 @@
 		DA034B15207143D700923D1A /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA034B14207143D700923D1A /* SearchFooter.swift */; };
 		DA1BFAA61FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */; };
 		DA1BFAA71FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */; };
-		DA5A23392822BA47004A19EE /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */; };
 		DAAB6E6620720708000E66E5 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB6E6520720708000E66E5 /* Paywall.swift */; };
 /* End PBXBuildFile section */
 
@@ -266,7 +265,6 @@
 		DA034B14207143D700923D1A /* SearchFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		DA1BFAA41FDFE77F00D88D9E /* Default-375w-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x~iphone.png"; sourceTree = "<group>"; };
 		DA1BFAA51FDFE77F00D88D9E /* Default-Landscape-812h@3x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-812h@3x~iphone.png"; sourceTree = "<group>"; };
-		DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
 		DAAB6E6520720708000E66E5 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 		E0E960A3360124A935A3CA95 /* Pods_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -374,7 +372,6 @@
 			isa = PBXGroup;
 			children = (
 				364E872F1BDFEE5A003F2EE5 /* Shared.swift */,
-				DA5A23382822BA46004A19EE /* HMACAlgorithm.swift */,
 				361DEC6E1B43FE1C004014C4 /* OrderedDictionary.swift */,
 				36B3F43F1B9B106F0095F85A /* Iconfonts-ionicons.swift */,
 				36F0E84E1C03B7880081F10B /* Theme.swift */,
@@ -1042,7 +1039,6 @@
 				36A39C0F1B2E0AE900BE0C77 /* AppDelegate.swift in Sources */,
 				3631CA5F1BEA6BF500C5A0BD /* Language.swift in Sources */,
 				3631CA611BEA6C0A00C5A0BD /* Category.swift in Sources */,
-				DA5A23392822BA47004A19EE /* HMACAlgorithm.swift in Sources */,
 				DA034B15207143D700923D1A /* SearchFooter.swift in Sources */,
 				3699CBD41DBEA2A300A246DB /* OpenInChromeController.swift in Sources */,
 				36332B811EE0B4DD005575D5 /* GlobalSplitViewController.swift in Sources */,
