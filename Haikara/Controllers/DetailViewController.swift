@@ -734,14 +734,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         return cell
     }
+
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 	
-//	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//	}
-	
-	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-	
-		let share = UITableViewRowAction(style: .default, title: shareButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let share = UIContextualAction(style: .normal, title: shareButtonText) { (contextualAction, view, boolValue) -> Void in
 			self.tableView(tableView, commit: UITableViewCell.EditingStyle.none, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
@@ -768,8 +764,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		share.backgroundColor = UIColor(red: 0.0/255, green: 171.0/255, blue: 132.0/255, alpha: 1)
 		
-		let delete = UITableViewRowAction(style: .default, title: deleteButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let delete = UIContextualAction(style: .destructive, title: deleteButtonText) { (contextualAction, view, boolValue) -> Void in
 			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertController.Style.alert)
 
 			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .destructive, handler: { (action: UIAlertAction!) in
@@ -804,8 +799,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		delete.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
 		
-		let browser = UITableViewRowAction(style: .default, title: browserButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let browser = UIContextualAction(style: .normal, title: browserButtonText) { (contextualAction, view, boolValue) -> Void in
 			self.tableView(tableView, commit: UITableViewCell.EditingStyle.insert, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
@@ -829,7 +823,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		browser.backgroundColor = UIColor.orange
 		
-		return [share, browser, delete]
+		return UISwipeActionsConfiguration(actions: [share,browser, delete])
 	}
 	
 	// Enable swiping for showing action buttons
