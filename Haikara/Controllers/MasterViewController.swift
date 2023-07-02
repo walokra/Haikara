@@ -29,7 +29,7 @@ import UIKit
 import SafariServices
 import CryptoKit
 
-protocol CategorySelectionDelegate: class {
+protocol CategorySelectionDelegate: AnyObject {
     func categorySelected(_ newCategory: Category)
 }
 
