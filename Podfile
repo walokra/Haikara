@@ -1,14 +1,14 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 use_frameworks!
 
 def alamofire
-	pod 'Alamofire', '~> 5.6.1'
+	pod 'Alamofire', '~> 5.7.1'
 end
 
 def alamofire_image
-	pod 'AlamofireImage', '~> 4.1'
+	pod 'AlamofireImage', '~> 4.2.0'
 end
 
 target 'highkara' do

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,7 @@
 		364F067A1BC456FC00362DF6 /* FavoriteCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364F06791BC456FC00362DF6 /* FavoriteCategoriesViewController.swift */; };
 		36501E271EC7ADAF00E078AD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36501E251EC7ADAF00E078AD /* Interface.storyboard */; };
 		36501E291EC7ADAF00E078AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36501E281EC7ADAF00E078AD /* Assets.xcassets */; };
-		36501E301EC7ADAF00E078AD /* Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 36501E2F1EC7ADAF00E078AD /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		36501E301EC7ADAF00E078AD /* Watch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 36501E2F1EC7ADAF00E078AD /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		36501E371EC7ADAF00E078AD /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36501E361EC7ADAF00E078AD /* ExtensionDelegate.swift */; };
 		36501E391EC7ADAF00E078AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36501E381EC7ADAF00E078AD /* Assets.xcassets */; };
 		36501E3D1EC7ADAF00E078AD /* Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 36501E231EC7ADAF00E078AD /* Watch.app */; };
@@ -88,7 +88,7 @@
 		36B3F4461B9B1B0A0095F85A /* ios-list-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B3F4441B9B1B0A0095F85A /* ios-list-outline.png */; };
 		36C04C951B2F65DD000921A7 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C04C941B2F65DD000921A7 /* NewsItemViewController.swift */; };
 		36C1AFF21B2E32A400D87522 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1AFF11B2E32A400D87522 /* DetailViewController.swift */; };
-		36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367BAD1E1D1874B600F6B949 /* Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 367BAD1E1D1874B600F6B949 /* Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		36D442C51D5E546E0035EC36 /* SettingsViewWrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D442C41D5E546E0035EC36 /* SettingsViewWrapperController.swift */; };
 		36EAF6E01B3DF58A00FAD6EC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EAF6DF1B3DF58A00FAD6EC /* MasterViewController.swift */; };
 		36EE9FA41C4A506600EE8E25 /* SCModalPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE9FA31C4A506600EE8E25 /* SCModalPushPopAnimator.swift */; };
@@ -135,15 +135,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		36501E431EC7ADAF00E078AD /* Embed App Extensions */ = {
+		36501E431EC7ADAF00E078AD /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				36501E301EC7ADAF00E078AD /* Watch Extension.appex in Embed App Extensions */,
+				36501E301EC7ADAF00E078AD /* Watch Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		36501E451EC7ADAF00E078AD /* Embed Watch Content */ = {
@@ -157,15 +157,15 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		36C3D6E21D60604C00CDF9E9 /* Embed App Extensions */ = {
+		36C3D6E21D60604C00CDF9E9 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed App Extensions */,
+				36C3D6DF1D60604B00CDF9E9 /* Today.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -573,7 +573,7 @@
 			buildConfigurationList = 36501E441EC7ADAF00E078AD /* Build configuration list for PBXNativeTarget "Watch" */;
 			buildPhases = (
 				36501E211EC7ADAF00E078AD /* Resources */,
-				36501E431EC7ADAF00E078AD /* Embed App Extensions */,
+				36501E431EC7ADAF00E078AD /* Embed Foundation Extensions */,
 				CBD1154AF99A6C0BD8345F43 /* Frameworks */,
 			);
 			buildRules = (
@@ -651,7 +651,7 @@
 				36A39C061B2E0AE900BE0C77 /* Frameworks */,
 				36A39C051B2E0AE900BE0C77 /* Sources */,
 				36A39C071B2E0AE900BE0C77 /* Resources */,
-				36C3D6E21D60604C00CDF9E9 /* Embed App Extensions */,
+				36C3D6E21D60604C00CDF9E9 /* Embed Foundation Extensions */,
 				360619A81D60724400DAAA29 /* ShellScript */,
 				36501E451EC7ADAF00E078AD /* Embed Watch Content */,
 				A80A83DE8595BC1F1630E281 /* [CP] Embed Pods Frameworks */,
@@ -673,10 +673,11 @@
 		36A39C011B2E0AE900BE0C77 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = com.ruleoftech;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Rule of tech";
 				TargetAttributes = {
 					36501E221EC7ADAF00E078AD = {
@@ -731,7 +732,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */;
+			buildConfigurationList = 36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1143,10 +1144,11 @@
 				CODE_SIGN_ENTITLEMENTS = Watch/Watch.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				ENABLE_BITCODE = YES;
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 8X9ZUVVBWA;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
@@ -1157,11 +1159,12 @@
 				);
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				MARKETING_VERSION = 0.14.0;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c5942919-f82d-4538-82bb-f44bfe24877c";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Watch App dev";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Highkara Watch App dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1184,16 +1187,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator/Alamofire",
 				);
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				MARKETING_VERSION = 0.14.0;
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6c6257a2-9407-4fce-a72b-9b0b07e9b37e";
@@ -1218,10 +1221,11 @@
 				CODE_SIGN_ENTITLEMENTS = "Watch Extension/Watch Extension.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				ENABLE_BITCODE = YES;
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 8X9ZUVVBWA;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -1232,12 +1236,17 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "65621444-562b-4244-a8c3-52cdc00d19dd";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Watch App Extension dev";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Highkara Watch App Extension dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1259,17 +1268,21 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator",
 				);
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "a11a8972-0ef8-4624-8d23-d29b324caedd";
@@ -1310,7 +1323,11 @@
 				);
 				INFOPLIST_FILE = HighkaraTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1333,7 +1350,11 @@
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
 				INFOPLIST_FILE = HighkaraTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.HighkaraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1352,24 +1373,31 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8X9ZUVVBWA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5897252f-c416-4c5c-88b9-11d1acd7bed6";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget dev";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Highkara Today widget dev";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1384,21 +1412,28 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8X9ZUVVBWA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "594fa960-2cbc-441b-bde4-62769a985a02";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara Today widget";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Highkara Today widget";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NewsWidget/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1450,7 +1485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -1507,12 +1542,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1530,20 +1566,25 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8X9ZUVVBWA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ccb3b378-f99c-4b02-b9fb-a5e08000efa1";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara dev";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Highkara dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1560,20 +1601,25 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8X9ZUVVBWA;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8X9ZUVVBWA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Haikara/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruleoftech.highkara;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ddfd09a6-bc95-40a9-b374-c0be62cba1c2";
 				PROVISIONING_PROFILE_SPECIFIER = "Highkara news reader";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Highkara news reader";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Haikara/Haikara-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1619,7 +1665,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "Highkara" */ = {
+		36A39C041B2E0AE900BE0C77 /* Build configuration list for PBXProject "highkara" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36A39C261B2E0AE900BE0C77 /* Debug */,
