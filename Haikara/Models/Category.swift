@@ -30,7 +30,9 @@ import UIKit
 // listCategories
 // https://fi.high.fi/api/?act=listCategories&usedLanguage=finnish
 // { "responseData": { "categories": [ { "title": "Kotimaa", "sectionID": 95, "depth": 1, "htmlFilename": "kotimaa" }, { "title": "Ulkomaat", "sectionID": 96, "depth": 1, "htmlFilename": "ulkomaat" }, { "title": "Talous", "sectionID": 94, "depth": 1, "htmlFilename": "talous" }, { "title": "Urheilu", "sectionID": 98, "depth": 1, "htmlFilename": "urheilu" } ] } }
-class Category: NSObject, NSCoding {
+class Category: NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool = true
+    
     let title: String
     let sectionID: Int
     let depth: Int
@@ -50,11 +52,11 @@ class Category: NSObject, NSCoding {
 
     required init(coder decoder: NSCoder) {
         title = decoder.decodeObject(of: NSString.self, forKey: "title")! as String
-        sectionID = decoder.decodeObject(forKey: "sectionID") as? Int ?? decoder.decodeInteger(forKey: "sectionID")
-        depth = decoder.decodeObject(forKey: "depth") as? Int ?? decoder.decodeInteger(forKey: "depth")
+        sectionID = decoder.decodeInteger(forKey: "sectionID")
+        depth = decoder.decodeInteger(forKey: "depth")
         htmlFilename = decoder.decodeObject(of: NSString.self, forKey: "htmlFilename")! as String
-        highlight = decoder.decodeObject(forKey: "highlight") as? Bool ?? decoder.decodeBool(forKey: "highlight")
-        selected = decoder.decodeObject(forKey: "selected") as? Bool ?? decoder.decodeBool(forKey: "selected")
+        highlight = decoder.decodeBool(forKey: "highlight")
+        selected = decoder.decodeBool(forKey: "selected")
     }
     
     func encode(with coder: NSCoder) {
