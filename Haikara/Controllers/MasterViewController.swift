@@ -145,6 +145,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setRegionCategory(_:)), name: .settingsResetedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setTheme(_:)), name: .themeChangedNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.getCategoriesFromSettingOrAPI(_:)), name: .hiddenCategoriesChangedNotification, object: nil)
 	}
 	
 	func setTheme() {
@@ -200,31 +201,59 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func setCategories() {
         // Adding always present categories: generic and top
         var cat = [Category]()
-		if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
-			cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", highlight: false, selected: true))
-			if favoritesSelected {
-				#if DEBUG
-                	print("showing selected categories=\(categoriesFavorited)")
-           	 	#endif
-   	            var filteredCategories = [Category]()
-					
-   	            self.settings.categories.forEach({ (category: Category) -> () in
-   	                if categoriesFavorited.contains(category.sectionID) {
-   	                    filteredCategories.append(category)
-   	                }
-				})
-				
-				self.categories = cat + filteredCategories
-			} else {
-				self.categories = cat + self.settings.categories
-			}
-		} else {
+        if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
+            cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", highlight: false, selected: true))
+            if favoritesSelected {
+                #if DEBUG
+                    print("showing favorited categories=\(categoriesFavorited)")
+                #endif
+                var filteredCategories = [Category]()
+                
+                self.settings.categories.forEach({ (category: Category) -> () in
+                    if categoriesFavorited.contains(category.sectionID) {
+                        filteredCategories.append(category)
+                    }
+                })
+                
+                self.categories = cat + filteredCategories
+            }
+            else {
+                self.categories = cat + self.settings.categories
+            }
+        }
+        else {
+            self.categories = self.settings.categories
+        }
+        
+        if let categoriesHidden = settings.categoriesHidden[settings.region] {
+            var notHiddenCategories = [Category]()
+            
+            #if DEBUG
+                print("MasterView, setCategories: categoriesHidden '\(categoriesHidden)'")
+            #endif
+            
+            self.settings.categories.forEach({ (category: Category) -> () in
+                if !categoriesHidden.contains(category.sectionID) {
+                    notHiddenCategories.append(category)
+                }
+            })
+
+            self.categories = cat + notHiddenCategories
+        }
+        else {
 			self.categories = self.settings.categories
 		}
 		
         self.tableView!.reloadData()
     }
 
+    @objc func getCategoriesFromSettingOrAPI(_ notification: Notification) {
+        #if DEBUG
+            print("MasterViewController, Received hiddenCategoriesChangedNotification")
+        #endif
+        getCategoriesFromSettingOrAPI()
+    }
+    
     func getCategoriesFromSettingOrAPI(){
         // Get categories for selected region from settings' store
 		if let categories: [Category] = self.settings.categoriesByLang[self.settings.region] {

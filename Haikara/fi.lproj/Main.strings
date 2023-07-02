@@ -29,6 +29,9 @@
 /* Class = "UIButton"; normalTitle = "Reset"; ObjectID = "Jas-hM-GU3"; */
 "Jas-hM-GU3.normalTitle" = "Tyhjennä";
 
+"bDt-Tx-ZeH.text" = "Poista kakutettu data";
+"gcB-id-cFC.normalTitle" = "Tyhjennä";
+
 /* Class = "UINavigationItem"; title = "Menu"; ObjectID = "LYT-n3-4EF"; */
 "LYT-n3-4EF.title" = "Valikko";
 

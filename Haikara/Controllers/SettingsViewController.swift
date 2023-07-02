@@ -92,12 +92,21 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var resetLabel: UILabel!
     
+    @IBOutlet weak var removeCacheButton: UIButton!
+    @IBOutlet weak var removeCacheLabel: UILabel!
+    
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
+    let removeCacheText: String = NSLocalizedString("REMOVE_CACHE_BUTTON", comment: "Text for remove Cache")
 	
 	let fontsizeSmallAccLabel: String = NSLocalizedString("FONT_SMALL_ACC_LABEL", comment: "Accessibility label for small font label")
 	let fontsizeMediumAccLabel: String = NSLocalizedString("FONT_MEDIUM_ACC_LABEL", comment: "Accessibility label for medium font label")
 	let fontsizeLargeAccLabel: String = NSLocalizedString("FONT_LARGE_ACC_LABEL", comment: "Accessibility label for large font label")
+
+    let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
+    let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
+    let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
+    let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
 
 	@IBAction func resetAction(_ sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .alert)
@@ -160,17 +169,60 @@ class SettingsViewController: UITableViewController {
 
 		}
     }
+    
+    let removeCacheAlertTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_ALERT_TITLE", comment: "")
+    let removeCacheMessageTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_TITLE", comment: "")
+    
+    @IBAction func removeCacheAction(_ sender: UIButton) {
+        let currentCacheDisk = URLCache.shared.currentDiskUsage
+        let currentCacheMemory = URLCache.shared.currentMemoryUsage
+        let currentCacheDiskInMB = currentCacheDisk / (1024 * 1024)
+        let currentCacheMemoryInMB = currentCacheMemory / (1024 * 1024)
+        #if DEBUG
+            print ("currentCacheDisk=\(currentCacheDisk), currentCacheMemory=\(currentCacheMemory)")
+            print ("currentCacheDiskInMB=\(currentCacheDiskInMB), currentCacheMemoryInMB=\(currentCacheMemoryInMB)")
+        #endif
+     
+        let removeCacheAlertMessage: String = String.localizedStringWithFormat(NSLocalizedString("SETTINGS_REMOVE_CACHE_ALERT_MESSAGE", comment: ""), currentCacheMemoryInMB, currentCacheDiskInMB)
+        
+        let alertController = UIAlertController(title: removeCacheAlertTitle, message: removeCacheAlertMessage, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: cancelText, style: .default, handler: nil)
+        alertController.addAction(cancelAction)
 
+        let destroyAction = UIAlertAction(title: removeCacheText, style: .destructive) { (action) in
+            #if DEBUG
+                print ("destroyAction, action=\(action)")
+            #endif
+            
+            URLCache.shared.removeAllCachedResponses()
+            
+            let currentCacheDisk = URLCache.shared.currentDiskUsage
+            let currentCacheMemory = URLCache.shared.currentMemoryUsage
+            let currentCacheDiskInMB = currentCacheDisk / (1024 * 1024)
+            let currentCacheMemoryInMB = currentCacheMemory / (1024 * 1024)
+        
+            let removeCacheMessage: String = String.localizedStringWithFormat(NSLocalizedString("SETTINGS_REMOVE_CACHE_MESSAGE", comment: ""), currentCacheMemoryInMB, currentCacheDiskInMB)
+            
+            // All done
+            let doneController = UIAlertController(title: self.removeCacheMessageTitle, message: removeCacheMessage, preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            doneController.addAction(OKAction)
+            
+            self.present(doneController, animated: true) {}
+        }
+        alertController.addAction(destroyAction)
+
+        self.present(alertController, animated: true) {
+
+        }
+    }
+    
     let settings = Settings.sharedInstance
 	var defaults: UserDefaults?
 
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
-    let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
-    let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
-	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
-    let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
-
 	@IBAction func unwindWithSelectedTodayCategory(_ segue:UIStoryboardSegue) {
 //  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
 //    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
@@ -431,6 +483,9 @@ class SettingsViewController: UITableViewController {
 
 		resetLabel.textColor = Theme.textColor
 		resetButton.setTitleColor(Theme.textColor, for: UIControl.State())
+        
+        removeCacheLabel.textColor = Theme.textColor
+        removeCacheButton.setTitleColor(Theme.textColor, for: UIControl.State())
 		
 		aboutLabel.textColor = Theme.textColor
 

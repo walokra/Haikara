@@ -203,6 +203,8 @@ class HideCategoryViewController: UIViewController, UITableViewDataSource, UITab
 		defaults!.synchronize()
 		
         self.tableView!.reloadData()
+        
+        NotificationCenter.default.post(name: .hiddenCategoriesChangedNotification, object: nil, userInfo: ["categories": "much categories"])
     }
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
