@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	override init() {
         super.init()
         _ = Settings()
+        
+        #if DEBUG
+            print("NSHomeDirectory=\(NSHomeDirectory())")
+        #endif
     }
 	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -136,8 +140,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
     // http://nshipster.com/nsurlcache/
     func setCache() {
-        let cacheSizeMemory = 8 * 1024 * 1024
-        let cacheSizeDisk = 40 * 1024 * 1024
+        let cacheSizeMemory = 8 * 1024 * 1024 // 8 388 608
+        let cacheSizeDisk = 40 * 1024 * 1024 // 41 943 040
         let cache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "HighkaraCache")
         URLCache.shared = cache
     }

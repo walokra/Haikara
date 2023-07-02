@@ -94,18 +94,9 @@ class FilterNewsSourcesViewController: UIViewController {
         self.tableView.dataSource = self
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
-        if #available(iOS 9.1, *) {
-            searchController.obscuresBackgroundDuringPresentation = false
-        } else {
-            searchController.dimsBackgroundDuringPresentation = false
-        }
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = searchPlaceholderText
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-        } else {
-            // Fallback on earlier versions
-        }
-//        self.definesPresentationContext = true
+        navigationItem.searchController = searchController
 
         // Setup the Scope Bar
 //        searchController.searchBar.scopeButtonTitles = [payWallItems[0].description, payWallItems[1].description, payWallItems[2].description, payWallItems[3].description]

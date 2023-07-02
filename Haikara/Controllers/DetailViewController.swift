@@ -214,7 +214,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 
-	@objc func handleOpenURL(_ notification:Notification){
+	@objc func handleOpenURL(_ notification:Notification) {
     	if let url = notification.object as? String {
 			let webURL = URL(string: url)
 
@@ -547,11 +547,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			config.entersReaderIfAvailable = settings.useReaderView
 			let svc = SFSafariViewController(url: webURL, configuration: config)
 			
-			if #available(iOS 10.0, *) {
-				svc.preferredControlTintColor  = Theme.tintColor
-			} else {
-				svc.view.tintColor = Theme.tintColor
-			}
+			svc.preferredControlTintColor  = Theme.tintColor
 			self.present(svc, animated: true, completion: nil)
 		}
 	}
@@ -701,7 +697,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
 				if let downloadURL = URL(string: picture) {
 					cell.configure(downloadURL)
-				}				
+				}	
 			} else {
 				cell.entryImage!.image = nil
 				cell.entryImage.frame = CGRect.zero
@@ -758,7 +754,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			
 			#if DEBUG
 				print("shareAction, title=\(tableItem.title), webURL=\(String(describing: webURL))")
-				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(String(describing: tableItem.mobileShareURL))")
+				print("shareAction, shareURL=\(String(describing: tableItem.shareURL)), mobileShareURL=\(String(describing: tableItem.mobileShareURL))")
 			#endif
 			
 			self.trackEvent("shareAction", category: "ui_Event", action: "shareAction", label: "main", value: 1)

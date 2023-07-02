@@ -156,7 +156,6 @@ class Settings {
         self.highFiActCategory = "listCategories"
         self.highFiActUsedLanguage = "usedLanguage"
 
-//			NSKeyedArchiver.setClassName("Language", forClass: Language.self)
 		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
