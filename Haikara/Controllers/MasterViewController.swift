@@ -121,11 +121,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             #endif
         }
 		
-		// Check for force touch feature, and add force touch/previewing capability.
-		if traitCollection.forceTouchCapability == .available {
-			registerForPreviewing(with: self, sourceView: tableView)
-		}
-		
 		setObservers()
 		setTheme()
 		setContentSize()

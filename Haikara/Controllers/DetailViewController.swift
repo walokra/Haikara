@@ -153,11 +153,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		self.defaults = settings.defaults
 		
-		// Check for force touch feature, and add force touch/previewing capability.
-		if traitCollection.forceTouchCapability == .available {
-			registerForPreviewing(with: self, sourceView: tableView)
-        }
-
 		searchBar.showsCancelButton = true		
 		searchBar.delegate = self
 
