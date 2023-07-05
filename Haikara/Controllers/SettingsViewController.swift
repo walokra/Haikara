@@ -26,6 +26,8 @@
 //
 
 import UIKit
+import WebKit
+import SafariServices
 
 class SettingsViewController: UITableViewController {
 
@@ -107,7 +109,7 @@ class SettingsViewController: UITableViewController {
     let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
     let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
     let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
-
+    
 	@IBAction func resetAction(_ sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .alert)
 		
@@ -173,6 +175,38 @@ class SettingsViewController: UITableViewController {
     let removeCacheAlertTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_ALERT_TITLE", comment: "")
     let removeCacheMessageTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_TITLE", comment: "")
     
+    final class WebCacheCleaner {
+        class func clear() {
+            URLCache.shared.removeAllCachedResponses()
+            
+//            if let cookies = HTTPCookieStorage.shared.cookies {
+//                for cookie in cookies {
+//                    HTTPCookieStorage.shared.deleteCookie(cookie)
+//                }
+//            }
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            print("[WebCacheCleaner] All cookies deleted")
+            
+            guard let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, WKWebsiteDataTypeLocalStorage, WKWebsiteDataTypeCookies]) as? Set<String> else { return }
+            let dateFrom = Date.init(timeIntervalSince1970: 0)
+            WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes, modifiedSince: dateFrom, completionHandler: {
+            #if DEBUG
+                print("[WebCacheCleaner] Website data deleted successfully")
+            #endif
+            })
+            
+            if #available(iOS 16.0, *) {
+                SFSafariViewController.DataStore.default.clearWebsiteData(completionHandler: {
+                #if DEBUG
+                    print("[WebCacheCleaner] DataStore clearWebsiteData completed successfully")
+                #endif
+                })
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+    
     @IBAction func removeCacheAction(_ sender: UIButton) {
         let currentCacheDisk = URLCache.shared.currentDiskUsage
         let currentCacheMemory = URLCache.shared.currentMemoryUsage
@@ -195,8 +229,8 @@ class SettingsViewController: UITableViewController {
                 print ("destroyAction, action=\(action)")
             #endif
             
-            URLCache.shared.removeAllCachedResponses()
-            
+            WebCacheCleaner.clear()
+                        
             let currentCacheDisk = URLCache.shared.currentDiskUsage
             let currentCacheMemory = URLCache.shared.currentMemoryUsage
             let currentCacheDiskInMB = currentCacheDisk / (1024 * 1024)
@@ -611,6 +645,8 @@ class SettingsViewController: UITableViewController {
                 #endif
                 
                 self.categories = categories
+            } else {
+                return
             }
             
             var defaultRowIndex = 0

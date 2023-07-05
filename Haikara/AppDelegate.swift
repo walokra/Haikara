@@ -26,6 +26,8 @@
 //
 
 import UIKit
+import WebKit
+import SafariServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -146,6 +148,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLCache.shared = cache
     }
 
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        #if DEBUG
+            print("memory warning...execute remove webviewdata")
+        #endif
+        removeWebData()
+    }
+    
+    func removeWebData() {
+        URLCache.shared.removeAllCachedResponses()
+        
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        print("[removeWebData] All cookies deleted")
+        
+        guard let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, WKWebsiteDataTypeLocalStorage, WKWebsiteDataTypeCookies]) as? Set<String> else { return }
+        let dateFrom = Date.init(timeIntervalSince1970: 0)
+        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes, modifiedSince: dateFrom, completionHandler: {
+        #if DEBUG
+            print("[removeWebData] Website data deleted successfully")
+        #endif
+        })
+        
+        if #available(iOS 16.0, *) {
+            SFSafariViewController.DataStore.default.clearWebsiteData(completionHandler: {
+            #if DEBUG
+                print("[removeWebData] DataStore clearWebsiteData completed successfully")
+            #endif
+            })
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
