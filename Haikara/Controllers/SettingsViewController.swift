@@ -26,6 +26,8 @@
 //
 
 import UIKit
+import WebKit
+import SafariServices
 
 class SettingsViewController: UITableViewController {
 
@@ -92,13 +94,22 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var resetLabel: UILabel!
     
+    @IBOutlet weak var removeCacheButton: UIButton!
+    @IBOutlet weak var removeCacheLabel: UILabel!
+    
 	let cancelText: String = NSLocalizedString("CANCEL_BUTTON", comment: "Text for cancel")
 	let resetText: String = NSLocalizedString("RESET_BUTTON", comment: "Text for reset")
+    let removeCacheText: String = NSLocalizedString("REMOVE_CACHE_BUTTON", comment: "Text for remove Cache")
 	
 	let fontsizeSmallAccLabel: String = NSLocalizedString("FONT_SMALL_ACC_LABEL", comment: "Accessibility label for small font label")
 	let fontsizeMediumAccLabel: String = NSLocalizedString("FONT_MEDIUM_ACC_LABEL", comment: "Accessibility label for medium font label")
 	let fontsizeLargeAccLabel: String = NSLocalizedString("FONT_LARGE_ACC_LABEL", comment: "Accessibility label for large font label")
 
+    let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
+    let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
+    let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
+    let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
+    
 	@IBAction func resetAction(_ sender: UIButton) {
 		let alertController = UIAlertController(title: resetAlertTitle, message: resetAlertMessage, preferredStyle: .alert)
 		
@@ -160,17 +171,92 @@ class SettingsViewController: UITableViewController {
 
 		}
     }
+    
+    let removeCacheAlertTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_ALERT_TITLE", comment: "")
+    let removeCacheMessageTitle: String = NSLocalizedString("SETTINGS_REMOVE_CACHE_TITLE", comment: "")
+    
+    final class WebCacheCleaner {
+        class func clear() {
+            URLCache.shared.removeAllCachedResponses()
+            
+//            if let cookies = HTTPCookieStorage.shared.cookies {
+//                for cookie in cookies {
+//                    HTTPCookieStorage.shared.deleteCookie(cookie)
+//                }
+//            }
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            print("[WebCacheCleaner] All cookies deleted")
+            
+            guard let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, WKWebsiteDataTypeLocalStorage, WKWebsiteDataTypeCookies]) as? Set<String> else { return }
+            let dateFrom = Date.init(timeIntervalSince1970: 0)
+            WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes, modifiedSince: dateFrom, completionHandler: {
+            #if DEBUG
+                print("[WebCacheCleaner] Website data deleted successfully")
+            #endif
+            })
+            
+            if #available(iOS 16.0, *) {
+                SFSafariViewController.DataStore.default.clearWebsiteData(completionHandler: {
+                #if DEBUG
+                    print("[WebCacheCleaner] DataStore clearWebsiteData completed successfully")
+                #endif
+                })
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+    
+    @IBAction func removeCacheAction(_ sender: UIButton) {
+        let currentCacheDisk = URLCache.shared.currentDiskUsage
+        let currentCacheMemory = URLCache.shared.currentMemoryUsage
+        let currentCacheDiskInMB = currentCacheDisk / (1024 * 1024)
+        let currentCacheMemoryInMB = currentCacheMemory / (1024 * 1024)
+        #if DEBUG
+            print ("currentCacheDisk=\(currentCacheDisk), currentCacheMemory=\(currentCacheMemory)")
+            print ("currentCacheDiskInMB=\(currentCacheDiskInMB), currentCacheMemoryInMB=\(currentCacheMemoryInMB)")
+        #endif
+     
+        let removeCacheAlertMessage: String = String.localizedStringWithFormat(NSLocalizedString("SETTINGS_REMOVE_CACHE_ALERT_MESSAGE", comment: ""), currentCacheMemoryInMB, currentCacheDiskInMB)
+        
+        let alertController = UIAlertController(title: removeCacheAlertTitle, message: removeCacheAlertMessage, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: cancelText, style: .default, handler: nil)
+        alertController.addAction(cancelAction)
 
+        let destroyAction = UIAlertAction(title: removeCacheText, style: .destructive) { (action) in
+            #if DEBUG
+                print ("destroyAction, action=\(action)")
+            #endif
+            
+            WebCacheCleaner.clear()
+                        
+            let currentCacheDisk = URLCache.shared.currentDiskUsage
+            let currentCacheMemory = URLCache.shared.currentMemoryUsage
+            let currentCacheDiskInMB = currentCacheDisk / (1024 * 1024)
+            let currentCacheMemoryInMB = currentCacheMemory / (1024 * 1024)
+        
+            let removeCacheMessage: String = String.localizedStringWithFormat(NSLocalizedString("SETTINGS_REMOVE_CACHE_MESSAGE", comment: ""), currentCacheMemoryInMB, currentCacheDiskInMB)
+            
+            // All done
+            let doneController = UIAlertController(title: self.removeCacheMessageTitle, message: removeCacheMessage, preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            doneController.addAction(OKAction)
+            
+            self.present(doneController, animated: true) {}
+        }
+        alertController.addAction(destroyAction)
+
+        self.present(alertController, animated: true) {
+
+        }
+    }
+    
     let settings = Settings.sharedInstance
 	var defaults: UserDefaults?
 
     var errorTitle: String = NSLocalizedString("ERROR", comment: "Title for error alert")
     
-    let resetMessageTitle: String = NSLocalizedString("SETTINGS_RESET_TITLE", comment: "")
-    let resetMessage: String = NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: "")
-	let resetAlertTitle: String = NSLocalizedString("SETTINGS_RESET_ALERT_TITLE", comment: "")
-    let resetAlertMessage: String = NSLocalizedString("SETTINGS_RESET_ALERT_MESSAGE", comment: "")
-
 	@IBAction func unwindWithSelectedTodayCategory(_ segue:UIStoryboardSegue) {
 //  		if let categoryPickerViewController = segue.sourceViewController as? CategoryPickerViewController,
 //    		selectedTodayCategory = categoryPickerViewController.selectedTodayCategory {
@@ -431,6 +517,9 @@ class SettingsViewController: UITableViewController {
 
 		resetLabel.textColor = Theme.textColor
 		resetButton.setTitleColor(Theme.textColor, for: UIControl.State())
+        
+        removeCacheLabel.textColor = Theme.textColor
+        removeCacheButton.setTitleColor(Theme.textColor, for: UIControl.State())
 		
 		aboutLabel.textColor = Theme.textColor
 
@@ -499,7 +588,7 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print("SettingsViewController, Received categoriesRefreshedNotification")
         #endif
-		setSelectedRegion() //setSelectedTodayCategory()
+		setSelectedRegion()
 	}
 	
 	@objc func setTodayCategory(_ notification: Notification) {
@@ -556,6 +645,8 @@ class SettingsViewController: UITableViewController {
                 #endif
                 
                 self.categories = categories
+            } else {
+                return
             }
             
             var defaultRowIndex = 0
@@ -591,9 +682,9 @@ class SettingsViewController: UITableViewController {
     var languages = [Language]()
     
     func listLanguages(){
-        //        #if DEBUG
-        //            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
-        //        #endif
+//        #if DEBUG
+//            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
+//        #endif
         
         if !self.settings.languages.isEmpty {
             #if DEBUG
@@ -686,6 +777,7 @@ class SettingsViewController: UITableViewController {
             #if DEBUG
                 print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
             #endif
+            
             self.selectedLanguage = self.languages[defaultRowIndex]
             self.setSelectedTodayCategory()
         }

@@ -45,7 +45,7 @@ class RegionPickerViewController: UITableViewController {
     var languages = [Language]()
 	var selectedLanguage: Language? {
     	didSet {
-			selectedLanguageIndex = languages.index(of: selectedLanguage!)
+            selectedLanguageIndex = selectedLanguage != nil ? languages.firstIndex(of: selectedLanguage!) : 0
 		}
   	}
   	var selectedLanguageIndex: Int?
@@ -94,13 +94,6 @@ class RegionPickerViewController: UITableViewController {
 		
 		let lang: Language = self.languages[indexPath.row]
   		cell.textLabel?.text = lang.country
-		
-//		if indexPath.row == selectedLanguageIndex {
-//    		cell.accessoryType = .Checkmark
-//  		} else {
-//    		cell.accessoryType = .None
-//		}
-
 		cell.textLabel!.textColor = Theme.cellTitleColor
 		cell.textLabel!.font = settings.fontSizeXLarge
 		

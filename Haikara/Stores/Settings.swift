@@ -156,7 +156,6 @@ class Settings {
         self.highFiActCategory = "listCategories"
         self.highFiActUsedLanguage = "usedLanguage"
 
-//			NSKeyedArchiver.setClassName("Language", forClass: Language.self)
 		NSKeyedUnarchiver.setClass(Category.self, forClassName: "highkara.Category")
 		NSKeyedUnarchiver.setClass(Language.self, forClassName: "highkara.Language")
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
@@ -188,17 +187,7 @@ class Settings {
         }
 		
 		self.deviceID = UUID().uuidString
-		
-//        if let deviceID = defaults.stringForKey("deviceID") {
-//            self.deviceID = deviceID
-//        } else {
-//            defaults.setObject(NSUUID().UUIDString, forKey: "deviceID")
-//            self.deviceID = defaults.stringForKey("deviceID")!
-//            #if DEBUG
-//                print("Setting new deviceID value: \(self.deviceID)")
-//            #endif
-//        }
-		
+				
         // SettingsView
         if let showDesc: Bool = defaults.object(forKey: "showDesc") as? Bool {
             self.showDesc = showDesc
@@ -251,12 +240,12 @@ class Settings {
         do {
             // Get array of languages from storage
             if let unarchivedLanguages = defaults.data(forKey: "languages") {
-                self.languages = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedLanguages) as! [Language]
+                self.languages = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSArray.self, Language.self, NSString.self], from: unarchivedLanguages) as! [Language]
             }
 
             // Get Dictionary of categories from storage
             if let categoriesByLangData = defaults.data(forKey: "categoriesByLang"),
-                let unarchivedCategoriesByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(categoriesByLangData) as? Dictionary<String, Array<Category>> {
+               let unarchivedCategoriesByLang = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSArray.self, Category.self, NSString.self], from: categoriesByLangData) as? Dictionary<String, Array<Category>> {
                 self.categoriesByLang = unarchivedCategoriesByLang
                 
                 if let categories: [Category] = categoriesByLang[self.region] {
@@ -284,13 +273,13 @@ class Settings {
             }
             
             if let todayCategoryByLangData = defaults.data(forKey: "todayCategoryByLang"),
-                let unarchivedtodayCategoryByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(todayCategoryByLangData) as? Dictionary<String, Category> {
+               let unarchivedtodayCategoryByLang = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSArray.self, Category.self, NSString.self], from: todayCategoryByLangData) as? Dictionary<String, Category> {
                 self.todayCategoryByLang = unarchivedtodayCategoryByLang
             }
 
             // Get Dictionary of news sources from storage
             if let newsSourcesByLangData = defaults.data(forKey: "newsSourcesByLang"),
-                let unarchivedNewsSourcesByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(newsSourcesByLangData) as? Dictionary<String, Array<NewsSources>> {
+               let unarchivedNewsSourcesByLang = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSArray.self, NewsSources.self, NSString.self], from: newsSourcesByLangData) as? Dictionary<String, Array<NewsSources>> {
                 self.newsSourcesByLang = unarchivedNewsSourcesByLang
                 if let newsSources: [NewsSources] = newsSourcesByLang[self.region] {
                     self.newsSources = newsSources

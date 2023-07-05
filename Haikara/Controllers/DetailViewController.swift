@@ -27,6 +27,7 @@
 
 import UIKit
 import SafariServices
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -95,7 +96,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 	let publishedFormatter = DateFormatter()
 	let publishedTimeFormatter = DateFormatter()
 	
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.large)
 	var loading = false
 	
 	var didSearch: Bool = false
@@ -153,11 +154,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		
 		self.defaults = settings.defaults
 		
-		// Check for force touch feature, and add force touch/previewing capability.
-		if traitCollection.forceTouchCapability == .available {
-			registerForPreviewing(with: self, sourceView: tableView)
-        }
-
 		searchBar.showsCancelButton = true		
 		searchBar.delegate = self
 
@@ -219,7 +215,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.setContentSize(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 
-	@objc func handleOpenURL(_ notification:Notification){
+	@objc func handleOpenURL(_ notification:Notification) {
     	if let url = notification.object as? String {
 			let webURL = URL(string: url)
 
@@ -434,6 +430,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					self.scrollToTop()
 				}
 				
+				#if DEBUG
+					print("fetchedEntries=\(newsentries.count)")
+					print("sections=\(self.sections.count)")
+					print("sortedSections=\(self.sortedSections.count)")
+				#endif
+				
 				return
 			}
 		} else {
@@ -444,20 +446,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			
 			DispatchQueue.main.async {
-				let fetchedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
+				var sortedEntries = Array<Entry>()
+				sortedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
 				
 				if self.page == 1 {
 					// Clear old entries
 					self.entries = [Entry]()
 					self.sections = OrderedDictionary<String, Array<Entry>>()
 					self.sortedSections = [String]()
-					self.entries = fetchedEntries
+					self.entries = sortedEntries
 				} else {
-					self.entries = self.entries + fetchedEntries
+					self.entries = self.entries + sortedEntries
 				}
 				
 				// Put each item in a section
-				for item in fetchedEntries {
+				for item in sortedEntries {
 					// If we don't have section for particular time, create new one,
 					// Otherwise just add item to existing section
 					if self.sections[item.timeSince] == nil {
@@ -476,6 +479,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				if self.page == 1 && toTop {
 					self.scrollToTop()
 				}
+				
+				#if DEBUG
+					print("fetchedEntries=\(sortedEntries.count)")
+					print("sections=\(self.sections.count)")
+					print("sortedSections=\(self.sortedSections.count)")
+				#endif
 				
 				return
 			}
@@ -511,6 +520,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			#if DEBUG
 				print("filteredSections=\(self.sections.count)")
+				print("sortedSections=\(self.sortedSections.count)")
+				print("entries=\(self.entries.count)")
 			#endif
 			//self.sortedSections.sortInPlace{ $0 < $1 }
 
@@ -546,18 +557,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
 			#endif
-			_ = OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
+			OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
 		} else {
 			let config = SFSafariViewController.Configuration()
 			config.entersReaderIfAvailable = settings.useReaderView
 			let svc = SFSafariViewController(url: webURL, configuration: config)
 			
-			if #available(iOS 10.0, *) {
-				svc.preferredControlTintColor  = Theme.tintColor
-			} else {
-				svc.view.tintColor = Theme.tintColor
-			}
-			self.present(svc, animated: true, completion: nil)
+			svc.preferredControlTintColor  = Theme.tintColor
+			present(svc, animated: true, completion: nil)
 		}
 	}
 	
@@ -706,7 +713,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				cell.entryImage!.frame = CGRect(x: cell.entryImage!.frame.origin.x, y: cell.entryImage!.frame.origin.y, width: 100,height: 100)
 				if let downloadURL = URL(string: picture) {
 					cell.configure(downloadURL)
-				}				
+				}	
 			} else {
 				cell.entryImage!.image = nil
 				cell.entryImage.frame = CGRect.zero
@@ -743,14 +750,10 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 
         return cell
     }
+
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 	
-//	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//	}
-	
-	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-	
-		let share = UITableViewRowAction(style: .default, title: shareButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let share = UIContextualAction(style: .normal, title: shareButtonText) { (contextualAction, view, boolValue) -> Void in
 			self.tableView(tableView, commit: UITableViewCell.EditingStyle.none, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
@@ -763,7 +766,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			
 			#if DEBUG
 				print("shareAction, title=\(tableItem.title), webURL=\(String(describing: webURL))")
-				print("shareAction, shareURL=\(tableItem.shareURL), mobileShareURL=\(String(describing: tableItem.mobileShareURL))")
+				print("shareAction, shareURL=\(String(describing: tableItem.shareURL)), mobileShareURL=\(String(describing: tableItem.mobileShareURL))")
 			#endif
 			
 			self.trackEvent("shareAction", category: "ui_Event", action: "shareAction", label: "main", value: 1)
@@ -777,8 +780,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		share.backgroundColor = UIColor(red: 0.0/255, green: 171.0/255, blue: 132.0/255, alpha: 1)
 		
-		let delete = UITableViewRowAction(style: .default, title: deleteButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let delete = UIContextualAction(style: .destructive, title: deleteButtonText) { (contextualAction, view, boolValue) -> Void in
 			let deleteAlert = UIAlertController(title: self.deleteButtonText, message: self.deleteAlertText, preferredStyle: UIAlertController.Style.alert)
 
 			deleteAlert.addAction(UIAlertAction(title: self.deleteButtonText, style: .destructive, handler: { (action: UIAlertAction!) in
@@ -813,8 +815,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		delete.backgroundColor = UIColor(red: 239.0/255, green: 51.0/255, blue: 64.0/255, alpha: 1)
 		
-		let browser = UITableViewRowAction(style: .default, title: browserButtonText) {
-			(action: UITableViewRowAction, indexPath: IndexPath) -> Void in
+		let browser = UIContextualAction(style: .normal, title: browserButtonText) { (contextualAction, view, boolValue) -> Void in
 			self.tableView(tableView, commit: UITableViewCell.EditingStyle.insert, forRowAt: indexPath)
 			
 			let tableSection = self.sections[self.sortedSections[indexPath.section]]
@@ -838,7 +839,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 		}
 		browser.backgroundColor = UIColor.orange
 		
-		return [share, browser, delete]
+		return UISwipeActionsConfiguration(actions: [share,browser, delete])
 	}
 	
 	// Enable swiping for showing action buttons

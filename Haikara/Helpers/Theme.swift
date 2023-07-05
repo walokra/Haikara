@@ -57,7 +57,9 @@ struct Theme {
 		setFonts()
 		
 		if let useDarkTheme: Bool = (defaults.object(forKey: "useDarkTheme") as AnyObject).boolValue {
-			print("useDarkTheme=\(useDarkTheme)")
+            #if DEBUG
+                print("useDarkTheme=\(useDarkTheme)")
+            #endif
 			(useDarkTheme) ? themeDark() : themeLight()
 		} else {
 			themeLight()

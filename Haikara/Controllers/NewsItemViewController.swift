@@ -51,7 +51,9 @@ class NewsItemViewController: UIViewController {
         self.webView = WKWebView()
         self.view = self.webView
         
-        webView!.load(URLRequest(url: url))
+        webView!.load(URLRequest(url: url,
+            cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData,
+            timeoutInterval: 10.0))
     }
 
     override func didReceiveMemoryWarning() {

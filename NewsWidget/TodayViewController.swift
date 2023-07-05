@@ -87,7 +87,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		NSKeyedUnarchiver.setClass(NewsSources.self, forClassName: "highkara.NewsSources")
         if let unarchivedtodayCategoryByLang = defaults.object(forKey: "todayCategoryByLang") as? Data {
             do {
-                self.todayCategoryByLang = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
+                self.todayCategoryByLang = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, Category.self, NSString.self], from: unarchivedtodayCategoryByLang) as! Dictionary<String, Category>
                 self.selectedTodayCategoryName = self.todayCategoryByLang[self.region!]!.htmlFilename
             }
             catch {
@@ -112,7 +112,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 	var selectedTodayCategoryName: String?
 
 	// Loading indicator
-	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.whiteLarge)
+	let loadingIndicator:UIActivityIndicatorView = UIActivityIndicatorView  (style: UIActivityIndicatorView.Style.large)
 	var loading = false
 	
 	var selectedCellBackground = UIView()
@@ -126,11 +126,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		#endif
         super.viewDidLoad()
 
-        if #available(iOSApplicationExtension 10.0, *) {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
-        } else {
-            self.preferredContentSize = tableView.contentSize
-        }
+        self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
 
 		initSettings()
 		
@@ -262,7 +258,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
 
         #if DEBUG
-            print("didSelectRowAtIndexPath, useMobileUrl=\(self.useMobileUrl)")
+            print("didSelectRowAtIndexPath, useMobileUrl=\(String(describing: self.useMobileUrl))")
             print("didSelectRowAtIndexPath, webURL=\(String(describing: webURL))")
             print("didSelectRowAtIndexPath, originalURL=\(String(describing: tableItem.originalURL))")
             print("didSelectRowAtIndexPath, originalMobileUrl=\(String(describing: tableItem.originalMobileUrl))")

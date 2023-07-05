@@ -31,7 +31,9 @@ import UIKit
 // https://fi.high.fi/api/?act=listLanguages&APIKEY=123
 // { "responseData": { "supportedLanguages": [ { "language": "Finnish", "country": "Finland", "domainToUse": "high.fi", "languageCode": "fi-fi", "mostPopularName": "Suosituimmat", "latestName": "Uusimmat", "useToRetrieveLists": "finnish", "genericNewsURLPart": "uutiset" }, { "language": "English", "country": "United States", "domainToUse": "en.high.fi", "languageCode": "en-us", "mostPopularName": "Most Popular", "latestName": "Latest News", "useToRetrieveLists": "english", "genericNewsURLPart": "news" } ] } }
 
-class Language: NSObject, NSCoding {
+class Language: NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool = true
+    
     let language: String
     let country: String
     let domainToUse: String

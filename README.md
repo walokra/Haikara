@@ -6,7 +6,7 @@ Highkara is available both for iPhone and iPad with iOS 8 or newer operating sys
 
 ## Technologies
 
-* Swift 2
+* Swift
 * Alamofire
 
 # Building

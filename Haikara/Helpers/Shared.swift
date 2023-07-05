@@ -47,7 +47,7 @@ extension Notification.Name {
 	static let handleOpenURL = Notification.Name("handleOpenURL")
 	static let selectedCategoriesChangedNotification = Notification.Name("selectedCategoriesChangedNotification")
 	static let regionChangedNotification = Notification.Name("regionChangedNotification")
-	
+    static let hiddenCategoriesChangedNotification = Notification.Name("hiddenCategoriesChangedNotification")
 }
 
 extension UIViewController {
