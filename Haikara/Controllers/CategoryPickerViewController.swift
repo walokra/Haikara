@@ -46,7 +46,7 @@ class CategoryPickerViewController: UITableViewController {
 	var selectedTodayCategory: Category? {
     	didSet {
 			print("categories=\(categories.count); selectedTodayCategory=\(String(describing: selectedTodayCategory))")
-			selectedTodayCategoryIndex = categories.firstIndex(of: selectedTodayCategory!)
+            selectedTodayCategoryIndex = selectedTodayCategory != nil ? categories.firstIndex(of: selectedTodayCategory!) : 0
 		}
   	}
   	var selectedTodayCategoryIndex: Int?
