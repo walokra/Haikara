@@ -554,7 +554,7 @@ class SettingsViewController: UITableViewController {
         #if DEBUG
             print("SettingsViewController, Received categoriesRefreshedNotification")
         #endif
-		setSelectedRegion() //setSelectedTodayCategory()
+		setSelectedRegion()
 	}
 	
 	@objc func setTodayCategory(_ notification: Notification) {
@@ -646,9 +646,9 @@ class SettingsViewController: UITableViewController {
     var languages = [Language]()
     
     func listLanguages(){
-        //        #if DEBUG
-        //            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
-        //        #endif
+//        #if DEBUG
+//            print("SettingsViewController, listLanguages: self.settings.languages=\(self.settings.languages)")
+//        #endif
         
         if !self.settings.languages.isEmpty {
             #if DEBUG
@@ -741,6 +741,7 @@ class SettingsViewController: UITableViewController {
             #if DEBUG
                 print("SettingsViewController, setSelectedRegion: region=\(self.settings.region), defaultRowIndex=\(defaultRowIndex)")
             #endif
+            
             self.selectedLanguage = self.languages[defaultRowIndex]
             self.setSelectedTodayCategory()
         }

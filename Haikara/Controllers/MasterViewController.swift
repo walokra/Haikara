@@ -86,11 +86,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 			self.present(alertController, animated: true){}
 		}
     }
-	
-//	override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return Theme.statusBarStyle
-//    }
-	
+		
 	@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBAction func settingsButtonAction(_ sender: AnyObject) {

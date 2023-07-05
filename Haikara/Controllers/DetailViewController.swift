@@ -27,6 +27,7 @@
 
 import UIKit
 import SafariServices
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -429,6 +430,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 					self.scrollToTop()
 				}
 				
+				#if DEBUG
+					print("fetchedEntries=\(newsentries.count)")
+					print("sections=\(self.sections.count)")
+					print("sortedSections=\(self.sortedSections.count)")
+				#endif
+				
 				return
 			}
 		} else {
@@ -439,20 +446,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			
 			DispatchQueue.main.async {
-				let fetchedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
+				var sortedEntries = Array<Entry>()
+				sortedEntries = newsentries.sorted { $0.orderNro < $1.orderNro }
 				
 				if self.page == 1 {
 					// Clear old entries
 					self.entries = [Entry]()
 					self.sections = OrderedDictionary<String, Array<Entry>>()
 					self.sortedSections = [String]()
-					self.entries = fetchedEntries
+					self.entries = sortedEntries
 				} else {
-					self.entries = self.entries + fetchedEntries
+					self.entries = self.entries + sortedEntries
 				}
 				
 				// Put each item in a section
-				for item in fetchedEntries {
+				for item in sortedEntries {
 					// If we don't have section for particular time, create new one,
 					// Otherwise just add item to existing section
 					if self.sections[item.timeSince] == nil {
@@ -471,6 +479,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 				if self.page == 1 && toTop {
 					self.scrollToTop()
 				}
+				
+				#if DEBUG
+					print("fetchedEntries=\(sortedEntries.count)")
+					print("sections=\(self.sections.count)")
+					print("sortedSections=\(self.sortedSections.count)")
+				#endif
 				
 				return
 			}
@@ -506,6 +520,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			}
 			#if DEBUG
 				print("filteredSections=\(self.sections.count)")
+				print("sortedSections=\(self.sortedSections.count)")
+				print("entries=\(self.entries.count)")
 			#endif
 			//self.sortedSections.sortInPlace{ $0 < $1 }
 
@@ -541,14 +557,14 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
 			#if DEBUG
 				print("isChromeInstalled=\(OpenInChromeController.sharedInstance.isChromeInstalled()), useChrome=\(settings.useChrome)")
 			#endif
-			_ = OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
+			OpenInChromeController.sharedInstance.openInChrome(webURL, callbackURL: URL(string: "Highkara"), createNewTab: settings.createNewTab)
 		} else {
 			let config = SFSafariViewController.Configuration()
 			config.entersReaderIfAvailable = settings.useReaderView
 			let svc = SFSafariViewController(url: webURL, configuration: config)
 			
 			svc.preferredControlTintColor  = Theme.tintColor
-			self.present(svc, animated: true, completion: nil)
+			present(svc, animated: true, completion: nil)
 		}
 	}
 	
