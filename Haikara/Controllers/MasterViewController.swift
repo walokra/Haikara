@@ -203,48 +203,41 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func setCategories() {
         // Adding always present categories: generic and top
         var cat = [Category]()
+        var filteredCategories = [Category]()
+        
+        let categoriesHidden = settings.categoriesHidden[settings.region] != nil ? settings.categoriesHidden[settings.region] : [Int]()
+        #if DEBUG
+        print("MasterView, setCategories: categoriesHidden '\(String(describing: categoriesHidden))'")
+        #endif
+        
         if let categoriesFavorited = settings.categoriesFavorited[settings.region] {
             cat.append(Category(title: favoritesItemTitle, sectionID: 1001, depth: 1, htmlFilename: "favorites", highlight: false, selected: true))
             if favoritesSelected {
                 #if DEBUG
-                    print("showing favorited categories=\(categoriesFavorited)")
+                    print("MasterView, setCategories: showing favorited categories=\(categoriesFavorited)")
                 #endif
-                var filteredCategories = [Category]()
                 
                 self.settings.categories.forEach({ (category: Category) -> () in
                     if categoriesFavorited.contains(category.sectionID) {
                         filteredCategories.append(category)
                     }
                 })
-                
-                self.categories = cat + filteredCategories
+            } else {
+                self.settings.categories.forEach({ (category: Category) -> () in
+                    if !categoriesHidden!.contains(category.sectionID) {
+                        filteredCategories.append(category)
+                    }
+                })
             }
-            else {
-                self.categories = cat + self.settings.categories
-            }
-        }
-        else {
-            self.categories = self.settings.categories
-        }
-        
-        if let categoriesHidden = settings.categoriesHidden[settings.region] {
-            var notHiddenCategories = [Category]()
-            
-            #if DEBUG
-                print("MasterView, setCategories: categoriesHidden '\(categoriesHidden)'")
-            #endif
-            
+        } else {
             self.settings.categories.forEach({ (category: Category) -> () in
-                if !categoriesHidden.contains(category.sectionID) {
-                    notHiddenCategories.append(category)
+                if !categoriesHidden!.contains(category.sectionID) {
+                    filteredCategories.append(category)
                 }
             })
-
-            self.categories = cat + notHiddenCategories
         }
-        else {
-			self.categories = self.settings.categories
-		}
+        
+        self.categories = cat + filteredCategories
 		
         self.tableView!.reloadData()
     }
