@@ -53,8 +53,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UISearchBarDelegate {
-
+class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UISearchBarDelegate, UIContextMenuInteractionDelegate {
+	
     let animator = SCModalPushPopAnimator()
 	
 	let viewName = "MainView"
@@ -174,6 +174,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate, UI
     	if (delegate?.openUrl) != nil {
         	delegate?.openUrl = nil
     	}
+		
+		let inter = UIContextMenuInteraction(delegate: self)
+		self.view.addInteraction(inter)
     }
 	
 	func initView() {

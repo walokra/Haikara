@@ -33,7 +33,7 @@ protocol CategorySelectionDelegate: AnyObject {
     func categorySelected(_ newCategory: Category)
 }
 
-class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIContextMenuInteractionDelegate {
 
     struct MainStoryboard {
         struct TableViewCellIdentifiers {
@@ -123,6 +123,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         self.selectedCategory = Category(title: settings.latestName, sectionID: 0, depth: 1, htmlFilename: settings.genericNewsURLPart, highlight: false, selected: true)
 		
+        let interaction = UIContextMenuInteraction(delegate: self)
+        self.view.addInteraction(interaction)
+        
 		setObservers()
 		setTheme()
 		setContentSize()
